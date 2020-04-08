@@ -14,7 +14,8 @@ module.exports = IDI.configure(
             },
             forms: ["forms/householdRegistartion.json",
                 "forms/individualRegistartion.json",
-                "forms/householdSurvey.json"
+                "forms/householdSurvey.json",
+                "forms/individualSurvey.json"
             ],
             formMappings: ["formMappings.json"],
             formDeletions: [],

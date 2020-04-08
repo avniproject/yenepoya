@@ -1,15 +1,18 @@
 {
-  "operationalSubjectTypes" : [ {
-    "uuid" : "768eb8ad-579a-4e0d-9fa6-92a978572989",
-    "subjectType" : {
-      "uuid" : "d22027ff-e019-4d1c-9352-bd740efccc38"
+  "operationalSubjectTypes": [
+    {
+      "uuid": "768eb8ad-579a-4e0d-9fa6-92a978572989",
+      "subjectType": {
+        "uuid": "d22027ff-e019-4d1c-9352-bd740efccc38"
+      },
+      "name": "Individual"
     },
-    "name" : "Individual"
-  }, {
-    "uuid" : "b67b99d9-4f34-431c-87f8-c2d807ec5763",
-    "subjectType" : {
-      "uuid" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6"
-    },
-    "name" : "Household"
-  } ]
+    {
+      "uuid": "b67b99d9-4f34-431c-87f8-c2d807ec5763",
+      "subjectType": {
+        "uuid": "e524b328-c0ad-4232-9fcb-2cf8c126a2c6"
+      },
+      "name": "Household"
+    }
+  ]
 }
