@@ -10,25 +10,30 @@ module.exports = IDI.configure(
     secrets: "../secrets.json",
     files: {
       adminUsers: {
-        dev: []
+          "dev": ["users/admin-user.json"]
       },
-      forms: [],
-      formMappings: [],
+      forms: ["forms/householdRegistartion.json",
+          "forms/individualRegistartion.json"
+        //  "forms/householdSurvey.json"
+      ],
+      formMappings: ["formMappings.json"],
       formDeletions: [],
       formAdditions: [],
-      catchments: [],
+      catchments: [
+          "metadata/sample_catchment.json"
+      ],
       checklistDetails: [],
-      concepts: [],
+      concepts: ["concepts.json"],
       addressLevelTypes: [],
-      locations: [],
-      programs: [],
-      encounterTypes: [],
-      operationalEncounterTypes: [],
-      operationalPrograms: [],
-      subjectTypes: [],
-      operationalSubjectTypes: [],
+      locations: ["metadata/location.json"],
+      programs: ["programs.json"],
+      encounterTypes: ["encounterTypes.json"],
+      operationalEncounterTypes: ["operationalEncounterTypes.json"],
+      operationalPrograms: ["operationalPrograms.json"],
+      subjectTypes: ["subjectTypes.json"],
+      operationalSubjectTypes: ["operationalSubjectTypes.json"],
       users: {
-        dev: []
+          "dev": ["users/dev-users.json"]
       },
       rules: [],
       organisationSql: [

@@ -1,0 +1,14 @@
+[
+  {
+    "uuid": "04f10dae-608e-4ffb-b614-ea6239e84ae8",
+    "name": "dev@yenepoya",
+    "password": "password",
+    "email": "openchssupport+yenepoya+dev@samanvayfoundation.org",
+    "phoneNumber": "+919999999999",
+    "organisationUUID": "06614185-f322-46c1-a641-33a7a20c4843",
+    "operatingIndividualScope": "ByCatchment",
+    "catchmentUUID": "54f546d9-c5c0-48ea-ab2a-e28d171c21ea",
+    "admin": false,
+    "orgAdmin": false
+  }
+]

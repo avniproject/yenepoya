@@ -1,0 +1,38 @@
+{
+  "operationalPrograms" : [ {
+    "uuid" : "85a36148-26a2-4a30-921c-5c1fc64e8acc",
+    "program" : {
+      "uuid" : "9d6cd285-fb85-48f0-badc-6f004b9024d8"
+    },
+    "name" : "NCD ",
+    "programSubjectLabel" : "NCD Risk Factors"
+  }, {
+    "uuid" : "4e3dc382-f14a-4a56-8ab8-e4cc4faca774",
+    "program" : {
+      "uuid" : "debe0d88-3b8a-4ac4-9f95-80a1af3b83c5"
+    },
+    "name" : "Hypertension",
+    "programSubjectLabel" : "Hypertension"
+  }, {
+    "uuid" : "2106f644-da4e-46cd-9940-a495be09d857",
+    "program" : {
+      "uuid" : "e40e9fe2-6afa-4344-9ada-e61000d36e40"
+    },
+    "name" : "Diabetes",
+    "programSubjectLabel" : "Diabetes"
+  }, {
+    "uuid" : "4b2372a8-3198-4bd9-8863-df4d1e618948",
+    "program" : {
+      "uuid" : "5fc20ed1-699c-4329-86f4-3884fccceb18"
+    },
+    "name" : "Child",
+    "programSubjectLabel" : "Child"
+  }, {
+    "uuid" : "59847f47-b600-4956-8b88-3bc834f19cdd",
+    "program" : {
+      "uuid" : "00c6dfe3-109c-4099-8550-89a457e9c176"
+    },
+    "name" : "Pregnancy",
+    "programSubjectLabel" : "Pregnancy"
+  } ]
+}

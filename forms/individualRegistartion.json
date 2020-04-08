@@ -1,0 +1,38 @@
+{
+  "name" : "Individual Registration Form",
+  "uuid" : "004628e4-acc8-4d20-a2c1-a838767a53c6",
+  "formType" : "IndividualProfile",
+  "formElementGroups" : [ {
+    "uuid" : "12112bbe-f54f-42fa-b5f8-23faeff09689",
+    "name" : "Information",
+    "displayOrder" : 1.0,
+    "display" : "Information",
+    "formElements" : [ {
+      "name" : "Mobile number",
+      "uuid" : "1eee5032-96a1-43f7-bbed-69901f0a3626",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Contact Number",
+        "uuid" : "b8f2d179-0638-4016-afa2-a2bbf0f48e6a"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Household Number",
+      "uuid" : "54cfceab-9735-4ed2-bc01-5ba16325d545",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Household number",
+        "uuid" : "558469e8-d993-45ec-9d9b-f019c3642bab"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

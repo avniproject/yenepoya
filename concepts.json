@@ -1,0 +1,2275 @@
+[ {
+  "name" : "5/20 water cans",
+  "uuid" : "020bed36-b4ca-4e4c-9bde-3619955a66a2",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Acceessibility",
+  "uuid" : "80fd937b-15c5-4597-8a28-db90fed52c9d",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Affordability",
+  "uuid" : "53543c02-e540-41b2-bf05-69d416bf40bb",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Age of HoF",
+  "uuid" : "25723471-1596-4786-a390-79a687e9c61b",
+  "dataType" : "Numeric",
+  "keyValues" : [ ]
+}, {
+  "name" : "Ajjibettu",
+  "uuid" : "17077480-cf69-4a6d-a17e-88e668627093",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "alternate day",
+  "uuid" : "a59020aa-e995-4f70-ad46-fc8a9d7922c1",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Amblamogaru",
+  "uuid" : "4cdc2bd9-4bd7-4ab8-9125-7e0a3fbaf8bd",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Amblamoguru",
+  "uuid" : "1b53b872-7006-4442-b579-56f26b801a79",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Ammunje",
+  "uuid" : "74c5be45-85a5-48a2-a67c-40b687c86f2f",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Amtady",
+  "uuid" : "e06d4039-44de-473e-bd90-8cc40b92f80b",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Anthyodaya anna yojana",
+  "uuid" : "cdbaa400-4ea2-4758-953f-3db824c9c604",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Any member in your family with some disability",
+  "uuid" : "2a1c24fd-912a-485d-bf8e-5a722d8ab5a1",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Any member of your family working abroad?",
+  "uuid" : "2457b432-21ab-4636-8551-b4682c51bb40",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Refuse to answer",
+    "uuid" : "5f976702-c59e-463b-ae3d-5409664a5e32",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Any nuisance  reported by family member",
+  "uuid" : "9d6ca8db-4d5b-42ee-8ba3-a153a91bf0e8",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 0.0
+  }, {
+    "name" : "Mosquito",
+    "uuid" : "bb48ed6d-8849-4713-8a75-5d55b559f958",
+    "order" : 1.0
+  }, {
+    "name" : "houseflies",
+    "uuid" : "27d71a8b-1487-4e59-bdc3-6425943380c7",
+    "order" : 2.0
+  }, {
+    "name" : "rodents",
+    "uuid" : "636e921f-5db3-415a-8d9a-22f389b5bbde",
+    "order" : 3.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Any other",
+  "uuid" : "2ed1960a-08e6-4c0e-83da-0e40086ab091",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "any other",
+  "uuid" : "9e63579b-ea8c-443e-842d-351103d18383",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "any other specify",
+  "uuid" : "2123ee6d-1693-4f08-99fd-299dbc342832",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Any others",
+  "uuid" : "95e52d17-1d0a-4ae4-9476-048d1486c139",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Any vital events",
+  "uuid" : "eb52fe79-3b96-4b3f-8bc6-ddda16746eed",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Birth",
+    "uuid" : "0b84e282-a38b-40ec-b11b-29c7d7443646",
+    "order" : 0.0
+  }, {
+    "name" : "Death",
+    "uuid" : "28846496-9feb-49bf-94b0-d9efbd96d1d2",
+    "order" : 1.0
+  }, {
+    "name" : "Marriage",
+    "uuid" : "ec9d98f1-100d-477a-9d2b-1128d7c015b8",
+    "order" : 2.0
+  }, {
+    "name" : "No events",
+    "uuid" : "77d5a23f-32f2-4ff6-ab7d-1623834a61ef",
+    "order" : 3.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "APL",
+  "uuid" : "4681bad1-c83c-4075-b2c4-7a736d3c44be",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Arala",
+  "uuid" : "ff99007b-a18d-4686-ac56-cf781095907c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Are there any individuals in your family with any illness in last two weeks?",
+  "uuid" : "0b5215d5-f721-4993-8f30-b85f5b397988",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 0.0
+  }, {
+    "name" : "Fever",
+    "uuid" : "898cebc8-2022-4ba5-b6c0-dbda1a124791",
+    "order" : 1.0
+  }, {
+    "name" : "Malaria",
+    "uuid" : "ebb995a9-854a-4129-b822-6a0031f07d09",
+    "order" : 2.0
+  }, {
+    "name" : "Dengue",
+    "uuid" : "3a0b1685-5080-46f9-bbcc-e3f64a3ca12b",
+    "order" : 3.0
+  }, {
+    "name" : "diarrhoea",
+    "uuid" : "90e18ee1-cb7f-40d3-aa3f-074b685063fc",
+    "order" : 4.0
+  }, {
+    "name" : "Cough",
+    "uuid" : "6470242b-70a2-4012-81f3-68e44adfbb95",
+    "order" : 5.0
+  }, {
+    "name" : "cold",
+    "uuid" : "459808e3-dc87-4b95-90bc-8ea880c3f417",
+    "order" : 6.0
+  }, {
+    "name" : "low backache",
+    "uuid" : "5096f462-f15f-483f-9bef-4716e09d7fa6",
+    "order" : 7.0
+  }, {
+    "name" : "joint pains",
+    "uuid" : "2e2d7bca-0c95-4c0d-b465-c3e361aa2c8b",
+    "order" : 8.0
+  }, {
+    "name" : "Any other",
+    "uuid" : "2ed1960a-08e6-4c0e-83da-0e40086ab091",
+    "order" : 9.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Are there any individuals in your family with known case of chronic illness?",
+  "uuid" : "c5c9d1b4-54f8-4676-ba39-18d9a5f3c7a3",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 0.0
+  }, {
+    "name" : "DM",
+    "uuid" : "a90315ba-30c5-4b0d-96e3-355e43a0bb5c",
+    "order" : 1.0
+  }, {
+    "name" : "HT",
+    "uuid" : "522e2821-a25d-4b35-a8c6-0be438aea517",
+    "order" : 2.0
+  }, {
+    "name" : "CKD",
+    "uuid" : "c47cdbe6-c39e-4e0e-81a1-6cc8adf9f657",
+    "order" : 3.0
+  }, {
+    "name" : "Heart disease",
+    "uuid" : "2442f446-885b-4918-9940-ec9e6edf9647",
+    "order" : 4.0
+  }, {
+    "name" : "stroke",
+    "uuid" : "c6dcfe0d-51f7-49e7-810e-d25faf216e1c",
+    "order" : 5.0
+  }, {
+    "name" : "TB",
+    "uuid" : "14782716-bb88-49a6-8aaf-fcbe7c7b7349",
+    "order" : 6.0
+  }, {
+    "name" : "Asthama",
+    "uuid" : "cadc9e36-9574-4759-ab2e-ec6cdc665b6c",
+    "order" : 7.0
+  }, {
+    "name" : "Cancer",
+    "uuid" : "05e31d6f-1cff-4f51-a6fe-948baa5312cf",
+    "order" : 8.0
+  }, {
+    "name" : "Mental illness",
+    "uuid" : "099f8c28-d4eb-49ff-be93-7f60c07e0a0c",
+    "order" : 10.0
+  }, {
+    "name" : "Any others",
+    "uuid" : "95e52d17-1d0a-4ae4-9476-048d1486c139",
+    "order" : 11.0
+  }, {
+    "name" : "Any other",
+    "uuid" : "2ed1960a-08e6-4c0e-83da-0e40086ab091",
+    "order" : 11.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Are you availing any social security schemes",
+  "uuid" : "5b99afca-55eb-4793-824b-361d94d5c3d7",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Are you resident of this area for more than 1 year",
+  "uuid" : "2253872c-c629-4f6f-96bc-72ba23892290",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Refuse to answer",
+    "uuid" : "5f976702-c59e-463b-ae3d-5409664a5e32",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Are you using any insecticide treated bed nets?",
+  "uuid" : "8f4baf0b-02f8-4bfc-adb7-996355c46cf4",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Asthama",
+  "uuid" : "cadc9e36-9574-4759-ab2e-ec6cdc665b6c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Availability",
+  "uuid" : "86a5b589-6a16-4a5f-99ba-dab883028711",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Ayushman Bharat",
+  "uuid" : "aee5bc1b-aad0-454f-8929-873b4afb6af1",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Badagabellur",
+  "uuid" : "2e5e7799-215c-4689-a0c6-4c588f551810",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Bantwal",
+  "uuid" : "8f76677b-493f-4d82-a344-376553893157",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Beary",
+  "uuid" : "e0a11ce8-eb82-468d-bf79-76d29a2be46c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Bengre",
+  "uuid" : "b8bd2f38-6ba3-4be4-a46a-82cef4ef2d4f",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Biogas",
+  "uuid" : "eae17efa-313a-43dc-ae03-50fe3effaff0",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Birth",
+  "uuid" : "0b84e282-a38b-40ec-b11b-29c7d7443646",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "boiling",
+  "uuid" : "1926fcd1-2474-41f4-8f70-1a7365672b02",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Boliyar",
+  "uuid" : "db2f0401-b5cb-4a1a-b5bd-ad056a956ee7",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "bore well",
+  "uuid" : "092cdba9-f701-4624-ae80-cf4282cc89e3",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "BPL",
+  "uuid" : "ef40f2a9-9a47-4281-a719-aad2cb14e3ca",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Buddhism and Sikhism",
+  "uuid" : "92f04bf2-ff1f-4cf9-891d-ae95a5d6a7de",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Budoli",
+  "uuid" : "fc52f22c-4f66-4f2c-89d5-61110b1af287",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Bunder",
+  "uuid" : "36536585-5df4-489b-ab26-80194591933c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Bycycle",
+  "uuid" : "89c67f44-5055-444b-9165-caa66d029b83",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Cancer",
+  "uuid" : "05e31d6f-1cff-4f51-a6fe-948baa5312cf",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "candle filter/filtration",
+  "uuid" : "37cd1c10-247d-484b-ba84-83ec668a210a",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "CGHS",
+  "uuid" : "00f16c9f-bc94-4db1-8af2-b5fc81b78466",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "CHC",
+  "uuid" : "90fcd000-a1a7-4c65-927a-a3720a38c531",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Chennaithody",
+  "uuid" : "3e4bdf67-3616-4470-9fca-2e2e2f285fc3",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Chlorination",
+  "uuid" : "75536b7c-0c21-469d-b1ef-f3cef8703272",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Christianity",
+  "uuid" : "19f3fc03-5184-47d5-83aa-ebf556a369be",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "CKD",
+  "uuid" : "c47cdbe6-c39e-4e0e-81a1-6cc8adf9f657",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Closed",
+  "uuid" : "c61e4f14-37e0-4a6b-b6b3-f62f14113a22",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "coconut shells",
+  "uuid" : "88904b70-09cb-4b81-9925-f980599bf650",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Coconut shells",
+  "uuid" : "bb0b6a89-44fd-4872-8aee-57ee1d883791",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "cold",
+  "uuid" : "459808e3-dc87-4b95-90bc-8ea880c3f417",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Contact Number",
+  "uuid" : "b8f2d179-0638-4016-afa2-a2bbf0f48e6a",
+  "dataType" : "Numeric",
+  "keyValues" : [ ]
+}, {
+  "name" : "Cough",
+  "uuid" : "6470242b-70a2-4012-81f3-68e44adfbb95",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Daily",
+  "uuid" : "198469be-1734-4883-a5eb-7b38631d7918",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Death",
+  "uuid" : "28846496-9feb-49bf-94b0-d9efbd96d1d2",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Dengue",
+  "uuid" : "3a0b1685-5080-46f9-bbcc-e3f64a3ca12b",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "diarrhoea",
+  "uuid" : "90e18ee1-cb7f-40d3-aa3f-074b685063fc",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "dish TV",
+  "uuid" : "18a8fcb8-9d8c-4f93-a098-7e39457b7510",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Ditches",
+  "uuid" : "5a7754fe-1527-4753-8003-e4059a79222d",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Divorced",
+  "uuid" : "53fb2f7b-b7db-49f5-ad17-3c5acd2b4c32",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "DM",
+  "uuid" : "a90315ba-30c5-4b0d-96e3-355e43a0bb5c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Do you have any of these facilities",
+  "uuid" : "00177962-6242-48e0-8bf7-9bc879bdb976",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "TV",
+    "uuid" : "59fb2284-01ad-4682-8743-0a54a6cda982",
+    "order" : 0.0
+  }, {
+    "name" : "Freeze",
+    "uuid" : "68be110c-d2f1-4f26-aaf1-c78a27901514",
+    "order" : 1.0
+  }, {
+    "name" : "dish TV",
+    "uuid" : "18a8fcb8-9d8c-4f93-a098-7e39457b7510",
+    "order" : 2.0
+  }, {
+    "name" : "Not available",
+    "uuid" : "8118d45d-1a06-4da2-8cc3-ea7a2d1ec6a8",
+    "order" : 3.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Domestic purification methods used",
+  "uuid" : "7ba3b46e-d9f7-4f91-b38d-a587a4686951",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Chlorination",
+    "uuid" : "75536b7c-0c21-469d-b1ef-f3cef8703272",
+    "order" : 0.0
+  }, {
+    "name" : "boiling",
+    "uuid" : "1926fcd1-2474-41f4-8f70-1a7365672b02",
+    "order" : 1.0
+  }, {
+    "name" : "candle filter/filtration",
+    "uuid" : "37cd1c10-247d-484b-ba84-83ec668a210a",
+    "order" : 2.0
+  }, {
+    "name" : "electronic purifyer",
+    "uuid" : "21f13a77-d790-40fd-867b-5fd0256bd464",
+    "order" : 3.0
+  }, {
+    "name" : "no purification",
+    "uuid" : "5dbf1242-b7c7-4068-9d8e-0adb63669521",
+    "order" : 4.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "don't know",
+  "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "drainage to soakage pit",
+  "uuid" : "cd042975-9f72-41c3-a82a-933530a32709",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Electronic gadgets",
+  "uuid" : "ed7fa0bb-ba46-4a2f-bf3e-4005ea4c046c",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Laptop",
+    "uuid" : "c2f1321c-8bed-429c-b244-d13df79c2a59",
+    "order" : 0.0
+  }, {
+    "name" : "Tablet",
+    "uuid" : "e21e5e6b-0a09-421c-bad5-6adde2a439c2",
+    "order" : 1.0
+  }, {
+    "name" : "smart phone",
+    "uuid" : "bd09d91f-8a5c-41dd-89e0-c0cd749a66b8",
+    "order" : 2.0
+  }, {
+    "name" : "gadgets with internet facility",
+    "uuid" : "e68890ba-f978-4c4d-a958-9fd22125cc87",
+    "order" : 3.0
+  }, {
+    "name" : "withouts internet facility",
+    "uuid" : "2e1ca31d-39b2-41c7-948b-98167d1bd650",
+    "order" : 4.0
+  }, {
+    "name" : "Wifi",
+    "uuid" : "570a4884-11a2-4c96-8cfa-02d6d8ee2e1c",
+    "order" : 5.0
+  }, {
+    "name" : "Not available",
+    "uuid" : "8118d45d-1a06-4da2-8cc3-ea7a2d1ec6a8",
+    "order" : 6.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "electronic purifyer",
+  "uuid" : "21f13a77-d790-40fd-867b-5fd0256bd464",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "ESI",
+  "uuid" : "2ce477c0-3563-49e0-bd89-9cfe1edad8ce",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Extended",
+  "uuid" : "833643ee-24ba-4f28-b747-852c2aa280d3",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Female",
+  "uuid" : "973fd3d2-d18d-404f-b4b6-1cdd8ac63566",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Fever",
+  "uuid" : "898cebc8-2022-4ba5-b6c0-dbda1a124791",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Firewood",
+  "uuid" : "b565e734-4dfe-4f16-b0fe-fa2ef32d5c17",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "flower pots",
+  "uuid" : "e41646e2-b8c8-4a25-8fcc-d5cd433b5b10",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Four wheeler",
+  "uuid" : "d97bee0a-276e-43e5-a324-f467167809e1",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Freeze",
+  "uuid" : "68be110c-d2f1-4f26-aaf1-c78a27901514",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "gadgets with internet facility",
+  "uuid" : "e68890ba-f978-4c4d-a958-9fd22125cc87",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Gender of HoF",
+  "uuid" : "83fbfa4c-164e-4eb2-b207-d9263c1b3b4d",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Male",
+    "uuid" : "12343da0-a278-4b30-a54c-8e2d10471778",
+    "order" : 0.0
+  }, {
+    "name" : "Female",
+    "uuid" : "973fd3d2-d18d-404f-b4b6-1cdd8ac63566",
+    "order" : 1.0
+  }, {
+    "name" : "Transgender",
+    "uuid" : "946544a6-74f3-480f-a5aa-a0838ac441e8",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "General",
+  "uuid" : "f46eeff3-797b-4adf-ae35-fcc83034e93c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Give details (Name,illness,Age,gender)",
+  "uuid" : "7def0fd7-d6ce-4df5-b109-656ecf5e5aef",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Government",
+  "uuid" : "cb3fe960-5beb-483e-849b-7c0649b56383",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Harekala",
+  "uuid" : "c60522e1-c1c8-44dd-b297-daa952830810",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Health facility preferred for acute illness",
+  "uuid" : "da29256e-720c-4071-a8f4-9e563749aef1",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Government",
+    "uuid" : "cb3fe960-5beb-483e-849b-7c0649b56383",
+    "order" : 0.0
+  }, {
+    "name" : "Private",
+    "uuid" : "6817a6da-7701-434d-8ec7-f251d5105eff",
+    "order" : 1.0
+  }, {
+    "name" : "Over the counter",
+    "uuid" : "58f5b628-3808-42de-a3e2-c7bbda6ca1fa",
+    "order" : 2.0
+  }, {
+    "name" : "no health care",
+    "uuid" : "a7d88a3d-423b-4f1c-9f59-a49a61dc7d72",
+    "order" : 3.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Health facility preferred for chronic illness",
+  "uuid" : "db05dadf-5955-4d5d-a62d-b7f7a1ecf6ce",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Government",
+    "uuid" : "cb3fe960-5beb-483e-849b-7c0649b56383",
+    "order" : 0.0
+  }, {
+    "name" : "Private",
+    "uuid" : "6817a6da-7701-434d-8ec7-f251d5105eff",
+    "order" : 1.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Heart disease",
+  "uuid" : "2442f446-885b-4918-9940-ec9e6edf9647",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Hindi",
+  "uuid" : "660b3d5f-00e2-4b01-b23e-66ca3ace5840",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Hinduism",
+  "uuid" : "b6b4fae9-9a44-4eea-990d-9ae997d41e89",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "House to house collection",
+  "uuid" : "703a2e2c-37f6-403e-95a9-120c4c3e5cd2",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "houseflies",
+  "uuid" : "27d71a8b-1487-4e59-bdc3-6425943380c7",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Household number",
+  "uuid" : "558469e8-d993-45ec-9d9b-f019c3642bab",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Household Total Expenditure per month",
+  "uuid" : "00edb1c7-acda-4982-a414-0ea121f616bf",
+  "dataType" : "Numeric",
+  "keyValues" : [ ]
+}, {
+  "name" : "How many rooms in this household is used for sleeping?",
+  "uuid" : "d3031e04-7ad0-4075-b465-1f75678177aa",
+  "dataType" : "Numeric",
+  "keyValues" : [ ]
+}, {
+  "name" : "HT",
+  "uuid" : "522e2821-a25d-4b35-a8c6-0be438aea517",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "If someone from your family is having some mentalillness,whether she/he is availing the health services",
+  "uuid" : "67c33f11-2358-4360-8b86-65633232c773",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "If Yes give details about disability",
+  "uuid" : "71124244-b1e2-42a7-82b3-15b79524352e",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Inoli",
+  "uuid" : "d7fa0e0b-39d1-417a-9e10-32f9e9d356f3",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Is open air defecation practiced by any of the family member (Children)",
+  "uuid" : "09acf590-7148-4ec1-b5a0-3ab34309d153",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 0.0
+  }, {
+    "name" : "Yes occastionaly",
+    "uuid" : "5fd3ea83-a127-44a6-a453-7e7d2cd5ff0a",
+    "order" : 1.0
+  }, {
+    "name" : "yes reguarly",
+    "uuid" : "0ab27317-e24c-44d8-abca-ef19a936e5d2",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Is there a latrine in your house?",
+  "uuid" : "cfa00c40-3c1a-4f98-9c34-f2f5e13f229b",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes Own",
+    "uuid" : "8b745119-e0e3-4b4d-bad2-49567449847d",
+    "order" : 0.0
+  }, {
+    "name" : "Yes Common",
+    "uuid" : "c3e70d66-bf5e-46fd-9f36-1c6d2b0ee8f6",
+    "order" : 1.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Islam",
+  "uuid" : "10d1687a-22fd-48ec-b841-599ce7cfc5e4",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Jainism",
+  "uuid" : "5d8a8030-8531-49b3-9b28-2d0ac0803efc",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Joint",
+  "uuid" : "d384988f-1f2f-482d-8369-c637adf8e0dd",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "joint pains",
+  "uuid" : "2e2d7bca-0c95-4c0d-b465-c3e361aa2c8b",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Jyoti Sanjeevani",
+  "uuid" : "0a2208c2-6493-4ae1-8bc8-ebc97c09281e",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Kannada",
+  "uuid" : "9c967c71-1cc1-4d85-ab40-a8192cf2127b",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Kariyangala",
+  "uuid" : "21361e33-70de-4de5-963f-8c03623a6127",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Karnataka Aarogya Bhagya",
+  "uuid" : "bb2a83f9-2795-478a-ba51-0f38c5e4a23e",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Kodambettu",
+  "uuid" : "9eafd8b4-d4e0-430c-adff-e805acd2b519",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Koila",
+  "uuid" : "787e70f9-3ce3-4b8e-9b3d-791846e9de48",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Konkani",
+  "uuid" : "a00f9238-f227-494d-bd9f-f5374dd0e28c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Kotekar",
+  "uuid" : "ebc160c8-52db-4aa9-9359-b8a228f8a2c5",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Kudroli",
+  "uuid" : "039cd3ab-b45e-4f95-b0ed-c817561e3c36",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Kukkipady",
+  "uuid" : "65b2a2ef-f2e8-4dc9-bb80-5c2505d3a801",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Kumpala",
+  "uuid" : "addebe65-1ccb-47ea-a1e9-fb44791c5cc8",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Kuriyala",
+  "uuid" : "31cabbf7-ee51-485a-8fc2-971584acc173",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Kurnad",
+  "uuid" : "01b9d441-c0fb-40ee-ba34-c5ee3e78a938",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "landmark",
+  "uuid" : "ef182a85-8f38-418e-bf0e-fcf2c3c655f0",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Laptop",
+  "uuid" : "c2f1321c-8bed-429c-b244-d13df79c2a59",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "low backache",
+  "uuid" : "5096f462-f15f-483f-9bef-4716e09d7fa6",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "LPG",
+  "uuid" : "24cdc5da-2480-472b-b93e-d2f6b10b6e4e",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "LPG (Ujwala)",
+  "uuid" : "8ed789a3-0497-40b7-817d-285f244086c7",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Malaria",
+  "uuid" : "ebb995a9-854a-4129-b822-6a0031f07d09",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Malayalam",
+  "uuid" : "b40c4b9a-efa7-48c6-83ed-61788cdf6708",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Male",
+  "uuid" : "12343da0-a278-4b30-a54c-8e2d10471778",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Marriage",
+  "uuid" : "ec9d98f1-100d-477a-9d2b-1128d7c015b8",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Married",
+  "uuid" : "9888cdf3-9c0d-4577-8149-aa18f631d821",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Marrital status of hoF",
+  "uuid" : "be84eb6c-fe84-457b-b2f7-f512b6961125",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Married",
+    "uuid" : "9888cdf3-9c0d-4577-8149-aa18f631d821",
+    "order" : 0.0
+  }, {
+    "name" : "Unmarried",
+    "uuid" : "6754a4fe-8bb2-4604-9774-2950ed1f7c67",
+    "order" : 1.0
+  }, {
+    "name" : "Single",
+    "uuid" : "437c30fa-cb98-4eb2-ab6b-cdb2f730e7eb",
+    "order" : 2.0
+  }, {
+    "name" : "Widowed",
+    "uuid" : "75d823bf-b232-47ba-8ed8-4d4f0776aa87",
+    "order" : 3.0
+  }, {
+    "name" : "Divorced",
+    "uuid" : "53fb2f7b-b7db-49f5-ad17-3c5acd2b4c32",
+    "order" : 4.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Medical college (Other than YMCH)",
+  "uuid" : "de0b2463-70be-464b-8b80-43d38d4e7853",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Mental illness",
+  "uuid" : "099f8c28-d4eb-49ff-be93-7f60c07e0a0c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Moodanadugodu",
+  "uuid" : "2c4fd00f-e0da-4e24-90ec-a61dd5f05a7d",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Mosquito",
+  "uuid" : "bb48ed6d-8849-4713-8a75-5d55b559f958",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Most common household waste disposal method",
+  "uuid" : "eaf15d71-4654-4efc-ba1f-28d5e365bb1a",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "House to house collection",
+    "uuid" : "703a2e2c-37f6-403e-95a9-120c4c3e5cd2",
+    "order" : 0.0
+  }, {
+    "name" : "public dust bin",
+    "uuid" : "f72e18e4-5fba-47f9-88d5-93b57b988ab4",
+    "order" : 1.0
+  }, {
+    "name" : "throwing increminately",
+    "uuid" : "4948c289-d7a5-424b-af7b-d16eddd476b5",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Mother Tongue",
+  "uuid" : "57251d49-3cfb-4e49-a053-7364a663bf1d",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Kannada",
+    "uuid" : "9c967c71-1cc1-4d85-ab40-a8192cf2127b",
+    "order" : 0.0
+  }, {
+    "name" : "Tulu",
+    "uuid" : "9d89b0a2-7bf8-48a8-9b6e-3176bb00c9ce",
+    "order" : 1.0
+  }, {
+    "name" : "Malayalam",
+    "uuid" : "b40c4b9a-efa7-48c6-83ed-61788cdf6708",
+    "order" : 2.0
+  }, {
+    "name" : "Konkani",
+    "uuid" : "a00f9238-f227-494d-bd9f-f5374dd0e28c",
+    "order" : 3.0
+  }, {
+    "name" : "Hindi",
+    "uuid" : "660b3d5f-00e2-4b01-b23e-66ca3ace5840",
+    "order" : 4.0
+  }, {
+    "name" : "Beary",
+    "uuid" : "e0a11ce8-eb82-468d-bf79-76d29a2be46c",
+    "order" : 5.0
+  }, {
+    "name" : "other specify",
+    "uuid" : "54de246d-1c1e-4835-82be-9852234b7316",
+    "order" : 6.0,
+    "voided" : true
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 7.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Name of the head of the family",
+  "uuid" : "6633afc7-d0e4-4427-87d4-277d8942ff48",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Name of the panchayat/Ward",
+  "uuid" : "673a87ab-78cd-42a3-a6cf-47761c8beffe",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Harekala",
+    "uuid" : "c60522e1-c1c8-44dd-b297-daa952830810",
+    "order" : 0.0
+  }, {
+    "name" : "Pavoor",
+    "uuid" : "c09a83e2-346c-4d9e-ad91-db6f0d6c4adc",
+    "order" : 1.0
+  }, {
+    "name" : "Inoli",
+    "uuid" : "d7fa0e0b-39d1-417a-9e10-32f9e9d356f3",
+    "order" : 2.0
+  }, {
+    "name" : "Kurnad",
+    "uuid" : "01b9d441-c0fb-40ee-ba34-c5ee3e78a938",
+    "order" : 3.0
+  }, {
+    "name" : "Kudroli",
+    "uuid" : "039cd3ab-b45e-4f95-b0ed-c817561e3c36",
+    "order" : 4.0
+  }, {
+    "name" : "Bunder",
+    "uuid" : "36536585-5df4-489b-ab26-80194591933c",
+    "order" : 5.0
+  }, {
+    "name" : "Bengre",
+    "uuid" : "b8bd2f38-6ba3-4be4-a46a-82cef4ef2d4f",
+    "order" : 6.0
+  }, {
+    "name" : "Sangabettu",
+    "uuid" : "b33193ff-f349-4379-9e64-e86a4712f9f0",
+    "order" : 7.0
+  }, {
+    "name" : "Kukkipady",
+    "uuid" : "65b2a2ef-f2e8-4dc9-bb80-5c2505d3a801",
+    "order" : 8.0
+  }, {
+    "name" : "Rayee",
+    "uuid" : "2b8c5802-63b3-4dcf-9c00-525763548572",
+    "order" : 9.0
+  }, {
+    "name" : "Arala",
+    "uuid" : "ff99007b-a18d-4686-ac56-cf781095907c",
+    "order" : 10.0
+  }, {
+    "name" : "Chennaithody",
+    "uuid" : "3e4bdf67-3616-4470-9fca-2e2e2f285fc3",
+    "order" : 11.0
+  }, {
+    "name" : "Pilimogaru",
+    "uuid" : "0c7d4824-e68f-4343-b2ec-4da4e78f5c35",
+    "order" : 12.0
+  }, {
+    "name" : "Amtady",
+    "uuid" : "e06d4039-44de-473e-bd90-8cc40b92f80b",
+    "order" : 13.0
+  }, {
+    "name" : "Kariyangala",
+    "uuid" : "21361e33-70de-4de5-963f-8c03623a6127",
+    "order" : 14.0
+  }, {
+    "name" : "Ammunje",
+    "uuid" : "74c5be45-85a5-48a2-a67c-40b687c86f2f",
+    "order" : 15.0
+  }, {
+    "name" : "Badagabellur",
+    "uuid" : "2e5e7799-215c-4689-a0c6-4c588f551810",
+    "order" : 16.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Name of the PHC/UPHC",
+  "uuid" : "1948be58-d42e-4313-8ec5-ac9ca87eb399",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Amblamoguru",
+    "uuid" : "1b53b872-7006-4442-b579-56f26b801a79",
+    "order" : 0.0
+  }, {
+    "name" : "Boliyar",
+    "uuid" : "db2f0401-b5cb-4a1a-b5bd-ad056a956ee7",
+    "order" : 1.0
+  }, {
+    "name" : "Natekal",
+    "uuid" : "4ba8e0dc-d29c-4026-85f1-6a5ee2eef342",
+    "order" : 2.0
+  }, {
+    "name" : "Kurnad",
+    "uuid" : "01b9d441-c0fb-40ee-ba34-c5ee3e78a938",
+    "order" : 3.0
+  }, {
+    "name" : "Kotekar",
+    "uuid" : "ebc160c8-52db-4aa9-9359-b8a228f8a2c5",
+    "order" : 4.0
+  }, {
+    "name" : "UPHC Bunder",
+    "uuid" : "412fdabd-e42b-4423-a26e-ddb2cc8592c0",
+    "order" : 5.0
+  }, {
+    "name" : "specify if any other",
+    "uuid" : "ad4a956c-2751-424b-8cde-fb13ef44858f",
+    "order" : 6.0,
+    "voided" : true
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 7.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Name of the sub centre",
+  "uuid" : "e9ce5187-db1e-40cf-ad42-4b1c27d553f8",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Name of the surveillance Unit",
+  "uuid" : "1de1bfa2-030a-4ccb-8381-ee5105048fa2",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "RHTC",
+    "uuid" : "64b5810c-6f6f-422b-b6c5-b0bf60c8bd1d",
+    "order" : 0.0
+  }, {
+    "name" : "UHTC",
+    "uuid" : "40af0a57-df62-42df-a113-6dc2ef1757de",
+    "order" : 1.0
+  }, {
+    "name" : "RHCDC",
+    "uuid" : "d77d192b-4eed-42b4-b8ab-ee683ec50eb8",
+    "order" : 2.0
+  }, {
+    "name" : "Bantwal",
+    "uuid" : "8f76677b-493f-4d82-a344-376553893157",
+    "order" : 3.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Name the  social security scheme",
+  "uuid" : "a7815743-9b97-4631-9df7-a5a982ca3b2a",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yashaswini",
+    "uuid" : "7b2aff0e-1f96-4197-a45a-e9c89377f7ea",
+    "order" : 0.0
+  }, {
+    "name" : "yen card",
+    "uuid" : "5d6c2add-f9b5-470d-9d63-1aaa6a723329",
+    "order" : 1.0
+  }, {
+    "name" : "Rajeev Arogya Bhagya for APL",
+    "uuid" : "ddb22f90-9458-4575-9fba-54bf72bf0e97",
+    "order" : 2.0
+  }, {
+    "name" : "Sampoorna Suraksha",
+    "uuid" : "a57d1a18-2781-4ce5-bc13-89491da83d64",
+    "order" : 3.0
+  }, {
+    "name" : "Vajpayee Arogyashree for BPL",
+    "uuid" : "92840a55-9ed8-40f7-8e70-86ac7fb4d289",
+    "order" : 4.0
+  }, {
+    "name" : "Jyoti Sanjeevani",
+    "uuid" : "0a2208c2-6493-4ae1-8bc8-ebc97c09281e",
+    "order" : 5.0
+  }, {
+    "name" : "Ayushman Bharat",
+    "uuid" : "aee5bc1b-aad0-454f-8929-873b4afb6af1",
+    "order" : 6.0
+  }, {
+    "name" : "Razak Haji",
+    "uuid" : "4f01a221-ad68-494e-8a6a-f588ab078060",
+    "order" : 7.0
+  }, {
+    "name" : "Karnataka Aarogya Bhagya",
+    "uuid" : "bb2a83f9-2795-478a-ba51-0f38c5e4a23e",
+    "order" : 8.0
+  }, {
+    "name" : "ESI",
+    "uuid" : "2ce477c0-3563-49e0-bd89-9cfe1edad8ce",
+    "order" : 9.0
+  }, {
+    "name" : "CGHS",
+    "uuid" : "00f16c9f-bc94-4db1-8af2-b5fc81b78466",
+    "order" : 10.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 11.0
+  }, {
+    "name" : "Not availing any scheme",
+    "uuid" : "a65706b2-d2f8-4128-9b50-6e4b502a5e55",
+    "order" : 12.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Name the Health facility preferred for acute illness",
+  "uuid" : "84a7b976-1730-479f-926a-dcdaac00b876",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "YMCH",
+    "uuid" : "a42b2c70-293b-40a6-8508-7124f1a7c81f",
+    "order" : 0.0
+  }, {
+    "name" : "Medical college (Other than YMCH)",
+    "uuid" : "de0b2463-70be-464b-8b80-43d38d4e7853",
+    "order" : 1.0
+  }, {
+    "name" : "Wenlock",
+    "uuid" : "cb6fbb27-cf41-4e1d-82ad-956b3b92067e",
+    "order" : 2.0
+  }, {
+    "name" : "PHC",
+    "uuid" : "706c83e9-2891-40b5-9d6e-1a30e4f235fa",
+    "order" : 3.0
+  }, {
+    "name" : "Taluka Hospital",
+    "uuid" : "04894dba-cbc5-47f6-bb57-b140b5ccde13",
+    "order" : 4.0
+  }, {
+    "name" : "CHC",
+    "uuid" : "90fcd000-a1a7-4c65-927a-a3720a38c531",
+    "order" : 5.0
+  }, {
+    "name" : "Private practitioner",
+    "uuid" : "395842ba-6ac4-4a9b-9e58-2d782c72159f",
+    "order" : 6.0
+  }, {
+    "name" : "Private hospital and other specify",
+    "uuid" : "0dec78d2-aec9-4ee8-a05d-e5413a67e04d",
+    "order" : 7.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 8.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Name the health facility preferred for chronic illness",
+  "uuid" : "84b9db51-33ce-4da0-a5cc-5ea2058f95ad",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "YMCH",
+    "uuid" : "a42b2c70-293b-40a6-8508-7124f1a7c81f",
+    "order" : 0.0
+  }, {
+    "name" : "Medical college (Other than YMCH)",
+    "uuid" : "de0b2463-70be-464b-8b80-43d38d4e7853",
+    "order" : 1.0
+  }, {
+    "name" : "Wenlock",
+    "uuid" : "cb6fbb27-cf41-4e1d-82ad-956b3b92067e",
+    "order" : 2.0
+  }, {
+    "name" : "PHC",
+    "uuid" : "706c83e9-2891-40b5-9d6e-1a30e4f235fa",
+    "order" : 3.0
+  }, {
+    "name" : "Taluka Hospital",
+    "uuid" : "04894dba-cbc5-47f6-bb57-b140b5ccde13",
+    "order" : 4.0
+  }, {
+    "name" : "CHC",
+    "uuid" : "90fcd000-a1a7-4c65-927a-a3720a38c531",
+    "order" : 5.0
+  }, {
+    "name" : "Private practitioner",
+    "uuid" : "395842ba-6ac4-4a9b-9e58-2d782c72159f",
+    "order" : 6.0
+  }, {
+    "name" : "Private hospital and other specify",
+    "uuid" : "0dec78d2-aec9-4ee8-a05d-e5413a67e04d",
+    "order" : 7.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 8.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Natekal",
+  "uuid" : "4ba8e0dc-d29c-4026-85f1-6a5ee2eef342",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "NGO",
+  "uuid" : "a55c3f2f-127a-45f4-9e37-9fe43d15d851",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "No",
+  "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "no drainage",
+  "uuid" : "319a3f30-b935-407f-a838-5f8e88d552e5",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "No events",
+  "uuid" : "77d5a23f-32f2-4ff6-ab7d-1623834a61ef",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "no health care",
+  "uuid" : "a7d88a3d-423b-4f1c-9f59-a49a61dc7d72",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "No potential breeding site",
+  "uuid" : "a97d5c33-2cbd-4248-b14c-fdfacae740e1",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "no purification",
+  "uuid" : "5dbf1242-b7c7-4068-9d8e-0adb63669521",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Not available",
+  "uuid" : "8118d45d-1a06-4da2-8cc3-ea7a2d1ec6a8",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Not availing any scheme",
+  "uuid" : "a65706b2-d2f8-4128-9b50-6e4b502a5e55",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Not responded",
+  "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Nuclear",
+  "uuid" : "9c55fe14-6303-414a-9742-043b2443154a",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Number of individuals in the household",
+  "uuid" : "0bd4084c-11cb-4a30-84aa-c4cf5b2926d1",
+  "dataType" : "Numeric",
+  "keyValues" : [ ]
+}, {
+  "name" : "OBC",
+  "uuid" : "6fa2ad8f-eca2-49b4-bdcd-cdb73d7527cf",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Open containers",
+  "uuid" : "ffd0f3da-11fb-4a51-b3d8-15900d55bb9c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "open drainage policy",
+  "uuid" : "e73d7420-f55a-4fed-8b85-e2b8d4cbfef7",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Open overhead tank",
+  "uuid" : "78b8feef-186c-46f2-a446-c2976b586618",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "other",
+  "uuid" : "6b02a9ee-7477-4bf8-9d0e-ef314ffec53f",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Other",
+  "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Other mother tongue",
+  "uuid" : "f2058089-18f8-4442-84cf-94cf1cea28a6",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Other social class",
+  "uuid" : "81323643-274c-4831-9d1a-a17e2dfcd225",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "other specify",
+  "uuid" : "54de246d-1c1e-4835-82be-9852234b7316",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Others",
+  "uuid" : "2257f6f3-eb9a-41ec-a6b8-bf3de6019e53",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Out-of-pocket payments equalling or exceeding 10% of a household’s total expenditure.",
+  "uuid" : "0cff16cb-8018-4908-aecc-9d6410b797d1",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Over the counter",
+  "uuid" : "58f5b628-3808-42de-a3e2-c7bbda6ca1fa",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Panjikallu",
+  "uuid" : "e3507b4e-238e-424f-89ec-d6cf22a8a661",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Pavoor",
+  "uuid" : "c09a83e2-346c-4d9e-ad91-db6f0d6c4adc",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "PHC",
+  "uuid" : "706c83e9-2891-40b5-9d6e-1a30e4f235fa",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Pilimogaru",
+  "uuid" : "0c7d4824-e68f-4343-b2ec-4da4e78f5c35",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "piped water supply by panchayat or muncipal corporation",
+  "uuid" : "2e6a359f-dfb0-4409-bd6c-d34724a3bb4b",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "previous experience",
+  "uuid" : "6c9fdcd2-35dd-4e97-9512-ae7041f9b43d",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Private",
+  "uuid" : "6817a6da-7701-434d-8ec7-f251d5105eff",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Private hospital and other specify",
+  "uuid" : "0dec78d2-aec9-4ee8-a05d-e5413a67e04d",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Private practitioner",
+  "uuid" : "395842ba-6ac4-4a9b-9e58-2d782c72159f",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Provide name and place of work",
+  "uuid" : "f0a15451-6e52-4d2d-b893-0f74ec662560",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "public dust bin",
+  "uuid" : "f72e18e4-5fba-47f9-88d5-93b57b988ab4",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Rajeev Arogya Bhagya for APL",
+  "uuid" : "ddb22f90-9458-4575-9fba-54bf72bf0e97",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Rayee",
+  "uuid" : "2b8c5802-63b3-4dcf-9c00-525763548572",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Razak Haji",
+  "uuid" : "4f01a221-ad68-494e-8a6a-f588ab078060",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Reason of visiting preferred health care facility",
+  "uuid" : "5987c751-0e34-4e76-aa1a-95b31d7af765",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Availability",
+    "uuid" : "86a5b589-6a16-4a5f-99ba-dab883028711",
+    "order" : 0.0
+  }, {
+    "name" : "Affordability",
+    "uuid" : "53543c02-e540-41b2-bf05-69d416bf40bb",
+    "order" : 1.0
+  }, {
+    "name" : "Acceessibility",
+    "uuid" : "80fd937b-15c5-4597-8a28-db90fed52c9d",
+    "order" : 2.0
+  }, {
+    "name" : "previous experience",
+    "uuid" : "6c9fdcd2-35dd-4e97-9512-ae7041f9b43d",
+    "order" : 3.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 4.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Refuse to answer",
+  "uuid" : "5f976702-c59e-463b-ae3d-5409664a5e32",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Regularity of water supply",
+  "uuid" : "b40f407f-b68e-44fe-b641-86ab8b7ab51d",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Daily",
+    "uuid" : "198469be-1734-4883-a5eb-7b38631d7918",
+    "order" : 0.0
+  }, {
+    "name" : "alternate day",
+    "uuid" : "a59020aa-e995-4f70-ad46-fc8a9d7922c1",
+    "order" : 1.0
+  }, {
+    "name" : "twice a week",
+    "uuid" : "84b620b3-e0fe-4c6c-bae6-4d2ae8ac2b89",
+    "order" : 2.0
+  }, {
+    "name" : "weekly once",
+    "uuid" : "8fa4e484-a466-4980-b872-24571bf1b2bc",
+    "order" : 3.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "RHCDC",
+  "uuid" : "d77d192b-4eed-42b4-b8ab-ee683ec50eb8",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "RHTC",
+  "uuid" : "64b5810c-6f6f-422b-b6c5-b0bf60c8bd1d",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "rodents",
+  "uuid" : "636e921f-5db3-415a-8d9a-22f389b5bbde",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Sampoorna Suraksha",
+  "uuid" : "a57d1a18-2781-4ce5-bc13-89491da83d64",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Sangabettu",
+  "uuid" : "b33193ff-f349-4379-9e64-e86a4712f9f0",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Scheduled caste",
+  "uuid" : "38667c6c-8500-4f8a-b5c9-4d5350b8045b",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Scheduled tribe",
+  "uuid" : "2e461c57-7137-43e2-9a5f-3670643bdb76",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Segregation of waste at source (wet and dry waste)",
+  "uuid" : "65552252-53a2-4846-ac6f-60e06dd7dacf",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Self",
+  "uuid" : "ef5771fe-faf0-4fc7-907c-2f8e8e3c23b2",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Self with NGO",
+  "uuid" : "5eeab85e-d102-4983-b8e5-38a1b242f9e6",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "self with support of Govt",
+  "uuid" : "b744db17-f4bb-4901-beb8-bfe8fc040851",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Separate Kitchen",
+  "uuid" : "a69677d2-d3e8-4458-8d21-0936bc9a510d",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Single",
+  "uuid" : "437c30fa-cb98-4eb2-ab6b-cdb2f730e7eb",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "smart phone",
+  "uuid" : "bd09d91f-8a5c-41dd-89e0-c0cd749a66b8",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Source of drinking water?",
+  "uuid" : "f3250681-0a1e-4e7a-9654-d15b24b0d78c",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Well",
+    "uuid" : "1c4facce-afb5-41f2-a54c-b4c593824753",
+    "order" : 0.0
+  }, {
+    "name" : "piped water supply by panchayat or muncipal corporation",
+    "uuid" : "2e6a359f-dfb0-4409-bd6c-d34724a3bb4b",
+    "order" : 1.0
+  }, {
+    "name" : "bore well",
+    "uuid" : "092cdba9-f701-4624-ae80-cf4282cc89e3",
+    "order" : 2.0
+  }, {
+    "name" : "tanker",
+    "uuid" : "0ef6130e-dcc2-4bdb-83f6-35cb756d07ac",
+    "order" : 3.0
+  }, {
+    "name" : "5/20 water cans",
+    "uuid" : "020bed36-b4ca-4e4c-9bde-3619955a66a2",
+    "order" : 4.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 5.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Source of water (Domestic use)",
+  "uuid" : "36ab6284-c3ca-4de8-8593-eba915a03791",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Well",
+    "uuid" : "1c4facce-afb5-41f2-a54c-b4c593824753",
+    "order" : 0.0
+  }, {
+    "name" : "bore well",
+    "uuid" : "092cdba9-f701-4624-ae80-cf4282cc89e3",
+    "order" : 1.0
+  }, {
+    "name" : "piped water supply by panchayat or muncipal corporation",
+    "uuid" : "2e6a359f-dfb0-4409-bd6c-d34724a3bb4b",
+    "order" : 2.0
+  }, {
+    "name" : "tanker",
+    "uuid" : "0ef6130e-dcc2-4bdb-83f6-35cb756d07ac",
+    "order" : 3.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 4.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify  known case of chronic illness",
+  "uuid" : "caa23e49-901e-43ac-a246-33a16e83493a",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify breeding sites present",
+  "uuid" : "52f3f9b2-dab9-46fc-8b66-776f34a9fd58",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify chronic illness",
+  "uuid" : "c92d06b5-b358-4ca3-bf90-0f777e3ab9f2",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify fuel",
+  "uuid" : "14c847cd-ba22-49cd-8d2e-8e4e99ec9dbd",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "specify if any other",
+  "uuid" : "ad4a956c-2751-424b-8cde-fb13ef44858f",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify illness in last two weeks",
+  "uuid" : "9b12024d-08e0-486b-b4b9-ddc21b6f199d",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify Name the health facility preferred for chronic illness",
+  "uuid" : "54a36cb8-a7a0-415d-84c7-2ca4b88e8f87",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify Other",
+  "uuid" : "7868f697-abc9-4f49-8a0d-3deab5679502",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify other acute illness",
+  "uuid" : "1a436a53-b279-49b1-87b4-efad33a34a4d",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify Reason of visiting preferred health care facility",
+  "uuid" : "4239ddc6-60cc-4ac0-ad7d-3d35bf2caace",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify social security scheme",
+  "uuid" : "003d18b4-2f1f-4fa8-97fd-5049c83eb1f0",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify source of drinking water",
+  "uuid" : "5f3931f3-fd5e-4666-b1e2-01db24684fb6",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "Specify source of water",
+  "uuid" : "78c763af-bced-49aa-813a-66a19dde3ebb",
+  "dataType" : "Text",
+  "keyValues" : [ ]
+}, {
+  "name" : "stroke",
+  "uuid" : "c6dcfe0d-51f7-49e7-810e-d25faf216e1c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Tablet",
+  "uuid" : "e21e5e6b-0a09-421c-bad5-6adde2a439c2",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Taluka Hospital",
+  "uuid" : "04894dba-cbc5-47f6-bb57-b140b5ccde13",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "tanker",
+  "uuid" : "0ef6130e-dcc2-4bdb-83f6-35cb756d07ac",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "TB",
+  "uuid" : "14782716-bb88-49a6-8aaf-fcbe7c7b7349",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Thenkabellur",
+  "uuid" : "84e4e801-d0a3-4d22-a828-07c49336394a",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "throwing increminately",
+  "uuid" : "4948c289-d7a5-424b-af7b-d16eddd476b5",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Total Income",
+  "uuid" : "752cf346-243e-447a-a973-53891cb110b0",
+  "dataType" : "Numeric",
+  "keyValues" : [ ]
+}, {
+  "name" : "Transgender",
+  "uuid" : "946544a6-74f3-480f-a5aa-a0838ac441e8",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Transport facility",
+  "uuid" : "19df1265-d795-4f29-94a9-422f1bef645b",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Two wheeler",
+    "uuid" : "5719e3c4-c36a-4767-acc5-2ea6d772660f",
+    "order" : 0.0
+  }, {
+    "name" : "Four wheeler",
+    "uuid" : "d97bee0a-276e-43e5-a324-f467167809e1",
+    "order" : 1.0
+  }, {
+    "name" : "Bycycle",
+    "uuid" : "89c67f44-5055-444b-9165-caa66d029b83",
+    "order" : 2.0
+  }, {
+    "name" : "Not available",
+    "uuid" : "8118d45d-1a06-4da2-8cc3-ea7a2d1ec6a8",
+    "order" : 3.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Tulu",
+  "uuid" : "9d89b0a2-7bf8-48a8-9b6e-3176bb00c9ce",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "TV",
+  "uuid" : "59fb2284-01ad-4682-8743-0a54a6cda982",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "twice a week",
+  "uuid" : "84b620b3-e0fe-4c6c-bae6-4d2ae8ac2b89",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Two wheeler",
+  "uuid" : "5719e3c4-c36a-4767-acc5-2ea6d772660f",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "tyers",
+  "uuid" : "3d3458e7-7852-4186-b8fb-a21e98503684",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Type of family",
+  "uuid" : "52a8b9a2-499b-4362-a95f-4df018cd644a",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Nuclear",
+    "uuid" : "9c55fe14-6303-414a-9742-043b2443154a",
+    "order" : 0.0
+  }, {
+    "name" : "Extended",
+    "uuid" : "833643ee-24ba-4f28-b747-852c2aa280d3",
+    "order" : 1.0
+  }, {
+    "name" : "Joint",
+    "uuid" : "d384988f-1f2f-482d-8369-c637adf8e0dd",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Type of fuel",
+  "uuid" : "4c9e7144-8e05-4b64-8d00-b769f5e23cf3",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "LPG",
+    "uuid" : "24cdc5da-2480-472b-b93e-d2f6b10b6e4e",
+    "order" : 0.0
+  }, {
+    "name" : "LPG (Ujwala)",
+    "uuid" : "8ed789a3-0497-40b7-817d-285f244086c7",
+    "order" : 1.0
+  }, {
+    "name" : "Firewood",
+    "uuid" : "b565e734-4dfe-4f16-b0fe-fa2ef32d5c17",
+    "order" : 2.0
+  }, {
+    "name" : "Biogas",
+    "uuid" : "eae17efa-313a-43dc-ae03-50fe3effaff0",
+    "order" : 3.0
+  }, {
+    "name" : "Any other",
+    "uuid" : "2ed1960a-08e6-4c0e-83da-0e40086ab091",
+    "order" : 4.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Type of potential breeding sites present",
+  "uuid" : "225531c0-df1c-4ac2-8a24-c20d38b2b124",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "No potential breeding site",
+    "uuid" : "a97d5c33-2cbd-4248-b14c-fdfacae740e1",
+    "order" : 0.0
+  }, {
+    "name" : "Coconut shells",
+    "uuid" : "bb0b6a89-44fd-4872-8aee-57ee1d883791",
+    "order" : 1.0
+  }, {
+    "name" : "water coolers",
+    "uuid" : "a9272a37-689a-4eb3-8522-927363f98711",
+    "order" : 2.0
+  }, {
+    "name" : "tyers",
+    "uuid" : "3d3458e7-7852-4186-b8fb-a21e98503684",
+    "order" : 3.0
+  }, {
+    "name" : "Ditches",
+    "uuid" : "5a7754fe-1527-4753-8003-e4059a79222d",
+    "order" : 4.0
+  }, {
+    "name" : "flower pots",
+    "uuid" : "e41646e2-b8c8-4a25-8fcc-d5cd433b5b10",
+    "order" : 5.0
+  }, {
+    "name" : "Open containers",
+    "uuid" : "ffd0f3da-11fb-4a51-b3d8-15900d55bb9c",
+    "order" : 6.0
+  }, {
+    "name" : "Open overhead tank",
+    "uuid" : "78b8feef-186c-46f2-a446-c2976b586618",
+    "order" : 7.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 8.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Type of Ration card",
+  "uuid" : "49344ffb-d10c-4e30-a284-356396970bcf",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "APL",
+    "uuid" : "4681bad1-c83c-4075-b2c4-7a736d3c44be",
+    "order" : 0.0
+  }, {
+    "name" : "BPL",
+    "uuid" : "ef40f2a9-9a47-4281-a719-aad2cb14e3ca",
+    "order" : 1.0
+  }, {
+    "name" : "Anthyodaya anna yojana",
+    "uuid" : "cdbaa400-4ea2-4758-953f-3db824c9c604",
+    "order" : 2.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 3.0
+  }, {
+    "name" : "Not available",
+    "uuid" : "8118d45d-1a06-4da2-8cc3-ea7a2d1ec6a8",
+    "order" : 4.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "UHTC",
+  "uuid" : "40af0a57-df62-42df-a113-6dc2ef1757de",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Unmarried",
+  "uuid" : "6754a4fe-8bb2-4604-9774-2950ed1f7c67",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "UPHC Bunder",
+  "uuid" : "412fdabd-e42b-4423-a26e-ddb2cc8592c0",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Vajpayee Arogyashree for BPL",
+  "uuid" : "92840a55-9ed8-40f7-8e70-86ac7fb4d289",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "water coolers",
+  "uuid" : "a9272a37-689a-4eb3-8522-927363f98711",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "weekly once",
+  "uuid" : "8fa4e484-a466-4980-b872-24571bf1b2bc",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Well",
+  "uuid" : "1c4facce-afb5-41f2-a54c-b4c593824753",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Wenlock",
+  "uuid" : "cb6fbb27-cf41-4e1d-82ad-956b3b92067e",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "what type of drainage facility does your household have?",
+  "uuid" : "2c11d1e4-072c-40a2-8a68-24855f7d4027",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Closed",
+    "uuid" : "c61e4f14-37e0-4a6b-b6b3-f62f14113a22",
+    "order" : 0.0
+  }, {
+    "name" : "open drainage policy",
+    "uuid" : "e73d7420-f55a-4fed-8b85-e2b8d4cbfef7",
+    "order" : 1.0
+  }, {
+    "name" : "drainage to soakage pit",
+    "uuid" : "cd042975-9f72-41c3-a82a-933530a32709",
+    "order" : 2.0
+  }, {
+    "name" : "no drainage",
+    "uuid" : "319a3f30-b935-407f-a838-5f8e88d552e5",
+    "order" : 3.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Whether any person in the family is terminally ill",
+  "uuid" : "b0b10c81-bd2d-404e-9b65-d299b16cd7fd",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Whether panchayt/corporation provide chlorinated water?",
+  "uuid" : "2ee24106-43f2-4b2f-9ff7-75080851bed3",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Which religion do you practice?",
+  "uuid" : "60320b20-433d-4167-84e2-5cea3351739f",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Hinduism",
+    "uuid" : "b6b4fae9-9a44-4eea-990d-9ae997d41e89",
+    "order" : 0.0
+  }, {
+    "name" : "Islam",
+    "uuid" : "10d1687a-22fd-48ec-b841-599ce7cfc5e4",
+    "order" : 1.0
+  }, {
+    "name" : "Christianity",
+    "uuid" : "19f3fc03-5184-47d5-83aa-ebf556a369be",
+    "order" : 2.0
+  }, {
+    "name" : "Jainism",
+    "uuid" : "5d8a8030-8531-49b3-9b28-2d0ac0803efc",
+    "order" : 3.0
+  }, {
+    "name" : "Buddhism and Sikhism",
+    "uuid" : "92f04bf2-ff1f-4cf9-891d-ae95a5d6a7de",
+    "order" : 4.0
+  }, {
+    "name" : "Any others",
+    "uuid" : "95e52d17-1d0a-4ae4-9476-048d1486c139",
+    "order" : 5.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 6.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Who has constructed the latrine?",
+  "uuid" : "d21f3a62-2cd9-4f34-9797-978a1ce6fbf0",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "Self",
+    "uuid" : "ef5771fe-faf0-4fc7-907c-2f8e8e3c23b2",
+    "order" : 0.0
+  }, {
+    "name" : "Government",
+    "uuid" : "cb3fe960-5beb-483e-849b-7c0649b56383",
+    "order" : 1.0
+  }, {
+    "name" : "self with support of Govt",
+    "uuid" : "b744db17-f4bb-4901-beb8-bfe8fc040851",
+    "order" : 2.0
+  }, {
+    "name" : "NGO",
+    "uuid" : "a55c3f2f-127a-45f4-9e37-9fe43d15d851",
+    "order" : 3.0
+  }, {
+    "name" : "Self with NGO",
+    "uuid" : "5eeab85e-d102-4983-b8e5-38a1b242f9e6",
+    "order" : 4.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Widowed",
+  "uuid" : "75d823bf-b232-47ba-8ed8-4d4f0776aa87",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Wifi",
+  "uuid" : "570a4884-11a2-4c96-8cfa-02d6d8ee2e1c",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "withouts internet facility",
+  "uuid" : "2e1ca31d-39b2-41c7-948b-98167d1bd650",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Yaliyanadugodu",
+  "uuid" : "b7eb20c5-bf45-42e1-8718-186b77bf3afa",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Yashaswini",
+  "uuid" : "7b2aff0e-1f96-4197-a45a-e9c89377f7ea",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "yen card",
+  "uuid" : "5d6c2add-f9b5-470d-9d63-1aaa6a723329",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Yes",
+  "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Yes Common",
+  "uuid" : "c3e70d66-bf5e-46fd-9f36-1c6d2b0ee8f6",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Yes occastionaly",
+  "uuid" : "5fd3ea83-a127-44a6-a453-7e7d2cd5ff0a",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "Yes Own",
+  "uuid" : "8b745119-e0e3-4b4d-bad2-49567449847d",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "yes reguarly",
+  "uuid" : "0ab27317-e24c-44d8-abca-ef19a936e5d2",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "YMCH",
+  "uuid" : "a42b2c70-293b-40a6-8508-7124f1a7c81f",
+  "dataType" : "NA",
+  "keyValues" : [ ]
+}, {
+  "name" : "You belong to which social class?",
+  "uuid" : "26024a7b-b664-4eef-90e4-1fe23283378f",
+  "dataType" : "Coded",
+  "answers" : [ {
+    "name" : "General",
+    "uuid" : "f46eeff3-797b-4adf-ae35-fcc83034e93c",
+    "order" : 0.0
+  }, {
+    "name" : "OBC",
+    "uuid" : "6fa2ad8f-eca2-49b4-bdcd-cdb73d7527cf",
+    "order" : 1.0
+  }, {
+    "name" : "Scheduled caste",
+    "uuid" : "38667c6c-8500-4f8a-b5c9-4d5350b8045b",
+    "order" : 2.0
+  }, {
+    "name" : "Scheduled tribe",
+    "uuid" : "2e461c57-7137-43e2-9a5f-3670643bdb76",
+    "order" : 3.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 4.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 5.0
+  } ],
+  "keyValues" : [ ]
+} ]
