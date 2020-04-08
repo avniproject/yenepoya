@@ -1,36 +1,42 @@
-[ {
-  "name" : "Child",
-  "uuid" : "5fc20ed1-699c-4329-86f4-3884fccceb18",
-  "colour" : "darkorange",
-  "voided" : false,
-  "enrolmentEligibilityCheckRule" : null,
-  "enrolmentSummaryRule" : null
-}, {
-  "name" : "Diabetes",
-  "uuid" : "e40e9fe2-6afa-4344-9ada-e61000d36e40",
-  "colour" : "#38ACEC",
-  "voided" : false,
-  "enrolmentEligibilityCheckRule" : null,
-  "enrolmentSummaryRule" : null
-}, {
-  "name" : "Hypertension",
-  "uuid" : "debe0d88-3b8a-4ac4-9f95-80a1af3b83c5",
-  "colour" : "#368200",
-  "voided" : false,
-  "enrolmentEligibilityCheckRule" : null,
-  "enrolmentSummaryRule" : null
-}, {
-  "name" : "NCD ",
-  "uuid" : "9d6cd285-fb85-48f0-badc-6f004b9024d8",
-  "colour" : "#2B1B17",
-  "voided" : false,
-  "enrolmentEligibilityCheckRule" : null,
-  "enrolmentSummaryRule" : null
-}, {
-  "name" : "Pregnancy",
-  "uuid" : "00c6dfe3-109c-4099-8550-89a457e9c176",
-  "colour" : "darkmagenta",
-  "voided" : false,
-  "enrolmentEligibilityCheckRule" : null,
-  "enrolmentSummaryRule" : null
-} ]
+[
+  {
+    "name": "Child",
+    "uuid": "5fc20ed1-699c-4329-86f4-3884fccceb18",
+    "colour": "darkorange",
+    "voided": false,
+    "enrolmentEligibilityCheckRule": null,
+    "enrolmentSummaryRule": null
+  },
+  {
+    "name": "Diabetes",
+    "uuid": "e40e9fe2-6afa-4344-9ada-e61000d36e40",
+    "colour": "#38ACEC",
+    "voided": false,
+    "enrolmentEligibilityCheckRule": null,
+    "enrolmentSummaryRule": null
+  },
+  {
+    "name": "Hypertension",
+    "uuid": "debe0d88-3b8a-4ac4-9f95-80a1af3b83c5",
+    "colour": "#368200",
+    "voided": false,
+    "enrolmentEligibilityCheckRule": null,
+    "enrolmentSummaryRule": null
+  },
+  {
+    "name": "NCD ",
+    "uuid": "9d6cd285-fb85-48f0-badc-6f004b9024d8",
+    "colour": "#2B1B17",
+    "voided": false,
+    "enrolmentEligibilityCheckRule": null,
+    "enrolmentSummaryRule": null
+  },
+  {
+    "name": "Pregnancy",
+    "uuid": "00c6dfe3-109c-4099-8550-89a457e9c176",
+    "colour": "darkmagenta",
+    "voided": false,
+    "enrolmentEligibilityCheckRule": null,
+    "enrolmentSummaryRule": null
+  }
+]
