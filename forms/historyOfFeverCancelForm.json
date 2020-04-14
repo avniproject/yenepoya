@@ -1,0 +1,53 @@
+{
+  "name" : "Fever Survey cancel form",
+  "uuid" : "95d278aa-7804-43fc-8628-7616510b8508",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ {
+    "uuid" : "60ab07e4-9118-4d99-9a41-24c9a1e8fafc",
+    "name" : "Cancel Information",
+    "displayOrder" : 1.0,
+    "display" : "Cancel Information",
+    "formElements" : [ {
+      "name" : "Date of Cancel",
+      "uuid" : "273ddd85-009e-451f-adfe-aa01c4553f1d",
+      "keyValues" : [ {
+        "key" : "datePickerMode",
+        "value" : "Calendar"
+      } ],
+      "concept" : {
+        "name" : "Date of Cancel",
+        "uuid" : "20460001-db72-4052-9168-9861a40df088"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Reason Of Cancellation",
+      "uuid" : "18b54d10-d2e7-4a94-8443-1fa33544cd44",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason Of Cancellation",
+        "uuid" : "5592def2-fe5e-4234-9253-ca5fd0322e26"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other Reason Of Cancellation",
+      "uuid" : "24433ee9-a0a3-4460-9b57-3fae613b16c6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Reason of Cancellation",
+        "uuid" : "8263f129-5851-4f9d-a909-818dacacd862"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInCancelEncounter('Reason Of Cancellation').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

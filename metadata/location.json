@@ -3,7 +3,7 @@
     "uuid": "77bd1a83-f692-46d6-bbd9-9833cc1a0bc7",
     "level": 1,
     "name": "Dummy 1",
-    "type": "Dummy",
+    "type": "dummy",
     "parents": []
   }
 ]

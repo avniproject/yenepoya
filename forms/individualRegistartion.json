@@ -17,6 +17,10 @@
             "name": "Contact Number",
             "uuid": "b8f2d179-0638-4016-afa2-a2bbf0f48e6a"
           },
+          "validFormat": {
+            "regex": "^[0-9]{10}$",
+            "descriptionKey": "Required10Digits"
+          },
           "displayOrder": 1.0,
           "type": "SingleSelect",
           "mandatory": true

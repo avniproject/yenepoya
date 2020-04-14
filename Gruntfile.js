@@ -12,16 +12,22 @@ module.exports = IDI.configure(
             adminUsers: {
                 "dev": ["users/admin-user.json"]
             },
-            forms: ["forms/householdRegistartion.json",
+            forms: [
+                "forms/householdRegistartion.json",
                 "forms/individualRegistartion.json",
                 "forms/householdSurvey.json",
-                "forms/individualSurvey.json"
+                "forms/individualSurvey.json",
+                "forms/encounterSurveyCancelForm.json",
+                "forms/historyOfFeverCancelForm.json",
+                "forms/historyOfFever.json"
+
+
             ],
             formMappings: ["formMappings.json"],
             formDeletions: [],
             formAdditions: [],
             catchments: [
-                "metadata/sample_catchment.json"
+               "metadata/sample_catchment.json"
             ],
             checklistDetails: [],
             concepts: ["concepts.json"],
@@ -36,7 +42,9 @@ module.exports = IDI.configure(
             users: {
                 "dev": ["users/dev-users.json"]
             },
-            rules: [],
+            rules: [
+                "./rules.js"
+            ],
             organisationSql: [
                 /* "create_organisation.sql"*/
             ],

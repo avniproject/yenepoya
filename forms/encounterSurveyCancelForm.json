@@ -1,0 +1,53 @@
+{
+  "name" : "Encounter survey cancel",
+  "uuid" : "95ccdb9b-0ba2-4579-a0b3-b5b174717b60",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ {
+    "uuid" : "14017211-8fd2-465a-8b70-906a465394e3",
+    "name" : "Cancel Information",
+    "displayOrder" : 1.0,
+    "display" : "Cancel Information",
+    "formElements" : [ {
+      "name" : "cancelation date",
+      "uuid" : "e39e03ef-9a53-4957-ba0a-3181615475b3",
+      "keyValues" : [ {
+        "key" : "datePickerMode",
+        "value" : "Calendar"
+      } ],
+      "concept" : {
+        "name" : "Date of Cancel",
+        "uuid" : "20460001-db72-4052-9168-9861a40df088"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Reason Of Cancellation",
+      "uuid" : "94937cb5-329f-4af3-b1d4-422e41424c41",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason Of Cancellation survey",
+        "uuid" : "46182e50-6b63-4588-a8c8-8d0288ce2477"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other Reason of Cancellation",
+      "uuid" : "1da2125e-24e7-4d61-ba35-a06221744fde",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Reason of Cancellation",
+        "uuid" : "8263f129-5851-4f9d-a909-818dacacd862"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInCancelEncounter('Reason Of Cancellation survey').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}
