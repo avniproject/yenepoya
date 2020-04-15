@@ -9,6 +9,15 @@
     "formName": "Encounter survey cancel"
   },
   {
+    "uuid" : "e29aa287-bdc8-42cd-a7e1-9af1999de846",
+    "id" : 598,
+    "formUUID" : "95ccdb9b-0ba2-4579-a0b3-b5b174717b60",
+    "encounterTypeUUID" : "16a3be1b-18a1-45e9-bfc8-f7915898abef",
+    "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+    "formType" : "IndividualEncounterCancellation",
+    "formName" : "Encounter survey cancel"
+  },
+  {
     "uuid": "c37e0c78-743d-4c9b-aa44-c6289ccba3e1",
     "id": 47,
     "formUUID": "95d278aa-7804-43fc-8628-7616510b8508",
@@ -51,5 +60,13 @@
     "subjectTypeUUID": "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
     "formType": "IndividualProfile",
     "formName": "Household Registration"
+  },
+  {
+    "uuid": "b6a197c7-63f8-4cef-bf38-3dc085592a24",
+    "id": 24,
+    "formUUID": "004628e4-acc8-4d20-a2c1-a838767a53c6",
+    "subjectTypeUUID": "d22027ff-e019-4d1c-9352-bd740efccc38",
+    "formType": "IndividualProfile",
+    "formName": "Individual Registration Form"
   }
 ]
