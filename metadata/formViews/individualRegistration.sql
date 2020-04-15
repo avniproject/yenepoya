@@ -17,3 +17,4 @@ SELECT individual.id                                                            
 FROM individual individual
          LEFT OUTER JOIN gender g ON g.id = individual.gender_id
          LEFT OUTER JOIN address_level a ON individual.address_id = a.id
+where subject_type_id = (select id from subject_type where name = 'Individual')
