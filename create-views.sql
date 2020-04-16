@@ -55,17 +55,17 @@ create view yenepoya_household_survey_view as (
                    encounter.observations ->> 'be84eb6c-fe84-457b-b2f7-f512b6961125')::TEXT  as "Enc.Marrital status of hoF",
            (encounter.observations ->> '0bd4084c-11cb-4a30-84aa-c4cf5b2926d1')::TEXT         as "Enc.Number of individuals in the household",
            multi_select_coded(
-                   encounter.observations -> 'c5c9d1b4-54f8-4676-ba39-18d9a5f3c7a3')::TEXT   as "Enc.Are there any individuals in your family with known case of chronic illness?",
+                   encounter.observations -> 'c5c9d1b4-54f8-4676-ba39-18d9a5f3c7a3')::TEXT   as "Enc.Are there members with known case of chronic illness?",
            (encounter.observations ->> 'caa23e49-901e-43ac-a246-33a16e83493a')::TEXT         as "Enc.Specify  known case of chronic illness",
            multi_select_coded(
-                   encounter.observations -> '0b5215d5-f721-4993-8f30-b85f5b397988')::TEXT   as "Enc.Are there any individuals in your family with any illness in last two weeks?",
+                   encounter.observations -> '0b5215d5-f721-4993-8f30-b85f5b397988')::TEXT   as "Enc.Are there members with any illness in last two weeks?",
            (encounter.observations ->> '9b12024d-08e0-486b-b4b9-ddc21b6f199d')::TEXT         as "Enc.Specify illness in last two weeks",
            single_select_coded(
                    encounter.observations ->> '2a1c24fd-912a-485d-bf8e-5a722d8ab5a1')::TEXT  as "Enc.Any member in your family with some disability",
            (encounter.observations ->> '71124244-b1e2-42a7-82b3-15b79524352e')::TEXT         as "Enc.If Yes give details about disability",
            (encounter.observations ->> '00edb1c7-acda-4982-a414-0ea121f616bf')::TEXT         as "Enc.Household Total Expenditure per month",
            single_select_coded(
-                   encounter.observations ->> '0cff16cb-8018-4908-aecc-9d6410b797d1')::TEXT  as "Enc.Out-of-pocket payments equalling or exceeding 10% of a household’s total expenditure.",
+                   encounter.observations ->> '0cff16cb-8018-4908-aecc-9d6410b797d1')::TEXT  as "Enc.Out-of-pocket payments exceeding 10% of household total",
            (encounter.observations ->> 'd3031e04-7ad0-4075-b465-1f75678177aa')::TEXT         as "Enc.How many rooms in this household is used for sleeping?",
            single_select_coded(
                    encounter.observations ->> 'a69677d2-d3e8-4458-8d21-0936bc9a510d')::TEXT  as "Enc.Separate Kitchen",
@@ -88,7 +88,7 @@ create view yenepoya_household_survey_view as (
            single_select_coded(
                    encounter.observations ->> 'd21f3a62-2cd9-4f34-9797-978a1ce6fbf0')::TEXT  as "Enc.Who has constructed the latrine?",
            single_select_coded(
-                   encounter.observations ->> '09acf590-7148-4ec1-b5a0-3ab34309d153')::TEXT  as "Enc.Is open air defecation practiced by any of the family member (Children)",
+                   encounter.observations ->> '09acf590-7148-4ec1-b5a0-3ab34309d153')::TEXT  as "Enc.Is open air defecation practiced by family member",
            single_select_coded(
                    encounter.observations ->> '2c11d1e4-072c-40a2-8a68-24855f7d4027')::TEXT  as "Enc.what type of drainage facility does your household have?",
            multi_select_coded(
@@ -107,7 +107,7 @@ create view yenepoya_household_survey_view as (
                    encounter.observations ->> 'db05dadf-5955-4d5d-a62d-b7f7a1ecf6ce')::TEXT  as "Enc.Health facility preferred for chronic illness",
            multi_select_coded(
                    encounter.observations -> '84b9db51-33ce-4da0-a5cc-5ea2058f95ad')::TEXT   as "Enc.Name the health facility preferred for chronic illness",
-           (encounter.observations ->> '54a36cb8-a7a0-415d-84c7-2ca4b88e8f87')::TEXT         as "Enc.Specify Name the health facility preferred for chronic illness",
+           (encounter.observations ->> '54a36cb8-a7a0-415d-84c7-2ca4b88e8f87')::TEXT         as "Enc.Specify the health facility preferred for chronic illness",
            single_select_coded(
                    encounter.observations ->> 'da29256e-720c-4071-a8f4-9e563749aef1')::TEXT  as "Enc.Health facility preferred for acute illness",
            multi_select_coded(
@@ -117,7 +117,7 @@ create view yenepoya_household_survey_view as (
                    encounter.observations -> '5987c751-0e34-4e76-aa1a-95b31d7af765')::TEXT   as "Enc.Reason of visiting preferred health care facility",
            (encounter.observations ->> '4239ddc6-60cc-4ac0-ad7d-3d35bf2caace')::TEXT         as "Enc.Specify Reason of visiting preferred health care facility",
            single_select_coded(
-                   encounter.observations ->> '67c33f11-2358-4360-8b86-65633232c773')::TEXT  as "Enc.If someone from your family is having some mentalillness,whether she/he is availing the health services",
+                   encounter.observations ->> '67c33f11-2358-4360-8b86-65633232c773')::TEXT  as "Enc.If member having mental illness,is availing health services",
            single_select_coded(
                    encounter.observations ->> '5b99afca-55eb-4793-824b-361d94d5c3d7')::TEXT  as "Enc.Are you availing any social security schemes",
            multi_select_coded(
@@ -147,6 +147,5 @@ create view yenepoya_household_survey_view as (
     WHERE oet.uuid = '767e7ef2-4a45-4c17-9939-773f97c0baf0'
       AND encounter.encounter_date_time IS NOT NULL
 );
-
 
 set role none;
