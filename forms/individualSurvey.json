@@ -188,6 +188,7 @@
           },
           "displayOrder": 9.0,
           "type": "SingleSelect",
+          "rule": "'use strict';\n({params, imports}) => {\n  //const individual = params.entity;\n  const formElement = params.formElement;\n  const programEncounter = params.entity;\n   \n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  \n  statusBuilder.show().when.valueInEncounter('Marital status').containsAnswerConceptName(\"Married\")\n  .and.whenItem(programEncounter.individual.isFemale()).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() > 15).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() < 49).is.truthy;\n \nreturn statusBuilder.build();\n \n};",
           "mandatory": true
         },
         {
@@ -213,6 +214,7 @@
           },
           "displayOrder": 11.0,
           "type": "SingleSelect",
+          "rule": "'use strict';\n({params, imports}) => {\n  //const individual = params.entity;\n  const formElement = params.formElement;\n  const programEncounter = params.entity;\n   \n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  \n  statusBuilder.show().when.valueInEncounter('Marital status').containsAnswerConceptName(\"Married\")\n  .and.whenItem(programEncounter.individual.isFemale()).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() > 15).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() < 49).is.truthy;\n \nreturn statusBuilder.build();\n \n};",
           "mandatory": true
         },
         {
