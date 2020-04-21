@@ -1,13 +1,5 @@
 [
-  {
-    "uuid": "6f3a0a06-15c1-4265-8496-a5df28570e57",
-    "id": 48,
-    "formUUID": "95ccdb9b-0ba2-4579-a0b3-b5b174717b60",
-    "encounterTypeUUID": "0c823f64-b2ec-420b-9e28-5e953b66b6d1",
-    "subjectTypeUUID": "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
-    "formType": "IndividualEncounterCancellation",
-    "formName": "Encounter survey cancel"
-  },
+
   {
     "uuid" : "e29aa287-bdc8-42cd-a7e1-9af1999de846",
     "id" : 598,
