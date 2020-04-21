@@ -20,7 +20,8 @@
       },
       "displayOrder" : 1.0,
       "type" : "SingleSelect",
-      "mandatory" : true
+      "mandatory" : true,
+      "voided" : true
     }, {
       "name" : "Reason Of Cancellation",
       "uuid" : "94937cb5-329f-4af3-b1d4-422e41424c41",
@@ -32,6 +33,30 @@
       "displayOrder" : 2.0,
       "type" : "SingleSelect",
       "mandatory" : true
+    }, {
+      "name" : "Reason of Cancellation",
+      "uuid" : "f2fcb302-5ef0-4b66-9665-ce5842b8e09e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason Of Cancellation survey",
+        "uuid" : "46182e50-6b63-4588-a8c8-8d0288ce2477"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "Reason of Cancellation",
+      "uuid" : "a8073117-7cb3-4418-8b3a-f5d1f6e03519",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason Of Cancellation",
+        "uuid" : "5592def2-fe5e-4234-9253-ca5fd0322e26"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
     }, {
       "name" : "Other Reason of Cancellation",
       "uuid" : "1da2125e-24e7-4d61-ba35-a06221744fde",
@@ -47,7 +72,7 @@
     } ]
   } ],
   "decisionRule" : "",
-  "visitScheduleRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({params, imports}) => {\n    const Encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({Encounter});\n\n    const reason = Encounter.findCancelEncounterObservationReadableValue(\"Reason Of Cancellation survey\");\n    const encDate=Encounter.earliestVisitDateTime;\n    const earliestDate=imports.moment(encDate).add('1', 'year').toDate();\n    const maxDate = imports.moment(earliestDate).add('15', 'days').toDate();\n    console.log(\"======>Enconter\",Encounter);\n   \n    \n    if (reason=='Other' ) {\n        scheduleBuilder.add({\n            name: Encounter.name,\n            encounterType:Encounter.encounterType.name,\n            earliestDate: earliestDate,\n            maxDate\n        });\n    }\n    return scheduleBuilder.getAll();\n};",
   "validationRule" : "",
   "checklistsRule" : ""
 }

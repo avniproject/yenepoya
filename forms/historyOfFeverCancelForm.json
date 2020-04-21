@@ -20,7 +20,8 @@
       },
       "displayOrder" : 1.0,
       "type" : "SingleSelect",
-      "mandatory" : true
+      "mandatory" : true,
+      "voided" : true
     }, {
       "name" : "Reason Of Cancellation",
       "uuid" : "18b54d10-d2e7-4a94-8443-1fa33544cd44",
@@ -47,7 +48,7 @@
     } ]
   } ],
   "decisionRule" : "",
-  "visitScheduleRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({params, imports}) => {\n    const Encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({Encounter});\n    const reason = Encounter.findCancelEncounterObservationReadableValue(\"Reason Of Cancellation\");\n    const encDate=Encounter.cancelDateTime;\n    const maxDate = imports.moment(encDate).add('15', 'days').toDate();\n    if (imports.lodash.isEmpty(reason) ) {\n        scheduleBuilder.add({\n            name: Encounter.name,\n            encounterType:Encounter.encounterType.name,\n            earliestDate: encDate,\n            maxDate\n        });\n    }\n    return scheduleBuilder.getAll();\n};",
   "validationRule" : "",
   "checklistsRule" : ""
 }
