@@ -527,6 +527,32 @@
           "type": "SingleSelect",
           "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are there any individuals in your family with known case of chronic illness?').containsAnswerConceptName(\"Mental illness\");\n  return statusBuilder.build();\n};",
           "mandatory": true
+        },
+        {
+          "name": "Whether any person in the family is terminally ill",
+          "uuid": "abc08019-b6c2-443b-a513-285cc0f36ae5",
+          "keyValues": [],
+          "concept": {
+            "name": "Whether any person in the family is terminally ill",
+            "uuid": "b0b10c81-bd2d-404e-9b65-d299b16cd7fd"
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are there any individuals in your family with known case of chronic illness?').containsAnswerConceptName(\"Mental illness\");\n  return statusBuilder.build();\n};",
+          "mandatory": true
+        },
+        {
+          "name": "give details (Name,illness,Age,gender)",
+          "uuid": "372e2710-b43b-4d71-8be6-0bee39d08090",
+          "keyValues": [],
+          "concept": {
+            "name": "give details of terminally ill people",
+            "uuid": "62d69998-cd8c-4c0d-b0cd-872698a8e36f"
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Whether any person in the family is terminally ill').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+          "mandatory": true
         }
       ]
     },
@@ -572,7 +598,7 @@
           "displayOrder": 3.0,
           "type": "SingleSelect",
           "rule": "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Name the  social security scheme').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
-          "mandatory": false
+          "mandatory": true
         },
         {
           "name": "Transport facility",
