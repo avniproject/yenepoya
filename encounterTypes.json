@@ -1,61 +1,81 @@
 [
   {
-    "name": "Household Survey",
-    "uuid": "0c823f64-b2ec-420b-9e28-5e953b66b6d1",
-    "encounterEligibilityCheckRule": ""
+    "name": "ANC Followup",
+    "uuid": "ef79eb31-2d19-441d-bb21-0838ceaed958",
+    "active": true
+  },
+  {
+    "name": "Individual Survey",
+    "uuid": "16a3be1b-18a1-45e9-bfc8-f7915898abef",
+    "active": true
+  },
+  {
+    "name": "History of Fever",
+    "uuid": "db6846c1-1f95-45d0-a1e4-71cac701a699",
+    "active": true
+  },
+  {
+    "name": "NCD Followup",
+    "uuid": "b2f419dc-209a-4285-b74c-29d93f2a628e",
+    "active": true
+  },
+  {
+    "name": "HT Followup",
+    "uuid": "66c93422-eb3a-4ae0-b537-3802899f40cb",
+    "active": true
+  },
+  {
+    "name": "DM Followup",
+    "uuid": "92f8c72e-d6d4-4936-976e-8446a03ec9bf",
+    "active": true
+  },
+  {
+    "name": "Child Growth Followup",
+    "uuid": "95fe37f3-8d4d-40cc-ae13-73d65545b27e",
+    "active": true
+  },
+  {
+    "name": "Child PNC",
+    "uuid": "2cdd5f42-183d-452e-ba25-987000042c8b",
+    "active": true
+  },
+  {
+    "name": "Mother PNC",
+    "uuid": "aa36ccd0-6299-4780-b39f-4af4b56a533b",
+    "active": true
+  },
+  {
+    "name": "Delivery",
+    "uuid": "1aba6a27-d053-4816-ae87-e1701d373724",
+    "active": true
+  },
+  {
+    "name": "Abortion",
+    "uuid": "b62926e3-9d30-4094-877b-410d9796f1c3",
+    "active": true
+  },
+  {
+    "name": "Abortion followup",
+    "uuid": "2d652262-32c8-499f-a151-b5443750f702",
+    "active": true
   },
   {
     "name": "Household Registration (voided~298)",
     "uuid": "b2aa40b4-c050-4b76-a2a1-34c45b56aa0f",
     "encounterEligibilityCheckRule": "",
+    "active": true,
     "voided": true
   },
   {
-    "name": "Abortion followup",
-    "uuid": "2d652262-32c8-499f-a151-b5443750f702"
+    "name": "Household Survey",
+    "uuid": "0c823f64-b2ec-420b-9e28-5e953b66b6d1",
+    "encounterEligibilityCheckRule": "",
+    "active": true
   },
   {
-    "name": "Abortion",
-    "uuid": "b62926e3-9d30-4094-877b-410d9796f1c3"
-  },
-  {
-    "name": "Delivery",
-    "uuid": "1aba6a27-d053-4816-ae87-e1701d373724"
-  },
-  {
-    "name": "Mother PNC",
-    "uuid": "aa36ccd0-6299-4780-b39f-4af4b56a533b"
-  },
-  {
-    "name": "Child PNC",
-    "uuid": "2cdd5f42-183d-452e-ba25-987000042c8b"
-  },
-  {
-    "name": "Child Growth Followup",
-    "uuid": "95fe37f3-8d4d-40cc-ae13-73d65545b27e"
-  },
-  {
-    "name": "DM Followup",
-    "uuid": "92f8c72e-d6d4-4936-976e-8446a03ec9bf"
-  },
-  {
-    "name": "HT Followup",
-    "uuid": "66c93422-eb3a-4ae0-b537-3802899f40cb"
-  },
-  {
-    "name": "NCD Followup",
-    "uuid": "b2f419dc-209a-4285-b74c-29d93f2a628e"
-  },
-  {
-    "name": "History of Fever",
-    "uuid": "db6846c1-1f95-45d0-a1e4-71cac701a699"
-  },
-  {
-    "name": "Individual Survey",
-    "uuid": "16a3be1b-18a1-45e9-bfc8-f7915898abef"
-  },
-  {
-    "name": "ANC Followup",
-    "uuid": "ef79eb31-2d19-441d-bb21-0838ceaed958"
+    "name": "Diabetes Followup",
+    "uuid": "5d578f58-f9aa-4123-b6b4-f8154effb5c1",
+    "encounterEligibilityCheckRule": "",
+    "active": true
   }
 ]

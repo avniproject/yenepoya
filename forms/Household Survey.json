@@ -1,0 +1,626 @@
+{
+  "name" : "Household Survey",
+  "uuid" : "c1534442-907e-47ac-ac76-45c77ad05330",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "3fd8ac7f-6309-4b5b-bf33-24b5003f9d6d",
+    "name" : "Identification",
+    "displayOrder" : 1.0,
+    "display" : "Identification",
+    "formElements" : [ {
+      "name" : "Age of HoF",
+      "uuid" : "1822ccfb-c993-4178-8b90-10805393f259",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Age of HoF",
+        "uuid" : "25723471-1596-4786-a390-79a687e9c61b"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "Marrital status of hoF",
+      "uuid" : "5588692a-7632-41bd-9237-a58ed18da48f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Marrital status of hoF",
+        "uuid" : "be84eb6c-fe84-457b-b2f7-f512b6961125"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "Number of individuals in the household",
+      "uuid" : "fb369a36-1785-46a0-9e19-da0ec233c3ec",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Number of individuals in the household",
+        "uuid" : "0bd4084c-11cb-4a30-84aa-c4cf5b2926d1"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "Are there any individuals in your family with known case of chronic illness?",
+      "uuid" : "8ee0efa3-1afc-49e2-95eb-04ba791e5349",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are there any individuals in your family with known case of chronic illness?",
+        "uuid" : "c5c9d1b4-54f8-4676-ba39-18d9a5f3c7a3"
+      },
+      "displayOrder" : 4.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "f4ed2e64-6217-4e89-85eb-6a32d526aa69",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify  known case of chronic illness",
+        "uuid" : "caa23e49-901e-43ac-a246-33a16e83493a"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are there any individuals in your family with known case of chronic illness?').containsAnswerConceptName(\"Any other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Are there any individuals in your family with any illness in last two weeks?",
+      "uuid" : "b872a7b6-baff-4dea-ba67-f8c6c14157a8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are there any individuals in your family with any illness in last two weeks?",
+        "uuid" : "0b5215d5-f721-4993-8f30-b85f5b397988"
+      },
+      "displayOrder" : 6.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "a08abf80-f5e5-4161-bbca-7130694eef9f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify illness in last two weeks",
+        "uuid" : "9b12024d-08e0-486b-b4b9-ddc21b6f199d"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are there any individuals in your family with any illness in last two weeks?').containsAnswerConceptName(\"Any other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Any member in your family with some disability",
+      "uuid" : "e15ecb02-dfca-46dd-aec8-334a8111bf6d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any member in your family with some disability",
+        "uuid" : "2a1c24fd-912a-485d-bf8e-5a722d8ab5a1"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Give details about disability",
+      "uuid" : "5fe1b8bf-c65c-41f2-86b7-e7081938e30b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If Yes give details about disability",
+        "uuid" : "71124244-b1e2-42a7-82b3-15b79524352e"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Any member in your family with some disability').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Household Total Expenditure per month",
+      "uuid" : "d54f8da4-9f50-41bc-90da-36df7d212ddc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Household Total Expenditure per month",
+        "uuid" : "00edb1c7-acda-4982-a414-0ea121f616bf"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Out-of-pocket payments equalling or exceeding 10% of a household’s total expenditure.",
+      "uuid" : "e0981b67-10e5-4a2b-9bdf-d2ca1c666a42",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Out-of-pocket payments equalling or exceeding 10% of a household’s total expenditure.",
+        "uuid" : "0cff16cb-8018-4908-aecc-9d6410b797d1"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "ce9f728e-c5fb-4814-be21-7aeb5bf43027",
+    "name" : "Environmental factors",
+    "displayOrder" : 2.0,
+    "display" : "Environmental factors",
+    "formElements" : [ {
+      "name" : "How many rooms in this household is used for sleeping?",
+      "uuid" : "d8dd791a-6589-49c1-869a-ec4b67b04091",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "How many rooms in this household is used for sleeping?",
+        "uuid" : "d3031e04-7ad0-4075-b465-1f75678177aa"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Separate Kitchen",
+      "uuid" : "04f69870-c325-4893-9725-29f7b7904f06",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Separate Kitchen",
+        "uuid" : "a69677d2-d3e8-4458-8d21-0936bc9a510d"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Type of fuel",
+      "uuid" : "8761c0a5-e9ae-4534-9faa-23c5c9abf2be",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of fuel",
+        "uuid" : "4c9e7144-8e05-4b64-8d00-b769f5e23cf3"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "feb6f7cd-bb4d-4d4a-84bd-c99131803c48",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify fuel",
+        "uuid" : "14c847cd-ba22-49cd-8d2e-8e4e99ec9dbd"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Type of fuel').containsAnswerConceptName(\"Any other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Any nuisance  reported by family member",
+      "uuid" : "10353b1b-7f7a-4dea-b695-3ba83033adeb",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any nuisance  reported by family member",
+        "uuid" : "9d6ca8db-4d5b-42ee-8ba3-a153a91bf0e8"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Type of potential breeding sites present",
+      "uuid" : "dcee01c9-f996-4eff-b55d-017101f3bf95",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of potential breeding sites present",
+        "uuid" : "225531c0-df1c-4ac2-8a24-c20d38b2b124"
+      },
+      "displayOrder" : 6.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "dc9aa686-f137-4a3d-98e2-08f614f719a9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify breeding sites present",
+        "uuid" : "52f3f9b2-dab9-46fc-8b66-776f34a9fd58"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Type of potential breeding sites present').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Are you using any insecticide treated bed nets?",
+      "uuid" : "255ea45a-ae22-4d6f-a8b2-01097aac430d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you using any insecticide treated bed nets?",
+        "uuid" : "8f4baf0b-02f8-4bfc-adb7-996355c46cf4"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Segregation of waste at source (wet and dry waste)",
+      "uuid" : "8b3dcccc-7ada-4e59-b79e-cd283474421b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Segregation of waste at source (wet and dry waste)",
+        "uuid" : "65552252-53a2-4846-ac6f-60e06dd7dacf"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Most common household waste disposal method",
+      "uuid" : "bc24a56b-400e-47f7-bd7f-676073e02519",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Most common household waste disposal method",
+        "uuid" : "eaf15d71-4654-4efc-ba1f-28d5e365bb1a"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Is there a latrine in your house?",
+      "uuid" : "8e1b68f5-cf8c-4dce-af6d-eb8a16f49957",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Is there a latrine in your house?",
+        "uuid" : "cfa00c40-3c1a-4f98-9c34-f2f5e13f229b"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Who has constructed the latrine?",
+      "uuid" : "789923cf-bbd9-4c92-a581-b38b08831eef",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Who has constructed the latrine?",
+        "uuid" : "d21f3a62-2cd9-4f34-9797-978a1ce6fbf0"
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Is there a latrine in your house?').containsAnswerConceptNameOtherThan(\"No\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Is open air defecation practiced by any of the family member (Children)",
+      "uuid" : "473f30aa-c6f2-4c4e-b814-8c88e757c130",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Is open air defecation practiced by any of the family member (Children)",
+        "uuid" : "09acf590-7148-4ec1-b5a0-3ab34309d153"
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "what type of drainage facility does your household have?",
+      "uuid" : "3ee80293-bdb1-42ab-a8dd-b9db378ef299",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "what type of drainage facility does your household have?",
+        "uuid" : "2c11d1e4-072c-40a2-8a68-24855f7d4027"
+      },
+      "displayOrder" : 14.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Source of water (Domestic use)",
+      "uuid" : "b6706702-5f84-4545-867e-abdcb9b71ec5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Source of water (Domestic use)",
+        "uuid" : "36ab6284-c3ca-4de8-8593-eba915a03791"
+      },
+      "displayOrder" : 15.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "2941618e-9e2d-452d-bd95-959ffa2cdb60",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify source of water",
+        "uuid" : "78c763af-bced-49aa-813a-66a19dde3ebb"
+      },
+      "displayOrder" : 16.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Source of water (Domestic use)').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Source of drinking water?",
+      "uuid" : "f87b6d48-f545-4146-b6c1-d20a1efe7dfc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Source of drinking water?",
+        "uuid" : "f3250681-0a1e-4e7a-9654-d15b24b0d78c"
+      },
+      "displayOrder" : 17.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "959bf2cc-d32b-4230-ad79-6e793e9bc627",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify source of drinking water",
+        "uuid" : "5f3931f3-fd5e-4666-b1e2-01db24684fb6"
+      },
+      "displayOrder" : 18.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Source of drinking water?').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Whether panchayt/corporation provide chlorinated water?",
+      "uuid" : "c45e7756-7238-4c38-846d-3c04ca0351ba",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Whether panchayt/corporation provide chlorinated water?",
+        "uuid" : "2ee24106-43f2-4b2f-9ff7-75080851bed3"
+      },
+      "displayOrder" : 19.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Domestic purification methods used",
+      "uuid" : "2035d6b6-c4b9-4336-8c5b-03e45877373b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Domestic purification methods used",
+        "uuid" : "7ba3b46e-d9f7-4f91-b38d-a587a4686951"
+      },
+      "displayOrder" : 20.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Regularity of water supply",
+      "uuid" : "c1cdcb59-6b74-40cc-aab3-36c647facede",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Regularity of water supply",
+        "uuid" : "b40f407f-b68e-44fe-b641-86ab8b7ab51d"
+      },
+      "displayOrder" : 21.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "92057121-2fe3-4a12-8042-89860299a3e6",
+    "name" : "Health Preferences",
+    "displayOrder" : 3.0,
+    "display" : "Health Preferences",
+    "formElements" : [ {
+      "name" : "Health facility preferred for chronic illness",
+      "uuid" : "ce1d305d-6001-4caf-8aa5-87ce14b4506f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health facility preferred for chronic illness",
+        "uuid" : "db05dadf-5955-4d5d-a62d-b7f7a1ecf6ce"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name the health facility preferred for chronic illness",
+      "uuid" : "7c861f9e-7ebb-4386-b177-e93031491200",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name the health facility preferred for chronic illness",
+        "uuid" : "84b9db51-33ce-4da0-a5cc-5ea2058f95ad"
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "212466e4-d69e-47ec-ba79-d125ed8c5a12",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Name the health facility preferred for chronic illness",
+        "uuid" : "54a36cb8-a7a0-415d-84c7-2ca4b88e8f87"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Name the health facility preferred for chronic illness').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Health facility preferred for acute illness",
+      "uuid" : "0e648698-e614-408b-90e9-c41beb6579ee",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health facility preferred for acute illness",
+        "uuid" : "da29256e-720c-4071-a8f4-9e563749aef1"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name the Health facility preferred for acute illness",
+      "uuid" : "8cbb5f14-8d88-46e2-9ff9-265f397d350c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name the Health facility preferred for acute illness",
+        "uuid" : "84a7b976-1730-479f-926a-dcdaac00b876"
+      },
+      "displayOrder" : 5.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "8c0a67c2-7350-4ea3-83f1-d7eddb2bce9a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify other acute illness",
+        "uuid" : "1a436a53-b279-49b1-87b4-efad33a34a4d"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Name the Health facility preferred for acute illness').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Reason of visiting preferred health care facility:",
+      "uuid" : "e9c9bd7d-7ad2-481e-8b09-538d7eb097ad",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason of visiting preferred health care facility",
+        "uuid" : "5987c751-0e34-4e76-aa1a-95b31d7af765"
+      },
+      "displayOrder" : 7.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "ca29094c-405a-42e1-8f97-0627255ab51f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Reason of visiting preferred health care facility",
+        "uuid" : "4239ddc6-60cc-4ac0-ad7d-3d35bf2caace"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Reason of visiting preferred health care facility').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "If someone from your family is having some mentalillness,whether she/he is availing the health services",
+      "uuid" : "a4309f3e-af1d-4935-81f7-146c7360cf7e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If someone from your family is having some mentalillness,whether she/he is availing the health services",
+        "uuid" : "67c33f11-2358-4360-8b86-65633232c773"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are there any individuals in your family with known case of chronic illness?').containsAnswerConceptName(\"Mental illness\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Whether any person in the family is terminally ill",
+      "uuid" : "abc08019-b6c2-443b-a513-285cc0f36ae5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Whether any person in the family is terminally ill",
+        "uuid" : "b0b10c81-bd2d-404e-9b65-d299b16cd7fd"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are there any individuals in your family with known case of chronic illness?').containsAnswerConceptName(\"Mental illness\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "give details (Name,illness,Age,gender)",
+      "uuid" : "372e2710-b43b-4d71-8be6-0bee39d08090",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "give details of terminally ill people",
+        "uuid" : "62d69998-cd8c-4c0d-b0cd-872698a8e36f"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Whether any person in the family is terminally ill').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "f261101c-339e-4519-b69c-87efd1b2699b",
+    "name" : "Social Status",
+    "displayOrder" : 4.0,
+    "display" : "Social Status",
+    "formElements" : [ {
+      "name" : "Are you availing any social security schemes",
+      "uuid" : "a5876677-f4ca-4df8-a301-d4e27b935071",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you availing any social security schemes",
+        "uuid" : "5b99afca-55eb-4793-824b-361d94d5c3d7"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name of  the  social security scheme",
+      "uuid" : "c1ec2b02-c7f1-49ca-b365-e03d485f5323",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name the  social security scheme",
+        "uuid" : "a7815743-9b97-4631-9df7-a5a982ca3b2a"
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are you availing any social security schemes').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "031066d8-cf7d-457f-a9ff-641ace8c978b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify social security scheme",
+        "uuid" : "003d18b4-2f1f-4fa8-97fd-5049c83eb1f0"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Name the  social security scheme').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Transport facility",
+      "uuid" : "de2f1bc8-1558-447f-874c-05b80ce098cb",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Transport facility",
+        "uuid" : "19df1265-d795-4f29-94a9-422f1bef645b"
+      },
+      "displayOrder" : 4.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Electronic gadgets",
+      "uuid" : "d33876ee-95ff-4562-a78d-a1a6222dad9d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Electronic gadgets",
+        "uuid" : "ed7fa0bb-ba46-4a2f-bf3e-4005ea4c046c"
+      },
+      "displayOrder" : 5.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Do you have any of these facilities",
+      "uuid" : "ca542e14-55f5-4a65-acf7-f7024d1c57aa",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Do you have any of these facilities",
+        "uuid" : "00177962-6242-48e0-8bf7-9bc879bdb976"
+      },
+      "displayOrder" : 6.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Any vital events",
+      "uuid" : "a396d915-17f5-4cbc-8e1c-621e15831b60",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any vital events",
+        "uuid" : "eb52fe79-3b96-4b3f-8bc6-ddda16746eed"
+      },
+      "displayOrder" : 7.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Any member of your family working abroad?",
+      "uuid" : "d815ec1c-cec1-49e5-bd07-a5e9343d6861",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any member of your family working abroad?",
+        "uuid" : "2457b432-21ab-4636-8551-b4682c51bb40"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Provide name and place of work",
+      "uuid" : "34f07f46-7775-4166-801d-e55095ac4b51",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Provide name and place of work",
+        "uuid" : "f0a15451-6e52-4d2d-b893-0f74ec662560"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Any member of your family working abroad?').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\n\"use strict\";\n({params, imports}) => {\n    const Encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({Encounter});\n    const encounterEarliestDate = Encounter.earliestVisitDateTime;\n    const earliestDate = imports.moment(Encounter.encounterDateTime).add('1', 'year').toDate();\n    const maxDate = imports.moment(earliestDate).add('15', 'days').toDate();\n\n    if (!_.isNil(encounterEarliestDate)) {\n        scheduleBuilder.add({\n            name: 'Household Survey',\n            encounterType: 'Household Survey',\n            earliestDate: earliestDate,\n            maxDate: maxDate\n\n        });\n    }\n\n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

@@ -72,7 +72,7 @@
     } ]
   } ],
   "decisionRule" : "",
-  "visitScheduleRule" : "\"use strict\";\n({params, imports}) => {\n    const Encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({Encounter});\n\n    const reason = Encounter.findCancelEncounterObservationReadableValue(\"Reason Of Cancellation survey\");\n    const encDate=Encounter.earliestVisitDateTime;\n    const earliestDate=imports.moment(encDate).add('1', 'year').toDate();\n    const maxDate = imports.moment(earliestDate).add('15', 'days').toDate();\n    console.log(\"======>Enconter\",Encounter);\n   \n    \n    if (reason=='Other' ) {\n        scheduleBuilder.add({\n            name: Encounter.name,\n            encounterType:Encounter.encounterType.name,\n            earliestDate: earliestDate,\n            maxDate\n        });\n    }\n    return scheduleBuilder.getAll();\n};",
+  "visitScheduleRule" : "\n\"use strict\";\n({params, imports}) => {\n    const Encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({Encounter});\n    const reason = Encounter.findCancelEncounterObservationReadableValue(\"Reason Of Cancellation survey\");\n    const encDate = Encounter.earliestVisitDateTime;\n    const earliestDate = imports.moment(encDate).add('1', 'year').toDate();\n    const maxDate = imports.moment(earliestDate).add('15', 'days').toDate();\n\n    if (reason == 'Other') {\n        scheduleBuilder.add({\n            name: Encounter.name,\n            encounterType: Encounter.encounterType.name,\n            earliestDate: earliestDate,\n            maxDate\n        });\n    }\n    return scheduleBuilder.getAll();\n};",
   "validationRule" : "",
   "checklistsRule" : ""
 }

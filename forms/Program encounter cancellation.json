@@ -1,0 +1,51 @@
+{
+  "name" : "Program encounter cancellation",
+  "uuid" : "27050df1-caf6-46b5-909c-c508f2b956bb",
+  "formType" : "ProgramEncounterCancellation",
+  "formElementGroups" : [ {
+    "uuid" : "f3830eb6-b233-452b-a76d-f9bfadb1814a",
+    "name" : "Details",
+    "displayOrder" : 1.0,
+    "display" : "Details",
+    "formElements" : [ {
+      "name" : "Dummy",
+      "uuid" : "2e9d8a0a-23cd-47bd-9ea9-529abc72a0d7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Dummy",
+        "uuid" : "2aefc479-7123-4867-9ff8-a8e2f6b31b43"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false,
+      "voided" : true
+    }, {
+      "name" : "Reason Of Cancellation",
+      "uuid" : "ecbb6cc8-4309-49a1-b5aa-3d47d9743272",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason Of Cancellation",
+        "uuid" : "5592def2-fe5e-4234-9253-ca5fd0322e26"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other Reason of Cancellation",
+      "uuid" : "a44a742e-c255-4e25-8930-acd752c7f350",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Reason of Cancellation",
+        "uuid" : "8263f129-5851-4f9d-a909-818dacacd862"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInCancelEncounter('Reason Of Cancellation').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\n\"use strict\";\n({params, imports}) => {\n    const Encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({Encounter});\n   // const reason = Encounter.findCancelEncounterObservationReadableValue(\"Reason Of Cancellation\");\n    const encDate = Encounter.earliestVisitDateTime;\n    const earliestDate = imports.moment(encDate).add('6', 'months').toDate();\n    const maxDate = imports.moment(earliestDate).add('15', 'days').toDate();\n\n\n        scheduleBuilder.add({\n            name: Encounter.name,\n            encounterType: Encounter.encounterType.name,\n            earliestDate: earliestDate,\n            maxDate\n        });\n  \n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

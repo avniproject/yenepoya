@@ -1,0 +1,236 @@
+{
+  "name" : "Household Registration",
+  "uuid" : "9f3c4fbc-06ed-4434-933d-d985f3153f22",
+  "formType" : "IndividualProfile",
+  "formElementGroups" : [ {
+    "uuid" : "99b1386d-16e6-41fa-b906-5efbb3e1821e",
+    "name" : "Identification",
+    "displayOrder" : 1.0,
+    "display" : "Identification",
+    "formElements" : [ {
+      "name" : "Name of the surveillance Unit",
+      "uuid" : "daff433f-27c5-4cc2-88b3-0623951cff33",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the surveillance Unit",
+        "uuid" : "1de1bfa2-030a-4ccb-8381-ee5105048fa2"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "Name of the panchayat/Ward",
+      "uuid" : "ef7737d7-50d3-4cc5-a260-5cf28f8c96e2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the panchayat/Ward",
+        "uuid" : "673a87ab-78cd-42a3-a6cf-47761c8beffe"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "landmark",
+      "uuid" : "a387d284-1d95-4681-b402-28b5e614b85e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "landmark",
+        "uuid" : "ef182a85-8f38-418e-bf0e-fcf2c3c655f0"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name of the PHC/UPHC",
+      "uuid" : "18662001-7551-4a6b-8f00-545d347d798e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the PHC/UPHC",
+        "uuid" : "1948be58-d42e-4313-8ec5-ac9ca87eb399"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Other",
+      "uuid" : "e5af1250-40a7-4628-a60b-502bafff20bc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Other",
+        "uuid" : "7868f697-abc9-4f49-8a0d-3deab5679502"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Name of the PHC/UPHC').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Name of the sub centre",
+      "uuid" : "fe9f7045-12dd-4967-a0a2-7db67170010c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the sub centre",
+        "uuid" : "e9ce5187-db1e-40cf-ad42-4b1c27d553f8"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Household number",
+      "uuid" : "20f86176-9003-4af7-b6e7-2c80d98db8d1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Household number",
+        "uuid" : "558469e8-d993-45ec-9d9b-f019c3642bab"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name of the head of the family",
+      "uuid" : "1cc71119-8e2b-441b-94a5-2b1832e7818d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the head of the family",
+        "uuid" : "6633afc7-d0e4-4427-87d4-277d8942ff48"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "Gender of HoF",
+      "uuid" : "7d7482b6-0b20-49c7-8735-cf47375e7879",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Gender of HoF",
+        "uuid" : "83fbfa4c-164e-4eb2-b207-d9263c1b3b4d"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "Type of family",
+      "uuid" : "8feef173-8d0b-4aa5-98a0-77cccb0beb2a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of family",
+        "uuid" : "52a8b9a2-499b-4362-a95f-4df018cd644a"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Total Income",
+      "uuid" : "22d32cb4-9e83-44a1-904b-11d82159dcca",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Total Income",
+        "uuid" : "752cf346-243e-447a-a973-53891cb110b0"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Contact Number",
+      "uuid" : "82bef0de-0f7a-4123-8cfa-49728a41fab4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Contact Number",
+        "uuid" : "b8f2d179-0638-4016-afa2-a2bbf0f48e6a"
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "validFormat" : {
+        "regex" : "^[0-9]{10}$",
+        "descriptionKey" : "Required10Digits"
+      },
+      "mandatory" : true
+    }, {
+      "name" : "Mother Tongue",
+      "uuid" : "94f1f4c5-f650-44c1-ad88-3f24be21766d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Mother Tongue",
+        "uuid" : "57251d49-3cfb-4e49-a053-7364a663bf1d"
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "51529001-ebf5-4784-8899-36a506d3050b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other mother tongue",
+        "uuid" : "f2058089-18f8-4442-84cf-94cf1cea28a6"
+      },
+      "displayOrder" : 14.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Mother Tongue').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Which religion do you practice?",
+      "uuid" : "7eece645-ed24-42d9-a481-df7e6051377f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Which religion do you practice?",
+        "uuid" : "60320b20-433d-4167-84e2-5cea3351739f"
+      },
+      "displayOrder" : 15.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "You belong to which social class?",
+      "uuid" : "a42ad1b3-84c5-4893-a15c-f738dfbf2888",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "You belong to which social class?",
+        "uuid" : "26024a7b-b664-4eef-90e4-1fe23283378f"
+      },
+      "displayOrder" : 16.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "26d5b627-3099-4f38-b441-7fc52fb09fe1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other social class",
+        "uuid" : "81323643-274c-4831-9d1a-a17e2dfcd225"
+      },
+      "displayOrder" : 17.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('You belong to which social class?').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Are you resident of this area for more than 1 year",
+      "uuid" : "32ce7535-9e8c-436f-89c4-1535614b1270",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you resident of this area for more than 1 year",
+        "uuid" : "2253872c-c629-4f6f-96bc-72ba23892290"
+      },
+      "displayOrder" : 18.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Type of Ration card",
+      "uuid" : "876c4a38-489b-4380-a743-ef39ffc73073",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of Ration card",
+        "uuid" : "49344ffb-d10c-4e30-a284-356396970bcf"
+      },
+      "displayOrder" : 19.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\n\"use strict\";\n({params, imports}) => {\n    const Encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({Encounter});\n    const earliestDate = Encounter.registrationDate;\n    const maxDate = imports.moment(earliestDate).add('15', 'days').toDate();\n    const registrationDate = imports.moment(Encounter.registrationDate).format(\"MM DD YYYY\");\n    const currentDate = imports.moment().format(\"MM DD YYYY\");\n    if (registrationDate >= currentDate) {\n        scheduleBuilder.add({\n            name: 'Household Survey',\n            encounterType: 'Household Survey',\n            earliestDate: earliestDate,\n            maxDate: maxDate\n        });\n    }\n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

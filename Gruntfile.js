@@ -13,13 +13,22 @@ module.exports = IDI.configure(
                 "dev": ["users/admin-user.json"]
             },
             forms: [
-                "forms/householdRegistartion.json",
-                "forms/individualRegistartion.json",
-                "forms/householdSurvey.json",
-                "forms/individualSurvey.json",
-                "forms/encounterSurveyCancelForm.json",
-                "forms/historyOfFeverCancelForm.json",
-                "forms/historyOfFever.json"
+                "forms/Household Registration.json",
+                "forms/Individual Registration Form.json",
+                "forms/Household Survey.json",
+                "forms/Individual Survey.json",
+                "forms/Encounter survey cancel.json",
+                "forms/Fever Survey cancel form.json",
+                "forms/History of Fever.json",
+                "forms/Diabetes Enrolment.json",
+                "forms/Diabetes Followup.json",
+                "forms/Hypertension Enrolment.json",
+                "forms/Hypertension Followup.json",
+                "forms/NCD Enrolment.json",
+                "forms/NCD Followup.json",
+                "forms/Program encounter cancellation.json",
+                "forms/Program exit form.json"
+
 
 
             ],
@@ -35,6 +44,7 @@ module.exports = IDI.configure(
             locations: ["metadata/location.json"],
             programs: ["programs.json"],
             encounterTypes: ["encounterTypes.json"],
+            genders: ["genders.json"],
             operationalEncounterTypes: ["operationalEncounterTypes.json"],
             operationalPrograms: ["operationalPrograms.json"],
             subjectTypes: ["subjectTypes.json"],
@@ -43,7 +53,7 @@ module.exports = IDI.configure(
                 "dev": ["users/dev-users.json"]
             },
             rules: [
-                "./rules.js"
+                // "./rules.js"
             ],
             organisationSql: [
                 /* "create_organisation.sql"*/

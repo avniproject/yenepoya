@@ -1,0 +1,380 @@
+{
+  "name" : "Individual Survey",
+  "uuid" : "03d87073-88cf-48c7-aa89-c8167b57d938",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "22615e81-469c-4ae1-86b4-ffa6e3775b48",
+    "name" : "Individual Status",
+    "displayOrder" : 1.0,
+    "display" : "Individual Status",
+    "formElements" : [ {
+      "name" : "Educational status",
+      "uuid" : "4b701362-ff01-4798-84fa-b1f279eb1dcc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Educational status",
+        "uuid" : "a6a6d4c0-4339-4ef0-b152-6d1c23eaf7c2"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "62fdee74-97ac-4bb8-84ad-9de5ddeb8bb3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Other educational status",
+        "uuid" : "a44678fd-ee6d-4dc5-b103-f5534eb0f338"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Educational status').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    }, {
+      "name" : "Occupational status",
+      "uuid" : "054c25af-8c07-4566-b9e4-7b9c82145ddf",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Occupational status",
+        "uuid" : "ab095140-b090-4f59-98ac-89b6479df471"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Relationship with HoF",
+      "uuid" : "a78d2f7a-9814-4473-be86-7eb89259aa8e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Relationship with HoF",
+        "uuid" : "6515f6f3-6174-4977-a3b1-29d8f0d0f080"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "Marital status",
+      "uuid" : "2f652d84-426b-46fd-b470-868bc78ee090",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Marital status",
+        "uuid" : "ca9eab9a-da29-4775-b08b-029998c817d0"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "2c41d19f-a8d2-411e-84df-c3f0c407b508",
+    "name" : "Health status",
+    "displayOrder" : 2.0,
+    "display" : "Health status",
+    "formElements" : [ {
+      "name" : "Are you a known case of any chronic illness?",
+      "uuid" : "56eceebd-e7db-4c76-942a-e2ddac65e86f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you a known case of any chronic illness?",
+        "uuid" : "1f51e7f7-6db0-41ea-a372-e7b553ccb857"
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "ca0633e7-47dc-4377-8faf-f3179327b1d0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify  known case of chronic illness",
+        "uuid" : "caa23e49-901e-43ac-a246-33a16e83493a"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are you a known case of any chronic illness?').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    }, {
+      "name" : "whether you had any illness in last two weeks?",
+      "uuid" : "39bf9993-7ce3-46aa-a48d-4b5da9c1345e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "whether you had any illness in last two weeks?",
+        "uuid" : "11713bd0-3ce6-4e0a-b65d-4f86f03a16db"
+      },
+      "displayOrder" : 3.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "d1eb2d8a-9ec3-427a-b6f5-199b26be39d8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify illness in last two weeks",
+        "uuid" : "9b12024d-08e0-486b-b4b9-ddc21b6f199d"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('whether you had any illness in last two weeks?').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    }, {
+      "name" : "Do you have any disability?",
+      "uuid" : "9c9df4e4-664d-4fbc-997e-8f33c3bada8e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Do you have any disability?",
+        "uuid" : "6c4b205c-c1d8-4c15-abbf-dc983765ed00"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify",
+      "uuid" : "d0f417f0-9b86-4e95-bcc7-be2d91f3e54e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Other disabilities",
+        "uuid" : "92d215ef-06a6-4991-9f9b-f989c1488919"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Do you have any disability?').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    }, {
+      "name" : "Are you a eligible couple?",
+      "uuid" : "6bed10bf-a92c-41c8-84e1-0f1c30de134e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you a eligible couple?",
+        "uuid" : "ac7f30a6-066b-4b15-b18f-9ccd4646fb7a"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Family planning methods practices",
+      "uuid" : "37ae26bf-25bf-466f-84d8-01fea32a7e53",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family planning methods practices",
+        "uuid" : "59dcf8c7-c11a-4cf7-acb0-d91ebca4bda2"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are you a eligible couple?').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    }, {
+      "name" : "Are you pregnant?",
+      "uuid" : "dc843bb1-21b7-4766-b942-8c99c965d12f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you pregnant?",
+        "uuid" : "4986aa3a-1afd-43ae-9080-a74521433e22"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  //const individual = params.entity;\n  const formElement = params.formElement;\n  const programEncounter = params.entity;\n   \n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  \n  statusBuilder.show().when.valueInEncounter('Marital status').containsAnswerConceptName(\"Married\")\n  .and.whenItem(programEncounter.individual.isFemale()).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() > 15).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() < 49).is.truthy;\n \nreturn statusBuilder.build();\n \n};",
+      "mandatory" : true
+    }, {
+      "name" : "Weeks of pregnancy",
+      "uuid" : "02ae4443-606b-4d31-bc85-1adeb2f612b9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weeks of pregnancy",
+        "uuid" : "dccc664e-aa4d-421b-854a-84de70a528c4"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are you pregnant?').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    }, {
+      "name" : "Are you postnatal mother?",
+      "uuid" : "ddf9b4fb-a562-4200-9608-aa02045aff0c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you postnatal mother?",
+        "uuid" : "df999329-6353-42ad-a5d5-a5ee42d58023"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  //const individual = params.entity;\n  const formElement = params.formElement;\n  const programEncounter = params.entity;\n   \n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  \n  statusBuilder.show().when.valueInEncounter('Marital status').containsAnswerConceptName(\"Married\")\n  .and.whenItem(programEncounter.individual.isFemale()).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() > 15).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() < 49).is.truthy;\n \nreturn statusBuilder.build();\n \n};",
+      "mandatory" : true
+    }, {
+      "name" : "How many days/weeks?",
+      "uuid" : "ac9f1e19-e9a1-4a94-9fd3-fcb485f7a672",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "How many days/weeks?",
+        "uuid" : "16008929-a77d-450f-a8f9-b052228bde65"
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are you postnatal mother?').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    }, {
+      "name" : "Current Status of the individual",
+      "uuid" : "4ce753be-e3fe-49dc-bfc8-e6f4b1af7a69",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Current Status of the individual",
+        "uuid" : "0c1b1cdc-93f5-40ae-a609-e5e5fb6c70e9"
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "2476c1d3-b275-4e69-80f6-1c1d3cd645e6",
+    "name" : "Symptomps",
+    "displayOrder" : 3.0,
+    "display" : "Symptomps",
+    "formElements" : [ {
+      "name" : "History of fever in last 15 days",
+      "uuid" : "860529dd-2838-4642-b166-79fa427a2912",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "History of fever in last 15 days",
+        "uuid" : "59d2e12f-1d6d-4fac-9d9a-cae3ca021269"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Anyone in the family currently suffering from TB?",
+      "uuid" : "d21045ea-e1c4-40d7-8be6-1cc74ecacc5d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Anyone in the family currently suffering from TB?",
+        "uuid" : "49b0721f-74a7-49f9-9ad7-224d1b177888"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Are you currently taking anti TB treatment?",
+      "uuid" : "a29c6c24-ff18-4c25-8b1c-7fc83a58c644",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you currently taking anti TB treatment?",
+        "uuid" : "86a71b99-0c10-493d-ad97-656ac55c0401"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Have you suffered from TB in the last 5 years?",
+      "uuid" : "6ca6be69-d883-4609-b8bd-e63237c21fb8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Have you suffered from TB in the last 5 years?",
+        "uuid" : "1df01bab-167a-4d80-b266-0bd13be7755a"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Cough for > 2 weeks duration",
+      "uuid" : "428d5690-5480-4735-9176-088074bc2269",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Cough for > 2 weeks duration",
+        "uuid" : "c8c1517c-4bf7-4819-acb6-a134cd4a1f45"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Fever for > 2 weeks duration",
+      "uuid" : "ee5da5ad-8024-477c-8b44-f9f431c4ab5a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Fever for > 2 weeks duration",
+        "uuid" : "96aad817-132f-4d60-beb3-c3b51224187a"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Blood in sputum",
+      "uuid" : "72d3d7af-054e-4c09-8402-4622ea3fea22",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood in sputum",
+        "uuid" : "276908b7-c533-4026-93d9-6fa4bfc3c349"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Significant weight loss (>5 kgs in last 3 months)",
+      "uuid" : "25ad33f0-aa37-44a7-843c-c8634cab0f05",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Significant weight loss (>5 kgs in last 3 months)",
+        "uuid" : "56bd61e4-48e4-4094-8337-4fcfc89d7910"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Night sweats",
+      "uuid" : "4547cfa6-f222-40b6-9be0-abc457d793d1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Night sweats",
+        "uuid" : "41e1e731-c438-4fec-aab2-32d9690f8a7b"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Shortness of breath",
+      "uuid" : "32ab5bf6-699e-4c12-baba-57bed4ef3423",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Shortness of breath",
+        "uuid" : "61224d6c-711a-47b8-a757-656b8e55400d"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "History of fits",
+      "uuid" : "6484f0fc-09ad-4110-abe7-ccc86ee2ad71",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "History of fits",
+        "uuid" : "68ca9b7e-76e4-4b55-8324-18e28cac8e83"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "History of flu like symptoms in last 6 weeks",
+      "uuid" : "d6f9f5a1-fb9b-4f1a-acd6-7270ad306823",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "History of flu like symptoms in last 6 weeks",
+        "uuid" : "13a1a45c-c32e-4bcf-804e-dc2915a00a8f"
+      },
+      "displayOrder" : 12.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If you have flu like illness then have you consulted any doctor?",
+      "uuid" : "d080a23c-18dc-4651-878e-74eeca76e675",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If you have flu like illness then have you consulted any doctor?",
+        "uuid" : "814af782-b235-4c50-a7c6-6a40398f1a0e"
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('History of flu like symptoms in last 6 weeks').containsAnswerConceptNameOtherThan(\"No symptoms\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\n\"use strict\";\n({params, imports}) => {\n    const Encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({Encounter});\n    const encounterEarliestDate = Encounter.earliestVisitDateTime;\n    const earliestDate = imports.moment(Encounter.encounterDateTime).add('1', 'year').toDate();\n    const maxDate = imports.moment(earliestDate).add('15', 'days').toDate();\n    const feverStatus = Encounter.getObservationReadableValue('History of fever in last 15 days');\n    const earliestDateFever = Encounter.encounterDateTime;\n    const maxDateFever = imports.moment(earliestDateFever).add('15', 'days').toDate();\n\n    if (!_.isNil(encounterEarliestDate)) {\n        scheduleBuilder.add({\n            name: 'Individual Survey',\n            encounterType: 'Individual Survey',\n            earliestDate: earliestDate,\n            maxDate\n        });\n        if (feverStatus === 'Yes') {\n            scheduleBuilder.add({\n                name: 'History of Fever',\n                encounterType: 'History of Fever',\n                earliestDate: earliestDateFever,\n                maxDate\n            });\n        }\n    }\n\n\n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

@@ -1,0 +1,268 @@
+{
+  "name" : "History of Fever",
+  "uuid" : "2370b525-0e55-47aa-b475-ba5d2564c04e",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "74e2cd24-70ae-42c5-83e7-6a8bc5e0419e",
+    "name" : "Information",
+    "displayOrder" : 1.0,
+    "display" : "Information",
+    "formElements" : [ {
+      "name" : "History of fever in last 15 days",
+      "uuid" : "41aa6b23-feb9-4ecd-8e91-0c1575f7c888",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "History of fever in last 15 days",
+        "uuid" : "59d2e12f-1d6d-4fac-9d9a-cae3ca021269"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Have you consulted the doctor",
+      "uuid" : "1dd05703-a8e8-448e-8272-2d6df6ee5e79",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Have you consulted the doctor",
+        "uuid" : "900b7304-3936-4ad7-bd59-3bf42a4cde64"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('History of fever in last 15 days').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Was malaria/dengue test done",
+      "uuid" : "5cc09c02-0d79-4216-8106-ad85d308a49e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Was malaria/dengue test done",
+        "uuid" : "38f12c1d-2536-4932-84f5-cf977a4a0e25"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Have you consulted the doctor').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Specify the test result",
+      "uuid" : "5b5989de-df0e-419c-8e5c-8e4a765ad9ce",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify the test result",
+        "uuid" : "08110960-7364-43ed-8990-afdcb47e975b"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Was malaria/dengue test done').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Treatment taken",
+      "uuid" : "748bb55a-3abc-46de-bd6f-27703e0674df",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Treatment taken",
+        "uuid" : "87fa4bfa-c929-4c12-a328-bc2620b7db79"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Specify the test result').containsAnswerConceptNameOtherThan(\"Negative\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Type of health facility utilized for diagnosis",
+      "uuid" : "b24cce5f-94e7-4e2f-b978-904d5109ce24",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of health facility utilized for diagnosis",
+        "uuid" : "b0a3576e-3379-4105-afec-c37dddde80db"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Type of health facility utilized for treatment",
+      "uuid" : "46b512d5-bd6f-48be-97d8-85c45a5f70ba",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of health facility utilized for treatment",
+        "uuid" : "0b267bfd-6c1a-43dd-a953-0b31e300ba6d"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Have you taken the full course of treatment",
+      "uuid" : "2fe1e8f6-4de3-446e-93eb-94bd08985241",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Have you taken the full course of treatment",
+        "uuid" : "162edcfb-6c3f-49a6-9024-608ff7f74c35"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Treatment taken').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    }, {
+      "name" : "Are you practising any method of prevention against mosquito",
+      "uuid" : "3019aab7-bba3-431e-9271-9697b14f40a8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you practising any method of prevention against mosquito",
+        "uuid" : "a75978ab-b246-4500-b212-dc25e327c09a"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Mention the method",
+      "uuid" : "5d33f400-e961-4b5b-a4c2-c88e7bb3b9f6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Mention the method",
+        "uuid" : "9baaadc0-479b-44b3-87d3-4abc0fdb67a4"
+      },
+      "displayOrder" : 10.0,
+      "type" : "MultiSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are you practising any method of prevention against mosquito').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Any collection of water in surrounding",
+      "uuid" : "398641f8-63d0-4e0e-aec9-b68ee88a9116",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any collection of water in surrounding",
+        "uuid" : "b82ec179-0c04-4c9c-a2e9-ed94834084a4"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Surce of water collection",
+      "uuid" : "258dc843-8af3-486c-91c0-9bb321fe9b71",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Surce of water collection",
+        "uuid" : "0afc590f-5a27-44f2-94a6-28c2f8bc92a7"
+      },
+      "displayOrder" : 12.0,
+      "type" : "MultiSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Any collection of water in surrounding').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    }, {
+      "name" : "Have you been provided LLIN by Govt. health workers",
+      "uuid" : "149d688b-d4a2-4e3a-a2fe-91cd00b61293",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Have you been provided LLIN by Govt. health workers",
+        "uuid" : "12eb504d-f7c2-4e27-a690-3030511f135a"
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Are you utilizing the LLIN?",
+      "uuid" : "dac8cb40-6d10-4b58-9296-0bac34c644be",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you utilizing the LLIN?",
+        "uuid" : "687e6e05-4103-4270-b76c-18521df8cf1f"
+      },
+      "displayOrder" : 14.0,
+      "type" : "SingleSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Have you been provided LLIN by Govt. health workers').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Any Govt. health worker/MPW visited your house in past 3 months",
+      "uuid" : "2731c532-569c-4810-8268-6ed309005371",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any Govt. health worker/MPW visited your house in past 3 months",
+        "uuid" : "cc9fcdfe-8465-4ff8-b28d-f3ad246b499b"
+      },
+      "displayOrder" : 15.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Are you aware of any mosquito control measures undertaken by the Govt. health worker other than the LLIN ( examples)?",
+      "uuid" : "aed32fa0-68cb-4879-abce-83ace21f7930",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you aware of any mosquito control measures undertaken by the Govt. health worker other than the LLIN ( examples)?",
+        "uuid" : "2a19b6ac-896e-42e5-b3d6-c45896a7df35"
+      },
+      "displayOrder" : 16.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "What mosquito control measures are you aware of? mention.",
+      "uuid" : "d5a7c7f4-cafa-4e3e-b2b4-9be5c029d75e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What mosquito control measures are you aware of? mention.",
+        "uuid" : "3eeacd19-1d67-4a1a-9d39-0c919968cbf8"
+      },
+      "displayOrder" : 17.0,
+      "type" : "MultiSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are you aware of any mosquito control measures undertaken by the Govt. health worker other than the LLIN ( examples)?').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Type of health care utilization",
+      "uuid" : "6f7328ed-f98e-4bac-bc84-2bcc5ef512f9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of health care utilization",
+        "uuid" : "9b031289-dcfa-4ccd-a868-cee9d2d33cba"
+      },
+      "displayOrder" : 18.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If government, then",
+      "uuid" : "c93755af-919c-48a2-81e9-ad2a9579dd51",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "History of fever, health care utilization, Government facility",
+        "uuid" : "92ca8513-897b-4d73-8b55-fbed59f19b56"
+      },
+      "displayOrder" : 19.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If private, then",
+      "uuid" : "8f9ef4b8-97f8-4d0b-89ad-ad79787dcb47",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "History of fever, health care utilization, Private facility",
+        "uuid" : "8290ba03-6b33-4f5e-a8af-a22a376099ad"
+      },
+      "displayOrder" : 20.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Are you aware of 24*7 hour Mobile Malaria Detection Unit?",
+      "uuid" : "6b3dac41-1e07-4da4-b34f-09e8c7fefbbe",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you aware of 24*7 hour Mobile Malaria Detection Unit?",
+        "uuid" : "44154176-fc48-4ae6-9fe6-d534ad7f7c93"
+      },
+      "displayOrder" : 21.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Have you utilized 24*7 hour Mobile Malaria Detection Unit?",
+      "uuid" : "a5d014b8-8b00-4931-8c28-ce29176cb8a7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Have you utilized 24*7 hour Mobile Malaria Detection Unit?",
+        "uuid" : "e224f89f-f9a1-4731-9c05-3ce61d46eef5"
+      },
+      "displayOrder" : 22.0,
+      "type" : "SingleSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are you aware of 24*7 hour Mobile Malaria Detection Unit?').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

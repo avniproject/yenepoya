@@ -1,0 +1,39 @@
+{
+  "name" : "Program exit form",
+  "uuid" : "38fe5e3b-5245-4f29-8c23-3b5943e1370f",
+  "formType" : "ProgramExit",
+  "formElementGroups" : [ {
+    "uuid" : "9ed4ca1c-1bd4-4fc8-94a2-1b3504b2806d",
+    "name" : "Details",
+    "displayOrder" : 1.0,
+    "display" : "Details",
+    "formElements" : [ {
+      "name" : "Reason Of Exit",
+      "uuid" : "d49c6cfa-ee5d-4acd-8b66-7fc083f0c127",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason Of Exit",
+        "uuid" : "7230bee3-5904-4817-a4a3-3facbf281d4b"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other reason of exit",
+      "uuid" : "a8069ef7-029b-4556-80ba-71d3f6fce5d8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other reason of exit",
+        "uuid" : "05c2fc68-ed8f-46ca-a4a0-67a5f7627d0e"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "\n'use strict';\n({params, imports}) => {\n  const programExit = params.entity;\n  const formElement = params.formElement;\n  const exitReason = programExit.findExitObservation('Reason Of Exit');\n  const readableValue = _.isNil(exitReason) ? undefined : exitReason.getReadableValue();\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, readableValue === 'Other', null);;\n};",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

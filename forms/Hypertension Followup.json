@@ -1,0 +1,231 @@
+{
+  "name" : "Hypertension Followup",
+  "uuid" : "ff60e9ab-f47e-4096-8e7b-e6775a378d56",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "fad7f22e-dad9-4a71-906b-fe506a903db4",
+    "name" : "Details",
+    "displayOrder" : 1.0,
+    "display" : "Details",
+    "formElements" : [ {
+      "name" : "Adherence to medications (takes medications  at least 90% of the times)",
+      "uuid" : "a2134fb8-bf7e-47b6-a35a-7a2d4a637443",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Adherence to medications",
+        "uuid" : "1341e326-d2b5-4cbc-b09a-108e10a84808"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Do you check your foot daily",
+      "uuid" : "44852ce4-eee9-4c91-9401-ad402dc0006a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Do you check your foot daily",
+        "uuid" : "644a912d-beb9-4140-a629-c6639b304e67"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "What about your physical activity",
+      "uuid" : "65bb671e-4dde-4b1e-9fcd-f00936ab72b0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What about your physical activity",
+        "uuid" : "d7e707f2-4c4e-47e8-8907-7dab7770fc89"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Alcohol use in last 1 year",
+      "uuid" : "72de850c-2a21-4d9d-8f68-4f3b6b95af44",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Alcohol use in last 1 year",
+        "uuid" : "29e472b6-0478-4de5-89f9-d7a4a373ff42"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "What about the use of tobacco (both smoke and smokeless)?",
+      "uuid" : "858be166-bc12-4bdd-ba99-2000de341a69",
+      "keyValues" : [ {
+        "key" : "ExcludedAnswers",
+        "value" : [ "started new" ]
+      } ],
+      "concept" : {
+        "name" : "What about the use of tobacco",
+        "uuid" : "ec3e201d-f4de-4705-b954-02c750ca5063"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Eating of fast foods like fried and bakery items weekly",
+      "uuid" : "5c6cc9bc-d35a-4f93-8f0a-b3ed1dbe9902",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Eating of fast foods like fried and bakery items weekly",
+        "uuid" : "182d8aef-512d-4d50-8fd8-95cb01f3ccbe"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Preference for food with excess salt (Like Pickle, fried fish)",
+      "uuid" : "c0398a7e-1ebf-44cd-834e-444ba686f7ec",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "preference for food with excess salt",
+        "uuid" : "fc5fb2db-c47c-43c3-9872-c64fd0ec23e4"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "71af2609-62d1-4d2b-8d88-5a00ea37e273",
+    "name" : "Details",
+    "displayOrder" : 2.0,
+    "display" : "Details",
+    "formElements" : [ {
+      "name" : "Habit of vegetable intake atleast 3 servings daily",
+      "uuid" : "c28e62fa-f131-4e62-aed1-0522b1cca426",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Habit of vegetable intake atleast 3 servings daily",
+        "uuid" : "d31251b0-616a-47d5-84d6-7b5fad85baad"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Habit of fruit intake atleast 3 servings daily",
+      "uuid" : "17e16040-1171-4292-8b3b-44680376fd64",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Habit of fruit intake atleast 3 servings daily",
+        "uuid" : "2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Height",
+      "uuid" : "a1bb573e-9788-4174-9eee-7aa682a8a4d3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Height in CM",
+        "uuid" : "80d88c23-1e44-423a-96bf-5ddaf105042e"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Weight",
+      "uuid" : "c314d52d-603f-490b-9339-3f14873afd52",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "e9190320-3211-4d9f-a72c-288f42cf830c"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Mid arm circumference",
+      "uuid" : "8b3e92a8-a2f2-4aae-b690-731f84e186d5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Mid arm circumference",
+        "uuid" : "44a608f8-54d3-4a8b-96b8-7175c65e1d01"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Waist circumference",
+      "uuid" : "f6b827e9-8f97-46ec-8f25-d31f869861c4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Waist circumference",
+        "uuid" : "a9f45a38-99a7-4fd8-8e28-1291434eace0"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Waist circumference is abnormal",
+      "uuid" : "3540ddfb-80fc-47a5-9b9d-8204987110cb",
+      "keyValues" : [ {
+        "key" : "ExcludedAnswers",
+        "value" : [ "Yes" ]
+      } ],
+      "concept" : {
+        "name" : "Abnormal waist circumference",
+        "uuid" : "c78e883a-60de-4629-8d85-8e4512cd13d5"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n\n  if(programEncounter.individual.isFemale()){\n statusBuilder.show().when.valueInEncounter('Waist circumference').greaterThanOrEqualTo(88);\n }\n if(programEncounter.individual.isMale()){\n statusBuilder.show().when.valueInEncounter('Waist circumference').greaterThanOrEqualTo(102);\n }\n    return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Waist circumference is normal",
+      "uuid" : "13f5aeee-b985-4946-abae-c3cecc34c677",
+      "keyValues" : [ {
+        "key" : "ExcludedAnswers",
+        "value" : [ "Yes" ]
+      } ],
+      "concept" : {
+        "name" : "Waist circumference is normal",
+        "uuid" : "1cae9bd0-0dba-4479-954a-2d569c58d711"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n\n  if(programEncounter.individual.isFemale()){\n statusBuilder.show().when.valueInEncounter('Waist circumference').lessThan(88);\n }\n if(programEncounter.individual.isMale()){\n statusBuilder.show().when.valueInEncounter('Waist circumference').lessThan(102);\n }\n    return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Blood Pressure (systolic)",
+      "uuid" : "25bbc994-62a8-4c2d-9b13-5aefed350083",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (systolic)",
+        "uuid" : "7a320ebc-366d-4301-8e8b-71edcbaad78d"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Blood Pressure (systolic)",
+      "uuid" : "6e9215d2-8e86-4464-9812-619e2d3230c4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (Diastolic)",
+        "uuid" : "f9469b1c-47f5-494f-8e1e-e5dbb5c87b51"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Whether your blood pressure is under control",
+      "uuid" : "e7163202-0fd5-4947-bb2b-be4c79c05032",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Whether your blood pressure is under control",
+        "uuid" : "8bc6db2a-388d-4028-a995-865ff018c8f6"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const complicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'Mid-Arm circumference status'\n    });\n    const midArmCircumference = programEncounter.getObservationValue('Mid arm circumference');\n\n    if (!_.isNil(midArmCircumference)) {\n        if (midArmCircumference < 19) {\n            complicationsBuilder\n                .addComplication(\"severe malnutrition\");\n        } else if (midArmCircumference >= 19 && midArmCircumference < 22) {\n            complicationsBuilder\n                .addComplication(\"moderate malnutrition\");\n        } else if (midArmCircumference == 22) {\n            complicationsBuilder\n                .addComplication(\"mild malnutrition\");\n        }else if(midArmCircumference >= 23) {\n            complicationsBuilder\n                .addComplication(\"Normal\");\n        }\n    }\n    \n    const isFemale = programEncounter.individual.isFemale();\n    const isMale = programEncounter.individual.isMale();\n    const waistCirumference = programEncounter.getObservationValue('Waist circumference');\n    \n    \n    const waistComplicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'Waist circumference status'\n    });\n      \n     if(isMale){ \n      if( waistCirumference < 102){\n        waistComplicationsBuilder\n                .addComplication(\"Normal\");\n       }\n      if(waistCirumference >= 102){\n          waistComplicationsBuilder\n                .addComplication(\"Abnormal\");\n       }\n       \n     }\n      if(isFemale){ \n      if( waistCirumference < 88){\n        waistComplicationsBuilder\n                .addComplication(\"Normal\");\n       }\n      if(waistCirumference >= 88){\n          waistComplicationsBuilder\n                .addComplication(\"Abnormal\");\n       }\n       \n     }\n\n\n    decisions.encounterDecisions.push(complicationsBuilder.getComplications());\n    decisions.encounterDecisions.push(waistComplicationsBuilder.getComplications());\n    return decisions;\n};",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n      programEncounter\n  });\n    const encounterEarliestDate = programEncounter.earliestVisitDateTime;\n const earliestDate=imports.moment(encounterEarliestDate).add(6,'months').toDate();\n  if (!_.isNil(encounterEarliestDate)) {\n  scheduleBuilder\n    .add({\n      name: \"Hypertension Followup\",\n      encounterType: \"HT Followup\",\n      earliestDate: earliestDate,\n      maxDate: imports.moment(earliestDate).add(15, 'days').toDate()\n    });\n    }       \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

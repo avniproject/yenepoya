@@ -1,0 +1,274 @@
+{
+  "name" : "NCD Followup",
+  "uuid" : "02ad8b64-3ab8-4729-a3ec-e4cdcd3cacbe",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "8f6f8717-91ee-4af0-97e9-52cc9ededeba",
+    "name" : "NCD risk factors",
+    "displayOrder" : 1.0,
+    "display" : "NCD risk factors",
+    "formElements" : [ {
+      "name" : "Smoking or consume smokeless products (tobacco/guthka/khaini)",
+      "uuid" : "fe39246c-18b5-4c49-812d-d1f25b40049b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Smoking or consume smokeless products",
+        "uuid" : "0fc3b733-0ee0-4554-b316-e5e29c1978d2"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Alcohol consumption",
+      "uuid" : "79602d56-d859-4513-8dbe-5efa20c752d2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Alcohol consumption",
+        "uuid" : "ac4d5664-0b5f-467f-a3c9-c0e4c8c221b7"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Height",
+      "uuid" : "2642af01-89b0-4bfe-81cd-85727fb078e3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Height in CM",
+        "uuid" : "80d88c23-1e44-423a-96bf-5ddaf105042e"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Weight",
+      "uuid" : "331bfcbf-c2ba-4a42-a625-39a816f92c9d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "e9190320-3211-4d9f-a72c-288f42cf830c"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Mid arm circumference",
+      "uuid" : "b4b8b86c-1810-4e20-8eb3-e3cef4a559f5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Mid arm circumference",
+        "uuid" : "44a608f8-54d3-4a8b-96b8-7175c65e1d01"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Waist circumference",
+      "uuid" : "c1246afe-c4e9-4ebc-ba0a-6fbe4286d537",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Waist circumference",
+        "uuid" : "a9f45a38-99a7-4fd8-8e28-1291434eace0"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Waist circumference is abnormal",
+      "uuid" : "f8639991-d379-4ace-8b76-ff72fa0b764f",
+      "keyValues" : [ {
+        "key" : "ExcludedAnswers",
+        "value" : [ "Yes" ]
+      } ],
+      "concept" : {
+        "name" : "Abnormal waist circumference",
+        "uuid" : "c78e883a-60de-4629-8d85-8e4512cd13d5"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n\n  if(programEncounter.individual.isFemale()){\n statusBuilder.show().when.valueInEncounter('Waist circumference').greaterThanOrEqualTo(88);\n }\n if(programEncounter.individual.isMale()){\n statusBuilder.show().when.valueInEncounter('Waist circumference').greaterThanOrEqualTo(102);\n }\n    return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Waist circumference is normal",
+      "uuid" : "6951b429-196f-41ae-b87b-9216c1933efe",
+      "keyValues" : [ {
+        "key" : "ExcludedAnswers",
+        "value" : [ "Yes" ]
+      } ],
+      "concept" : {
+        "name" : "Waist circumference is normal",
+        "uuid" : "1cae9bd0-0dba-4479-954a-2d569c58d711"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n\n  if(programEncounter.individual.isFemale()){\n statusBuilder.show().when.valueInEncounter('Waist circumference').lessThan(88);\n }\n if(programEncounter.individual.isMale()){\n statusBuilder.show().when.valueInEncounter('Waist circumference').lessThan(102);\n }\n    return statusBuilder.build();\n};\n",
+      "mandatory" : false
+    }, {
+      "name" : "Physical activity for >150 min/week",
+      "uuid" : "d0f3eb4b-3f90-401f-af90-fb613202232e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Physical activity for >150 min/week",
+        "uuid" : "dfdc75c1-5a47-4aae-887c-3ee9f050d75e"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Are you practicing any Yoga",
+      "uuid" : "188c2513-09df-40c2-ae0d-4601c07d607e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you practicing any Yoga",
+        "uuid" : "3e092c91-8e32-42b1-ac26-045b846e3893"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Family histroy of high BP, DM or heart disease",
+      "uuid" : "8aff5645-fce8-4b08-a9d0-c9651c140d39",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family histroy of high BP, DM or heart disease",
+        "uuid" : "8f67d53a-07bf-4652-b7ad-f2f6ef6bdfa2"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "a988b858-58ba-4653-b5f3-e3727c2a1d03",
+    "name" : "Cancer warning signs - General",
+    "displayOrder" : 2.0,
+    "display" : "Cancer warning signs - General",
+    "formElements" : [ {
+      "name" : "Difficulty in opening mouth",
+      "uuid" : "63523ebd-f393-4e99-b613-82701806215c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Difficulty in opening mouth",
+        "uuid" : "83f01615-04b1-4115-84a5-48e89c9aff54"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Ulcer/ patch/ growth in mouth that has not healed for 2 weeks",
+      "uuid" : "9719c124-c49a-45fd-9d44-3c14b62ae914",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Ulcer/ patch/ growth in mouth that has not healed for 2 weeks",
+        "uuid" : "5e4d8a9d-28a5-49ec-a4c9-cd9cfd4dd134"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Whether change in the tone of voice",
+      "uuid" : "9be8172e-e737-4ba4-a419-0d2de6e9d9a7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Whether change in the tone of voice",
+        "uuid" : "89bf3601-d8ab-4353-85a3-8070a959394e"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "69edadc4-f118-450c-8a49-d07ed5bfd4a4",
+    "name" : "Cancer warning signs - Female",
+    "displayOrder" : 3.0,
+    "display" : "Cancer warning signs - Female",
+    "formElements" : [ {
+      "name" : "Lump in the breast",
+      "uuid" : "f076c2ef-ffc4-4e3a-a79c-fb0f21462e4a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Lump in the breast",
+        "uuid" : "d9f8ee0c-960f-43d7-9b02-aa2557a9aa10"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().whenItem(programEncounter.individual.isFemale()).is.truthy;\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Blood stained discharge from nipple",
+      "uuid" : "96d08e91-b193-4560-a25c-7da938cb69d4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood stained discharge from nipple",
+        "uuid" : "74745370-ee9e-4f58-b25e-57ebac69d75d"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().whenItem(programEncounter.individual.isFemale()).is.truthy;\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Change in shape and size of breast",
+      "uuid" : "a970b7c4-80c1-42cb-b6e6-df5166593a5c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Change in shape and size of breast",
+        "uuid" : "2da75202-7f70-4a76-a8eb-cd9b289cdf8a"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().whenItem(programEncounter.individual.isFemale()).is.truthy;\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Bleeding between periods",
+      "uuid" : "0c2c3287-8b50-4a99-b5c2-037541718257",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Bleeding between periods",
+        "uuid" : "45f02196-217b-4772-8085-3d17c41244da"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().whenItem(programEncounter.individual.isFemale()).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() < 49).is.truthy;\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Bleeding after menopause",
+      "uuid" : "26d96072-a7f3-4b9c-87f4-0fa1fce10a8c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Bleeding after menopause",
+        "uuid" : "d1774f83-ee28-41b8-9cb8-309098ee0f16"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().whenItem(programEncounter.individual.isFemale()).is.truthy\n  .and.whenItem(programEncounter.individual.getAgeInYears() >= 49).is.truthy;\n  return statusBuilder.build();\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Bleeding after intercourse",
+      "uuid" : "642ec76c-91d6-4feb-b84b-f5a2495bd626",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Bleeding after intercourse",
+        "uuid" : "82efa85a-46a9-4c75-8c53-c488b8c48c54"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().whenItem(programEncounter.individual.isFemale()).is.truthy;\n  return statusBuilder.build();\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Foul smelling vaginal discharge",
+      "uuid" : "6a9d4b48-879b-4894-9df9-9eb2c674827e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Foul smelling vaginal discharge",
+        "uuid" : "84a99b8c-f9bb-4436-9d83-d79a60a0b450"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().whenItem(programEncounter.individual.isFemale()).is.truthy;\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "\n\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const complicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'Mid-Arm circumference status'\n    });\n    const midArmCircumference = programEncounter.getObservationValue('Mid arm circumference');\n\n    if (!_.isNil(midArmCircumference)) {\n        if (midArmCircumference < 19) {\n            complicationsBuilder\n                .addComplication(\"severe malnutrition\");\n        } else if (midArmCircumference >= 19 && midArmCircumference < 22) {\n            complicationsBuilder\n                .addComplication(\"moderate malnutrition\");\n        } else if (midArmCircumference == 22) {\n            complicationsBuilder\n                .addComplication(\"mild malnutrition\");\n        }else if(midArmCircumference >= 23) {\n            complicationsBuilder\n                .addComplication(\"Normal\");\n        }\n    }\n    \n    \n    const isFemale = programEncounter.individual.isFemale();\n    const isMale = programEncounter.individual.isMale();\n    const waistCirumference = programEncounter.getObservationValue('Waist circumference');\n    const waistComplicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'Waist circumference status'\n    });\n      \n     if(isMale){ \n      if( waistCirumference < 102){\n        waistComplicationsBuilder\n                .addComplication(\"Normal\");\n       }\n      if(waistCirumference >= 102){\n          waistComplicationsBuilder\n                .addComplication(\"Abnormal\");\n       }\n       \n     }\n      if(isFemale){ \n      if( waistCirumference < 88){\n        waistComplicationsBuilder\n                .addComplication(\"Normal\");\n       }\n      if(waistCirumference >= 88){\n          waistComplicationsBuilder\n                .addComplication(\"Abnormal\");\n       }\n       \n     }\n     \n\n   const riskComplicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'Risk Score'\n    });\n    \n    const age = programEncounter.individual.getAgeInYears();\n    const smoking = programEncounter.getObservationReadableValue('Smoking or consume smokeless products');\n    const alcohol = programEncounter.getObservationReadableValue('Alcohol consumption');\n    \n    const physicalActivity = programEncounter.getObservationReadableValue('Physical activity for >150 min/week');\n    const familyHistory = programEncounter.getObservationReadableValue('Family histroy of high BP, DM or heart disease');\n    \n    let ageScore = 0;\n    let smokingScore = 0;\n    let alcoholScore = 0;\n    let waistCirumferenceScore = 0;\n    let physicalActivityScore = 0;\n    let familyHistoryScore = 0;\n\n\n    if (age >= 30 && age <= 39) {\n        ageScore = 0;\n    } else if (age >= 40 && age <= 49) {\n        ageScore = 1;\n    } else if (age >= 50) {\n        ageScore = 2;\n    }\n\n\n    if (smoking == 'Never') {\n        smokingScore = 0;\n    } else if (smoking == 'Consumed in past/ sometimes now') {\n        smokingScore = 1;\n    } else if (smoking == 'Daily') {\n        smokingScore = 2;\n    }\n\n\n    if (alcohol == 'No') {\n        alcoholScore = 0;\n    } else if (alcohol == 'Yes') {\n        alcoholScore = 1;\n    }\n\n\n    if (isFemale) {\n        if (waistCirumference <= 80) {\n            waistCirumferenceScore = 0;\n        } else if (waistCirumference >= 81 && waistCirumference <= 90) {\n            waistCirumferenceScore = 1;\n        } else if (waistCirumference > 90) {\n            waistCirumferenceScore = 2;\n        }\n    }\n    if (isMale) {\n        if (waistCirumference <= 90) {\n            waistCirumferenceScore = 0;\n        } else if (waistCirumference >= 91 && waistCirumference <= 100) {\n            waistCirumferenceScore = 1;\n        } else if (waistCirumference > 100) {\n            waistCirumferenceScore = 2;\n        }\n    }\n\n\n    if (!_.isNil(physicalActivity)) {\n        if (physicalActivity == 'No') {\n            physicalActivityScore = 1;\n        } else if (physicalActivity == 'Yes') {\n            physicalActivityScore = 0;\n        }\n    }\n\n    if (!_.isNil(familyHistory)) {\n        if (physicalActivity == 'No') {\n            familyHistoryScore = 0;\n        } else if (familyHistory == 'Yes') {\n            familyHistoryScore = 2;\n        }\n    }\n\n\n    const totalScore = smokingScore + alcoholScore + ageScore + waistCirumferenceScore + physicalActivityScore + familyHistoryScore;\n    if (!_.isNil(totalScore)) {\n      //  const riskValue = `Risk Score ${totalScore}`;\n        riskComplicationsBuilder\n            .addComplication(totalScore);\n\n    }\n\n    decisions.encounterDecisions.push(complicationsBuilder.getComplications());\n    decisions.encounterDecisions.push(riskComplicationsBuilder.getComplications());\n     decisions.encounterDecisions.push(waistComplicationsBuilder.getComplications());\n    return decisions;\n};",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n    programEncounter\n  });\n  const encounterEarliestDate = programEncounter.earliestVisitDateTime;\n  const earliestDate=imports.moment(encounterEarliestDate).add(6,'months').toDate();\n if (!_.isNil(encounterEarliestDate)) {\n  scheduleBuilder\n     .add({\n      name: \"NCD Followup\",\n      encounterType: \"NCD Followup\",\n      earliestDate: earliestDate,\n      maxDate: imports.moment(earliestDate).add(15, 'days').toDate()\n    });\n   }        \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}
