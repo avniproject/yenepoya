@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cancer Warning Signs - Female - Linelist" pageWidth="1684" pageHeight="720" orientation="Landscape" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05cc1aaf-5713-4062-a0f6-7bab099e5fb6">
+	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+	<property name="ireport.jasperserver.user" value="joya"/>
+	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Cancer_Warning_Signs___Female___Linelist_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Cancer_Warning_Signs___Female___Linelist"/>
+	<template><![CDATA["repo:/Templates/Styles/Linelist.jrtx"]]></template>
+	<parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_AGE_GROUP" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_DYNAMIC_WHERE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["and 1=1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_CHARACTERISTIC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select concat(followup."Ind.first_name", ' ', followup."Ind.last_name")      "Name",
+       to_char(age(followup."Ind.date_of_birth"), 'yy.mm')              "Age",
+       followup."Ind.date_of_birth"                                     "DOB",
+       followup."Ind.Gender"                                            "Gender",
+       survey."Ind.surveillance_unit"                                    "Surveillance Unit",
+       survey."Ind.panchayat"                                            "Panchayat",
+       survey."Ind.village"                                              "Village",
+       survey."Ind.Contact Number"                                    "Mobile Number",
+       household.observations ->> '558469e8-d993-45ec-9d9b-f019c3642bab' "Household Number",
+       case
+           when gs.group_role_id = gr.id then 'Yes'
+           else 'No' end                                                 "Head Of Household",
+       followup."Enc.Blood stained discharge from nipple"               "Blood stained discharge from nipple",
+       followup."Enc.Change in shape and size of breast"                       "Change in shape and size of breast",
+       followup."Enc.Bleeding after menopause"                                 "Bleeding after menopause",
+       followup."Enc.Bleeding between periods"                                       "Bleeding between periods",
+       followup."Enc.Bleeding after intercourse"                                            "Bleeding after intercourse",
+       followup."Enc.Foul smelling vaginal discharge"                                       "Foul smelling vaginal discharge"
+from yenepoya_ncd_followup_view followup
+         left join yenepoya_individual_survey_view survey on followup."Ind.Id" = survey."Ind.Id"
+         left join yenepoya_ncd_enrolment_view enrolment on followup."Ind.Id" = enrolment."Ind.Id"
+         left join group_subject gs on followup."Ind.Id" = gs.member_subject_id
+         left join individual household on gs.group_subject_id = household.id
+         left join group_role gr on gs.group_role_id = gr.id and gr.role = 'Head of household'
+where followup."Ind.Gender" = 'Female'
+  and enrolment."Enl.is_voided" = false
+  and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+  and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+  and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+  and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+    and (($P{PARAM_CHARACTERISTIC} notnull and (
+   ($P{PARAM_CHARACTERISTIC} like '%breast%' and
+    ( enrolment."Enl.Blood stained discharge from nipple" = 'Yes' OR enrolment."Enl.Change in shape and size of breast" = 'Yes'))
+  or ($P{PARAM_CHARACTERISTIC} like '%endometrium%' and
+    ( enrolment."Enl.Bleeding after menopause" = 'Yes' OR enrolment."Enl.Bleeding between periods" = 'Yes'))
+   or ($P{PARAM_CHARACTERISTIC} like '%cervix%' and
+     ( enrolment."Enl.Bleeding after intercourse" = 'Yes' OR enrolment."Enl.Foul smelling vaginal discharge" = 'Yes'))
+     )) or ($P{PARAM_CHARACTERISTIC} isnull))
+    $P!{PARAM_DYNAMIC_WHERE}
+;]]>
+	</queryString>
+	<field name="Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+	</field>
+	<field name="Age" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Age"/>
+	</field>
+	<field name="DOB" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="DOB"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_enrolment_view"/>
+	</field>
+	<field name="Gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_enrolment_view"/>
+	</field>
+	<field name="Surveillance Unit" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Surveillance Unit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Panchayat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Panchayat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Village" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Village"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Mobile Number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Mobile Number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_enrolment_view"/>
+	</field>
+	<field name="Household Number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Household Number"/>
+	</field>
+	<field name="Head Of Household" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Head Of Household"/>
+	</field>
+	<field name="Blood stained discharge from nipple" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Blood stained discharge from nipple"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_enrolment_view"/>
+	</field>
+	<field name="Change in shape and size of breast" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Change in shape and size of breast"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_enrolment_view"/>
+	</field>
+	<field name="Bleeding after menopause" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Bleeding after menopause"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_enrolment_view"/>
+	</field>
+	<field name="Bleeding between periods" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Bleeding between periods"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_enrolment_view"/>
+	</field>
+	<field name="Bleeding after intercourse" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Bleeding after intercourse"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_enrolment_view"/>
+	</field>
+	<field name="Foul smelling vaginal discharge" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Foul smelling vaginal discharge"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_enrolment_view"/>
+	</field>
+	<background>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ReportTitle" x="0" y="0" width="1644" height="50" uuid="ccc013a8-2e32-4c97-acca-cfac4c04bef7"/>
+				<text><![CDATA[Cancer Warning Signs - Female - Linelist]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="48" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ColumnHeader" x="0" y="0" width="102" height="48" uuid="b46ca40c-d7e3-4583-acd4-562ef713833f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6dd97abd-5b64-42cf-828d-93ff76f8232f"/>
+				</reportElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="102" y="0" width="102" height="48" uuid="600e0985-381a-46f1-8ee3-c87669a6a02e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1121132-5ae9-43ff-8f54-37801a5f66e2"/>
+				</reportElement>
+				<text><![CDATA[Age]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="204" y="0" width="102" height="48" uuid="0f70c216-dddd-4417-8125-df24d159ebdb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1580731a-06b6-498b-84f1-f5930bfe2255"/>
+				</reportElement>
+				<text><![CDATA[DOB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="306" y="0" width="102" height="48" uuid="9967bece-1a26-4e8e-a2f1-96c9c0a146b6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c61289d-b1cf-47b1-986f-aef3bf49098f"/>
+				</reportElement>
+				<text><![CDATA[Gender]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="408" y="0" width="102" height="48" uuid="e96dc9f4-4f99-4291-8e6c-ea2658c5b2d9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34c21bd0-a66d-4581-92e1-8ee01b44e311"/>
+				</reportElement>
+				<text><![CDATA[Surveillance Unit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="510" y="0" width="102" height="48" uuid="c7b97208-dbfd-4e1d-8016-a0936ac073c4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59848393-922a-473b-ba33-ddd9cce26d31"/>
+				</reportElement>
+				<text><![CDATA[Panchayat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="612" y="0" width="102" height="48" uuid="87d82af9-d3d0-45b7-8e74-464e600153e5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e66f5d51-12cb-48c4-9b42-01d9cd97ba00"/>
+				</reportElement>
+				<text><![CDATA[Village]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="714" y="0" width="102" height="48" uuid="a879fa2d-7313-49d8-9098-70324b5bcd59">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62ed58af-197a-4335-974d-6e3e6e5a2d51"/>
+				</reportElement>
+				<text><![CDATA[Mobile Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="816" y="0" width="102" height="48" uuid="31cd8cad-fc55-4a01-acad-838f44091346">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4d7312ba-64ff-44fe-aa36-740936b4984b"/>
+				</reportElement>
+				<text><![CDATA[Household Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="918" y="0" width="102" height="48" uuid="7607e4d4-fc76-470f-ba6f-423b7905bb47">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c67c183-39ee-4be6-b963-1d7e82d5b7bf"/>
+				</reportElement>
+				<text><![CDATA[Head Of Household]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1020" y="0" width="102" height="48" uuid="6440ee5d-eaae-4a6e-90df-ff16b0540fb9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2635e0e1-00fe-4ddc-bb77-53be4939f078"/>
+				</reportElement>
+				<text><![CDATA[Blood stained discharge from nipple]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1122" y="0" width="102" height="48" uuid="510d92f9-68f9-4413-9b15-596a7dcb9587">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b9683b17-eec1-4f15-b365-c23f38638eb5"/>
+				</reportElement>
+				<text><![CDATA[Change in shape and size of breast]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1224" y="0" width="102" height="48" uuid="0a2d0932-59ed-43bb-aee1-c4c6561edf00">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ab5a0a6d-dda4-44fb-b036-75a92aa36d7f"/>
+				</reportElement>
+				<text><![CDATA[Bleeding after menopause]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1326" y="0" width="102" height="48" uuid="6f15bc98-21bd-4415-8f02-6bb304d18068">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9485eb8f-5752-450b-844e-6fddccc69af0"/>
+				</reportElement>
+				<text><![CDATA[Bleeding between periods]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1428" y="0" width="102" height="48" uuid="8de9527f-3025-4194-a6e7-08bdfd1577e1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d943459c-df9e-4e1c-b495-7df094804dbc"/>
+				</reportElement>
+				<text><![CDATA[Bleeding after intercourse]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1530" y="0" width="102" height="48" uuid="f1b15c39-37e7-4346-8042-302a6e5a2f92">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64a19385-700b-44b0-bb0a-c4929915e922"/>
+				</reportElement>
+				<text><![CDATA[Foul smelling vaginal discharge]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<textField>
+				<reportElement style="DataRowElement" x="0" y="0" width="102" height="60" uuid="7152429d-2020-49d6-8d3f-236a992e2ab6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6dd97abd-5b64-42cf-828d-93ff76f8232f"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="102" y="0" width="102" height="60" uuid="a9646b2a-9b28-4469-a669-55a88b133ba5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1121132-5ae9-43ff-8f54-37801a5f66e2"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Age}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="204" y="0" width="102" height="60" uuid="a546f8e7-a5db-4bf8-8c28-e565dae3ceed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1580731a-06b6-498b-84f1-f5930bfe2255"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{DOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="306" y="0" width="102" height="60" uuid="cc54437d-6c49-4b3d-b1f2-702915760c0a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c61289d-b1cf-47b1-986f-aef3bf49098f"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="408" y="0" width="102" height="60" uuid="a0793e76-0e2d-41fc-8893-94095cd13308">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34c21bd0-a66d-4581-92e1-8ee01b44e311"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Surveillance Unit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="510" y="0" width="102" height="60" uuid="8884fba2-575f-4bb9-a8b4-b5b32b80098f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59848393-922a-473b-ba33-ddd9cce26d31"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Panchayat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="612" y="0" width="102" height="60" uuid="5dfd63b5-412a-4b68-a726-d460a5ea4a88">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e66f5d51-12cb-48c4-9b42-01d9cd97ba00"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Village}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="714" y="0" width="102" height="60" uuid="96eef82e-14ce-42f1-b4c0-dcb639271acd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62ed58af-197a-4335-974d-6e3e6e5a2d51"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Mobile Number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="816" y="0" width="102" height="60" uuid="f43716c5-99ef-49f7-bd51-3a395ce37de9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4d7312ba-64ff-44fe-aa36-740936b4984b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Household Number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="918" y="0" width="102" height="60" uuid="f380bd68-b89a-478a-873b-645515bde36d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c67c183-39ee-4be6-b963-1d7e82d5b7bf"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Head Of Household}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1020" y="0" width="102" height="60" uuid="18925649-59e7-4e07-bb81-2c39b31ebec2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2635e0e1-00fe-4ddc-bb77-53be4939f078"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Blood stained discharge from nipple}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1122" y="0" width="102" height="60" uuid="bc0b3228-8806-4aab-bf10-68dbebda1052">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b9683b17-eec1-4f15-b365-c23f38638eb5"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Change in shape and size of breast}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1224" y="0" width="102" height="60" uuid="aac52016-8688-4216-b4d6-1417fd15adda">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ab5a0a6d-dda4-44fb-b036-75a92aa36d7f"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Bleeding after menopause}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1326" y="0" width="102" height="60" uuid="7e64a0b6-ecd6-4cc6-aaf9-1324f0e1277e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9485eb8f-5752-450b-844e-6fddccc69af0"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Bleeding between periods}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1428" y="0" width="102" height="60" uuid="c8b8c553-5c62-4577-b9f0-6f395fda138b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d943459c-df9e-4e1c-b495-7df094804dbc"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Bleeding after intercourse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1530" y="0" width="102" height="60" uuid="18080c34-0818-44b5-81df-95f71b93f90c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64a19385-700b-44b0-bb0a-c4929915e922"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Foul smelling vaginal discharge}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

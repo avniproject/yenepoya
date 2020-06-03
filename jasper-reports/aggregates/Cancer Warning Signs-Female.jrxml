@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cancer Warning Signs-Female" pageWidth="1684" pageHeight="720" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa1a9231-754c-4c0f-8a57-3e034206cd5a">
+	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+	<property name="ireport.jasperserver.user" value="joya"/>
+	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Aggregates/Cancer_Warning_Signs_Female"/>
+	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Aggregates/Cancer_Warning_Signs_Female_files/main_jrxml"/>
+	<template><![CDATA["repo:/Templates/Styles/AggregateReportStyles.jrtx"]]></template>
+	<parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_AGE_GROUP" class="java.util.List" nestedType="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[with cancer_warning_signs_female as (
+    select count(*)
+           filter (where "Enc.Blood stained discharge from nipple" = 'Yes' or
+                         "Enc.Change in shape and size of breast" = 'Yes') as "breastSign",
+           count(*)
+           filter (where "Enc.Bleeding after menopause" = 'Yes' or
+                         "Enc.Bleeding between periods" = 'Yes' )          as "endometriusSign",
+           count(*)
+           filter (where "Enc.Bleeding after intercourse" = 'Yes' or
+                         "Enc.Foul smelling vaginal discharge" = 'Yes')    as "cervixSign",
+
+           (select count(*)
+            from yenepoya_ncd_enrolment_view
+            where "Ind.Gender" = 'Female'
+              and "Enl.is_voided" = false)                                 as "total_enrolment"
+
+    from yenepoya_ncd_followup_view
+             left join address_level village on "Ind.address_id" = village.id
+             left join address_level panchayat on village.parent_id = panchayat.id
+             left join address_level surv_unit on panchayat.parent_id = surv_unit.id
+    where "rank" = 1
+      and $X{IN,surv_unit.title ,PARAM_SURVEILLANCE_UNIT}
+      and $X{IN,panchayat.title,PARAM_PANCHAYAT_NAME}
+      and $X{IN,yhr.village.title,PARAM_VILLAGE_NAME}
+      and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+
+)
+
+select unnest(
+               array ['Cancer warning signs - breast',
+                   'Cancer warning signs - endometrium',
+                   'Cancer warning signs - cervix'])                as "Characteristics",
+       unnest(
+               array ["breastSign","endometriusSign","cervixSign"]) as "Number",
+       unnest(array [round(("breastSign"::numeric / total_enrolment * 100), 2),
+           round(("endometriusSign"::numeric / total_enrolment * 100), 2),
+           round(("cervixSign"::numeric / total_enrolment * 100), 2)
+
+           ])                                                       as "Proportion"
+from cancer_warning_signs_female;]]>
+	</queryString>
+	<field name="Characteristics" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Charectiristics"/>
+	</field>
+	<field name="Number" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Number"/>
+	</field>
+	<field name="Proportion" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Proportion"/>
+	</field>
+	<background>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ReportTitle" x="0" y="0" width="1644" height="50" uuid="b41c1dbc-657e-4f9f-93da-2951563f95d4"/>
+				<text><![CDATA[Cancer Warning Signs-Female]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ColumnHeader" x="0" y="0" width="548" height="30" uuid="e030b3fe-5c33-42d8-acbb-eb2642647f48">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de8bc141-f992-4ae4-99e8-9592d3fc4a79"/>
+				</reportElement>
+				<text><![CDATA[Characteristics]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="548" y="0" width="548" height="30" uuid="37e5e38e-5661-4c8f-87bd-6c830af13475">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dcdea4ac-2389-4ddb-95b8-1f1262a88ce9"/>
+				</reportElement>
+				<text><![CDATA[Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1096" y="0" width="548" height="30" uuid="1698f3bb-b5ca-4705-a1aa-7f5c9b9abc39">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd12a252-84a2-482f-a0ff-e6137098d2b3"/>
+				</reportElement>
+				<text><![CDATA[Proportion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<textField>
+				<reportElement style="DataRowTextElement" x="0" y="0" width="548" height="60" uuid="20396759-4a48-4bcd-b2a3-36c4f3eb6d2b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de8bc141-f992-4ae4-99e8-9592d3fc4a79"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Characteristics}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="ReportExecution">
+				<reportElement style="DataRowElement" x="548" y="0" width="548" height="60" uuid="6a40dbcb-504d-44e9-b932-d5c6f64b5f70">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dcdea4ac-2389-4ddb-95b8-1f1262a88ce9"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
+				<hyperlinkWhenExpression><![CDATA[$F{Number} > 0]]></hyperlinkWhenExpression>
+				<hyperlinkParameter name="_report">
+					<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Cancer_Warning_Signs___Female___Linelist"]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_DATE_START">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_DATE_END">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_CHARACTERISTIC">
+					<hyperlinkParameterExpression><![CDATA[$F{Characteristics}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+			</textField>
+			<textField>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="1096" y="0" width="548" height="60" uuid="838f3de7-44ca-4852-b357-fb6f45a4588f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd12a252-84a2-482f-a0ff-e6137098d2b3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Proportion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
