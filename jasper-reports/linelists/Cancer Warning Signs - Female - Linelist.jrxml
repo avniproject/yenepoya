@@ -57,11 +57,11 @@
                     and $X{BETWEEN,followup."Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
                     and (($P{PARAM_CHARACTERISTIC} notnull and (
                       ($P{PARAM_CHARACTERISTIC} like '%breast%' and
-                      ( enrolment."Enl.Blood stained discharge from nipple" = 'Yes' OR enrolment."Enl.Change in shape and size of breast" = 'Yes'))
+                      ( followup."Enc.Blood stained discharge from nipple" = 'Yes' OR followup."Enc.Change in shape and size of breast" = 'Yes'))
                      or ($P{PARAM_CHARACTERISTIC} like '%endometrium%' and
-                      ( enrolment."Enl.Bleeding after menopause" = 'Yes' OR enrolment."Enl.Bleeding between periods" = 'Yes'))
+                      ( followup."Enc.Bleeding after menopause" = 'Yes' OR followup."Enc.Bleeding between periods" = 'Yes'))
                      or ($P{PARAM_CHARACTERISTIC} like '%cervix%' and
-                      ( enrolment."Enl.Bleeding after intercourse" = 'Yes' OR enrolment."Enl.Foul smelling vaginal discharge" = 'Yes'))
+                      ( followup."Enc.Bleeding after intercourse" = 'Yes' OR followup."Enc.Foul smelling vaginal discharge" = 'Yes'))
                       )) or ($P{PARAM_CHARACTERISTIC} isnull))
                       $P!{PARAM_DYNAMIC_WHERE}
               ) partitioned_data where visit_number = 1;]]>
