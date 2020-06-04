@@ -22,46 +22,49 @@
 		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[select concat(followup."Ind.first_name", ' ', followup."Ind.last_name")      "Name",
-       to_char(age(followup."Ind.date_of_birth"), 'yy.mm')              "Age",
-       followup."Ind.date_of_birth"                                     "DOB",
-       followup."Ind.Gender"                                            "Gender",
-       survey."Ind.surveillance_unit"                                    "Surveillance Unit",
-       survey."Ind.panchayat"                                            "Panchayat",
-       survey."Ind.village"                                              "Village",
-       survey."Ind.Contact Number"                                    "Mobile Number",
-       household.observations ->> '558469e8-d993-45ec-9d9b-f019c3642bab' "Household Number",
-       case
-           when gs.group_role_id = gr.id then 'Yes'
-           else 'No' end                                                 "Head Of Household",
-       followup."Enc.Blood stained discharge from nipple"               "Blood stained discharge from nipple",
-       followup."Enc.Change in shape and size of breast"                       "Change in shape and size of breast",
-       followup."Enc.Bleeding after menopause"                                 "Bleeding after menopause",
-       followup."Enc.Bleeding between periods"                                       "Bleeding between periods",
-       followup."Enc.Bleeding after intercourse"                                            "Bleeding after intercourse",
-       followup."Enc.Foul smelling vaginal discharge"                                       "Foul smelling vaginal discharge"
-from yenepoya_ncd_followup_view followup
-         left join yenepoya_individual_survey_view survey on followup."Ind.Id" = survey."Ind.Id"
-         left join yenepoya_ncd_enrolment_view enrolment on followup."Ind.Id" = enrolment."Ind.Id"
-         left join group_subject gs on followup."Ind.Id" = gs.member_subject_id
-         left join individual household on gs.group_subject_id = household.id
-         left join group_role gr on gs.group_role_id = gr.id and gr.role = 'Head of household'
-where followup."Ind.Gender" = 'Female'
-  and enrolment."Enl.is_voided" = false
-  and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
-  and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
-  and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
-  and $X{BETWEEN,followup."Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
-    and (($P{PARAM_CHARACTERISTIC} notnull and (
-   ($P{PARAM_CHARACTERISTIC} like '%breast%' and
-    ( enrolment."Enl.Blood stained discharge from nipple" = 'Yes' OR enrolment."Enl.Change in shape and size of breast" = 'Yes'))
-  or ($P{PARAM_CHARACTERISTIC} like '%endometrium%' and
-    ( enrolment."Enl.Bleeding after menopause" = 'Yes' OR enrolment."Enl.Bleeding between periods" = 'Yes'))
-   or ($P{PARAM_CHARACTERISTIC} like '%cervix%' and
-     ( enrolment."Enl.Bleeding after intercourse" = 'Yes' OR enrolment."Enl.Foul smelling vaginal discharge" = 'Yes'))
-     )) or ($P{PARAM_CHARACTERISTIC} isnull))
-    $P!{PARAM_DYNAMIC_WHERE}
-;]]>
+		<![CDATA[select * from (
+                  select concat(followup."Ind.first_name", ' ', followup."Ind.last_name")                        "Name",
+                         to_char(age(followup."Ind.date_of_birth"), 'yy.mm')                                     "Age",
+                         followup."Ind.date_of_birth"                                                            "DOB",
+                         followup."Ind.Gender"                                                                   "Gender",
+                         survey."Ind.surveillance_unit"                                                          "Surveillance Unit",
+                         survey."Ind.panchayat"                                                                  "Panchayat",
+                         survey."Ind.village"                                                                    "Village",
+                         survey."Ind.Contact Number"                                                             "Mobile Number",
+                         household.observations ->> '558469e8-d993-45ec-9d9b-f019c3642bab'                       "Household Number",
+                         case
+                             when gs.group_role_id = gr.id then 'Yes'
+                             else 'No' end                                                                       "Head Of Household",
+                         followup."Enc.Blood stained discharge from nipple"                                      "Blood stained discharge from nipple",
+                         followup."Enc.Change in shape and size of breast"                                       "Change in shape and size of breast",
+                         followup."Enc.Bleeding after menopause"                                                 "Bleeding after menopause",
+                         followup."Enc.Bleeding between periods"                                                 "Bleeding between periods",
+                         followup."Enc.Bleeding after intercourse"                                               "Bleeding after intercourse",
+                         followup."Enc.Foul smelling vaginal discharge"                                          "Foul smelling vaginal discharge",
+                         row_number()
+                         OVER (PARTITION BY followup."Ind.Id" ORDER BY survey."Enc.encounter_date_time" DESC) as visit_number
+                  from yenepoya_ncd_followup_view followup
+                           left join yenepoya_individual_survey_view survey on followup."Ind.Id" = survey."Ind.Id"
+                           left join yenepoya_ncd_enrolment_view enrolment on followup."Ind.Id" = enrolment."Ind.Id"
+                           left join group_subject gs on followup."Ind.Id" = gs.member_subject_id
+                           left join individual household on gs.group_subject_id = household.id
+                           left join group_role gr on gs.group_role_id = gr.id and gr.role = 'Head of household'
+                  where followup."Ind.Gender" = 'Female'
+                    and enrolment."Enl.is_voided" = false
+                    and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+                    and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+                    and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+                    and $X{BETWEEN,followup."Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+                    and (($P{PARAM_CHARACTERISTIC} notnull and (
+                      ($P{PARAM_CHARACTERISTIC} like '%breast%' and
+                      ( enrolment."Enl.Blood stained discharge from nipple" = 'Yes' OR enrolment."Enl.Change in shape and size of breast" = 'Yes'))
+                     or ($P{PARAM_CHARACTERISTIC} like '%endometrium%' and
+                      ( enrolment."Enl.Bleeding after menopause" = 'Yes' OR enrolment."Enl.Bleeding between periods" = 'Yes'))
+                     or ($P{PARAM_CHARACTERISTIC} like '%cervix%' and
+                      ( enrolment."Enl.Bleeding after intercourse" = 'Yes' OR enrolment."Enl.Foul smelling vaginal discharge" = 'Yes'))
+                      )) or ($P{PARAM_CHARACTERISTIC} isnull))
+                      $P!{PARAM_DYNAMIC_WHERE}
+              ) partitioned_data where visit_number = 1;]]>
 	</queryString>
 	<field name="Name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Name"/>
