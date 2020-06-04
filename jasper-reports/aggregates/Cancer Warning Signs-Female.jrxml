@@ -47,7 +47,7 @@
     where "rank" = 1
       and $X{IN,surv_unit.title ,PARAM_SURVEILLANCE_UNIT}
       and $X{IN,panchayat.title,PARAM_PANCHAYAT_NAME}
-      and $X{IN,yhr.village.title,PARAM_VILLAGE_NAME}
+      and $X{IN,village.title,PARAM_VILLAGE_NAME}
       and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
 
 )
