@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Linelist" pageWidth="1684" pageHeight="720" orientation="Landscape" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05cc1aaf-5713-4062-a0f6-7bab099e5fb6">
+	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/History_of_flu_like_symptoms_in_last_6_weeks___Line_list_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/History_of_flu_like_symptoms_in_last_6_weeks___Line_list"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="902"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="84"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="171"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="818"/>
+	<template><![CDATA["repo:/Templates/Styles/Linelist.jrtx"]]></template>
+	<parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_DYNAMIC_WHERE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["and 1=1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_APP_URL" class="java.lang.String">
+		<defaultValueExpression><![CDATA["https://staging.avniproject.org/#/app/subject?uuid="]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT *
+FROM (select concat(member."Ind.first_name", ' ', member."Ind.last_name")                                     "Name",
+             to_char(age(member."Ind.date_of_birth"), 'yy.mm')                                                "Age",
+             member."Ind.date_of_birth"                                                                       "DOB",
+             member."Ind.Gender"                                                                              "Gender",
+             member."Ind.surveillance_unit"                                                                   "Surveillance Unit",
+             member."Ind.panchayat"                                                                           "Panchayat",
+             member."Ind.village"                                                                             "Village",
+             member."Ind.Contact Number"                                                                      "Mobile Number",
+             household.observations ->> '558469e8-d993-45ec-9d9b-f019c3642bab'                                "Household Number",
+             case
+                 when gs.group_role_id = gr.id then 'Yes'
+                 else 'No' end                                                                                "Head Of Household",
+             member."Enc.History of flu like symptoms in last 6 weeks"                                        "Indicator",
+             'Click here' as "Open in WebApp",
+             member."Ind.uuid" as uuid,
+             row_number()
+             OVER (PARTITION BY member."Enc.Individual_id" ORDER BY member."Enc.encounter_date_time" desc) as visit_number
+      from yenepoya_individual_survey_view member
+               left join group_subject gs on member."Ind.Id" = gs.member_subject_id
+               left join individual household on gs.group_subject_id = household.id
+               left join group_role gr on gs.group_role_id = gr.id and gr.role = 'Head of household'
+    where $X{IN, member."Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
+        and $X{IN, member."Ind.panchayat", PARAM_PANCHAYAT_NAME}
+        and $X{IN, member."Ind.village", PARAM_VILLAGE_NAME}
+        and $X{IN, member."Ind.Gender", PARAM_GENDER_NAME}
+        and $X{BETWEEN, member."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+     ) partitioned_data
+WHERE visit_number = 1
+$P!{PARAM_DYNAMIC_WHERE};]]>
+	</queryString>
+	<field name="Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+	</field>
+	<field name="Age" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Age"/>
+	</field>
+	<field name="DOB" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="DOB"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Surveillance Unit" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Surveillance Unit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Panchayat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Panchayat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Village" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Village"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Mobile Number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Mobile Number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Household Number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Household Number"/>
+	</field>
+	<field name="Head Of Household" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Head Of Household"/>
+	</field>
+	<field name="Indicator" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Indicator"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+	</field>
+	<field name="Open in WebApp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Open in WebApp"/>
+	</field>
+	<field name="uuid" class="java.lang.String"/>
+	<variable name="COLUMN_URL" class="java.lang.String">
+		<variableExpression><![CDATA[$P{PARAM_APP_URL} + $F{uuid}]]></variableExpression>
+	</variable>
+	<background>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ReportTitle" x="0" y="0" width="1644" height="50" uuid="ccc013a8-2e32-4c97-acca-cfac4c04bef7"/>
+				<text><![CDATA[History of flu like symptoms in last 6 weeks - line list]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ColumnHeader" x="0" y="0" width="137" height="30" uuid="294e261d-9404-4b65-a69f-683ec53673b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93ef1017-e860-4ae6-8b3f-e13bdd615684"/>
+				</reportElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="137" y="0" width="137" height="30" uuid="383ac528-f6d8-4c7a-96c2-eabad742dbb5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8befef3d-7c11-4c44-80eb-c853a40c320f"/>
+				</reportElement>
+				<text><![CDATA[Age]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="274" y="0" width="137" height="30" uuid="623b3441-bf2c-4005-8597-da8d26211b81">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d893d9ce-c012-4cf5-963d-79019dbec672"/>
+				</reportElement>
+				<text><![CDATA[DOB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="411" y="0" width="137" height="30" uuid="77d7b5e4-bd10-4258-8ae5-ff6debc46a34">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e837297d-a0f4-4952-8c36-64e3d3fcae85"/>
+				</reportElement>
+				<text><![CDATA[Gender]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="548" y="0" width="137" height="30" uuid="0e6d73c5-acda-4afe-979b-2c6d8bc7a40b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="053755ec-7d85-48b8-a37e-9b477dc6fb55"/>
+				</reportElement>
+				<text><![CDATA[Surveillance Unit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="685" y="0" width="137" height="30" uuid="46b21acb-1acd-47cd-9dae-de602b0aa9fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2debaa30-8558-491a-9f8f-3759e654125b"/>
+				</reportElement>
+				<text><![CDATA[Panchayat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="822" y="0" width="137" height="30" uuid="b1c4a849-2e15-4156-975e-c289931a666e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06c12d7d-e6d8-44ba-9006-0298dcf82eaa"/>
+				</reportElement>
+				<text><![CDATA[Village]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="959" y="0" width="137" height="30" uuid="e8004f39-e646-4ac0-9c4a-0c645d912509">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f5258d9d-cb79-4f4a-9a78-1759573834e3"/>
+				</reportElement>
+				<text><![CDATA[Mobile Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1096" y="0" width="137" height="30" uuid="64ea6b8e-1653-48ef-9e7f-61e04c008a24">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7c34917-5223-4890-85d7-e2b311ce0f74"/>
+				</reportElement>
+				<text><![CDATA[Household Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1233" y="0" width="137" height="30" uuid="ef59c688-affc-4ce7-bb72-6f718650d750">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="90e62e7f-24f9-401d-9ae6-dc7d46af6e0a"/>
+				</reportElement>
+				<text><![CDATA[Head Of Household]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1370" y="0" width="137" height="30" uuid="06365606-47b6-4109-b159-e744981a08c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4467ed2a-4aa9-47f9-92e8-9e7c34b48f89"/>
+				</reportElement>
+				<text><![CDATA[Indicator]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="1507" y="0" width="137" height="30" uuid="eb2914c5-725f-4a3e-a508-fea8956c8bf1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="21c3bcc5-8bff-4651-b779-9c7a791b1e6d"/>
+				</reportElement>
+				<text><![CDATA[Open in WebApp]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<textField>
+				<reportElement style="DataRowElement" x="0" y="0" width="137" height="60" uuid="ab30968a-fd3a-4c5a-901d-c4930531fbab">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93ef1017-e860-4ae6-8b3f-e13bdd615684"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="137" y="0" width="137" height="60" uuid="69921d6e-afc8-4660-8efd-798433f18f29">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8befef3d-7c11-4c44-80eb-c853a40c320f"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Age}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="274" y="0" width="137" height="60" uuid="9e62088c-46b9-4b89-ad6c-26d608a4a614">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d893d9ce-c012-4cf5-963d-79019dbec672"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{DOB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="411" y="0" width="137" height="60" uuid="58fdf63e-48fd-4759-a0c2-debeb7f2dbc5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e837297d-a0f4-4952-8c36-64e3d3fcae85"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="548" y="0" width="137" height="60" uuid="24a8c707-04aa-4c53-b114-8607516d2705">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="053755ec-7d85-48b8-a37e-9b477dc6fb55"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Surveillance Unit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="685" y="0" width="137" height="60" uuid="c6f62acd-3349-4897-9476-2a78646cf916">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2debaa30-8558-491a-9f8f-3759e654125b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Panchayat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="822" y="0" width="137" height="60" uuid="72f91cc4-76ce-4992-806d-43f930d051c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06c12d7d-e6d8-44ba-9006-0298dcf82eaa"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Village}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="959" y="0" width="137" height="60" uuid="74eabda0-403c-40b3-8b99-34ac294c62d4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f5258d9d-cb79-4f4a-9a78-1759573834e3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Mobile Number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1096" y="0" width="137" height="60" uuid="bdd1013c-31e7-4e84-ab38-fe935743e8ec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7c34917-5223-4890-85d7-e2b311ce0f74"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Household Number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1233" y="0" width="137" height="60" uuid="1ba7ec3c-4f17-4d68-aa64-8f8da4f91536">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="90e62e7f-24f9-401d-9ae6-dc7d46af6e0a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Head Of Household}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1370" y="0" width="137" height="60" uuid="444dc7ea-596c-4a66-a320-932b0f351d71">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4467ed2a-4aa9-47f9-92e8-9e7c34b48f89"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Indicator}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="Reference" hyperlinkTarget="Blank">
+				<reportElement style="DataRowElement" x="1507" y="0" width="137" height="60" uuid="0798c0ac-8f44-4209-a5a5-76ee2bf9c0cd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="21c3bcc5-8bff-4651-b779-9c7a791b1e6d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Open in WebApp}]]></textFieldExpression>
+				<hyperlinkReferenceExpression><![CDATA[$V{COLUMN_URL}]]></hyperlinkReferenceExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
