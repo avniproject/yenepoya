@@ -1,17 +1,20 @@
 set role yenepoya;
 
+drop view if exists yenepoya_household_survey_view;
 create view yenepoya_household_survey_view as (
     SELECT individual.id                                                                        "Ind.Id",
            individual.address_id                                                                "Ind.address_id",
            individual.uuid                                                                      "Ind.uuid",
            individual.first_name                                                                "Ind.first_name",
            individual.last_name                                                                 "Ind.last_name",
-           g.name                                                                               "Ind.Gender",
            individual.date_of_birth                                                             "Ind.date_of_birth",
            individual.date_of_birth_verified                                                    "Ind.date_of_birth_verified",
            individual.registration_date                                                         "Ind.registration_date",
            individual.facility_id                                                               "Ind.facility_id",
            a.title                                                                              "Ind.Area",
+           village.title                                                                        "Ind.village",
+           panchayat.title                                                                      "Ind.panchayat",
+           surveillance_unit.title                                                              "Ind.surveillance_unit",
            individual.is_voided                                                                 "Ind.is_voided",
            oet.name                                                                             "Enc.Type",
            encounter.id                                                                         "Enc.Id",
@@ -142,8 +145,10 @@ create view yenepoya_household_survey_view as (
     FROM encounter encounter
              JOIN operational_encounter_type oet on encounter.encounter_type_id = oet.encounter_type_id
              JOIN individual individual ON encounter.individual_id = individual.id
-             JOIN gender g ON g.id = individual.gender_id
              JOIN address_level a ON individual.address_id = a.id
+             JOIN address_level village on individual.address_id = village.id
+             JOIN address_level panchayat on village.parent_id = panchayat.id
+             JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
     WHERE oet.uuid = '767e7ef2-4a45-4c17-9939-773f97c0baf0'
       AND encounter.encounter_date_time IS NOT NULL
 );
