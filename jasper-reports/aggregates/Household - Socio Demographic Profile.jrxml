@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Household - Socio Demographic Profile" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e2f75785-76ee-47c0-a6d2-90e8276fed3b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="joya"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Aggregates/Household_SocioDemographic_Profile_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Aggregates/Household_SocioDemographic_Profile"/>
+	<template><![CDATA["repo:/Templates/Styles/AggregateReportStyles.jrtx"]]></template>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Availing_SS_Schemes" uuid="ecc54c3a-4915-4927-8af6-9a0a4cdd972f">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[with count_query as(
+select count("Ind.Id")
+    filter (where survey."Enc.Are you availing any social security schemes" = 'Yes') as "count",
+       nullif((count("Ind.Id")), 0) as total_count
+from yenepoya_household_survey_view survey
+      where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+)
+
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+		<variable name="count" class="java.lang.Long">
+			<variableExpression><![CDATA[$F{count}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="Availing_Gov_Health_Svcs" uuid="7aeeeb29-fb10-46a4-9c84-66e137a86fd1">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[with count_query as(
+select count("Ind.Id")
+    filter (where survey."Enc.Health facility preferred for acute illness" ilike 'Government'
+        OR survey."Enc.Health facility preferred for chronic illness" ilike 'Government') as "count",
+       nullif((count("Ind.Id")), 0) as total_count
+from yenepoya_household_survey_view survey
+where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+)
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+	</subDataset>
+	<subDataset name="Using_Domestic_Purification_Methods" uuid="1ee2657c-d2fe-4068-af19-e92e9f7dafce">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[with count_query as(
+    select count("Ind.Id")
+           filter (where survey."Enc.Domestic purification methods used" not ilike 'No purification') as "count",
+           nullif((count("Ind.Id")), 0) as total_count
+    from yenepoya_household_survey_view survey
+    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+    )
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+	</subDataset>
+	<subDataset name="Catastrophic_Health_Expenditure" uuid="5dd059b3-a5da-40f4-be11-60132b47a2e3">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[with count_query as(
+    select count("Ind.Id")
+           filter (where survey."Enc.Out-of-pocket payments exceeding 10% of household total" = 'Yes') as "count",
+           nullif((count("Ind.Id")), 0) as total_count
+    from yenepoya_household_survey_view survey
+    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+    )
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+	</subDataset>
+	<subDataset name="Reported_OpenAirDefecation" uuid="21ee6d63-1564-4ef8-805a-c62e8c163460">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[with count_query as(
+    select count("Ind.Id")
+           filter (where survey."Enc.Is open air defecation practiced by family member" not ilike 'No') as "count",
+           nullif((count("Ind.Id")), 0) as total_count
+    from yenepoya_household_survey_view survey
+    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+    )
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+	</subDataset>
+	<subDataset name="Segregating_Domestic_Waste" uuid="1267ba72-bff4-4aca-9e79-2f475a1b5637">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[with count_query as(
+    select count("Ind.Id")
+           filter (where survey."Enc.Segregation of waste at source (wet and dry waste)" = 'Yes') as "count",
+           nullif((count("Ind.Id")), 0) as total_count
+    from yenepoya_household_survey_view survey
+    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+    )
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+	</subDataset>
+	<subDataset name="Members_Working_Abroad" uuid="a49eaba7-b6e7-4a09-8f34-c9aab1ba6d52">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[with count_query as(
+    select count("Ind.Id")
+           filter (where survey."Enc.Any member of your family working abroad?" = 'Yes') as "count",
+           nullif((count("Ind.Id")), 0) as total_count
+    from yenepoya_household_survey_view survey
+    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+    )
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+	</subDataset>
+	<subDataset name="Flu_Like_Symptoms" uuid="7cb4fa2d-2dd9-4960-9981-f540b3be7f16">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_GENDER_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[with count_query as(
+    select count("Ind.Id")
+           filter (where survey."Enc.History of flu like symptoms in last 6 weeks" not ilike 'No symptoms') as "count",
+           nullif((count("Ind.Id")), 0) as total_count
+    from yenepoya_individual_survey_view survey
+        where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      	and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+            and $X{IN,survey."Ind.Gender",PARAM_GENDER_NAME}
+    )
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+	</subDataset>
+	<subDataset name="Consulting_Doctor_For_Flu" uuid="82d85023-0dd6-4c78-aa77-073136f7e90c">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_GENDER_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[with count_query as(
+    select
+           count("Ind.Id")
+               filter ( where survey."Enc.If you have flu like illness then have you consulted any do" = 'Yes' ) as "count",           
+           nullif((count("Ind.Id")
+           filter (where survey."Enc.History of flu like symptoms in last 6 weeks" not ilike 'No symptoms')), 0) as total_count
+    from yenepoya_individual_survey_view survey
+            where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      	and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+            and $X{IN,survey."Ind.Gender",PARAM_GENDER_NAME}
+    )
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+	</subDataset>
+	<subDataset name="Married_Individuals" uuid="f29bbc7d-a475-4d2e-9d04-45ffc5e07356">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
+		<parameter name="MAIN_REPORT_PARAM_MAP" class="java.util.Map"/>
+		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_START")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_DATE_END")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_SURVEILLANCE_UNIT")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_PANCHAYAT_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_VILLAGE_NAME")]]></defaultValueExpression>
+		</parameter>
+		<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{MAIN_REPORT_PARAM_MAP}.get("PARAM_GENDER_NAME")]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[with count_query as(
+    select count("Ind.Id")
+           filter (where survey."Enc.Marital status" = 'Married') as "count",
+           nullif((count("Ind.Id")), 0) as total_count
+    from yenepoya_individual_survey_view survey
+            where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+      	and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+            and $X{IN,survey."Ind.Gender",PARAM_GENDER_NAME}
+    )
+select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
+		</queryString>
+		<field name="count" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="count"/>
+		</field>
+		<field name="percentage" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+		</field>
+	</subDataset>
+	<parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<queryString>
+		<![CDATA[select 1;]]>
+	</queryString>
+	<field name="?column?" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="?column?"/>
+	</field>
+	<background>
+		<band height="10" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ReportTitle" x="0" y="16" width="802" height="30" uuid="7a7d156d-ae93-4aa6-a403-19259aa3c673"/>
+				<text><![CDATA[Household - Socio Demographic Profile]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="350" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement x="0" y="0" width="802" height="350" uuid="bab45d0d-0a8d-456b-a67a-1648489951ea">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<frame>
+					<reportElement x="0" y="0" width="802" height="30" uuid="a6379287-bca5-4610-9245-0190da78acb2"/>
+					<staticText>
+						<reportElement style="ColumnHeader" x="0" y="0" width="500" height="30" uuid="e6171945-340a-48d7-8719-d53cec851132"/>
+						<box>
+							<pen lineWidth="1.0"/>
+						</box>
+						<text><![CDATA[Socio Demographic Profile Indicator]]></text>
+					</staticText>
+					<staticText>
+						<reportElement style="ColumnHeader" x="500" y="0" width="150" height="30" uuid="5175dd49-50f4-457b-94c3-ee6788576bc2"/>
+						<box>
+							<pen lineWidth="1.0"/>
+						</box>
+						<text><![CDATA[Count]]></text>
+					</staticText>
+					<staticText>
+						<reportElement style="ColumnHeader" x="650" y="0" width="152" height="30" uuid="a65de929-735f-4eaf-9c90-8a1b86c58fce"/>
+						<box>
+							<pen lineWidth="1.0"/>
+						</box>
+						<text><![CDATA[Percentage]]></text>
+					</staticText>
+				</frame>
+				<componentElement>
+					<reportElement x="0" y="30" width="802" height="30" uuid="98a90f37-dcd0-4285-a72c-8c172b73d4e4">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Availing_SS_Schemes" uuid="f1371afc-c924-4c06-a13d-db02bc2d5b54">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="3026f9e9-12fb-48c3-922f-6c571dc3fa6d">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="0c20f28d-95ba-4a59-8764-ebf4301f8f2c"/>
+									<text><![CDATA[Households availing Social Security Schemes]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="eb75d1bb-e76c-4ecf-9d38-ec7feea57e3a">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="04be9928-54c2-451b-9674-01328e34ea1a"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Household_SocioDemographicProfile_Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Are you availing any social security schemes\" = 'Yes'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="2bb1d8cd-9797-4283-8425-43814ca32097">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="3c7505fc-1527-425f-b2bf-48b703c6e221"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<componentElement>
+					<reportElement x="0" y="60" width="802" height="30" uuid="3731da25-31f7-4944-aeb7-dc2e01d021f3">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Availing_Gov_Health_Svcs" uuid="20bb9d35-f4f8-43b7-a180-8c67c265e966">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="c1d5cf85-166e-47bc-9a31-0d6dc4a85c3e">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="95ed4019-77e2-414a-b6fa-dce7680c1a67"/>
+									<text><![CDATA[Households availing government health facilities]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="3ab3a6d3-1deb-4d75-b692-5c930cfd0055">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="610439f7-524e-466c-8166-6c5a6ca17324"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Household_SocioDemographicProfile_Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Health facility preferred for acute illness\" ilike 'Government' OR survey.\"Enc.Health facility preferred for chronic illness\" ilike 'Government'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="8498aecb-f49d-43be-bd36-ad4ecafd7661">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="44b3f40f-dbc2-40f5-93ef-dda05935c23c"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<componentElement>
+					<reportElement x="0" y="90" width="802" height="30" uuid="26fc9233-f9be-473d-87a9-e54abc92db42">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Using_Domestic_Purification_Methods" uuid="bf2b8f66-53be-4fb2-99a5-3e1a71361aab">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="5f9cb2e1-4c05-47f8-bad2-bb4f526dc217">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="e99206e5-6464-4d2b-a04f-de59561ab0d5"/>
+									<text><![CDATA[Households using domestic purification methods]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="a0682498-e8b9-4dce-9713-1c853e14d1b3">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="4dc6f1db-8495-482e-bce6-1d222e8821cf"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Household_SocioDemographicProfile_Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Domestic purification methods used\" not ilike 'No purification'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="40ee536f-6304-4f88-8a14-96bfd23464c6">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="96f52c9f-5f11-4b73-a982-73d05d65d2af"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<componentElement>
+					<reportElement x="0" y="120" width="802" height="30" uuid="0cd39fa7-8ab3-4026-b747-e35349003d1a">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Catastrophic_Health_Expenditure" uuid="fe17ffab-15f0-4266-b7b2-85256ae55078">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="2dc075ad-4205-44f1-8ac9-232e94c716a0">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="313d02df-7a0f-4ec9-b2e6-0fb6aae7fa18"/>
+									<text><![CDATA[Households experiencing catastrophic health expenditure]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="e551fe3d-b2c9-4262-8914-da84fba6138a">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="9386e4b0-9420-44ea-8c0a-efdcd7274937"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Household_SocioDemographicProfile_Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Out-of-pocket payments exceeding 10% of household total\" = 'Yes'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="2aafb6f8-3574-48b5-a439-e855d16f7599">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="2519d034-525c-4fc2-8111-a22f9d10bb8f"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<componentElement>
+					<reportElement x="0" y="150" width="802" height="30" uuid="6d84695b-ce02-4cb8-b886-96dab99312b5">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Reported_OpenAirDefecation" uuid="d273d0b5-c95e-47d2-b0d8-9f969e49b7cf">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="1a9d65fe-d10f-4f9f-9458-e02fb983960f">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="8724dcda-36ae-487a-8537-0eab4ec8d44f"/>
+									<text><![CDATA[Households with members practicing open air defecation]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="c6d345be-099d-49ef-8c3b-8e29f3aa846b">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="4ea18c85-4f5c-4b59-8791-c9fdca92bb65"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Household_SocioDemographicProfile_Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Is open air defecation practiced by family member\" not ilike 'No'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="3b630a67-8c16-4f64-a35a-a3fde518b832">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="f6eec001-8131-467e-9ee2-d24df0d3404c"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<componentElement>
+					<reportElement x="0" y="180" width="802" height="30" uuid="8bba4692-4fae-4890-9593-09fb4e1368c2">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Segregating_Domestic_Waste" uuid="a1278782-05c9-41f5-a4a9-0794b41b9967">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="daa50f1f-928b-478e-9c78-c5acc654797b">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="23bbeaf6-4399-49bf-a11c-aa86f9b87610"/>
+									<text><![CDATA[Households segregating domestic waste]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="489b421d-5d5b-4ce0-9ef3-e3726efa1de6">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="dc984e88-118d-404d-8898-ac834be15a74"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Household_SocioDemographicProfile_Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Segregation of waste at source (wet and dry waste)\" = 'Yes'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="34fcf85f-bea8-4ead-b848-77cb0a44f7f3">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="5192e811-4f34-4954-8dbf-42fa9171a178"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<componentElement>
+					<reportElement x="0" y="210" width="802" height="30" uuid="e9192dc5-2719-4afc-ae9b-e6957f606e7e">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Members_Working_Abroad" uuid="c2841d3a-5e14-4c4a-b2ca-9a251b94085f">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="3012faa3-bf7b-4766-8424-57885aedb241">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="92c67342-d142-458a-8fcc-e06e1a59bc76"/>
+									<text><![CDATA[Households with member/s working abroad]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="f65a239a-7a8e-4a04-9c1f-54a8db11ba2b">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="3bf610b3-f9e5-4a00-a1ae-0d34c5f06be6"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Household_SocioDemographicProfile_Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Any member of your family working abroad?\" = 'Yes'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="a095ddf7-751d-4d1b-badd-018be7bc3b50">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="73a75969-0739-47b6-9343-ee1ce2155da3"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<componentElement>
+					<reportElement x="0" y="240" width="802" height="30" uuid="e4bd56a5-c60e-4c36-a523-94bd7853cfd4">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Flu_Like_Symptoms" uuid="8d3c8690-2c10-4f81-b29e-183d9a12561a">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="9e6dd7d0-0d02-419e-8aee-352ba2f5d499">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="77915ea4-cacb-4c9d-ae57-9373052ac338"/>
+									<text><![CDATA[Individuals with flu like symptoms ]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="5f99fe0f-299e-42ae-a001-3cf559b7ee79">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="beedaa9b-ce93-43d2-a71a-e77095987c60"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Individual_socio_demographic_profile___Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_GENDER_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_GENDER_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and yisf.\"Enc.History of flu like symptoms in last 6 weeks\" not ilike 'No symptoms'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="b7f91849-6e10-4d68-84ad-9ea9b45f38a3">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="82fe316a-9ee1-4ac0-a100-a7878f50e862"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<componentElement>
+					<reportElement x="0" y="270" width="802" height="30" uuid="cc8cfe2f-b996-41ac-8b67-4434425d1207">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Consulting_Doctor_For_Flu" uuid="87e98348-f263-4ccb-8879-76a8f2150522">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="65136d89-6e98-4e28-8848-a2fffa73c4c3">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="b5a26c22-3bf3-4b73-b141-4aea9219d9c0"/>
+									<text><![CDATA[Individuals consulting a doctor for flu like symptoms ]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="d54b2147-2e34-4474-9178-03673f09cb36">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="117604bc-e1fa-4cfb-bbd5-6ab55dfa0c1d"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Individual_socio_demographic_profile___Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_GENDER_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_GENDER_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and yisf.\"Enc.History of flu like symptoms in last 6 weeks\" not ilike 'No symptoms' and yisf.\"Enc.If you have flu like illness then have you consulted any do\" = 'Yes'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="fe247699-c002-4e02-a3a6-26c3da9b133e">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="f05996a7-691b-49bd-8cc2-fb9e8ecca9a0"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<componentElement>
+					<reportElement x="0" y="300" width="802" height="30" uuid="9b3ad641-d4ea-45a6-bfe4-a5da4d8ea573">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Married_Individuals" uuid="16ac990b-53da-4a0f-a129-03f6c0c6dfbe">
+							<datasetParameter name="MAIN_REPORT_PARAM_MAP">
+								<datasetParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="500" uuid="216a5622-d284-49d3-8567-fc87ba1aafdd">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<staticText>
+									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="3779200e-c004-457c-8cb0-bd21f7d82874"/>
+									<text><![CDATA[Individuals who are married]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="150" uuid="645365b7-a44f-4a18-9bf9-60045f70f8e0">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField hyperlinkType="ReportExecution">
+									<reportElement style="DataRowNumericElement" x="0" y="0" width="150" height="30" uuid="07a70da2-db0a-42e9-810c-fac5800774b1"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
+									<hyperlinkParameter name="_report">
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Individual_socio_demographic_profile___Linelist"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_START">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DATE_END">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_GENDER_NAME">
+										<hyperlinkParameterExpression><![CDATA[$P{PARAM_GENDER_NAME}]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+										<hyperlinkParameterExpression><![CDATA[" and yisf.\"Enc.Marital status\" = 'Married'"]]></hyperlinkParameterExpression>
+									</hyperlinkParameter>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="152" uuid="4f68f5df-4b79-4be3-9b6e-cab44c2d5234">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="152" height="30" uuid="f4550798-f86c-4d52-af29-5e6de4d09a0b"/>
+									<textFieldExpression><![CDATA[$F{percentage} == null ? "0.00%" : $F{percentage}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>
