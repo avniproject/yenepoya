@@ -18,27 +18,28 @@
 		<defaultValueExpression><![CDATA[" and 1=1"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[select * from
-(
+		<![CDATA[select "Ind.surveillance_unit" as "Surveillance Unit",
+         "Ind.Name of the panchayat/Ward" as "Panchayat/Ward",
+         "Ind.village" as "Village",
+         "Ind.Contact Number" as "Contact Number",
+         "Ind.Name of the head of the family" as "Name of Head of Family",
+         "Ind.Which religion do you practice?" as "Religion",
+         "Ind.You belong to which social class?" as "Social Class",
+         "Ind.Type of Ration card" as "Ration Card",
+         "Enc.Out-of-pocket payments exceeding 10% of household total" as "Out of pocket medical expenditure > 10%",
+         *
+	from (
     select
-         survey."Ind.surveillance_unit" as "Surveillance Unit",
-         survey."Ind.Name of the panchayat/Ward" as "Panchayat/Ward",
-         survey."Ind.village" as "Village",
-         survey."Ind.Contact Number" as "Contact Number",
-         survey."Ind.Name of the head of the family" as "Name of Head of Family",
-         survey."Ind.Which religion do you practice?" as "Religion",
-         survey."Ind.You belong to which social class?" as "Social Class",
-         survey."Ind.Type of Ration card" as "Ration Card",
-         survey."Enc.Out-of-pocket payments exceeding 10% of household total" as "Out of pocket medical expenditure > 10%",
+         *,
          row_number()
          OVER (PARTITION BY survey."Ind.Id" ORDER BY survey."Enc.encounter_date_time" DESC) as visit_number
-  from yenepoya_household_survey_view survey 
+  	from yenepoya_household_survey_view survey 
           where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
       	and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
             and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
-            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
-            $P!{PARAM_DYNAMIC_WHERE}
-) partitioned_data where visit_number = 1;]]>
+            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME} 
+	) partitioned_data where visit_number = 1
+           $P!{PARAM_DYNAMIC_WHERE};]]>
 	</queryString>
 	<field name="Surveillance Unit" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Surveillance Unit"/>
@@ -77,6 +78,9 @@
 			<![CDATA[Out of pocket medical expenditure > 10%]]>
 		</property>
 		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="visit_number" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="visit_number"/>
 	</field>
 	<background>
 		<band height="100" splitType="Stretch">

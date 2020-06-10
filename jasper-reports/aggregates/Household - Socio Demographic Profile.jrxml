@@ -38,11 +38,14 @@
 		</parameter>
 		<queryString>
 			<![CDATA[with count_query as(
-select count("Ind.Id")
-    filter (where survey."Enc.Are you availing any social security schemes" = 'Yes') as "count",
-       nullif((count("Ind.Id")), 0) as total_count
-from yenepoya_household_survey_view survey
-      where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+    select count("Ind.Id")
+           filter (where "Enc.Are you availing any social security schemes" = 'Yes') as "count",
+           nullif((count("Ind.Id")), 0) as total_count
+    from (select *,
+        row_number() over (partition by "Ind.Id" order by "Enc.encounter_date_time" desc) as visit_number
+    from  yenepoya_household_survey_view ) survey
+    where visit_number = 1
+    and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
       and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
             and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
             and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
@@ -81,15 +84,18 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
 		</parameter>
 		<queryString>
 			<![CDATA[with count_query as(
-select count("Ind.Id")
-    filter (where survey."Enc.Health facility preferred for acute illness" ilike 'Government'
-        OR survey."Enc.Health facility preferred for chronic illness" ilike 'Government') as "count",
-       nullif((count("Ind.Id")), 0) as total_count
-from yenepoya_household_survey_view survey
-where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+    select count("Ind.Id")
+           filter (where survey."Enc.Health facility preferred for acute illness" ilike 'Government'
+               OR survey."Enc.Health facility preferred for chronic illness" ilike 'Government') as "count",
+           nullif((count("Ind.Id")), 0) as total_count
+    from (select *,
+                 row_number() over (partition by "Ind.Id" order by "Enc.encounter_date_time" desc) as visit_number
+          from  yenepoya_household_survey_view ) survey
+    where visit_number = 1
+      and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
       and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
-            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
-            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+      and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+      and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
 )
 select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
 		</queryString>
@@ -124,12 +130,14 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
     select count("Ind.Id")
            filter (where survey."Enc.Domestic purification methods used" not ilike 'No purification') as "count",
            nullif((count("Ind.Id")), 0) as total_count
-    from yenepoya_household_survey_view survey
-    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+    from (select *, row_number() over (partition by "Ind.Id" order by "Enc.encounter_date_time" desc) as visit_number
+    from yenepoya_household_survey_view) survey
+    where visit_number = 1
+      and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
       and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
-            and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
-            and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
-    )
+      and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
+      and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
+)
 select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "percentage" from count_query;]]>
 		</queryString>
 		<field name="count" class="java.lang.Long">
@@ -163,8 +171,11 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
     select count("Ind.Id")
            filter (where survey."Enc.Out-of-pocket payments exceeding 10% of household total" = 'Yes') as "count",
            nullif((count("Ind.Id")), 0) as total_count
-    from yenepoya_household_survey_view survey
-    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+    from (select *,
+                 row_number() over (partition by "Ind.Id" order by "Enc.encounter_date_time" desc) as visit_number
+          from  yenepoya_household_survey_view ) survey
+    where visit_number = 1
+      and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
       and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
             and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
             and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
@@ -202,8 +213,11 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
     select count("Ind.Id")
            filter (where survey."Enc.Is open air defecation practiced by family member" not ilike 'No') as "count",
            nullif((count("Ind.Id")), 0) as total_count
-    from yenepoya_household_survey_view survey
-    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+    from (select *,
+                 row_number() over (partition by "Ind.Id" order by "Enc.encounter_date_time" desc) as visit_number
+          from  yenepoya_household_survey_view ) survey
+    where visit_number = 1
+      and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
       and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
             and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
             and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
@@ -241,8 +255,11 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
     select count("Ind.Id")
            filter (where survey."Enc.Segregation of waste at source (wet and dry waste)" = 'Yes') as "count",
            nullif((count("Ind.Id")), 0) as total_count
-    from yenepoya_household_survey_view survey
-    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+    from (select *,
+                 row_number() over (partition by "Ind.Id" order by "Enc.encounter_date_time" desc) as visit_number
+          from  yenepoya_household_survey_view ) survey
+    where visit_number = 1
+      and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
       and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
             and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
             and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
@@ -280,8 +297,11 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
     select count("Ind.Id")
            filter (where survey."Enc.Any member of your family working abroad?" = 'Yes') as "count",
            nullif((count("Ind.Id")), 0) as total_count
-    from yenepoya_household_survey_view survey
-    where $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+    from (select *,
+                 row_number() over (partition by "Ind.Id" order by "Enc.encounter_date_time" desc) as visit_number
+          from  yenepoya_household_survey_view ) survey
+    where visit_number = 1
+      and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
       and $X{IN,survey."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
             and $X{IN,survey."Ind.panchayat",PARAM_PANCHAYAT_NAME}
             and $X{IN,survey."Ind.village",PARAM_VILLAGE_NAME}
@@ -532,7 +552,7 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
-										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Are you availing any social security schemes\" = 'Yes'"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA[" and \"Enc.Are you availing any social security schemes\" = 'Yes'"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 								</textField>
 							</jr:detailCell>
@@ -595,7 +615,7 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
-										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Health facility preferred for acute illness\" ilike 'Government' OR survey.\"Enc.Health facility preferred for chronic illness\" ilike 'Government'"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA[" and (\"Enc.Health facility preferred for acute illness\" ilike 'Government' OR \"Enc.Health facility preferred for chronic illness\" ilike 'Government')"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 								</textField>
 							</jr:detailCell>
@@ -660,7 +680,7 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
-										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Domestic purification methods used\" not ilike 'No purification'"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA[" and \"Enc.Domestic purification methods used\" not ilike 'No purification'"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 								</textField>
 							</jr:detailCell>
@@ -725,7 +745,7 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
-										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Out-of-pocket payments exceeding 10% of household total\" = 'Yes'"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA[" and \"Enc.Out-of-pocket payments exceeding 10% of household total\" = 'Yes'"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 								</textField>
 							</jr:detailCell>
@@ -790,7 +810,7 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
-										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Is open air defecation practiced by family member\" not ilike 'No'"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA[" and \"Enc.Is open air defecation practiced by family member\" not ilike 'No'"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 								</textField>
 							</jr:detailCell>
@@ -855,7 +875,7 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
-										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Segregation of waste at source (wet and dry waste)\" = 'Yes'"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA[" and \"Enc.Segregation of waste at source (wet and dry waste)\" = 'Yes'"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 								</textField>
 							</jr:detailCell>
@@ -920,7 +940,7 @@ select "count", round(("count"::numeric / "total_count"::numeric) * 100, 2) as "
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
-										<hyperlinkParameterExpression><![CDATA[" and survey.\"Enc.Any member of your family working abroad?\" = 'Yes'"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA[" and \"Enc.Any member of your family working abroad?\" = 'Yes'"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 								</textField>
 							</jr:detailCell>
