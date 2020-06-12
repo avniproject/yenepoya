@@ -7,7 +7,7 @@ SELECT individual.id                                                            
        individual.uuid                                                             AS "Ind.uuid",
        individual.first_name                                                       AS "Ind.first_name",
        individual.last_name                                                        AS "Ind.last_name",
-       g.name                                                                      AS "Ind.Gender",
+       null                                                                        AS "Ind.Gender",
        individual.date_of_birth                                                    AS "Ind.date_of_birth",
        individual.date_of_birth_verified                                           AS "Ind.date_of_birth_verified",
        individual.registration_date                                                AS "Ind.registration_date",
@@ -55,7 +55,6 @@ SELECT individual.id                                                            
        (single_select_coded((individual.observations ->>
                              '49344ffb-d10c-4e30-a284-356396970bcf'::text)))::text AS "Ind.Type of Ration card"
 FROM individual individual
-         JOIN gender g ON g.id = individual.gender_id
          join address_level village on individual.address_id = village.id
          join address_level panchayat on village.parent_id = panchayat.id
          join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
