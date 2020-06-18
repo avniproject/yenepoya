@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Household social class and mother tounge" pageWidth="1684" pageHeight="720" orientation="Landscape" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05cc1aaf-5713-4062-a0f6-7bab099e5fb6">
+	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+	<property name="ireport.jasperserver.user" value="hirent"/>
+	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+	<template><![CDATA["repo:Linelist.jrtx"]]></template>
+	<parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_DYNAMIC_WHERE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["and 1=1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_APP_URL" class="java.lang.String">
+		<defaultValueExpression><![CDATA["https://app.avniproject.org/#/app/subject?uuid="]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT *
+FROM (select concat(registration."Ind.first_name", ' ', registration."Ind.last_name")                     "Household name",
+             registration."Ind.surveillance_unit"                                                         "Surveillance Unit",
+             registration."Ind.panchayat"                                                                 "Panchayat",
+             registration."Ind.village"                                                                   "Village",
+             registration."Ind.Contact Number"                                                            "Mobile Number",
+             concat(member.first_name, ' ', member.last_name)                                             "Name of Head of Family",
+             registration."Ind.Which religion do you practice?"                                           "Religion",
+             registration."Ind.You belong to which social class?"                                         "Social class",
+             registration."Ind.Mother Tongue"                                                             "Mother Tongue",
+             registration."Ind.Type of Ration card"                                                       "Ration card",
+             survey."Enc.Out-of-pocket payments exceeding 10% of household total"                         "Out of pocket expenditure",
+             registration."Ind.uuid"                                                                      uuid,
+             row_number()
+                 OVER (PARTITION BY registration."Ind.Id" ORDER BY survey."Enc.encounter_date_time" desc) visit_number
+      from yenepoya_household_registration registration
+             left join yenepoya_household_survey_view survey on survey."Ind.Id" = registration."Ind.Id"
+             left join group_subject gs on survey."Ind.Id" = gs.group_subject_id
+             left join individual member on gs.member_subject_id = member.id
+             left join group_role gr on gs.group_role_id = gr.id and gr.role = 'Head of household'
+      where 1=1
+      and $X{IN, registration."Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
+        and $X{IN, registration."Ind.panchayat", PARAM_PANCHAYAT_NAME}
+        and $X{IN, registration."Ind.village", PARAM_VILLAGE_NAME}
+        and $X{BETWEEN, registration."Ind.registration_date", PARAM_DATE_START, PARAM_DATE_END}
+     ) partitioned_data
+WHERE visit_number = 1
+$P!{PARAM_DYNAMIC_WHERE};]]>
+	</queryString>
+	<field name="Household name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Household name"/>
+	</field>
+	<field name="Surveillance Unit" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Surveillance Unit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="Panchayat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Panchayat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="Village" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Village"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="Mobile Number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Mobile Number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="Name of Head of Family" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Name of Head of Family"/>
+	</field>
+	<field name="Religion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Religion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="Social class" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Social class"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="Mother Tongue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Mother Tongue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="Ration card" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Ration card"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="Out of pocket expenditure" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Out of pocket expenditure"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+	</field>
+	<field name="uuid" class="java.lang.String"/>
+	<variable name="COLUMN_URL" class="java.lang.String">
+		<variableExpression><![CDATA[$P{PARAM_APP_URL} + $F{uuid}]]></variableExpression>
+	</variable>
+	<background>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ReportTitle" x="0" y="0" width="1644" height="50" uuid="ccc013a8-2e32-4c97-acca-cfac4c04bef7"/>
+				<text><![CDATA[Household Social Class and Mother Tounge Linelist]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="182" height="50" uuid="1ec3f29d-338f-49f3-a223-57d82b077bf4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e9ec0c71-f573-4ae2-81d9-3ca24437fb37"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Household name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="182" y="0" width="182" height="50" uuid="1ec3f29d-338f-49f3-a223-57d82b077bf4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e9ec0c71-f573-4ae2-81d9-3ca24437fb37"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Surveillance Unit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="364" y="0" width="182" height="50" uuid="25dc290f-62ec-4706-9a34-50c4702ede28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bf51344f-c6aa-4bdd-8a51-5b8afb5df7df"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Panchayat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="546" y="0" width="182" height="50" uuid="4d74ddd6-78d5-4ac5-8db0-8fb5e5dda171">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c5d026be-07e9-4550-9a4c-42fef340dff4"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="728" y="0" width="182" height="50" uuid="c5f78ed2-fd49-4919-a92e-1c56d9a57fa4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dcc3213a-a325-405c-9317-640060c9cf4e"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" rotation="None">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name of Head of Family]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="910" y="0" width="182" height="50" uuid="3fd7d60a-3b16-464b-8c33-aa36ed77f0ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34e8ab76-a9ea-47a6-b12a-47969e26b02f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Religion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="1092" y="0" width="182" height="50" uuid="50bd6b07-f88e-483a-bfdb-7af4c7010e22">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e14f47d-b976-43e3-91f0-0fcfcc5ce603"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Social class]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="1274" y="0" width="182" height="50" uuid="5f3b56cf-45ea-4946-8009-4287f307aa57">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd1c8bea-e372-43e4-936a-586193924408"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mother Tongue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="1456" y="0" width="182" height="50" uuid="1ad8b238-97b4-44ac-b7e2-68f64f793286">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9da4465d-5895-4bf0-bdc8-c320d9f0998d"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ration card]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="DataRowPreCalculatedPercentageElement" x="1638" y="0" width="182" height="50" uuid="b36a20ca-24a1-4de0-946e-982f671232f6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="03f5fce9-b8d1-4aeb-835a-f388d4ed4d1a"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Out of pocket expenditure]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<textField hyperlinkType="Reference" hyperlinkTarget="Blank">
+				<reportElement style="DataRowElement" x="0" y="0" width="182" height="30" uuid="fc0b5b0e-e040-423d-8df0-e035f1295310">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Household name}]]></textFieldExpression>
+				<hyperlinkReferenceExpression><![CDATA[$V{COLUMN_URL}]]></hyperlinkReferenceExpression>
+				<hyperlinkTooltipExpression><![CDATA["Click to view dashboard"]]></hyperlinkTooltipExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="182" y="0" width="182" height="30" uuid="fc0b5b0e-e040-423d-8df0-e035f1295310">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Surveillance Unit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="364" y="0" width="182" height="30" uuid="2a52de4c-3ebb-4bb3-871f-f0f7b0bd588e">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Panchayat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="546" y="0" width="182" height="30" uuid="59fc84f1-0751-4ccb-a312-c35b0ddbb51f">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Mobile Number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="728" y="0" width="182" height="30" uuid="6db6642c-9a45-49bc-a0e3-be01373cdb95">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Name of Head of Family}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="910" y="0" width="182" height="30" uuid="9dccb104-da69-4a13-a554-8bb88b3db1e1">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Religion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1092" y="0" width="182" height="30" uuid="8768eb90-6142-40e7-b719-11527784f317">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Social class}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1274" y="0" width="182" height="30" uuid="53e96fb7-04ee-404d-89e0-2c2e4ddc2b38">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Mother Tongue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1456" y="0" width="182" height="30" uuid="ce969eb6-44a5-404f-b7fc-2bcd5b98db8f">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Ration card}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DataRowElement" x="1638" y="0" width="182" height="30" uuid="97ee3b49-2fdc-44e3-a2bb-ae846e69bba7">
+					<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+					<property name="com.jaspersoft.studio.report.description" value=""/>
+					<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+					<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+					<property name="ireport.jasperserver.user" value="sachink"/>
+					<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge_files/main_jrxml"/>
+					<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Linelists/Household_social_class_and_mother_tounge"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+				</box>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Out of pocket expenditure}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
