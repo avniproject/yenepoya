@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Linelist" pageWidth="2000" pageHeight="720" orientation="Landscape" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05cc1aaf-5713-4062-a0f6-7bab099e5fb6">
+    <property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+    <property name="com.jaspersoft.studio.report.description" value=""/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+    <template><![CDATA["repo:/Templates/Styles/Linelist.jrtx"]]></template>
+    <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_DYNAMIC_WHERE" class="java.lang.String">
+        <defaultValueExpression><![CDATA["and 1=1"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="PARAM_APP_URL" class="java.lang.String">
+        <defaultValueExpression><![CDATA["https://app.avniproject.org/#/app/subject?uuid="]]></defaultValueExpression>
+    </parameter>
+    <queryString language="SQL">
+        <![CDATA[SELECT *
+FROM (select concat(survey."Ind.first_name", ' ', survey."Ind.last_name")                       "Household name",
+             survey."Ind.Household number"                                                      "Household number",
+             survey."Ind.surveillance_unit"                                                     "Surveillance Unit",
+             survey."Ind.panchayat"                                                             "Panchayat",
+             survey."Ind.village"                                                               "Village",
+             survey."Ind.Contact Number"                                                        "Mobile Number",
+             m.head_of_family_name                                                              "Name of Head of Family",
+             survey."Ind.Which religion do you practice?"                                       "Religion",
+             survey."Ind.You belong to which social class?"                                     "Social class",
+             survey."Ind.Type of Ration card"                                                   "Ration card",
+             survey."Enc.Name the  social security scheme"                                      "Name the  social security scheme",
+             survey."Enc.Out-of-pocket payments exceeding 10% of household total"               "Out of pocket expenditure",
+             survey."Ind.uuid"                                                                  uuid,
+             row_number()
+             OVER (PARTITION BY survey."Ind.Id" ORDER BY survey."Enc.encounter_date_time" desc) visit_number
+      from yenepoya_household_survey_view survey
+               left join yenepoya_member_household_view m on survey."Ind.Id" = m.house_id
+      where 1=1
+      and $X{IN, survey."Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
+        and $X{IN, survey."Ind.panchayat", PARAM_PANCHAYAT_NAME}
+        and $X{IN, survey."Ind.village", PARAM_VILLAGE_NAME}
+        and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+ ) partitioned_data
+WHERE visit_number = 1
+$P!{PARAM_DYNAMIC_WHERE}]]>
+    </queryString>
+    <field name="Household name" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Household name"/>
+    </field>
+    <field name="Household number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Household number"/>
+    </field>
+    <field name="Surveillance Unit" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Surveillance Unit"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Panchayat" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Panchayat"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Village" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Village"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Mobile Number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Mobile Number"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Name of Head of Family" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Name of Head of Family"/>
+    </field>
+    <field name="Religion" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Religion"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Social class" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Social class"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Ration card" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Ration card"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Name the  social security scheme" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Name the  social security scheme"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Out of pocket expenditure" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Out of pocket expenditure"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="uuid" class="java.lang.String"/>
+    <variable name="COLUMN_URL" class="java.lang.String">
+        <variableExpression><![CDATA[$P{PARAM_APP_URL} + $F{uuid}]]></variableExpression>
+    </variable>
+    <background>
+        <band height="100" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </band>
+    </background>
+    <title>
+        <band height="50" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ReportTitle" x="0" y="0" width="1644" height="50" uuid="ccc013a8-2e32-4c97-acca-cfac4c04bef7"/>
+                <text><![CDATA[Use of social security schemes - Line list]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ColumnHeader" x="0" y="0" width="149" height="30" uuid="5802da66-8eac-49a6-9e97-47a95da4529c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6fa79fb-ff41-4b22-9bb9-2abf9192d31a"/>
+                </reportElement>
+                <text><![CDATA[Household name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="149" y="0" width="149" height="30" uuid="5802da66-8eac-49a6-9e97-47a95da4529c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6fa79fb-ff41-4b22-9bb9-2abf9192d31a"/>
+                </reportElement>
+                <text><![CDATA[Household number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="298" y="0" width="149" height="30" uuid="1037138f-7890-4ead-b8bf-0c952edcdbc8">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="202b8c9e-8759-4354-8cc0-df34deb44b17"/>
+                </reportElement>
+                <text><![CDATA[Surveillance Unit]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="447" y="0" width="149" height="30" uuid="4dadb2d6-eb52-4731-98ce-b2a80ae8e56c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bef77518-886f-4e8d-831d-7dcda09585f2"/>
+                </reportElement>
+                <text><![CDATA[Panchayat/Ward]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="596" y="0" width="149" height="30" uuid="ea347aa6-f2f9-4ae7-bf95-5098bba3de6a">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="16272e65-da76-4b74-ac8c-2004ad151096"/>
+                </reportElement>
+                <text><![CDATA[Village/Ward]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="745" y="0" width="149" height="30" uuid="8a2db193-e710-435b-8b34-a2514115ff67">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e424dfb6-0ee3-4ea3-9c0b-4130ed5b3f99"/>
+                </reportElement>
+                <text><![CDATA[Mobile Number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="894" y="0" width="149" height="30" uuid="ef737524-0d14-4115-8240-97380442e900">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc37a6d4-0f8d-42b5-81ca-7a97a7300637"/>
+                </reportElement>
+                <text><![CDATA[Name of Head of Family]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1043" y="0" width="149" height="30" uuid="88f5c725-472b-43fa-b022-3235d9215528">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="509a734e-c687-4082-a3c9-9f3e444224c8"/>
+                </reportElement>
+                <text><![CDATA[Religion]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1192" y="0" width="149" height="30" uuid="e7b236e2-a37f-4580-b2c8-b4403142fe00">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffe5f3f7-2d1b-4b9f-8c83-396018c47550"/>
+                </reportElement>
+                <text><![CDATA[Social class]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1341" y="0" width="149" height="30" uuid="3d0d9f1a-8345-413b-8a25-f8d5dde4b414">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7bf7bfea-3fac-4636-a1d1-147b581e648f"/>
+                </reportElement>
+                <text><![CDATA[Ration card]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1490" y="0" width="149" height="30" uuid="c8cd65ad-068d-42d7-a571-07da1ffca8d1">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="04f43a83-21f2-4756-9218-60ae03071526"/>
+                </reportElement>
+                <text><![CDATA[Name the  social security scheme]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1639" y="0" width="149" height="30" uuid="6baaab5f-6293-4e4b-95a8-eb153423a697">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83429959-6311-4339-b552-846f30b202e2"/>
+                </reportElement>
+                <text><![CDATA[Out of pocket expenditure]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+            <textField textAdjust="StretchHeight" hyperlinkType="Reference" hyperlinkTarget="Blank">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="0" y="0" width="149" height="30" uuid="e0fed119-df8d-42e7-9c47-ee6d42af3438">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6fa79fb-ff41-4b22-9bb9-2abf9192d31a"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Household name}]]></textFieldExpression>
+                <hyperlinkReferenceExpression><![CDATA[$V{COLUMN_URL}]]></hyperlinkReferenceExpression>
+                <hyperlinkTooltipExpression><![CDATA["Click to view dashboard"]]></hyperlinkTooltipExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="149" y="0" width="149" height="30" uuid="b24838b5-640d-427a-8630-842504166632">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="232b8c9e-8759-4354-8cc0-df34deb44b17"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Household number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="298" y="0" width="149" height="30" uuid="b94838b5-640d-427a-8630-842504166632">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="202b8c9e-8759-4354-8cc0-df34deb44b17"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Surveillance Unit}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="447" y="0" width="149" height="30" uuid="241b7256-2498-4eb6-8a04-73bf1a20b2a4">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bef77518-886f-4e8d-831d-7dcda09585f2"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Panchayat}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="596" y="0" width="149" height="30" uuid="660d780b-3601-4be3-88bf-a5e226d412d2">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="16272e65-da76-4b74-ac8c-2004ad151096"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Village}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="745" y="0" width="149" height="30" uuid="b32633fb-5878-4f9a-824f-2fc0b6639a6b">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e424dfb6-0ee3-4ea3-9c0b-4130ed5b3f99"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Mobile Number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="894" y="0" width="149" height="30" uuid="0fb91fa7-5eae-4fcb-9926-c112f1450847">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc37a6d4-0f8d-42b5-81ca-7a97a7300637"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Name of Head of Family}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1043" y="0" width="149" height="30" uuid="7abc1381-2421-4362-8b8d-a28074e14d45">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="509a734e-c687-4082-a3c9-9f3e444224c8"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Religion}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1192" y="0" width="149" height="30" uuid="6c314aa3-4d9e-4866-a9db-d8d2c30eca2c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffe5f3f7-2d1b-4b9f-8c83-396018c47550"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Social class}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1341" y="0" width="149" height="30" uuid="8609a09d-5a13-4935-b3c0-b8802e53f493">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7bf7bfea-3fac-4636-a1d1-147b581e648f"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Ration card}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1490" y="0" width="149" height="30" uuid="1d6dcaaa-e583-4c3c-bb70-f1fc81cff865">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="04f43a83-21f2-4756-9218-60ae03071526"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Name the  social security scheme}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1639" y="0" width="149" height="30" uuid="70bbbf6d-4268-48dc-992f-47d1dc1883b5">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83429959-6311-4339-b552-846f30b202e2"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Out of pocket expenditure}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
