@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Aggregate" pageWidth="1684" pageHeight="1000" columnWidth="1080" leftMargin="500" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa1a9231-754c-4c0f-8a57-3e034206cd5a">
+    <property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+    <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="180"/>
+    <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="812"/>
+    <property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="765"/>
+    <property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="225"/>
+    <template><![CDATA["repo:/Templates/Styles/AggregateReportStyles.jrtx"]]></template>
+    <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <queryString language="SQL">
+        <![CDATA[with latest_both_characteristics as (
+    select unnest(array ['Are there any individuals in your family with known case of chronic illness?',
+        'Are there any individuals in your family with any illness in last two weeks?']) as characteristics,
+           unnest(array ["Enc.Are there members with known case of chronic illness?",
+               "Enc.Are there members with any illness in last two weeks?"])             as categories
+    from (select *,
+                 row_number()
+                 OVER (PARTITION BY "Ind.Id" ORDER BY "Enc.encounter_date_time" desc) as visit_number
+          from yenepoya_household_survey_view
+			where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,"Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,"Ind.village",PARAM_VILLAGE_NAME}
+            and $X{IN,"Ind.Gender",PARAM_GENDER_NAME}
+            and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+         ) partitioned_data
+    WHERE visit_number = 1
+),
+     agg_data as (select characteristics,
+                         unnest(string_to_array(categories, ' ,'))  as categories,
+                         count(*)                                   as number,
+                         (count(*) * 100.0) /  ((select count(*) from yenepoya_household_registration)) as proportion
+                  from latest_both_characteristics
+                  group by 1, 2)
+
+--distinct is used because same concept answer(No) is there in both concepts
+select distinct case
+                    when coalesce(agg_data.characteristics, c.name) =
+                         'Are there any individuals in your family with known case of chronic illness?'
+                        then 'Family with known case of chronic illness'
+                    when coalesce(agg_data.characteristics, c.name) =
+                         'Are there any individuals in your family with any illness in last two weeks?'
+                        then 'Family with acute illness in last two weeks' end
+                                                       as "Characteristics",
+                coalesce(agg_data.categories, ac.name) as "Categories",
+                coalesce(agg_data.number, 0)           as "Number",
+                nullif(agg_data.proportion, 0)          as "Proportion"
+from concept c
+         join concept_answer ca on c.id = ca.concept_id and not ca.is_voided
+         join concept ac on ca.answer_concept_id = ac.id
+         left join agg_data on agg_data.categories = ac.name
+where c.name in ('Are there any individuals in your family with known case of chronic illness?',
+                 'Are there any individuals in your family with any illness in last two weeks?')
+order by 1;]]>
+    </queryString>
+    <field name="Characteristics" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Characteristics"/>
+    </field>
+    <field name="Categories" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Categories"/>
+    </field>
+    <field name="Number" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.label" value="Number"/>
+    </field>
+    <field name="Proportion" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.label" value="Proportion"/>
+    </field>
+    <variable name="DYNAMIC_WHERE" class="java.lang.String">
+        <variableExpression><![CDATA[$F{Characteristics} .equals("Family with acute illness in last two weeks") ? "and \"Illness in last two weeks\" like '%" + $F{Categories} + "%'" : "and \"Known case of chronic illness\" like '%" + $F{Categories} + "%'"]]></variableExpression>
+    </variable>
+    <title>
+        <band height="50" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ReportTitle" x="-24" y="0" width="540" height="50" uuid="b41c1dbc-657e-4f9f-93da-2951563f95d4"/>
+                <text><![CDATA[Self reported morbidity among family members]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ColumnHeader" mode="Opaque" x="0" y="0" width="250" height="30" uuid="5dd111e0-974b-42b9-8cc8-ddb926192fd1">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="761dea20-f1b9-4e90-aa38-498f99b026d3"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                </box>
+                <text><![CDATA[Characteristics]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="250" y="0" width="100" height="30" uuid="b8ad3e4a-1a9f-4395-9a00-f15471a673de">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b3e4487-e7dd-40ac-819f-a9505bc00e8d"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                </box>
+                <text><![CDATA[Categories]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="350" y="0" width="70" height="30" uuid="52b5307b-00dd-41af-af94-cce282ea7e8a">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="097da4ad-1c9d-41ee-a4eb-64d9c4973fa6"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                </box>
+                <text><![CDATA[Number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="420" y="0" width="70" height="30" uuid="c0566e25-221b-4428-89b9-1c8b7706be70">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b03a4eb3-894d-4801-bbce-ce88e2fa3812"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                </box>
+                <text><![CDATA[Proportion]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="0" y="0" width="250" height="30" uuid="bd8c9dfe-e2a7-4c10-8045-f518d768f5b2">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="761dea20-f1b9-4e90-aa38-498f99b026d3"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Characteristics}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="250" y="0" width="100" height="30" uuid="9a6d6476-7229-40ee-a06d-e96f9ccb3f90">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b3e4487-e7dd-40ac-819f-a9505bc00e8d"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Categories}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" hyperlinkType="ReportExecution">
+                <reportElement style="DataRowNumericElement" stretchType="RelativeToTallestObject" x="350" y="0" width="70" height="30" uuid="822d6bf4-eaeb-4fff-b051-bf5cd8a9e8cc">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="097da4ad-1c9d-41ee-a4eb-64d9c4973fa6"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
+                <hyperlinkWhenExpression><![CDATA[$F{Number} > 0]]></hyperlinkWhenExpression>
+                <hyperlinkTooltipExpression><![CDATA["Click for the line list"]]></hyperlinkTooltipExpression>
+                <hyperlinkParameter name="_report">
+                    <hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Self_reported_morbidity_among_family_members___Linelist"]]></hyperlinkParameterExpression>
+                </hyperlinkParameter>
+                <hyperlinkParameter name="PARAM_DATE_END">
+                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+                </hyperlinkParameter>
+                <hyperlinkParameter name="PARAM_DATE_START">
+                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+                </hyperlinkParameter>
+                <hyperlinkParameter name="PARAM_GENDER_NAME">
+                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_GENDER_NAME}]]></hyperlinkParameterExpression>
+                </hyperlinkParameter>
+                <hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+                </hyperlinkParameter>
+                <hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+                </hyperlinkParameter>
+                <hyperlinkParameter name="PARAM_VILLAGE_NAME">
+                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+                </hyperlinkParameter>
+                <hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+                    <hyperlinkParameterExpression><![CDATA[$V{DYNAMIC_WHERE}]]></hyperlinkParameterExpression>
+                </hyperlinkParameter>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowPreCalculatedPercentageElement" stretchType="RelativeToTallestObject" x="420" y="0" width="70" height="30" uuid="65f599ea-9801-4518-af65-5e2c26948437">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b03a4eb3-894d-4801-bbce-ce88e2fa3812"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Proportion} == null ? "0%" :  $F{Proportion}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
