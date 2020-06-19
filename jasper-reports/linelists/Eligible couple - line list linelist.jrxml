@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Eligible couple - line list" pageWidth="1684" pageHeight="720" orientation="Landscape" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05cc1aaf-5713-4062-a0f6-7bab099e5fb6">
+    <property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+    <property name="com.jaspersoft.studio.report.description" value=""/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+    <template><![CDATA["repo:/Templates/Styles/Linelist.jrtx"]]></template>
+    <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_APP_URL" class="java.lang.String">
+        <defaultValueExpression><![CDATA["https://app.avniproject.org/#/app/subject?uuid="]]></defaultValueExpression>
+    </parameter>
+    <parameter name="PARAM_AGE_GROUP_15_49" class="java.lang.String"/>
+    <queryString language="SQL">
+        <![CDATA[SELECT *
+from (
+         select concat(survey."Ind.first_name", ' ', survey."Ind.last_name")                       "Name",
+                extract('year' from age(survey."Ind.date_of_birth"))                               "Age",
+                surveillance_unit.title                                                            "Survelience Unit",
+                panchayat.title                                                                    "Panchayat",
+                village.title                                                                      "Village/ward/census town",
+                survey."Ind.Contact Number"                                                        "Mobile Number",
+                coalesce(household."Ind.Household number", '')                                     "Household number",
+                coalesce(m.head_of_family_name, '')                                                "Head of Household",
+                coalesce(survey."Enc.Family planning methods practices", '')                       "Family Planning Method",
+                coalesce(survey."Enc.Are you pregnant?", '')                                       "Currently Pregnant",
+                coalesce(survey."Enc.Are you postnatal mother?", '')                               "Currently PNC Mother",
+                survey."Ind.uuid"                                                                  uuid,
+                row_number()
+                over (partition by survey."Ind.Id" order by survey."Enc.encounter_date_time" desc) visit_number
+         from yenepoya_individual_survey_view survey
+                  left join address_level village on survey."Ind.address_id" = village.id
+                  left join address_level panchayat on village.parent_id = panchayat.id
+                  left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+                  left join yenepoya_member_household_view m on m.member_id = survey."Ind.Id"
+                  left join yenepoya_household_registration household on household."Ind.Id" = m.house_id
+         where survey."Ind.Gender" = 'Female'
+           and survey."Enc.Are you a eligible couple?" = 'Yes'
+           and $X{IN, survey."Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
+           and $X{IN, survey."Ind.panchayat", PARAM_PANCHAYAT_NAME}
+           and $X{IN, survey."Ind.village", PARAM_VILLAGE_NAME}
+           and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+           and (($P{PARAM_AGE_GROUP_15_49} notnull and (
+                 extract('year' from age(survey."Ind.date_of_birth")) between split_part($P{PARAM_AGE_GROUP_15_49}, '-', 1)::INTEGER
+                   and split_part($P{PARAM_AGE_GROUP_15_49}, '-', 2)::INTEGER
+                    )) or ($P{PARAM_AGE_GROUP_15_49} isnull))
+     ) partioned_data
+where visit_number = 1;]]>
+    </queryString>
+    <field name="Name" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Name"/>
+    </field>
+    <field name="Age" class="java.lang.Double">
+        <property name="com.jaspersoft.studio.field.label" value="Age"/>
+    </field>
+    <field name="Survelience Unit" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Survelience Unit"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="address_level"/>
+    </field>
+    <field name="Panchayat" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Panchayat"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="address_level"/>
+    </field>
+    <field name="Village/ward/census town" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Village/ward/census town"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="address_level"/>
+    </field>
+    <field name="Mobile Number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Mobile Number"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+    </field>
+    <field name="Household number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Household number"/>
+    </field>
+    <field name="Head of Household" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Head of Household"/>
+    </field>
+    <field name="Family Planning Method" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Family Planning Method"/>
+    </field>
+    <field name="Currently Pregnant" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Currently Pregnant"/>
+    </field>
+    <field name="Currently PNC Mother" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Currently PNC Mother"/>
+    </field>
+    <field name="uuid" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="uuid"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_individual_survey_view"/>
+    </field>
+    <variable name="COLUMN_URL" class="java.lang.String">
+        <variableExpression><![CDATA[$P{PARAM_APP_URL} + $F{uuid}]]></variableExpression>
+    </variable>
+    <background>
+        <band height="100" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </band>
+    </background>
+    <title>
+        <band height="50" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ReportTitle" x="0" y="0" width="1644" height="50" uuid="ccc013a8-2e32-4c97-acca-cfac4c04bef7"/>
+                <text><![CDATA[Eligible couple - line list]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ColumnHeader" x="0" y="0" width="137" height="30" uuid="bac72a2d-80b0-4db6-9cc3-802f5da6f55d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d296f80-6207-42bd-a43a-609a0b5998e8"/>
+                </reportElement>
+                <text><![CDATA[Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="137" y="0" width="137" height="30" uuid="e50daff3-8c93-461f-a396-9d5be3a47c49">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3af6937-7f00-4a64-b3fc-77270d7621fc"/>
+                </reportElement>
+                <text><![CDATA[Age]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="274" y="0" width="137" height="30" uuid="fd70550b-c774-4d2f-923d-b0dcef985f18">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78b900e1-4181-4def-800a-36e0d2dafc39"/>
+                </reportElement>
+                <text><![CDATA[Survelience Unit]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="411" y="0" width="137" height="30" uuid="3095f46c-c227-4283-9207-e00aee769d0c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="478e9ec3-acf6-46dc-997c-4fbfe3fe8b01"/>
+                </reportElement>
+                <text><![CDATA[Panchayat]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="548" y="0" width="137" height="30" uuid="05b37470-61e6-43cd-ad81-f90eca301fa7">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e1d46e0-3240-4dfb-b897-48f314a90947"/>
+                </reportElement>
+                <text><![CDATA[Village/ward/census town]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="685" y="0" width="137" height="30" uuid="0d539017-3a77-4d01-af47-615334622b65">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cb02a956-d6b9-4d3f-bcc0-9bcef9848cd3"/>
+                </reportElement>
+                <text><![CDATA[Mobile Number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="822" y="0" width="137" height="30" uuid="9b619086-bf32-4386-b70d-d662b8c855e8">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d33f9bb-3d95-4f17-9382-9e12f5e5a4de"/>
+                </reportElement>
+                <text><![CDATA[Household number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="959" y="0" width="137" height="30" uuid="2da7f853-c6dc-43b8-bf75-df2fe15b7488">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ba3a6491-ccd2-40b3-9280-5b86ed987355"/>
+                </reportElement>
+                <text><![CDATA[Head of Household]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1096" y="0" width="137" height="30" uuid="a9752fcf-7de3-4efd-b9b3-bfce88e55a01">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1ae6d59-e6e8-4b27-a176-bfdb94e7b0aa"/>
+                </reportElement>
+                <text><![CDATA[Family Planning Method]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1233" y="0" width="137" height="30" uuid="5223b4be-ab80-49f3-9f85-eec27fa121c9">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4dd63fe-1d89-4578-8945-6b5f1075bc40"/>
+                </reportElement>
+                <text><![CDATA[Currently Pregnant]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1370" y="0" width="137" height="30" uuid="99f25378-21d7-4673-a007-c6bfc616e673">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f64780d8-2b08-4efc-b4d3-973537d6efd1"/>
+                </reportElement>
+                <text><![CDATA[Currently PNC Mother]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+            <textField textAdjust="StretchHeight" hyperlinkType="Reference" hyperlinkTarget="Blank">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="0" y="0" width="137" height="30" uuid="2206fa30-d449-4bc0-ab91-75ec1202f248">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d296f80-6207-42bd-a43a-609a0b5998e8"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+                <hyperlinkReferenceExpression><![CDATA[$V{COLUMN_URL}]]></hyperlinkReferenceExpression>
+                <hyperlinkTooltipExpression><![CDATA["Click to view dashboard"]]></hyperlinkTooltipExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowNumericElement" stretchType="RelativeToTallestObject" x="137" y="0" width="137" height="30" uuid="3cd7ba8a-e915-407e-9a25-729be80a03f1">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3af6937-7f00-4a64-b3fc-77270d7621fc"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Age}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="274" y="0" width="137" height="30" uuid="379cadea-6e16-4074-8839-091b3e2bf139">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78b900e1-4181-4def-800a-36e0d2dafc39"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Survelience Unit}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="411" y="0" width="137" height="30" uuid="09f46b56-479c-425b-8a3c-c51d4a672b67">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="478e9ec3-acf6-46dc-997c-4fbfe3fe8b01"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Panchayat}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="548" y="0" width="137" height="30" uuid="00ba73e0-c17e-4d79-a30c-66218d59cea2">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e1d46e0-3240-4dfb-b897-48f314a90947"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Village/ward/census town}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="685" y="0" width="137" height="30" uuid="e6502d49-9d97-4518-9610-1cbf5d59680a">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cb02a956-d6b9-4d3f-bcc0-9bcef9848cd3"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Mobile Number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="822" y="0" width="137" height="30" uuid="482bada5-f9f9-4bf0-b858-c6fe81bf9822">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d33f9bb-3d95-4f17-9382-9e12f5e5a4de"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Household number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="959" y="0" width="137" height="30" uuid="45616f5e-613a-41ce-9fe7-52af26115e60">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ba3a6491-ccd2-40b3-9280-5b86ed987355"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Head of Household}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1096" y="0" width="137" height="30" uuid="dad33618-d148-4d0f-b192-1d9ba9668718">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1ae6d59-e6e8-4b27-a176-bfdb94e7b0aa"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Family Planning Method}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1233" y="0" width="137" height="30" uuid="9dffd65c-3319-40bd-b4df-b565318208ef">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4dd63fe-1d89-4578-8945-6b5f1075bc40"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Currently Pregnant}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1370" y="0" width="137" height="30" uuid="09a0aaf8-9689-4066-a2aa-c069597be369">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f64780d8-2b08-4efc-b4d3-973537d6efd1"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Currently PNC Mother}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
