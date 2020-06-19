@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Linelist" pageWidth="1684" pageHeight="720" orientation="Landscape" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05cc1aaf-5713-4062-a0f6-7bab099e5fb6">
+    <property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+    <property name="com.jaspersoft.studio.report.description" value=""/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+    <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="185"/>
+    <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="806"/>
+    <template><![CDATA["repo:/Templates/Styles/Linelist.jrtx"]]></template>
+    <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_DYNAMIC_WHERE" class="java.lang.String">
+        <defaultValueExpression><![CDATA["and 1=1"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="PARAM_APP_URL" class="java.lang.String">
+        <defaultValueExpression><![CDATA["https://app.avniproject.org/#/app/subject?uuid="]]></defaultValueExpression>
+    </parameter>
+    <parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <queryString language="SQL">
+        <![CDATA[SELECT *
+FROM (select concat(followup."Ind.first_name", ' ', followup."Ind.last_name")                                 "Name",
+             to_char(followup."Ind.date_of_birth", 'dd-mm-yyyy')                                              "DOB",
+             to_char(age(followup."Ind.date_of_birth"), 'yy')                                                 "Age",
+             followup."Ind.Gender"                                                                            "Gender",
+             surveillance_unit.title                                                                          "Surveillance Unit",
+             panchayat.title                                                                                  "Panchayat",
+             village.title                                                                                    "Village",
+             followup."Ind.Contact Number"                                                                    "Mobile Number",
+             household."Ind.Household number"                                                                 "Household number",
+             m.head_of_family_name                                                                            "Head of household",
+             household."Ind.Name of the PHC/UPHC"                                                             "Name of the PHC/UPHC",
+             followup."Ind.uuid"                                                                              uuid,
+             coalesce("Enc.Difficulty in opening mouth",
+                      "Enl.Difficulty in opening mouth")                                                      "Difficulty in opening mouth",
+             coalesce("Enc.Ulcer/ patch/ growth in mouth that has not healed for 2 wee",
+                      "Enl.Ulcer/ patch/ growth in mouth that has not healed for 2 wee")                      "Unhealed uncer growth in mouth",
+             coalesce("Enc.Whether change in the tone of voice",
+                      "Enl.Whether change in the tone of voice")                                              "Change in the tone of voice",
+             row_number()
+             OVER (PARTITION BY followup."Ind.Id" ORDER BY coalesce(followup."Enc.encounter_date_time",
+                                                                    followup."Enl.enrolment_date_time") desc) visit_number
+      from yenepoya_ncd_followup_view followup
+               left join address_level village on followup."Ind.address_id" = village.id
+               left join address_level panchayat on village.parent_id = panchayat.id
+               left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+               left join yenepoya_member_household_view m on followup."Ind.Id" = m.member_id
+               left join yenepoya_household_registration household on m.house_id = household."Ind.Id"
+      where 1 = 1
+      and $X{IN, followup."Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
+        and $X{IN, followup."Ind.panchayat", PARAM_PANCHAYAT_NAME}
+        and $X{IN, followup."Ind.village", PARAM_VILLAGE_NAME}
+        and $X{IN, followup."Ind.Gender",PARAM_GENDER_NAME}
+        and $X{BETWEEN, followup."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+     ) partitioned_data
+WHERE visit_number = 1
+$P!{PARAM_DYNAMIC_WHERE}]]>
+    </queryString>
+    <field name="Name" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Name"/>
+    </field>
+    <field name="DOB" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="DOB"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_followup_view"/>
+    </field>
+    <field name="Age" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Age"/>
+    </field>
+    <field name="Gender" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Gender"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_followup_view"/>
+    </field>
+    <field name="Surveillance Unit" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Surveillance Unit"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="address_level"/>
+    </field>
+    <field name="Panchayat" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Panchayat"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="address_level"/>
+    </field>
+    <field name="Village" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Village"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="address_level"/>
+    </field>
+    <field name="Mobile Number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Mobile Number"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_followup_view"/>
+    </field>
+    <field name="Head of household" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Head of household"/>
+    </field>
+    <field name="Name of the PHC/UPHC" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Name of the PHC/UPHC"/>
+    </field>
+    <field name="Household number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Household number"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_registration"/>
+    </field>
+    <field name="Difficulty in opening mouth" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Difficulty in opening mouth"/>
+    </field>
+    <field name="Unhealed uncer growth in mouth" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Unhealed uncer growth in mouth"/>
+    </field>
+    <field name="Change in the tone of voice" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Change in the tone of voice"/>
+    </field>
+    <field name="uuid" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="uuid"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_ncd_followup_view"/>
+    </field>
+    <variable name="COLUMN_URL" class="java.lang.String">
+        <variableExpression><![CDATA[$P{PARAM_APP_URL} + $F{uuid}]]></variableExpression>
+    </variable>
+    <background>
+        <band height="100" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </band>
+    </background>
+    <title>
+        <band height="50" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ReportTitle" x="0" y="0" width="1644" height="50" uuid="ccc013a8-2e32-4c97-acca-cfac4c04bef7"/>
+                <text><![CDATA[Cancer warning signs - general - Line list]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ColumnHeader" x="0" y="0" width="117" height="30" uuid="ae63c071-cce7-43ec-b735-aedaf09dc211">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e545788-b959-4b7f-ba60-2a31a88138c9"/>
+                </reportElement>
+                <text><![CDATA[Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="117" y="0" width="117" height="30" uuid="5a92681a-5f61-438f-8469-6e5696ca5289">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ad129dc-c501-4680-95c2-01214be8fe15"/>
+                </reportElement>
+                <text><![CDATA[DOB]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="234" y="0" width="117" height="30" uuid="d0c1968d-c6e6-40c9-9523-c5be83efedd6">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e1ad50e-86af-40fb-b9b5-2fc053198503"/>
+                </reportElement>
+                <text><![CDATA[Age]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="351" y="0" width="117" height="30" uuid="8d72a8a2-280e-46f1-ac68-657193a7f4e3">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0175ef8-79b7-4eee-8be1-b755796204a7"/>
+                </reportElement>
+                <text><![CDATA[Gender]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="468" y="0" width="117" height="30" uuid="ad62fcf2-d7d5-496b-81e5-aa6339a15fde">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dd710ea4-b8d5-45f8-b5e3-92ec7c85e9ae"/>
+                </reportElement>
+                <text><![CDATA[Surveillance Unit]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="585" y="0" width="117" height="30" uuid="d0a28dd1-26a3-4bcc-b685-c6e48ec14e65">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="017802af-514e-417c-b91d-de7f0c28ad68"/>
+                </reportElement>
+                <text><![CDATA[Panchayat/Ward]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="702" y="0" width="117" height="30" uuid="3867c523-f501-4b23-b018-fcf95c242132">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="45f85cf5-a743-4c7a-bf47-07dcda48c9fe"/>
+                </reportElement>
+                <text><![CDATA[Village/Ward]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="819" y="0" width="117" height="30" uuid="7f59a1ff-d1bd-4052-a820-8aef80cb4095">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4f5a89b0-38a3-4b75-a0e9-6822d40c4caa"/>
+                </reportElement>
+                <text><![CDATA[Mobile Number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="936" y="0" width="117" height="30" uuid="7ec4418b-39b1-47bd-a4a0-01b25bf0bede">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6ef6dba6-1eef-4c50-b07c-8c245fdeafe3"/>
+                </reportElement>
+                <text><![CDATA[Head of household]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1053" y="0" width="117" height="30" uuid="58965bee-2560-43bc-b1d2-252570bbc027">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eeb0e43e-b3b2-4416-8efd-c8ae272d2da5"/>
+                </reportElement>
+                <text><![CDATA[Household number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1170" y="0" width="117" height="30" uuid="58562bee-2560-43bc-b1d2-252570bbc027">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eeb5e43e-b3b2-4416-8efd-c8ae272d2da5"/>
+                </reportElement>
+                <text><![CDATA[Name of the PHC/UPHC]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1287" y="0" width="117" height="30" uuid="994cb47b-a660-4677-b954-683cbe8df86b">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4de16c03-dd82-4d3f-87cb-50e7ea4affb2"/>
+                </reportElement>
+                <text><![CDATA[Difficulty in opening mouth]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1404" y="0" width="117" height="30" uuid="23dbd5ad-132d-498c-8fdd-ec5746b70372">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46e23750-612f-40c6-8bb6-8a5327adce09"/>
+                </reportElement>
+                <text><![CDATA[Unhealed ulcer growth in mouth]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1521" y="0" width="117" height="30" uuid="84e3446c-b94b-4f13-a33a-09774f2f52ce">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="61e81039-e748-487c-862b-ec3b86cace18"/>
+                </reportElement>
+                <text><![CDATA[Change in the tone of voice]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+            <textField textAdjust="StretchHeight" hyperlinkType="Reference" hyperlinkTarget="Blank">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="0" y="0" width="117" height="30" uuid="523b39f0-1d2a-4eee-833a-8f5f401b35f6">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e545788-b959-4b7f-ba60-2a31a88138c9"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+                <hyperlinkReferenceExpression><![CDATA[$V{COLUMN_URL}]]></hyperlinkReferenceExpression>
+                <hyperlinkTooltipExpression><![CDATA["Click to view dashboard"]]></hyperlinkTooltipExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="117" y="0" width="117" height="30" uuid="26dd35ad-4d6d-487e-9795-ad49f4599adc">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ad129dc-c501-4680-95c2-01214be8fe15"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{DOB}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="234" y="0" width="117" height="30" uuid="426d5514-4e50-460e-a12e-143b687e0ba1">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e1ad50e-86af-40fb-b9b5-2fc053198503"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Age}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="351" y="0" width="117" height="30" uuid="39531a48-3a97-4a47-bb94-a4615e3219d9">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0175ef8-79b7-4eee-8be1-b755796204a7"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Gender}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="468" y="0" width="117" height="30" uuid="b0cf78b6-8761-4fbe-b626-fb1682e93543">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dd710ea4-b8d5-45f8-b5e3-92ec7c85e9ae"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Surveillance Unit}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="585" y="0" width="117" height="30" uuid="d1275f51-5521-485e-bd3d-99c4cdbe7d65">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="017802af-514e-417c-b91d-de7f0c28ad68"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Panchayat}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="702" y="0" width="117" height="30" uuid="8e64b7d3-7281-4771-ab48-f31e83420285">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="45f85cf5-a743-4c7a-bf47-07dcda48c9fe"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Village}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="819" y="0" width="117" height="30" uuid="c79edfe3-c876-429b-9360-0e11aa14be9f">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4f5a89b0-38a3-4b75-a0e9-6822d40c4caa"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Mobile Number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="936" y="0" width="117" height="30" uuid="7149e50b-1536-4611-b6c7-96d05cae5f93">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6ef6dba6-1eef-4c50-b07c-8c245fdeafe3"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Head of household}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1053" y="0" width="117" height="30" uuid="246869c8-57ab-4372-91b6-59c171bbf2df">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eeb0e43e-b3b2-4416-8efd-c8ae272d2da5"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Household number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1170" y="0" width="117" height="30" uuid="246869c8-57ab-4322-91b6-59c171bbf2df">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eeb0e43e-b3b2-4316-8efd-c8ae272d2da5"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Name of the PHC/UPHC}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1287" y="0" width="117" height="30" uuid="ec301cff-d5c0-41ad-b2df-ccef11de0162">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4de16c03-dd82-4d3f-87cb-50e7ea4affb2"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Difficulty in opening mouth}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1404" y="0" width="117" height="30" uuid="d5bed24a-0f07-4956-9589-4222edcf82f3">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46e23750-612f-40c6-8bb6-8a5327adce09"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Unhealed uncer growth in mouth}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1521" y="0" width="117" height="30" uuid="1ffdd8d1-450a-4d31-931c-181599c3a75c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="61e81039-e748-487c-862b-ec3b86cace18"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Change in the tone of voice}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
