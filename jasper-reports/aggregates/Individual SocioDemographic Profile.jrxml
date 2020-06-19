@@ -450,9 +450,9 @@
 		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
 		<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
 		<queryString language="SQL">
-			<![CDATA[select 'total population' "Label", 
-count(*) "Number", 
-0 "Percentage"
+			<![CDATA[select 'total population' "Label",
+count(*) "Number",
+'NA' "Percentage"
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -466,7 +466,7 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
 		<field name="Number" class="java.lang.Long">
 			<property name="com.jaspersoft.studio.field.label" value="Number"/>
 		</field>
-		<field name="Percentage" class="java.lang.Integer">
+		<field name="Percentage" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="Percentage"/>
 		</field>
 	</subDataset>
@@ -483,8 +483,8 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
 			<![CDATA[select 'Male population',
        count("Ind.Id")
        filter (where "Ind.Gender" = 'Male') as "Male population",
-       (count("Ind.Id") filter (where "Ind.Gender" = 'Male') * 100) /
-       nullif(count(*), 0)
+       nullif((count("Ind.Id") filter (where "Ind.Gender" = 'Male') * 100) /
+       nullif(count(*), 0),0)
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -516,8 +516,8 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
        count("Ind.Id")
        filter (where "Ind.Gender" = 'Female') as "Male population",
 
-       (count("Ind.Id") filter (where "Ind.Gender" = 'Female') * 100) /
-       nullif(count(*), 0)
+       nullif((count("Ind.Id") filter (where "Ind.Gender" = 'Female') * 100) /
+       nullif(count(*), 0),0)
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -553,10 +553,10 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
        count(yir."Ind.Id")
        filter ( where (extract(year from age(current_timestamp, yir."Ind.date_of_birth")) <= 45) and
                       yir."Ind.Gender" = 'Female'),
-       (count(yir."Ind.Id")
+       nullif((count(yir."Ind.Id")
        filter ( where (extract(year from age(current_timestamp, yir."Ind.date_of_birth")) <= 45) and
                       yir."Ind.Gender" = 'Female') * 100) /
-       nullif((select count(*) from yenepoya_individual_registration_view), 0)
+       nullif((select count(*) from yenepoya_individual_registration_view), 0),0)
 from yenepoya_individual_registration_view yir
          join yenepoya_individual_survey_view yisf
               on yir."Ind.Id" = yisf."Ind.Id"
@@ -589,8 +589,8 @@ where $X{IN,yir."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
 		<queryString language="SQL">
 			<![CDATA[select 'Total population 0-5Years',
        count("Ind.Id") filter ( where extract(year from age(current_timestamp, "Ind.date_of_birth")) <= 5 ),
-       (count("Ind.Id") filter ( where extract(year from age(current_timestamp, "Ind.date_of_birth")) <= 5 ) * 100) /
-       nullif(count(*), 0)
+       nullif((count("Ind.Id") filter ( where extract(year from age(current_timestamp, "Ind.date_of_birth")) <= 5 ) * 100) /
+       nullif(count(*), 0),0)
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -621,9 +621,9 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
 			<![CDATA[select 'Total population 10-19 Years',
        count("Ind.Id")
        filter ( where extract(year from age(current_timestamp, "Ind.date_of_birth")) between 10 and 19 ),
-       (count("Ind.Id")
+       nullif((count("Ind.Id")
         filter ( where extract(year from age(current_timestamp, "Ind.date_of_birth")) between 10 and 19 ) * 100) /
-       nullif(count(*), 0)
+       nullif(count(*), 0),0)
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -654,9 +654,9 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
 			<![CDATA[select 'Total population more than 60 years',
        count("Ind.Id")
        filter ( where extract(year from age(current_timestamp, "Ind.date_of_birth")) > 60 ),
-       (count("Ind.Id")
+       nullif((count("Ind.Id")
         filter ( where extract(year from age(current_timestamp, "Ind.date_of_birth")) > 60 ) * 100) /
-       nullif(count(*), 0)
+       nullif(count(*), 0),0)
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -692,10 +692,10 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
        count(yir."Ind.Id")
        filter ( where (extract(year from age(current_timestamp, yir."Ind.date_of_birth")) between 20 and 24) and
                       yir."Ind.Gender" = 'Female'),
-       (count(yir."Ind.Id")
+       nullif((count(yir."Ind.Id")
        filter ( where (extract(year from age(current_timestamp, yir."Ind.date_of_birth")) between 20 and 24) and
                       yir."Ind.Gender" = 'Female')*100) /
-       nullif((select count(*) from yenepoya_individual_registration_view), 0)
+       nullif((select count(*) from yenepoya_individual_registration_view), 0),0)
 from yenepoya_individual_registration_view yir
          join yenepoya_individual_survey_view yisf
               on yir."Ind.Id" = yisf."Ind.Id"
@@ -734,10 +734,10 @@ where $X{IN,yir."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
        count(yir."Ind.Id")
        filter ( where (extract(year from age(current_timestamp, yir."Ind.date_of_birth")) between 18 and 24) and
                       yir."Ind.Gender" = 'Male'),
-       (count(yir."Ind.Id")
+       nullif((count(yir."Ind.Id")
        filter ( where (extract(year from age(current_timestamp, yir."Ind.date_of_birth")) between 18 and 24) and
                       yir."Ind.Gender" = 'Male')*100) /
-       nullif((select count(*) from yenepoya_individual_registration_view), 0)
+       nullif((select count(*) from yenepoya_individual_registration_view), 0),0)
 from yenepoya_individual_registration_view yir
          join yenepoya_individual_survey_view yisf
               on yir."Ind.Id" = yisf."Ind.Id" and yisf."Enc.Marital status" = 'Married'
@@ -772,11 +772,11 @@ where $X{IN,yir."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
        count("Ind.Id")
        filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) < 3) and
                       "Ind.Gender" = 'Male' ),
-       (count("Ind.Id")
+       nullif((count("Ind.Id")
         filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) < 3) and
                        "Ind.Gender" = 'Male' ) * 100) /
        nullif(count("Ind.Id")
-              filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) < 3)), 0)
+              filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) < 3)), 0),0)
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -808,11 +808,11 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
        count("Ind.Id")
        filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) < 3) and
                       "Ind.Gender" = 'Female' ),
-       (count("Ind.Id")
+       nullif((count("Ind.Id")
         filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) < 3) and
                        "Ind.Gender" = 'Female' ) * 100) /
        nullif(count("Ind.Id")
-              filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) < 3)), 0)
+              filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) < 3)), 0),0)
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -844,11 +844,11 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
        count("Ind.Id")
        filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) between 3 and 5) and
                       "Ind.Gender" = 'Male' ),
-       (count("Ind.Id")
+       nullif((count("Ind.Id")
         filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) between 3 and 5) and
                        "Ind.Gender" = 'Male' ) * 100) /
        nullif(count("Ind.Id")
-              filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) between 3 and 5) ), 0)
+              filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) between 3 and 5) ), 0),0)
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -880,12 +880,12 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
        count("Ind.Id")
        filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) between 3 and 5) and
                       "Ind.Gender" = 'Female' ),
-       (count("Ind.Id")
+       nullif((count("Ind.Id")
         filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) between 3 and 5) and
                        "Ind.Gender" = 'Female' ) *
         100) /
        nullif(count("Ind.Id")
-              filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) between 3 and 5) ), 0)
+              filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) between 3 and 5) ), 0),0)
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -916,7 +916,7 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
 			<![CDATA[select 'Child sex ratio (0-6 years)',
        count("Ind.Id") filter ( where (extract(year from age(current_timestamp, "Ind.date_of_birth")) <= 6) and
                                       "Ind.Gender" = 'Female' ) / 1000,
-       0
+       'NA'
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -930,7 +930,7 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
 		<field name="COLUMN_2" class="java.lang.Long">
 			<property name="com.jaspersoft.studio.field.label" value="?column?"/>
 		</field>
-		<field name="COLUMN_3" class="java.lang.Integer">
+		<field name="COLUMN_3" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="?column?"/>
 		</field>
 	</subDataset>
@@ -952,11 +952,11 @@ where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
        count(yisf."Ind.Id")
        filter ( where (extract(year from age(current_timestamp, yir."Ind.date_of_birth")) between 15 and 49) and
                       yir."Ind.Gender" = 'Female' ),
-       (count(yisf."Ind.Id")
+       nullif((count(yisf."Ind.Id")
         filter ( where (extract(year from age(current_timestamp, yir."Ind.date_of_birth")) between 15 and 49) and
                        yir."Ind.Gender" = 'Female' ) *
         100) /
-       nullif((select count(*) from yenepoya_individual_registration_view y where y."Ind.Gender" = 'Female'), 0)
+       nullif((select count(*) from yenepoya_individual_registration_view y where y."Ind.Gender" = 'Female'), 0),0)
 from yenepoya_individual_registration_view yir
          join yenepoya_individual_survey_view yisf
               on yir."Ind.Id" = yisf."Ind.Id" and yisf."Enc.Marital status" = 'Married'
@@ -980,6 +980,8 @@ from yenepoya_individual_registration_view yir
 	<subDataset name="Row16" uuid="5bc1b196-5ac4-480d-bfbc-adc3dd8c9238">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="336"/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="655"/>
 		<parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
 		<parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
 		<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
@@ -988,8 +990,8 @@ from yenepoya_individual_registration_view yir
 		<queryString language="SQL">
 			<![CDATA[select 'Families with BPL ration card',
        count("Ind.Id") filter ( where "Ind.Type of Ration card" = 'BPL' ),
-       (count("Ind.Id") filter ( where "Ind.Type of Ration card" = 'BPL' ) * 100) /
-        nullif(count(*), 0)
+       nullif((count("Ind.Id") filter ( where "Ind.Type of Ration card" = 'BPL' ) * 100) /
+        nullif((select count(*) from yenepoya_household_registration), 0),0)
 from yenepoya_household_registration
  where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
             and $X{IN, "Ind.panchayat", PARAM_PANCHAYAT_NAME}
@@ -1026,7 +1028,7 @@ from yenepoya_household_registration
 	<summary>
 		<band height="562">
 			<componentElement>
-				<reportElement x="30" y="385" width="500" height="30" uuid="f72132b1-513c-4349-a6e3-3c8281087bea">
+				<reportElement x="30" y="385" width="515" height="30" uuid="f72132b1-513c-4349-a6e3-3c8281087bea">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 11_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 11_CH"/>
@@ -1097,19 +1099,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="e9596e87-08f2-463e-a29e-70c43b382a09">
+					<jr:column width="80" uuid="e9596e87-08f2-463e-a29e-70c43b382a09">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 11_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="653b28e2-41c0-4751-8480-a12dc73fee15"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="653b28e2-41c0-4751-8480-a12dc73fee15"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="265" width="500" height="30" uuid="9739a2e3-f63e-4cb7-aaff-0d03c55ea74e">
+				<reportElement x="30" y="265" width="514" height="30" uuid="9739a2e3-f63e-4cb7-aaff-0d03c55ea74e">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 7_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 7_CH"/>
@@ -1180,19 +1182,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="2d39238f-d0d1-4580-8acb-ff2104ed58aa">
+					<jr:column width="80" uuid="2d39238f-d0d1-4580-8acb-ff2104ed58aa">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 7_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="da512da6-c511-4335-a94d-d457330f852e"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="da512da6-c511-4335-a94d-d457330f852e"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="205" width="500" height="30" uuid="0e0e3877-1330-436c-b46b-fa749273115b">
+				<reportElement x="30" y="205" width="514" height="30" uuid="0e0e3877-1330-436c-b46b-fa749273115b">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 5_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 5_CH"/>
@@ -1262,19 +1264,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="0ede902b-b291-4c2b-befa-a8479dc1ba3a">
+					<jr:column width="80" uuid="0ede902b-b291-4c2b-befa-a8479dc1ba3a">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 5_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="4d50442b-b1d6-4f42-8bc3-3ea6dac84922"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="4d50442b-b1d6-4f42-8bc3-3ea6dac84922"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="115" width="500" height="30" uuid="f6dc8a2e-cd7e-4261-875b-cf167f5bc79d">
+				<reportElement x="30" y="115" width="515" height="30" uuid="f6dc8a2e-cd7e-4261-875b-cf167f5bc79d">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 2_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 2_CH"/>
@@ -1345,19 +1347,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="4fffb5e2-5645-49d0-8af5-e9e8b024a3af">
+					<jr:column width="80" uuid="4fffb5e2-5645-49d0-8af5-e9e8b024a3af">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 2_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="07e181f2-2409-4840-834d-336a4a499b5e"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="07e181f2-2409-4840-834d-336a4a499b5e"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="25" width="500" height="60" uuid="bb6cae3e-c426-4d88-ba32-a293d95e3eee">
+				<reportElement x="30" y="25" width="514" height="60" uuid="bb6cae3e-c426-4d88-ba32-a293d95e3eee">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -1390,7 +1392,7 @@ from yenepoya_household_registration
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
 								<reportElement style="ColumnHeader" mode="Transparent" x="0" y="0" width="366" height="30" uuid="5859268b-bda1-4f37-87a7-2351a7a7f721"/>
-								<text><![CDATA[Label]]></text>
+								<text><![CDATA[Demographic Profile]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
@@ -1440,25 +1442,25 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="f592a9a4-3dbf-4a44-b08e-c2ab468575e5">
+					<jr:column width="80" uuid="f592a9a4-3dbf-4a44-b08e-c2ab468575e5">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement style="ColumnHeader" mode="Transparent" x="0" y="0" width="66" height="30" uuid="82decae6-b584-4184-b388-2bb8a8219c41"/>
+								<reportElement style="ColumnHeader" mode="Transparent" x="0" y="0" width="80" height="30" uuid="82decae6-b584-4184-b388-2bb8a8219c41"/>
 								<text><![CDATA[Percentage]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="c3fe690f-4f12-409d-87fc-52b8ab61b0da"/>
-								<textFieldExpression><![CDATA[$F{Percentage} == null ? "0.00%" : $F{Percentage}]]></textFieldExpression>
+								<reportElement style="DataRowNumericElement" x="0" y="0" width="80" height="30" uuid="c3fe690f-4f12-409d-87fc-52b8ab61b0da"/>
+								<textFieldExpression><![CDATA[$F{Percentage}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="85" width="500" height="30" uuid="c6525d0b-4f36-48b9-b6b7-91356ed3d1ac">
+				<reportElement x="30" y="85" width="514" height="30" uuid="c6525d0b-4f36-48b9-b6b7-91356ed3d1ac">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
@@ -1529,19 +1531,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="acd77233-d434-4521-bcc0-f916409c1c87">
+					<jr:column width="80" uuid="acd77233-d434-4521-bcc0-f916409c1c87">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 1_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="5564a330-4ba1-4eb6-a068-6747a62ab247"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="5564a330-4ba1-4eb6-a068-6747a62ab247"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="355" width="500" height="30" uuid="1d7dc380-694b-4bb0-a408-4b5837e0b200">
+				<reportElement x="30" y="355" width="515" height="30" uuid="1d7dc380-694b-4bb0-a408-4b5837e0b200">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 10_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 10_CH"/>
@@ -1612,19 +1614,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="4f0eb3f2-9819-4473-aeaf-77ac4ec8cefc">
+					<jr:column width="80" uuid="4f0eb3f2-9819-4473-aeaf-77ac4ec8cefc">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 10_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="948e0da2-22f6-418a-a3aa-146389b884e4"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="948e0da2-22f6-418a-a3aa-146389b884e4"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="445" width="500" height="30" uuid="090a0b71-a503-48a0-967f-9a6f26190b4f">
+				<reportElement x="30" y="445" width="514" height="30" uuid="090a0b71-a503-48a0-967f-9a6f26190b4f">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 13_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 13_CH"/>
@@ -1694,19 +1696,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="6349f3f4-9f3a-4e6e-bdb4-17326eee0401">
+					<jr:column width="80" uuid="6349f3f4-9f3a-4e6e-bdb4-17326eee0401">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 13_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="a4fe6918-5b9b-42ea-8d9e-9a7aee4be613"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="a4fe6918-5b9b-42ea-8d9e-9a7aee4be613"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="235" width="500" height="30" uuid="f13bacda-59e6-4873-a1fd-369208b2c562">
+				<reportElement x="30" y="235" width="514" height="30" uuid="f13bacda-59e6-4873-a1fd-369208b2c562">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 6_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 6_CH"/>
@@ -1777,19 +1779,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="28375dc3-9e47-46e3-b8fc-28c5cf7bd2a0">
+					<jr:column width="80" uuid="28375dc3-9e47-46e3-b8fc-28c5cf7bd2a0">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 6_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="f4fcf677-4518-4178-b58e-9bc09cbb9bec"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="f4fcf677-4518-4178-b58e-9bc09cbb9bec"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="415" width="500" height="30" uuid="b725f7d8-2a5a-4aed-93f5-1c07cae0fcd7">
+				<reportElement x="30" y="415" width="514" height="30" uuid="b725f7d8-2a5a-4aed-93f5-1c07cae0fcd7">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 12_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 12_CH"/>
@@ -1860,19 +1862,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="a366d63b-de7f-412a-9ce1-89b540673869">
+					<jr:column width="80" uuid="a366d63b-de7f-412a-9ce1-89b540673869">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 12_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="55d0687b-64ca-493b-9ccc-09353d3a5c75"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="55d0687b-64ca-493b-9ccc-09353d3a5c75"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="145" width="500" height="30" uuid="df6e657d-8d35-4662-a53d-8b408cd036f2">
+				<reportElement x="30" y="145" width="514" height="30" uuid="df6e657d-8d35-4662-a53d-8b408cd036f2">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 3_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 3_CH"/>
@@ -1943,19 +1945,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="8b2d50c9-d0dd-4a74-b565-50c8efeb9fdc">
+					<jr:column width="80" uuid="8b2d50c9-d0dd-4a74-b565-50c8efeb9fdc">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 3_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="470b013b-e875-4ad7-bf61-955d0756d988"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="470b013b-e875-4ad7-bf61-955d0756d988"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="175" width="500" height="30" uuid="4ed87a09-66a2-48f4-92de-633df3c5b8ea">
+				<reportElement x="30" y="175" width="514" height="30" uuid="4ed87a09-66a2-48f4-92de-633df3c5b8ea">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 4_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 4_CH"/>
@@ -2026,19 +2028,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="acf2d5e7-fb54-4646-9593-7ba17410bb1f">
+					<jr:column width="80" uuid="acf2d5e7-fb54-4646-9593-7ba17410bb1f">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 4_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="a49ee9e0-134a-41b4-a2cb-4ccb00a08314"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="a49ee9e0-134a-41b4-a2cb-4ccb00a08314"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="295" width="500" height="30" uuid="9e7d2bf0-739f-4d5e-a33d-27ef4077b4e4">
+				<reportElement x="30" y="295" width="514" height="30" uuid="9e7d2bf0-739f-4d5e-a33d-27ef4077b4e4">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 8_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 8_CH"/>
@@ -2109,19 +2111,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="a19aa0b3-9632-43b0-961c-8e26080c28ad">
+					<jr:column width="80" uuid="a19aa0b3-9632-43b0-961c-8e26080c28ad">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 8_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="f1be3d97-4944-49f7-8a03-d3ed4097811b"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="f1be3d97-4944-49f7-8a03-d3ed4097811b"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="325" width="500" height="30" uuid="ee0ee26c-a185-4e68-9a03-a8dccdb5b664">
+				<reportElement x="30" y="325" width="514" height="30" uuid="ee0ee26c-a185-4e68-9a03-a8dccdb5b664">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 9_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 9_CH"/>
@@ -2192,19 +2194,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="95e06cee-9398-427c-9f3d-dabd2fecc88e">
+					<jr:column width="80" uuid="95e06cee-9398-427c-9f3d-dabd2fecc88e">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 9_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="19329bec-67fa-43a0-8e17-177e77794e05"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="19329bec-67fa-43a0-8e17-177e77794e05"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="475" width="500" height="30" uuid="e9f69273-48d5-4007-819c-0d8c64bdd980">
+				<reportElement x="30" y="475" width="514" height="30" uuid="e9f69273-48d5-4007-819c-0d8c64bdd980">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 14_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 14_CH"/>
@@ -2275,19 +2277,19 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="3a0d734d-7a2a-4289-b8a0-e0a4d4471e99">
+					<jr:column width="80" uuid="3a0d734d-7a2a-4289-b8a0-e0a4d4471e99">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 14_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="6eb9b9fa-5243-43ae-b66c-06f5b2a21116"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="6eb9b9fa-5243-43ae-b66c-06f5b2a21116"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement x="30" y="505" width="500" height="30" uuid="22042d80-3422-4639-a98d-c7aff4b1368a">
+				<reportElement x="30" y="505" width="515" height="30" uuid="22042d80-3422-4639-a98d-c7aff4b1368a">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 15_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 15_CH"/>
@@ -2330,12 +2332,12 @@ from yenepoya_household_registration
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="66" uuid="4cd3be13-7e5f-4c8e-806f-71e562e3560f">
+					<jr:column width="80" uuid="4cd3be13-7e5f-4c8e-806f-71e562e3560f">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:detailCell style="Table 15_TD" height="30">
 							<textField>
-								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="66" height="30" uuid="71f809fc-29df-4940-82b2-5821a2801fc2"/>
-								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0.00%" : $F{COLUMN_3}]]></textFieldExpression>
+								<reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="80" height="30" uuid="71f809fc-29df-4940-82b2-5821a2801fc2"/>
+								<textFieldExpression><![CDATA[$F{COLUMN_3} == null ? "0%" : $F{COLUMN_3}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

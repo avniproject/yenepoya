@@ -196,77 +196,77 @@ $P!{PARAM_DYNAMIC_WHERE};]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="60" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
-			<textField>
-				<reportElement style="DataRowElement" x="0" y="0" width="137" height="60" uuid="ab30968a-fd3a-4c5a-901d-c4930531fbab">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="0" y="0" width="137" height="30" uuid="ab30968a-fd3a-4c5a-901d-c4930531fbab">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93ef1017-e860-4ae6-8b3f-e13bdd615684"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="137" y="0" width="137" height="60" uuid="69921d6e-afc8-4660-8efd-798433f18f29">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="137" y="0" width="137" height="30" uuid="69921d6e-afc8-4660-8efd-798433f18f29">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8befef3d-7c11-4c44-80eb-c853a40c320f"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Age}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="274" y="0" width="137" height="60" uuid="9e62088c-46b9-4b89-ad6c-26d608a4a614">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="274" y="0" width="137" height="30" uuid="9e62088c-46b9-4b89-ad6c-26d608a4a614">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d893d9ce-c012-4cf5-963d-79019dbec672"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{DOB}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="411" y="0" width="137" height="60" uuid="58fdf63e-48fd-4759-a0c2-debeb7f2dbc5">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="411" y="0" width="137" height="30" uuid="58fdf63e-48fd-4759-a0c2-debeb7f2dbc5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e837297d-a0f4-4952-8c36-64e3d3fcae85"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Gender}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="548" y="0" width="137" height="60" uuid="24a8c707-04aa-4c53-b114-8607516d2705">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="548" y="0" width="137" height="30" uuid="24a8c707-04aa-4c53-b114-8607516d2705">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="053755ec-7d85-48b8-a37e-9b477dc6fb55"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Surveillance Unit}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="685" y="0" width="137" height="60" uuid="c6f62acd-3349-4897-9476-2a78646cf916">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="685" y="0" width="137" height="30" uuid="c6f62acd-3349-4897-9476-2a78646cf916">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2debaa30-8558-491a-9f8f-3759e654125b"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Panchayat}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="822" y="0" width="137" height="60" uuid="72f91cc4-76ce-4992-806d-43f930d051c6">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="822" y="0" width="137" height="30" uuid="72f91cc4-76ce-4992-806d-43f930d051c6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06c12d7d-e6d8-44ba-9006-0298dcf82eaa"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Village}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="959" y="0" width="137" height="60" uuid="74eabda0-403c-40b3-8b99-34ac294c62d4">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="959" y="0" width="137" height="30" uuid="74eabda0-403c-40b3-8b99-34ac294c62d4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f5258d9d-cb79-4f4a-9a78-1759573834e3"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Mobile Number}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="1096" y="0" width="137" height="60" uuid="bdd1013c-31e7-4e84-ab38-fe935743e8ec">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="1096" y="0" width="137" height="30" uuid="bdd1013c-31e7-4e84-ab38-fe935743e8ec">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7c34917-5223-4890-85d7-e2b311ce0f74"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Household Number}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="1233" y="0" width="137" height="60" uuid="1ba7ec3c-4f17-4d68-aa64-8f8da4f91536">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="1233" y="0" width="137" height="30" uuid="1ba7ec3c-4f17-4d68-aa64-8f8da4f91536">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="90e62e7f-24f9-401d-9ae6-dc7d46af6e0a"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Head Of Household}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="DataRowElement" x="1370" y="0" width="137" height="60" uuid="444dc7ea-596c-4a66-a320-932b0f351d71">
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowElement" x="1370" y="0" width="137" height="30" uuid="444dc7ea-596c-4a66-a320-932b0f351d71">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4467ed2a-4aa9-47f9-92e8-9e7c34b48f89"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Indicator}]]></textFieldExpression>
 			</textField>
-			<textField hyperlinkType="Reference" hyperlinkTarget="Blank">
-				<reportElement style="DataRowElement" x="1507" y="0" width="137" height="60" uuid="0798c0ac-8f44-4209-a5a5-76ee2bf9c0cd">
+			<textField textAdjust="StretchHeight" hyperlinkType="Reference" hyperlinkTarget="Blank">
+				<reportElement style="DataRowElement" x="1507" y="0" width="137" height="30" uuid="0798c0ac-8f44-4209-a5a5-76ee2bf9c0cd">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="21c3bcc5-8bff-4651-b779-9c7a791b1e6d"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Open in WebApp}]]></textFieldExpression>

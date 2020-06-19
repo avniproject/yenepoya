@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="illness" pageWidth="1684" pageHeight="720" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa1a9231-754c-4c0f-8a57-3e034206cd5a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="illness" pageWidth="1200" pageHeight="720" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa1a9231-754c-4c0f-8a57-3e034206cd5a">
 	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -18,6 +18,8 @@
 	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Aggregates/History_of_flu_like_symptoms_in_last_6_weeks"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="196"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="793"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="774"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="215"/>
 	<template><![CDATA["repo:/Templates/Styles/AggregateReportStyles.jrtx"]]></template>
 	<parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
 	<parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
@@ -29,7 +31,7 @@
 		<![CDATA[with agg_data as (
     SELECT unnest(string_to_array("Enc.History of flu like symptoms in last 6 weeks", ' ,')) as categories,
            count(*)                                                                          as number,
-           (count(*) / (sum(count(*)) over ())) * 100                                        as proportion
+          (count(*) * 100.0) / ((select count(*) from yenepoya_household_registration))                                        as proportion
     FROM (select *,
                  row_number()
                  OVER (PARTITION BY "Enc.Individual_id" ORDER BY "Enc.encounter_date_time" desc) as visit_number
@@ -45,7 +47,7 @@
 )
 select coalesce(agg_data.categories, ac.name) as "Categories",
        coalesce(agg_data.number, 0)           as "Number",
-       coalesce(agg_data.proportion, 0)       as "Proportion"
+       nullif(agg_data.proportion, 0)       as "Proportion"
 from concept c
          join concept_answer ca on c.id = ca.concept_id
          join concept ac on ca.answer_concept_id = ac.id
@@ -73,7 +75,7 @@ where c.name = 'History of flu like symptoms in last 6 weeks';]]>
 		<band height="50" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement style="ReportTitle" x="0" y="0" width="1644" height="50" uuid="b41c1dbc-657e-4f9f-93da-2951563f95d4"/>
+				<reportElement style="ReportTitle" x="319" y="0" width="450" height="50" uuid="b41c1dbc-657e-4f9f-93da-2951563f95d4"/>
 				<text><![CDATA[Influenza Like Illness in last 6 weeks]]></text>
 			</staticText>
 		</band>
@@ -82,37 +84,55 @@ where c.name = 'History of flu like symptoms in last 6 weeks';]]>
 		<band height="30" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement style="ColumnHeader" x="0" y="0" width="548" height="30" uuid="dc319582-6472-4cc5-97e0-6779df1e2ec4">
+				<reportElement style="ColumnHeader" x="300" y="0" width="300" height="30" uuid="dc319582-6472-4cc5-97e0-6779df1e2ec4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b83d625-b126-4f3e-a5f2-feb0a4a7f24e"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
 				<text><![CDATA[Categories]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="ColumnHeader" x="548" y="0" width="548" height="30" uuid="3eb1bb7f-2c1a-4e00-9fb2-6c9d2880a568">
+				<reportElement style="ColumnHeader" x="600" y="0" width="100" height="30" uuid="3eb1bb7f-2c1a-4e00-9fb2-6c9d2880a568">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30b5bd86-7b3e-4170-a5c2-985f07c61dfd"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
 				<text><![CDATA[Number]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="ColumnHeader" x="1096" y="0" width="548" height="30" uuid="072d2e6c-b940-4283-8068-cd0ecd5e161c">
+				<reportElement style="ColumnHeader" x="700" y="0" width="100" height="30" uuid="072d2e6c-b940-4283-8068-cd0ecd5e161c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41dae047-9c71-41d0-8954-613e8fe551b5"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
 				<text><![CDATA[Proportion]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="60" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
 			<textField>
-				<reportElement style="DataRowElement" x="0" y="0" width="548" height="60" uuid="8b9c7381-5507-470f-8426-21c23e372d08">
+				<reportElement style="DataRowElement" x="300" y="0" width="300" height="30" uuid="8b9c7381-5507-470f-8426-21c23e372d08">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b83d625-b126-4f3e-a5f2-feb0a4a7f24e"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Categories}]]></textFieldExpression>
 			</textField>
 			<textField hyperlinkType="ReportExecution">
-				<reportElement style="DataRowElement" x="548" y="0" width="548" height="60" uuid="9227de44-2256-49ce-b73a-c7ece600377c">
+				<reportElement style="DataRowElement" x="600" y="0" width="100" height="30" uuid="9227de44-2256-49ce-b73a-c7ece600377c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="30b5bd86-7b3e-4170-a5c2-985f07c61dfd"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
@@ -143,10 +163,10 @@ where c.name = 'History of flu like symptoms in last 6 weeks';]]>
 				</hyperlinkParameter>
 			</textField>
 			<textField>
-				<reportElement key="" style="DataRowPreCalculatedPercentageElement" x="1096" y="0" width="548" height="60" uuid="7eaec702-84c8-487c-81d4-db0334ef9a57">
+				<reportElement key="" style="DataRowPreCalculatedPercentageElement" x="700" y="0" width="100" height="30" uuid="7eaec702-84c8-487c-81d4-db0334ef9a57">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41dae047-9c71-41d0-8954-613e8fe551b5"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{Proportion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Proportion} == null ? "0%" : $F{Proportion}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
