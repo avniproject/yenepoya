@@ -786,82 +786,152 @@ WHERE (((op.uuid)::text = '85a36148-26a2-4a30-921c-5c1fc64e8acc'::text) AND
 drop view if exists yenepoya_ncd_followup_view;
 create view yenepoya_ncd_followup_view
 as
-SELECT individual.id                                                                        AS "Ind.Id",
-       individual.address_id                                                                AS "Ind.address_id",
-       individual.uuid                                                                      AS "Ind.uuid",
-       individual.first_name                                                                AS "Ind.first_name",
-       individual.last_name                                                                 AS "Ind.last_name",
-       g.name                                                                               AS "Ind.Gender",
-       individual.date_of_birth                                                             AS "Ind.date_of_birth",
-       individual.date_of_birth_verified                                                    AS "Ind.date_of_birth_verified",
-       individual.registration_date                                                         AS "Ind.registration_date",
-       individual.facility_id                                                               AS "Ind.facility_id",
-       a.title                                                                              AS "Ind.Area",
-       individual.is_voided                                                                 AS "Ind.is_voided",
-       programenrolment.id                                                                  AS "Enl.Id",
-       oet.name                                                                             AS "Enc.Type",
-       programencounter.id                                                                  AS "Enc.Id",
-       programencounter.earliest_visit_date_time                                            AS "Enc.earliest_visit_date_time",
-       programencounter.encounter_date_time                                                 AS "Enc.encounter_date_time",
-       programencounter.program_enrolment_id                                                AS "Enc.program_enrolment_id",
-       programencounter.uuid                                                                AS "Enc.uuid",
-       programencounter.name                                                                AS "Enc.name",
-       programencounter.max_visit_date_time                                                 AS "Enc.max_visit_date_time",
-       programencounter.is_voided                                                           AS "Enc.is_voided",
+SELECT individual.id                                                               AS "Ind.Id",
+       individual.address_id                                                       AS "Ind.address_id",
+       individual.uuid                                                             AS "Ind.uuid",
+       individual.first_name                                                       AS "Ind.first_name",
+       individual.last_name                                                        AS "Ind.last_name",
+       g.name                                                                      AS "Ind.Gender",
+       individual.date_of_birth                                                    AS "Ind.date_of_birth",
+       individual.date_of_birth_verified                                           AS "Ind.date_of_birth_verified",
+       individual.registration_date                                                AS "Ind.registration_date",
+       individual.facility_id                                                      AS "Ind.facility_id",
+       a.title                                                                     AS "Ind.Area",
+       individual.is_voided                                                        AS "Ind.is_voided",
+       (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text) AS "Ind.Contact Number",
+       programenrolment.id                                                         AS "Enl.Id",
+       programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
+       programenrolment.program_exit_date_time                                     AS "Enl.program_exit_date_time",
+       programenrolment.is_voided                                                  AS "Enl.is_voided",
+       oet.name                                                                    AS "Enc.Type",
+       programencounter.id                                                         AS "Enc.Id",
+       programencounter.earliest_visit_date_time                                   AS "Enc.earliest_visit_date_time",
+       programencounter.encounter_date_time                                        AS "Enc.encounter_date_time",
+       programencounter.program_enrolment_id                                       AS "Enc.program_enrolment_id",
+       programencounter.uuid                                                       AS "Enc.uuid",
+       programencounter.name                                                       AS "Enc.name",
+       programencounter.max_visit_date_time                                        AS "Enc.max_visit_date_time",
+       programencounter.is_voided                                                  AS "Enc.is_voided",
+       (single_select_coded((programenrolment.observations ->>
+                             '0fc3b733-0ee0-4554-b316-e5e29c1978d2'::text)))::text AS "Enl.Smoking or consume smokeless products",
+       (single_select_coded((programenrolment.observations ->>
+                             'ac4d5664-0b5f-467f-a3c9-c0e4c8c221b7'::text)))::text AS "Enl.Alcohol consumption",
+       (programenrolment.observations ->>
+        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                              AS "Enl.Height in CM",
+       (programenrolment.observations ->>
+        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                              AS "Enl.Weight",
+       (programenrolment.observations ->>
+        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                              AS "Enl.Mid arm circumference",
+       (programenrolment.observations ->>
+        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                              AS "Enl.Waist circumference",
+       (single_select_coded((programenrolment.observations ->>
+                             'c78e883a-60de-4629-8d85-8e4512cd13d5'::text)))::text AS "Enl.Abnormal waist circumference",
+       (single_select_coded((programenrolment.observations ->>
+                             '1cae9bd0-0dba-4479-954a-2d569c58d711'::text)))::text AS "Enl.Waist circumference is normal",
+       (single_select_coded((programenrolment.observations ->>
+                             'dfdc75c1-5a47-4aae-887c-3ee9f050d75e'::text)))::text AS "Enl.Physical activity for >150 min/week",
+       (single_select_coded((programenrolment.observations ->>
+                             '3e092c91-8e32-42b1-ac26-045b846e3893'::text)))::text AS "Enl.Are you practicing any Yoga",
+       (single_select_coded((programenrolment.observations ->>
+                             '8f67d53a-07bf-4652-b7ad-f2f6ef6bdfa2'::text)))::text AS "Enl.Family histroy of high BP, DM or heart disease",
+       (single_select_coded((programenrolment.observations ->>
+                             '83f01615-04b1-4115-84a5-48e89c9aff54'::text)))::text AS "Enl.Difficulty in opening mouth",
+       (single_select_coded((programenrolment.observations ->>
+                             '5e4d8a9d-28a5-49ec-a4c9-cd9cfd4dd134'::text)))::text AS "Enl.Ulcer/ patch/ growth in mouth that has not healed for 2 wee",
+       (single_select_coded((programenrolment.observations ->>
+                             '89bf3601-d8ab-4353-85a3-8070a959394e'::text)))::text AS "Enl.Whether change in the tone of voice",
+       (single_select_coded((programenrolment.observations ->>
+                             'd9f8ee0c-960f-43d7-9b02-aa2557a9aa10'::text)))::text AS "Enl.Lump in the breast",
+       (single_select_coded((programenrolment.observations ->>
+                             '74745370-ee9e-4f58-b25e-57ebac69d75d'::text)))::text AS "Enl.Blood stained discharge from nipple",
+       (single_select_coded((programenrolment.observations ->>
+                             '2da75202-7f70-4a76-a8eb-cd9b289cdf8a'::text)))::text AS "Enl.Change in shape and size of breast",
+       (single_select_coded((programenrolment.observations ->>
+                             '45f02196-217b-4772-8085-3d17c41244da'::text)))::text AS "Enl.Bleeding between periods",
+       (single_select_coded((programenrolment.observations ->>
+                             'd1774f83-ee28-41b8-9cb8-309098ee0f16'::text)))::text AS "Enl.Bleeding after menopause",
+       (single_select_coded((programenrolment.observations ->>
+                             '82efa85a-46a9-4c75-8c53-c488b8c48c54'::text)))::text AS "Enl.Bleeding after intercourse",
+       (single_select_coded((programenrolment.observations ->>
+                             '84a99b8c-f9bb-4436-9d83-d79a60a0b450'::text)))::text AS "Enl.Foul smelling vaginal discharge",
        (single_select_coded((programencounter.observations ->>
-                             '0fc3b733-0ee0-4554-b316-e5e29c1978d2'::text)))::text          AS "Enc.Smoking or consume smokeless products",
+                             '0fc3b733-0ee0-4554-b316-e5e29c1978d2'::text)))::text AS "Enc.Smoking or consume smokeless products",
        (single_select_coded((programencounter.observations ->>
-                             'ac4d5664-0b5f-467f-a3c9-c0e4c8c221b7'::text)))::text          AS "Enc.Alcohol consumption",
+                             'ac4d5664-0b5f-467f-a3c9-c0e4c8c221b7'::text)))::text AS "Enc.Alcohol consumption",
        (programencounter.observations ->>
-        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                                       AS "Enc.Height in CM",
+        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                              AS "Enc.Height in CM",
        (programencounter.observations ->>
-        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                                       AS "Enc.Weight",
+        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                              AS "Enc.Weight",
        (programencounter.observations ->>
-        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                                       AS "Enc.Mid arm circumference",
+        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                              AS "Enc.Mid arm circumference",
        (programencounter.observations ->>
-        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                                       AS "Enc.Waist circumference",
+        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                              AS "Enc.Waist circumference",
        (single_select_coded((programencounter.observations ->>
-                             'dfdc75c1-5a47-4aae-887c-3ee9f050d75e'::text)))::text          AS "Enc.Physical activity for >150 min/week",
+                             'c78e883a-60de-4629-8d85-8e4512cd13d5'::text)))::text AS "Enc.Abnormal waist circumference",
        (single_select_coded((programencounter.observations ->>
-                             '3e092c91-8e32-42b1-ac26-045b846e3893'::text)))::text          AS "Enc.Are you practicing any Yoga",
+                             '1cae9bd0-0dba-4479-954a-2d569c58d711'::text)))::text AS "Enc.Waist circumference is normal",
        (single_select_coded((programencounter.observations ->>
-                             '8f67d53a-07bf-4652-b7ad-f2f6ef6bdfa2'::text)))::text          AS "Enc.Family histroy of high BP, DM or heart disease",
+                             'dfdc75c1-5a47-4aae-887c-3ee9f050d75e'::text)))::text AS "Enc.Physical activity for >150 min/week",
        (single_select_coded((programencounter.observations ->>
-                             '83f01615-04b1-4115-84a5-48e89c9aff54'::text)))::text          AS "Enc.Difficulty in opening mouth",
+                             '3e092c91-8e32-42b1-ac26-045b846e3893'::text)))::text AS "Enc.Are you practicing any Yoga",
        (single_select_coded((programencounter.observations ->>
-                             '5e4d8a9d-28a5-49ec-a4c9-cd9cfd4dd134'::text)))::text          AS "Enc.Ulcer/ patch/ growth in mouth that has not healed for 2 wee",
+                             '8f67d53a-07bf-4652-b7ad-f2f6ef6bdfa2'::text)))::text AS "Enc.Family histroy of high BP, DM or heart disease",
        (single_select_coded((programencounter.observations ->>
-                             '89bf3601-d8ab-4353-85a3-8070a959394e'::text)))::text          AS "Enc.Whether change in the tone of voice",
+                             '83f01615-04b1-4115-84a5-48e89c9aff54'::text)))::text AS "Enc.Difficulty in opening mouth",
        (single_select_coded((programencounter.observations ->>
-                             'd9f8ee0c-960f-43d7-9b02-aa2557a9aa10'::text)))::text          AS "Enc.Lump in the breast",
+                             '5e4d8a9d-28a5-49ec-a4c9-cd9cfd4dd134'::text)))::text AS "Enc.Ulcer/ patch/ growth in mouth that has not healed for 2 wee",
        (single_select_coded((programencounter.observations ->>
-                             '74745370-ee9e-4f58-b25e-57ebac69d75d'::text)))::text          AS "Enc.Blood stained discharge from nipple",
+                             '89bf3601-d8ab-4353-85a3-8070a959394e'::text)))::text AS "Enc.Whether change in the tone of voice",
        (single_select_coded((programencounter.observations ->>
-                             '2da75202-7f70-4a76-a8eb-cd9b289cdf8a'::text)))::text          AS "Enc.Change in shape and size of breast",
+                             'd9f8ee0c-960f-43d7-9b02-aa2557a9aa10'::text)))::text AS "Enc.Lump in the breast",
        (single_select_coded((programencounter.observations ->>
-                             '45f02196-217b-4772-8085-3d17c41244da'::text)))::text          AS "Enc.Bleeding between periods",
+                             '74745370-ee9e-4f58-b25e-57ebac69d75d'::text)))::text AS "Enc.Blood stained discharge from nipple",
        (single_select_coded((programencounter.observations ->>
-                             'd1774f83-ee28-41b8-9cb8-309098ee0f16'::text)))::text          AS "Enc.Bleeding after menopause",
+                             '2da75202-7f70-4a76-a8eb-cd9b289cdf8a'::text)))::text AS "Enc.Change in shape and size of breast",
        (single_select_coded((programencounter.observations ->>
-                             '82efa85a-46a9-4c75-8c53-c488b8c48c54'::text)))::text          AS "Enc.Bleeding after intercourse",
+                             '45f02196-217b-4772-8085-3d17c41244da'::text)))::text AS "Enc.Bleeding between periods",
        (single_select_coded((programencounter.observations ->>
-                             '84a99b8c-f9bb-4436-9d83-d79a60a0b450'::text)))::text          AS "Enc.Foul smelling vaginal discharge",
-       programencounter.cancel_date_time                                                    AS "EncCancel.cancel_date_time",
+                             'd1774f83-ee28-41b8-9cb8-309098ee0f16'::text)))::text AS "Enc.Bleeding after menopause",
        (single_select_coded((programencounter.observations ->>
-                             '5592def2-fe5e-4234-9253-ca5fd0322e26'::text)))::text          AS "EncCancel.Reason Of Cancellation",
+                             '82efa85a-46a9-4c75-8c53-c488b8c48c54'::text)))::text AS "Enc.Bleeding after intercourse",
+       (single_select_coded((programencounter.observations ->>
+                             '84a99b8c-f9bb-4436-9d83-d79a60a0b450'::text)))::text AS "Enc.Foul smelling vaginal discharge",
+       programencounter.cancel_date_time                                           AS "EncCancel.cancel_date_time",
+       (single_select_coded((programencounter.observations ->>
+                             '5592def2-fe5e-4234-9253-ca5fd0322e26'::text)))::text AS "EncCancel.Reason Of Cancellation",
        (programencounter.observations ->>
-        '8263f129-5851-4f9d-a909-818dacacd862'::text)                                       AS "EncCancel.Other Reason of Cancellation",
-       row_number()
-       OVER (PARTITION BY individual.id ORDER BY programencounter.encounter_date_time DESC) AS rank
-FROM ((((((program_encounter programencounter
-    LEFT JOIN operational_encounter_type oet ON ((programencounter.encounter_type_id = oet.encounter_type_id)))
-    LEFT JOIN program_enrolment programenrolment ON ((programencounter.program_enrolment_id = programenrolment.id)))
-    LEFT JOIN operational_program op ON ((op.program_id = programenrolment.program_id)))
-    LEFT JOIN individual individual ON ((programenrolment.individual_id = individual.id)))
-    LEFT JOIN gender g ON ((g.id = individual.gender_id)))
-         LEFT JOIN address_level a ON ((individual.address_id = a.id)))
-WHERE (((op.uuid)::text = '85a36148-26a2-4a30-921c-5c1fc64e8acc'::text) AND
-       ((oet.uuid)::text = 'b0d16b85-218c-4392-999c-4fa19476cf42'::text) AND
-       (programencounter.encounter_date_time IS NOT NULL) AND (programenrolment.enrolment_date_time IS NOT NULL));
+        '8263f129-5851-4f9d-a909-818dacacd862'::text)                              AS "EncCancel.Other Reason of Cancellation"
+FROM program_enrolment programenrolment
+         LEFT JOIN operational_program op ON op.program_id = programenrolment.program_id
+         LEFT JOIN program_encounter programencounter ON programencounter.program_enrolment_id = programenrolment.id
+    AND programencounter.encounter_date_time IS NOT NULL
+         LEFT JOIN operational_encounter_type oet ON programencounter.encounter_type_id = oet.encounter_type_id
+    AND oet.uuid::text = 'b0d16b85-218c-4392-999c-4fa19476cf42'::text
+         LEFT JOIN individual individual ON programenrolment.individual_id = individual.id
+         LEFT JOIN gender g ON g.id = individual.gender_id
+         LEFT JOIN address_level a ON individual.address_id = a.id
+WHERE op.uuid::text = '85a36148-26a2-4a30-921c-5c1fc64e8acc'::text
+  AND programenrolment.enrolment_date_time IS NOT NULL;
+
+
+create or replace view yenepoya_member_household_view as (
+    select concat(member.first_name, ' ', member.last_name) member_name,
+           member.id                                        member_id,
+           house.first_name                                 house_name,
+           house.id                                         house_id,
+           (select concat(head.first_name, ' ', head.last_name)
+            from individual head
+            where head.id = gs2.member_subject_id)          head_of_family_name,
+           gs2.member_subject_id                            head_of_family_id
+    from individual member
+             join subject_type on member.subject_type_id = subject_type.id and subject_type.type = 'Person'
+             left join group_subject gs on gs.member_subject_id = member.id and not gs.is_voided
+             left join individual house on house.id = gs.group_subject_id
+             left join group_subject gs2 on gs2.group_subject_id = house.id
+             left join group_role gr on gs2.group_role_id = gr.id
+    where not gs2.is_voided
+        and gr.role = 'Head of household'
+       or gr.role isnull
+);
 
 set role none;
