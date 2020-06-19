@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Linelist" pageWidth="2500" pageHeight="720" orientation="Landscape" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05cc1aaf-5713-4062-a0f6-7bab099e5fb6">
+    <property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+    <property name="com.jaspersoft.studio.report.description" value=""/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+    <template><![CDATA["repo:/Templates/Styles/Linelist.jrtx"]]></template>
+    <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_DYNAMIC_WHERE" class="java.lang.String">
+        <defaultValueExpression><![CDATA["and 1=1"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="PARAM_APP_URL" class="java.lang.String">
+        <defaultValueExpression><![CDATA["https://app.avniproject.org/#/app/subject?uuid="]]></defaultValueExpression>
+    </parameter>
+    <queryString language="SQL">
+        <![CDATA[SELECT *
+FROM (select concat(survey."Ind.first_name", ' ', survey."Ind.last_name")                       "Household name",
+			 survey."Ind.Household number"                                                      "Household number",
+             survey."Ind.surveillance_unit"                                                     "Surveillance Unit",
+             survey."Ind.panchayat"                                                             "Panchayat",
+             survey."Ind.village"                                                               "Village",
+             survey."Ind.Contact Number"                                                        "Mobile Number",
+             m.head_of_family_name                                                              "Name of Head of Family",
+             survey."Ind.Which religion do you practice?"                                       "Religion",
+             survey."Ind.You belong to which social class?"                                     "Social class",
+             survey."Ind.Type of Ration card"                                                   "Ration card",
+             survey."Enc.Type of potential breeding sites present"                              "Type of potential breeding sites present",
+             survey."Enc.Type of fuel"                                                          "Type of fuel",
+             survey."Enc.Source of drinking water?"                                             "Source of drinking water",
+             survey."Enc.Are you using any insecticide treated bed nets?"                       "Insecticide treated bed nets being used",
+             survey."Enc.Most common household waste disposal method"                           "Most common household waste disposal method",
+             survey."Enc.Is there a latrine in your house?"                                     "Latrine present in the house",
+             survey."Enc.Domestic purification methods used"                                    "Domestic purification methods used",
+             survey."Enc.Is open air defecation practiced by family member"                     "Open air defecation practiced by family member",
+             survey."Enc.Who has constructed the latrine?"                                      "Who has constructed the latrine",
+             survey."Enc.what type of drainage facility does your household have?"              "Drainage facility used by household",
+             survey."Enc.Out-of-pocket payments exceeding 10% of household total"               "Out of pocket expenditure",
+             survey."Ind.uuid"                                                                  uuid,
+             row_number()
+             OVER (PARTITION BY survey."Ind.Id" ORDER BY survey."Enc.encounter_date_time" desc) visit_number
+      from yenepoya_household_survey_view survey
+               left join yenepoya_member_household_view m on survey."Ind.Id" = m.house_id
+      where 1=1
+      and $X{IN, survey."Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
+        and $X{IN, survey."Ind.panchayat", PARAM_PANCHAYAT_NAME}
+        and $X{IN, survey."Ind.village", PARAM_VILLAGE_NAME}
+        and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+     ) partitioned_data
+WHERE visit_number = 1
+$P!{PARAM_DYNAMIC_WHERE};]]>
+    </queryString>
+    <field name="Household name" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Household name"/>
+    </field>
+    <field name="Household number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Household number"/>
+    </field>
+    <field name="Surveillance Unit" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Surveillance Unit"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Panchayat" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Panchayat"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Village" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Village"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Mobile Number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Mobile Number"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Name of Head of Family" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Name of Head of Family"/>
+    </field>
+    <field name="Religion" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Religion"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Social class" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Social class"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Ration card" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Ration card"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Type of potential breeding sites present" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Type of potential breeding sites present"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Type of fuel" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Type of fuel"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Source of drinking water" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Source of drinking water"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Insecticide treated bed nets being used" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Insecticide treated bed nets being used"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Most common household waste disposal method" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Most common household waste disposal method"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Latrine present in the house" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Latrine present in the house"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Domestic purification methods used" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Domestic purification methods used"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Open air defecation practiced by family member" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Open air defecation practiced by family member"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Who has constructed the latrine" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Who has constructed the latrine"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Drainage facility used by household" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Drainage facility used by household"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Out of pocket expenditure" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Out of pocket expenditure"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="uuid" class="java.lang.String"/>
+    <variable name="COLUMN_URL" class="java.lang.String">
+        <variableExpression><![CDATA[$P{PARAM_APP_URL} + $F{uuid}]]></variableExpression>
+    </variable>
+    <background>
+        <band height="100" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </band>
+    </background>
+    <title>
+        <band height="50" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ReportTitle" x="0" y="0" width="2318" height="50" uuid="ccc013a8-2e32-4c97-acca-cfac4c04bef7"/>
+                <text><![CDATA[Environmental Factors - Line list]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ColumnHeader" x="0" y="0" width="82" height="30" uuid="00c20f11-e9da-44c3-9dfe-f1a82febe911">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de2d606b-9e9b-4b6e-b008-e737a04f9185"/>
+                </reportElement>
+                <text><![CDATA[Household name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="82" y="0" width="82" height="30" uuid="00c20f11-e9da-44c3-9dfe-f1a82febe911">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de2d606b-9e9b-4b6e-b008-e737a04f9185"/>
+                </reportElement>
+                <text><![CDATA[Household number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="164" y="0" width="82" height="30" uuid="bcc31640-b2af-4454-ad98-f255269656bd">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3dca79c4-63e5-4369-875e-bd30c349371c"/>
+                </reportElement>
+                <text><![CDATA[Surveillance Unit]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="246" y="0" width="82" height="30" uuid="29cd846e-2faa-4cef-9839-09dd31fd3669">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db89b25e-25bd-4f1c-8618-8dcfa232b9f5"/>
+                </reportElement>
+                <text><![CDATA[Panchayat/Ward]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="328" y="0" width="82" height="30" uuid="5ef1498b-05fb-4a0a-ae6d-97b8d407cb17">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f624ff0-6033-40a5-b19d-c77a2383436d"/>
+                </reportElement>
+                <text><![CDATA[Village/Ward]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="410" y="0" width="82" height="30" uuid="d96de110-6dcd-447a-a6c0-6a1509d386ca">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="640d4aa4-d097-43f8-a2b3-d0e46fae6a2a"/>
+                </reportElement>
+                <text><![CDATA[Mobile Number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="492" y="0" width="100" height="30" uuid="29376352-a779-426d-bf7d-4e68fd19cbd5">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="907adbff-87fd-424d-aace-4fa7be8485a8"/>
+                </reportElement>
+                <text><![CDATA[Name of Head of Family]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="592" y="0" width="82" height="30" uuid="0a1698ce-c63d-4e2f-8cbd-cab20cdbc902">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94bc8305-0ce7-4b3d-984a-822bad10199b"/>
+                </reportElement>
+                <text><![CDATA[Religion]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="674" y="0" width="82" height="30" uuid="af3c148e-59ab-45fc-ae60-cd24582d7229">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c9f7fb6-101a-4241-857d-862f3b2aa764"/>
+                </reportElement>
+                <text><![CDATA[Social class]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="756" y="0" width="82" height="30" uuid="d094f9b2-1c68-43fe-ac84-61a5d2d46449">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e4efa7c-dc48-450f-ab23-e200ec0ae600"/>
+                </reportElement>
+                <text><![CDATA[Ration card]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="838" y="0" width="150" height="30" uuid="396c2f76-4815-4b42-a7c1-30e669d0598d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ce3a67fb-730e-49b1-941a-fc49df6d94d1"/>
+                </reportElement>
+                <text><![CDATA[Type of potential breeding sites present]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="988" y="0" width="82" height="30" uuid="f8d69922-1301-4bdc-aa3d-7c500b28c6ea">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1c9aec7-c2fd-44ba-b4e7-7438b64b08ef"/>
+                </reportElement>
+                <text><![CDATA[Type of fuel]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1070" y="0" width="100" height="30" uuid="28a96d0e-d07f-4f80-ab8e-361ebf7b0981">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1a814b6-ba52-45bc-b250-d11a70877610"/>
+                </reportElement>
+                <text><![CDATA[Source of drinking water]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1170" y="0" width="150" height="30" uuid="6639c3ca-d681-4b75-ac05-6f372c10ec0f">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="735d5064-cb08-4f61-8388-3a96aaf31285"/>
+                </reportElement>
+                <text><![CDATA[Insecticide treated bed nets being used]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1320" y="0" width="150" height="30" uuid="dac617bd-8159-446c-b5c4-720027ce4e10">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1d0af2e3-d331-497e-b61a-7b69b864e936"/>
+                </reportElement>
+                <text><![CDATA[Most common household waste disposal method]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1470" y="0" width="150" height="30" uuid="1c2a52dd-f2c3-4c4e-9935-e9d73b5def54">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f72f09f9-28c8-48ee-b529-171ad10cbbda"/>
+                </reportElement>
+                <text><![CDATA[Latrine present in the house]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1620" y="0" width="150" height="30" uuid="49d118ca-a3fd-468f-956d-7f76453676b8">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2a515aa6-da17-4fc9-bb84-410463388388"/>
+                </reportElement>
+                <text><![CDATA[Domestic purification methods used]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1770" y="0" width="180" height="30" uuid="4aecec0e-a800-4d1c-8c09-e505672a400d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dea9ed01-f7c2-4c79-bf79-08796da5a99b"/>
+                </reportElement>
+                <text><![CDATA[Open air defecation practiced by family member]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1950" y="0" width="150" height="30" uuid="5051cf26-c4d6-481d-963c-dcd2ae6ec2bc">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9353a2eb-5770-4f3d-809a-98f68fdeba28"/>
+                </reportElement>
+                <text><![CDATA[Who has constructed the latrine]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="2100" y="0" width="150" height="30" uuid="e39d1f19-eefd-4313-b569-a058db20729c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="66ffdb7a-cdce-4aae-8209-55eee474c3ae"/>
+                </reportElement>
+                <text><![CDATA[Drainage facility used by household]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="2250" y="0" width="150" height="30" uuid="c33cf700-a053-41db-a39b-7b719885a3e7">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6678be89-9cc1-4f95-90ce-748fcee2f671"/>
+                </reportElement>
+                <text><![CDATA[Out of pocket expenditure]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+            <textField textAdjust="StretchHeight" hyperlinkType="Reference" hyperlinkTarget="Blank">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="0" y="0" width="82" height="30" uuid="e1a70acf-cc3e-43df-b9d5-bbee17426e7c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de2d606b-9e9b-4b6e-b008-e737a04f9185"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Household name}]]></textFieldExpression>
+                <hyperlinkReferenceExpression><![CDATA[$V{COLUMN_URL}]]></hyperlinkReferenceExpression>
+                <hyperlinkTooltipExpression><![CDATA["Click to view dashboard"]]></hyperlinkTooltipExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="82" y="0" width="82" height="30" uuid="5dba1f0e-9a84-413c-9b44-cab801497e60">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3dca79c4-63e5-4369-875e-bd30c349371c"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Household number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="164" y="0" width="82" height="30" uuid="5dba1f0e-9a84-653c-9b44-cab801497e60">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3dca79c4-63e5-4362-875e-bd30c349371c"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Surveillance Unit}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="246" y="0" width="82" height="30" uuid="7a4e6788-117f-4908-a428-37cc2339235c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db89b25e-25bd-4f1c-8618-8dcfa232b9f5"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Panchayat}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="328" y="0" width="82" height="30" uuid="1d356034-55aa-4001-9890-1a5bceb80435">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f624ff0-6033-40a5-b19d-c77a2383436d"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Village}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="410" y="0" width="82" height="30" uuid="251fb854-db47-4b2e-a855-51500830996a">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="640d4aa4-d097-43f8-a2b3-d0e46fae6a2a"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Mobile Number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="492" y="0" width="100" height="30" uuid="c83b4215-cccb-4fe1-abd5-f300d1a12ce2">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="907adbff-87fd-424d-aace-4fa7be8485a8"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Name of Head of Family}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="592" y="0" width="82" height="30" uuid="a3a8d66c-fd86-48fc-82f6-5337e378e56f">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94bc8305-0ce7-4b3d-984a-822bad10199b"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Religion}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="674" y="0" width="82" height="30" uuid="b6027ec6-78c4-4ec7-972e-dbdd43801f96">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c9f7fb6-101a-4241-857d-862f3b2aa764"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Social class}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="756" y="0" width="82" height="30" uuid="51661a66-190c-4e66-9d10-7b0b7f06cfed">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e4efa7c-dc48-450f-ab23-e200ec0ae600"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Ration card}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="838" y="0" width="150" height="30" uuid="f073d61b-0639-476c-bc68-ca6c31624bce">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ce3a67fb-730e-49b1-941a-fc49df6d94d1"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Type of potential breeding sites present}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="988" y="0" width="82" height="30" uuid="2cc6d3f4-c97f-4c69-af05-9044c6f2a5ec">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1c9aec7-c2fd-44ba-b4e7-7438b64b08ef"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Type of fuel}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1070" y="0" width="100" height="30" uuid="3fb95f5e-3c85-46c5-aa9a-8cc6a5abb717">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1a814b6-ba52-45bc-b250-d11a70877610"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Source of drinking water}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1170" y="0" width="150" height="30" uuid="98e38e25-5dda-4bba-9ec5-e3bf078e021d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="735d5064-cb08-4f61-8388-3a96aaf31285"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Insecticide treated bed nets being used}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1320" y="0" width="150" height="30" uuid="ad93ef69-60bc-485b-8741-f8e7a80457db">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1d0af2e3-d331-497e-b61a-7b69b864e936"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Most common household waste disposal method}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1470" y="0" width="150" height="30" uuid="9e2925c2-a13f-4e81-9e12-eb2d864320b8">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f72f09f9-28c8-48ee-b529-171ad10cbbda"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Latrine present in the house}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1620" y="0" width="150" height="30" uuid="e998991a-df8a-4a28-b066-1de296c9d61d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2a515aa6-da17-4fc9-bb84-410463388388"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Domestic purification methods used}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1770" y="0" width="180" height="30" uuid="f42c5bd3-5918-4364-a105-e19251ea16be">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dea9ed01-f7c2-4c79-bf79-08796da5a99b"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Open air defecation practiced by family member}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1950" y="0" width="150" height="30" uuid="b69f5092-295d-491f-a3f1-81ccd5c1dc27">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9353a2eb-5770-4f3d-809a-98f68fdeba28"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Who has constructed the latrine}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="2100" y="0" width="150" height="30" uuid="f29c0e9b-b114-46ac-8798-ca6d2380414c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="66ffdb7a-cdce-4aae-8209-55eee474c3ae"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Drainage facility used by household}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="2250" y="0" width="150" height="30" uuid="3b10c833-9ec8-4751-aa68-44d5c396550e">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6678be89-9cc1-4f95-90ce-748fcee2f671"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Out of pocket expenditure}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
