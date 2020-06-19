@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Aggregate" pageWidth="800" pageHeight="2100" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a291872-6943-41be-867d-602708f9dc7d">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+    <property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+    <property name="ireport.jasperserver.user" value="jasperadmin"/>
+    <template><![CDATA["repo:/Templates/Styles/TableStyles.jrtx"]]></template>
+    <subDataset name="Chronic Illness - Government" uuid="f995d282-0725-45a2-9363-65f547b93ed1">
+        <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+        <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <queryString language="SQL">
+            <![CDATA[with agg_data as (
+    select unnest(string_to_array(
+            "Enc.Name the health facility preferred for chronic illness", ' ,')) as "Name of the facility",
+           count(*)                                                              as "Number",
+           (count(*) * 100.0) / (select count(*) from yenepoya_household_registration)          as "Proportion"
+    from (select *,
+                 row_number()
+                 OVER (PARTITION BY "Ind.Id" ORDER BY "Enc.encounter_date_time" desc) as visit_number
+          from yenepoya_household_survey_view
+          where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,"Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,"Ind.village",PARAM_VILLAGE_NAME}
+            and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+         ) partitioned_data
+    WHERE visit_number = 1
+      and "Enc.Health facility preferred for chronic illness" = 'Government'
+    group by 1
+)
+
+select 'Chronic Illness'                                  as "Characteristics",
+       'Government'                                       as "Type of health facility",
+       coalesce(agg_data."Name of the facility", ac.name) as "Name of the facility",
+       coalesce(agg_data."Number", 0)                     as "Number",
+       nullif(agg_data."Proportion", 0)                   as "Proportion"
+from concept c
+         join concept_answer ca on c.id = ca.concept_id and not ca.is_voided
+         join concept ac on ca.answer_concept_id = ac.id
+         left join agg_data on agg_data."Name of the facility" = ac.name
+where c.name = 'Name the health facility preferred for chronic illness';]]>
+        </queryString>
+        <field name="Characteristics" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Characteristics"/>
+        </field>
+        <field name="Type of health facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Type of health facility"/>
+        </field>
+        <field name="Name of the facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Name of the facility"/>
+        </field>
+        <field name="Number" class="java.lang.Long">
+            <property name="com.jaspersoft.studio.field.label" value="Number"/>
+        </field>
+        <field name="Proportion" class="java.math.BigDecimal">
+            <property name="com.jaspersoft.studio.field.label" value="Proportion"/>
+        </field>
+        <variable name="DYNAMIC_WHERE" class="java.lang.String">
+            <variableExpression><![CDATA[$F{Characteristics}.equals("Chronic Illness") ? "and \"Health facility preferred for chronic illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for chronic illness\" like '%" + $F{Name of the facility} + "%'" : "and \"Health facility preferred for acute illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for acute illness\" like '%" + $F{Name of the facility} + "%'"]]></variableExpression>
+        </variable>
+    </subDataset>
+    <subDataset name="Chronic illness - Private" uuid="1e2862ce-0986-4582-ae93-b6f54debce55">
+        <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+        <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <queryString language="SQL">
+            <![CDATA[with agg_data as (
+    select unnest(string_to_array(
+            "Enc.Name the health facility preferred for chronic illness", ' ,')) as "Name of the facility",
+           count(*)                                                              as "Number",
+           (count(*) * 100.0) / (select count(*) from yenepoya_household_registration)          as "Proportion"
+    from (select *,
+                 row_number()
+                 OVER (PARTITION BY "Ind.Id" ORDER BY "Enc.encounter_date_time" desc) as visit_number
+          from yenepoya_household_survey_view
+          where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,"Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,"Ind.village",PARAM_VILLAGE_NAME}
+            and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+         ) partitioned_data
+    WHERE visit_number = 1
+      and "Enc.Health facility preferred for chronic illness" = 'Private'
+    group by 1
+)
+
+select 'Chronic Illness'                                  as "Characteristics",
+       'Private'                                       					as "Type of health facility",
+       coalesce(agg_data."Name of the facility", ac.name) as "Name of the facility",
+       coalesce(agg_data."Number", 0)                     as "Number",
+       nullif(agg_data."Proportion", 0)                   as "Proportion"
+from concept c
+         join concept_answer ca on c.id = ca.concept_id and not ca.is_voided
+         join concept ac on ca.answer_concept_id = ac.id
+         left join agg_data on agg_data."Name of the facility" = ac.name
+where c.name = 'Name the health facility preferred for chronic illness';]]>
+        </queryString>
+        <field name="Characteristics" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Characteristics"/>
+        </field>
+        <field name="Type of health facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Type of health facility"/>
+        </field>
+        <field name="Name of the facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Name of the facility"/>
+        </field>
+        <field name="Number" class="java.lang.Long">
+            <property name="com.jaspersoft.studio.field.label" value="Number"/>
+        </field>
+        <field name="Proportion" class="java.math.BigDecimal">
+            <property name="com.jaspersoft.studio.field.label" value="Proportion"/>
+        </field>
+        <variable name="DYNAMIC_WHERE" class="java.lang.String">
+            <variableExpression><![CDATA[$F{Characteristics}.equals("Chronic Illness") ? "and \"Health facility preferred for chronic illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for chronic illness\" like '%" + $F{Name of the facility} + "%'" : "and \"Health facility preferred for acute illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for acute illness\" like '%" + $F{Name of the facility} + "%'"]]></variableExpression>
+        </variable>
+    </subDataset>
+    <subDataset name="Acute illness - Government" uuid="95038624-fbbe-455b-b7fa-db10407606c7">
+        <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+        <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="232"/>
+        <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="760"/>
+        <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <queryString language="SQL">
+            <![CDATA[with agg_data as (
+    select unnest(string_to_array(
+            "Enc.Name the Health facility preferred for acute illness", ' ,')) as "Name of the facility",
+           count(*)                                                            as "Number",
+           (count(*) * 100.0) / (select count(*) from yenepoya_household_registration)        as "Proportion"
+    from (select *,
+                 row_number()
+                 OVER (PARTITION BY "Ind.Id" ORDER BY "Enc.encounter_date_time" desc) as visit_number
+          from yenepoya_household_survey_view
+          where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,"Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,"Ind.village",PARAM_VILLAGE_NAME}
+            and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+         ) partitioned_data
+    WHERE visit_number = 1
+      and "Enc.Health facility preferred for acute illness" = 'Government'
+    group by 1
+)
+
+select 'Acute Illness'                                    as "Characteristics",
+       'Government'                                       as "Type of health facility",
+       coalesce(agg_data."Name of the facility", ac.name) as "Name of the facility",
+       coalesce(agg_data."Number", 0)                     as "Number",
+       nullif(agg_data."Proportion", 0)                   as "Proportion"
+from concept c
+         join concept_answer ca on c.id = ca.concept_id and not ca.is_voided
+         join concept ac on ca.answer_concept_id = ac.id
+         left join agg_data on agg_data."Name of the facility" = ac.name
+where c.name = 'Name the Health facility preferred for acute illness';]]>
+        </queryString>
+        <field name="Characteristics" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Characteristics"/>
+        </field>
+        <field name="Type of health facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Type of health facility"/>
+        </field>
+        <field name="Name of the facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Name of the facility"/>
+        </field>
+        <field name="Number" class="java.lang.Long">
+            <property name="com.jaspersoft.studio.field.label" value="Number"/>
+        </field>
+        <field name="Proportion" class="java.math.BigDecimal">
+            <property name="com.jaspersoft.studio.field.label" value="Proportion"/>
+        </field>
+        <variable name="DYNAMIC_WHERE" class="java.lang.String">
+            <variableExpression><![CDATA[$F{Characteristics}.equals("Chronic Illness") ? "and \"Health facility preferred for chronic illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for chronic illness\" like '%" + $F{Name of the facility} + "%'" : "and \"Health facility preferred for acute illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for acute illness\" like '%" + $F{Name of the facility} + "%'"]]></variableExpression>
+        </variable>
+    </subDataset>
+    <subDataset name="Acute illness - Private" uuid="38353f4d-1fd6-49a3-ab29-2fd058f11f99">
+        <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+        <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="232"/>
+        <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="760"/>
+        <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <queryString language="SQL">
+            <![CDATA[with agg_data as (
+    select unnest(string_to_array(
+            "Enc.Name the Health facility preferred for acute illness", ' ,')) as "Name of the facility",
+           count(*)                                                            as "Number",
+           (count(*) * 100.0) / (select count(*) from yenepoya_household_registration)        as "Proportion"
+    from (select *,
+                 row_number()
+                 OVER (PARTITION BY "Ind.Id" ORDER BY "Enc.encounter_date_time" desc) as visit_number
+          from yenepoya_household_survey_view
+          where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,"Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,"Ind.village",PARAM_VILLAGE_NAME}
+            and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+         ) partitioned_data
+    WHERE visit_number = 1
+      and "Enc.Health facility preferred for acute illness" = 'Private'
+    group by 1
+)
+
+select 'Acute Illness'                                    as "Characteristics",
+       'Private'                                           			  as "Type of health facility",
+       coalesce(agg_data."Name of the facility", ac.name) as "Name of the facility",
+       coalesce(agg_data."Number", 0)                     as "Number",
+       nullif(agg_data."Proportion", 0)                   as "Proportion"
+from concept c
+         join concept_answer ca on c.id = ca.concept_id and not ca.is_voided
+         join concept ac on ca.answer_concept_id = ac.id
+         left join agg_data on agg_data."Name of the facility" = ac.name
+where c.name = 'Name the Health facility preferred for acute illness';]]>
+        </queryString>
+        <field name="Characteristics" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Characteristics"/>
+        </field>
+        <field name="Type of health facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Type of health facility"/>
+        </field>
+        <field name="Name of the facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Name of the facility"/>
+        </field>
+        <field name="Number" class="java.lang.Long">
+            <property name="com.jaspersoft.studio.field.label" value="Number"/>
+        </field>
+        <field name="Proportion" class="java.math.BigDecimal">
+            <property name="com.jaspersoft.studio.field.label" value="Proportion"/>
+        </field>
+        <variable name="DYNAMIC_WHERE" class="java.lang.String">
+            <variableExpression><![CDATA[$F{Characteristics}.equals("Chronic Illness") ? "and \"Health facility preferred for chronic illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for chronic illness\" like '%" + $F{Name of the facility} + "%'" : "and \"Health facility preferred for acute illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for acute illness\" like '%" + $F{Name of the facility} + "%'"]]></variableExpression>
+        </variable>
+    </subDataset>
+    <subDataset name="Acute illness - Over the counter" uuid="51373dbf-4a34-494f-947d-245cb6f9dacc">
+        <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+        <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="232"/>
+        <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="760"/>
+        <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+        <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+        <queryString language="SQL">
+            <![CDATA[with agg_data as (
+    select unnest(string_to_array(
+            "Enc.Name the Health facility preferred for acute illness", ' ,')) as "Name of the facility",
+           count(*)                                                            as "Number",
+           (count(*) * 100.0) / (select count(*) from yenepoya_household_registration)        as "Proportion"
+    from (select *,
+                 row_number()
+                 OVER (PARTITION BY "Ind.Id" ORDER BY "Enc.encounter_date_time" desc) as visit_number
+          from yenepoya_household_survey_view
+          where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,"Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,"Ind.village",PARAM_VILLAGE_NAME}
+            and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+         ) partitioned_data
+    WHERE visit_number = 1
+      and "Enc.Health facility preferred for acute illness" = 'Over the counter'
+    group by 1
+)
+
+select 'Acute Illness'                                    as "Characteristics",
+       'Over the counter'                                   as "Type of health facility",
+       coalesce(agg_data."Name of the facility", ac.name) as "Name of the facility",
+       coalesce(agg_data."Number", 0)                     as "Number",
+       nullif(agg_data."Proportion", 0)                   as "Proportion"
+from concept c
+         join concept_answer ca on c.id = ca.concept_id and not ca.is_voided
+         join concept ac on ca.answer_concept_id = ac.id
+         left join agg_data on agg_data."Name of the facility" = ac.name
+where c.name = 'Name the Health facility preferred for acute illness';]]>
+        </queryString>
+        <field name="Characteristics" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Characteristics"/>
+        </field>
+        <field name="Type of health facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Type of health facility"/>
+        </field>
+        <field name="Name of the facility" class="java.lang.String">
+            <property name="com.jaspersoft.studio.field.label" value="Name of the facility"/>
+        </field>
+        <field name="Number" class="java.lang.Long">
+            <property name="com.jaspersoft.studio.field.label" value="Number"/>
+        </field>
+        <field name="Proportion" class="java.math.BigDecimal">
+            <property name="com.jaspersoft.studio.field.label" value="Proportion"/>
+        </field>
+        <variable name="DYNAMIC_WHERE" class="java.lang.String">
+            <variableExpression><![CDATA[$F{Characteristics}.equals("Chronic Illness") ? "and \"Health facility preferred for chronic illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for chronic illness\" like '%" + $F{Name of the facility} + "%'" : "and \"Health facility preferred for acute illness\" like '%" + $F{Type of health facility} + "%' and \"Name of the Health facility preferred for acute illness\" like '%" + $F{Name of the facility} + "%'"]]></variableExpression>
+        </variable>
+    </subDataset>
+    <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <queryString language="SQL">
+        <![CDATA[select 1;]]>
+    </queryString>
+    <field name="?column?" class="java.lang.Integer">
+        <property name="com.jaspersoft.studio.field.label" value="?column?"/>
+    </field>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="57" splitType="Stretch">
+            <staticText>
+                <reportElement style="ReportTitle" x="206" y="10" width="290" height="30" uuid="dce4b816-49a9-4b16-b14b-c093fdb08114"/>
+                <text><![CDATA[Health Seeking Behaviour]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="HeaderRowElement" mode="Opaque" x="10" y="0" width="150" height="30" uuid="5dd111e0-974b-42b9-8cc8-ddb926192fd1">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="761dea20-f1b9-4e90-aa38-498f99b026d3"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                </box>
+                <text><![CDATA[Characteristics]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="HeaderRowElement" x="160" y="0" width="200" height="30" uuid="b8ad3e4a-1a9f-4395-9a00-f15471a673de">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b3e4487-e7dd-40ac-819f-a9505bc00e8d"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                </box>
+                <text><![CDATA[Type of health facility]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="HeaderRowElement" x="360" y="0" width="200" height="30" uuid="52b5307b-00dd-41af-af94-cce282ea7e8a">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="097da4ad-1c9d-41ee-a4eb-64d9c4973fa6"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                </box>
+                <text><![CDATA[Name of the facility]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="HeaderRowElement" x="560" y="0" width="60" height="30" uuid="52b5307b-00dd-41af-af94-cce282ea7e8a">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="097da4ad-1c9d-41ee-a4eb-64d9c4973fa6"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                </box>
+                <text><![CDATA[Number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="HeaderRowElement" x="620" y="0" width="100" height="30" uuid="c0566e25-221b-4428-89b9-1c8b7706be70">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b03a4eb3-894d-4801-bbce-ce88e2fa3812"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+                </box>
+                <text><![CDATA[Proportion]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <summary>
+        <band height="1700" splitType="Stretch">
+            <componentElement>
+                <reportElement x="10" y="0" width="720" height="30" uuid="7b9fd956-2a0a-40f3-9aaa-e92192649831">
+                    <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+                    <property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+                </reportElement>
+                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="Chronic Illness - Government" uuid="f7c2f7cd-e65d-4988-860e-0f498c1082d1">
+                        <datasetParameter name="PARAM_DATE_END">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_DATE_START">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_PANCHAYAT_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_SURVEILLANCE_UNIT">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_VILLAGE_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    </datasetRun>
+                    <jr:column width="150" uuid="1b9a4e52-5b89-4b4b-9a53-c81895224ae5">
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="150" height="30" uuid="5f85f160-9955-400b-b443-4e42a835a821"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Characteristics}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="2e02dfa1-8dfb-45ad-b046-92aa55eee479">
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="8b46d5a0-b8d5-47a5-b368-5ec2107f6ec2"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Type of health facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="f6759a96-fd2c-4e98-a110-d19a80815868">
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="bcab47f4-adb5-41bd-b6b8-9c46434396d7"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Name of the facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="60" uuid="ae858b90-dc79-41ed-8ba9-5bb987a8a542">
+                        <jr:detailCell height="30">
+                            <textField hyperlinkType="ReportExecution">
+                                <reportElement style="DataRowNumericElement" x="0" y="0" width="60" height="30" uuid="b4478382-7818-4123-9309-d53b9d7cb7f6"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
+                                <hyperlinkWhenExpression><![CDATA[$F{Number} > 0]]></hyperlinkWhenExpression>
+                                <hyperlinkTooltipExpression><![CDATA["Click for the line list"]]></hyperlinkTooltipExpression>
+                                <hyperlinkParameter name="_report">
+                                    <hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Health_seeking_behaviour___Linelist"]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_END">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_START">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_VILLAGE_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+                                    <hyperlinkParameterExpression><![CDATA[$V{DYNAMIC_WHERE}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="100" uuid="fb8b75bd-650a-45b8-a58c-faa98c166943">
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="100" height="30" uuid="59b70825-2e08-4a78-8641-7c87b0fa0a52"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Proportion} == null ? "0%" : $F{Proportion}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                </jr:table>
+            </componentElement>
+            <componentElement>
+                <reportElement x="10" y="270" width="720" height="30" uuid="1948ebf0-609f-405c-b351-3d5cc42be8e4">
+                    <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+                    <property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+                </reportElement>
+                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="Chronic illness - Private" uuid="7239ed06-4da9-4281-b748-30e3189bf1c4">
+                        <datasetParameter name="PARAM_DATE_END">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_DATE_START">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_PANCHAYAT_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_SURVEILLANCE_UNIT">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_VILLAGE_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    </datasetRun>
+                    <jr:column width="150" uuid="fc3df5d9-b186-4abc-86fa-da795ad1047f">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="150" height="30" uuid="8a3d8bad-d6b1-4ced-bb64-dae64f48b4c2"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Characteristics}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="13023bde-5e36-4b56-92cc-a59cdbcc3f04">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="27abf4c8-3316-46b1-8780-1035afc5ba3e"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Type of health facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="abfca895-0b3e-4ea5-bf54-c16d22510c0f">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="b0dccb8e-bd76-4256-874a-938dde05fe3b"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Name of the facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="60" uuid="e339fc75-6384-41c8-9707-29e7e743c692">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+                        <jr:detailCell height="30">
+                            <textField hyperlinkType="ReportExecution">
+                                <reportElement style="DataRowNumericElement" x="0" y="0" width="60" height="30" uuid="146eb189-0639-4d70-91e0-915a9b9f04a9"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
+                                <hyperlinkWhenExpression><![CDATA[$F{Number} > 0]]></hyperlinkWhenExpression>
+                                <hyperlinkTooltipExpression><![CDATA["Click for the line list"]]></hyperlinkTooltipExpression>
+                                <hyperlinkParameter name="_report">
+                                    <hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Health_seeking_behaviour___Linelist"]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_END">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_START">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_VILLAGE_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+                                    <hyperlinkParameterExpression><![CDATA[$V{DYNAMIC_WHERE}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="100" uuid="e9553099-3e79-44cc-89a6-afaf7e496807">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="100" height="30" uuid="f7677e0c-6abe-4a42-9299-a6dfbfeac6ae"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Proportion} == null ? "0%" : $F{Proportion}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                </jr:table>
+            </componentElement>
+            <componentElement>
+                <reportElement x="10" y="540" width="720" height="30" uuid="8604b583-adb8-4b22-8157-2a9833b079f7">
+                    <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+                    <property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+                </reportElement>
+                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="Acute illness - Government" uuid="a2b5a426-07aa-41c3-b2da-02f4e2f04947">
+                        <datasetParameter name="PARAM_DATE_END">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_DATE_START">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_PANCHAYAT_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_SURVEILLANCE_UNIT">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_VILLAGE_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    </datasetRun>
+                    <jr:column width="150" uuid="9e53506e-3dac-4d35-af8f-cc2c735898d6">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="150" height="30" uuid="b8ae8619-a126-419b-a877-89e2528c276b"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Characteristics}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="d9581098-bf41-47b8-86d9-e97bfcd2fc05">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="2b6c65aa-f41c-4235-a489-13ffe910c258"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Type of health facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="d3da59ce-ccfd-4140-bf6b-f0ee3106c6d9">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="757432b2-0633-4622-9e51-d913e0f6f702"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Name of the facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="60" uuid="d23e8a2e-9c51-4a13-b340-3b5f0696b707">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+                        <jr:detailCell height="30">
+                            <textField hyperlinkType="ReportExecution">
+                                <reportElement style="DataRowNumericElement" x="0" y="0" width="60" height="30" uuid="74c97632-e145-47d5-af89-25609abb821b"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
+                                <hyperlinkWhenExpression><![CDATA[$F{Number} > 0]]></hyperlinkWhenExpression>
+                                <hyperlinkTooltipExpression><![CDATA["Click for the line list"]]></hyperlinkTooltipExpression>
+                                <hyperlinkParameter name="_report">
+                                    <hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Health_seeking_behaviour___Linelist"]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_END">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_START">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_VILLAGE_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+                                    <hyperlinkParameterExpression><![CDATA[$V{DYNAMIC_WHERE}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="100" uuid="e93af6a8-c142-47ce-bebf-080db282e679">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="100" height="30" uuid="4c97887e-36c9-43be-872a-688fed8ef70d"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Proportion} == null ? "0%" : $F{Proportion}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                </jr:table>
+            </componentElement>
+            <componentElement>
+                <reportElement x="10" y="810" width="720" height="30" uuid="5c1b29b8-0d89-4b16-9b5c-0d613cdc2513">
+                    <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+                    <property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+                </reportElement>
+                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="Acute illness - Private" uuid="a6ab78e9-d187-4fdf-9a2f-6a31e9101f66">
+                        <datasetParameter name="PARAM_DATE_END">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_DATE_START">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_PANCHAYAT_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_SURVEILLANCE_UNIT">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_VILLAGE_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    </datasetRun>
+                    <jr:column width="150" uuid="661bfc48-f2be-4d17-8f91-15d8f5a3427f">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="150" height="30" uuid="7dbc6bf8-159a-4b93-92eb-a1df95fb63a7"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Characteristics}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="1fe15da4-1e45-4357-8b35-903e3d718a24">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="93aad958-762b-4703-b2c0-1aa91e7bc85c"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Type of health facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="d2fda9aa-cad7-49e2-9340-ac5bccf41cb1">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="323f2309-7171-4fef-bbe1-2128f807ff47"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Name of the facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="60" uuid="eff780b5-04ec-44c5-9ea2-dfb8558b7448">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+                        <jr:detailCell height="30">
+                            <textField hyperlinkType="ReportExecution">
+                                <reportElement style="DataRowNumericElement" x="0" y="0" width="60" height="30" uuid="b033146f-929e-49c0-99b4-aa5375f72419"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
+                                <hyperlinkWhenExpression><![CDATA[$F{Number} > 0]]></hyperlinkWhenExpression>
+                                <hyperlinkTooltipExpression><![CDATA["Click for the line list"]]></hyperlinkTooltipExpression>
+                                <hyperlinkParameter name="_report">
+                                    <hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Health_seeking_behaviour___Linelist"]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_END">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_START">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_VILLAGE_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+                                    <hyperlinkParameterExpression><![CDATA[$V{DYNAMIC_WHERE}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="100" uuid="e6f5427e-2faa-4ec9-b5a7-601c87a6997d">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="100" height="30" uuid="026b3936-e63b-42c6-9877-438957cfeaca"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Proportion} == null ? "0%" : $F{Proportion}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                </jr:table>
+            </componentElement>
+            <componentElement>
+                <reportElement x="10" y="1080" width="720" height="30" uuid="30f60159-af26-4e43-a723-aa74bda7d6ff">
+                    <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+                    <property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+                </reportElement>
+                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="Acute illness - Over the counter" uuid="07aaa290-66bd-48db-b626-a570accc678b">
+                        <datasetParameter name="PARAM_DATE_END">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_DATE_START">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_PANCHAYAT_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_SURVEILLANCE_UNIT">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="PARAM_VILLAGE_NAME">
+                            <datasetParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    </datasetRun>
+                    <jr:column width="150" uuid="6e3b1201-46f6-48ff-821f-6a86f9997c86">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="150" height="30" uuid="2bfb0d20-eba8-4777-8c63-3db309e451c8"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Characteristics}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="def862a3-869f-4a33-882b-9bee47b79ff8">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="763cd00e-4df2-48cf-9965-9d8ee3cf7fca"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Type of health facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="200" uuid="91f402fd-2464-41e0-8a3a-768ac4e1057c">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowElement" x="0" y="0" width="200" height="30" uuid="61f04b72-ff3d-462a-95e4-1e09232fa26c"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Name of the facility}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="60" uuid="b040c989-4fc6-4bbe-acc5-5fcbb62b5ace">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+                        <jr:detailCell height="30">
+                            <textField hyperlinkType="ReportExecution">
+                                <reportElement style="DataRowNumericElement" x="0" y="0" width="60" height="30" uuid="44e536f1-50a7-496b-a58e-435118ee0f16"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
+                                <hyperlinkWhenExpression><![CDATA[$F{Number} > 0]]></hyperlinkWhenExpression>
+                                <hyperlinkTooltipExpression><![CDATA["Click for the line list"]]></hyperlinkTooltipExpression>
+                                <hyperlinkParameter name="_report">
+                                    <hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Health_seeking_behaviour___Linelist"]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_END">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DATE_START">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_VILLAGE_NAME">
+                                    <hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                                <hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+                                    <hyperlinkParameterExpression><![CDATA[$V{DYNAMIC_WHERE}]]></hyperlinkParameterExpression>
+                                </hyperlinkParameter>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="100" uuid="901eaf7a-d175-4418-96ae-7f87eb52fe66">
+                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+                        <jr:detailCell height="30">
+                            <textField>
+                                <reportElement style="DataRowPreCalculatedPercentageElement" x="0" y="0" width="100" height="30" uuid="292c885b-1572-4cd0-bf5b-5b1ee6b8d999"/>
+                                <box>
+                                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#080707"/>
+                                </box>
+                                <textFieldExpression><![CDATA[$F{Proportion} == null ? "0%" : $F{Proportion}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                </jr:table>
+            </componentElement>
+        </band>
+    </summary>
+</jasperReport>

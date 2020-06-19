@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Linelist" pageWidth="2200" pageHeight="720" orientation="Landscape" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05cc1aaf-5713-4062-a0f6-7bab099e5fb6">
+    <property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+    <property name="com.jaspersoft.studio.report.description" value=""/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="202"/>
+    <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="798"/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
+    <template><![CDATA["repo:/Templates/Styles/Linelist.jrtx"]]></template>
+    <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+    <parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+    <parameter name="PARAM_DYNAMIC_WHERE" class="java.lang.String">
+        <defaultValueExpression><![CDATA["and 1=1"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="PARAM_APP_URL" class="java.lang.String">
+        <defaultValueExpression><![CDATA["https://app.avniproject.org/#/app/subject?uuid="]]></defaultValueExpression>
+    </parameter>
+    <queryString language="SQL">
+        <![CDATA[SELECT *
+FROM (select concat(survey."Ind.first_name", ' ', survey."Ind.last_name")                       "Household name",
+			 survey."Ind.Household number"                                                      "Household number",
+             survey."Ind.surveillance_unit"                                                     "Surveillance Unit",
+             survey."Ind.panchayat"                                                             "Panchayat",
+             survey."Ind.village"                                                               "Village",
+             survey."Ind.Contact Number"                                                        "Mobile Number",
+             m.head_of_family_name                                                              "Name of Head of Family",
+             survey."Ind.Which religion do you practice?"                                       "Religion",
+             survey."Ind.You belong to which social class?"                                     "Social class",
+             survey."Ind.Type of Ration card"                                                   "Ration card",
+             survey."Enc.Health facility preferred for chronic illness"                         "Health facility preferred for chronic illness",
+             survey."Enc.Name the health facility preferred for chronic illness"                "Name of the Health facility preferred for chronic illness",
+             survey."Enc.Health facility preferred for acute illness"                           "Health facility preferred for acute illness",
+             survey."Enc.Name the Health facility preferred for acute illness"                  "Name of the Health facility preferred for acute illness",
+             survey."Enc.Out-of-pocket payments exceeding 10% of household total"               "Out of pocket expenditure",
+             survey."Ind.uuid"                                                                  uuid,
+             row_number()
+             OVER (PARTITION BY survey."Ind.Id" ORDER BY survey."Enc.encounter_date_time" desc) visit_number
+      from yenepoya_household_survey_view survey
+               left join yenepoya_member_household_view m on m.house_id = survey."Ind.Id"
+      where 1=1
+        and $X{IN, survey."Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
+        and $X{IN, survey."Ind.panchayat", PARAM_PANCHAYAT_NAME}
+        and $X{IN, survey."Ind.village", PARAM_VILLAGE_NAME}
+        and $X{BETWEEN, survey."Enc.encounter_date_time", PARAM_DATE_START, PARAM_DATE_END}
+     ) partitioned_data
+WHERE visit_number = 1
+$P!{PARAM_DYNAMIC_WHERE};]]>
+    </queryString>
+    <field name="Household name" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Household name"/>
+    </field>
+    <field name="Household number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Household number"/>
+    </field>
+    <field name="Surveillance Unit" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Surveillance Unit"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Panchayat" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Panchayat"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Village" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Village"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Mobile Number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Mobile Number"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Name of Head of Family" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Name of Head of Family"/>
+    </field>
+    <field name="Religion" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Religion"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Social class" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Social class"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Ration card" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Ration card"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Health facility preferred for chronic illness" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Health facility preferred for chronic illness"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Name of the Health facility preferred for chronic illness" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Name of the Health facility preferred for chronic illness"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Health facility preferred for acute illness" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Health facility preferred for acute illness"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Name of the Health facility preferred for acute illness" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Name of the Health facility preferred for acute illness"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="Out of pocket expenditure" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="Out of pocket expenditure"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="yenepoya_household_survey_view"/>
+    </field>
+    <field name="uuid" class="java.lang.String"/>
+    <variable name="COLUMN_URL" class="java.lang.String">
+        <variableExpression><![CDATA[$P{PARAM_APP_URL} + $F{uuid}]]></variableExpression>
+    </variable>
+    <background>
+        <band height="100" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </band>
+    </background>
+    <title>
+        <band height="50" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ReportTitle" x="0" y="0" width="1644" height="50" uuid="ccc013a8-2e32-4c97-acca-cfac4c04bef7"/>
+                <text><![CDATA[Health Seeking Behaviour - Line list]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement style="ColumnHeader" x="0" y="0" width="117" height="30" uuid="dd71d851-a150-4563-a604-14966fdddc95">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f6b5848d-8ae1-423e-9e12-6d12514528b8"/>
+                </reportElement>
+                <text><![CDATA[Household name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="117" y="0" width="117" height="30" uuid="dd71d831-a150-4563-a604-14966fdddc95">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f6b5828d-8ae1-423e-9e12-6d12514528b8"/>
+                </reportElement>
+                <text><![CDATA[Household number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="234" y="0" width="117" height="30" uuid="865f341f-ba3b-4d13-9803-90db2ce3f600">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40493b7b-52e6-4bc0-9548-9048d5b92bea"/>
+                </reportElement>
+                <text><![CDATA[Surveillance Unit]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="351" y="0" width="117" height="30" uuid="c6a8a6e9-ef4c-47ed-af51-559b901493ec">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="23050c2a-ffda-4df4-ad53-49e8dfb33243"/>
+                </reportElement>
+                <text><![CDATA[Panchayat/Ward]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="468" y="0" width="117" height="30" uuid="667d3916-1e17-43e1-b1e3-4042783554b6">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9ab87c71-5596-410b-8d38-52aa59bc9732"/>
+                </reportElement>
+                <text><![CDATA[Village/Ward]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="585" y="0" width="117" height="30" uuid="eb46e7dc-cf29-4d23-b827-fca9b3320039">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4820d98d-82ef-4a78-ae72-4694cf496104"/>
+                </reportElement>
+                <text><![CDATA[Mobile Number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="702" y="0" width="117" height="30" uuid="a73ba526-2291-44e8-8577-465e6120a775">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="615b37a9-cab5-4171-a89e-2615dca57a56"/>
+                </reportElement>
+                <text><![CDATA[Name of Head of Family]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="819" y="0" width="117" height="30" uuid="b3e0ee07-0707-45e6-9d37-500ff3615b88">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="034cf4f1-664f-49b2-8787-c30e868754d7"/>
+                </reportElement>
+                <text><![CDATA[Religion]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="936" y="0" width="117" height="30" uuid="078d1328-2a64-4e05-a302-bb153e21944b">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="324fcd3c-b690-4528-8ae4-c11a3974ee0d"/>
+                </reportElement>
+                <text><![CDATA[Social class]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1053" y="0" width="117" height="30" uuid="638e157c-b91f-47d6-9354-40eb47110735">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0307c2e3-ed33-445d-aad3-8febef3c1c0a"/>
+                </reportElement>
+                <text><![CDATA[Ration card]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1170" y="0" width="200" height="30" uuid="cf67fb2d-3dbe-439e-98b2-a75ccc434930">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6ef209db-7750-44a6-b69b-6b841ec2df85"/>
+                </reportElement>
+                <text><![CDATA[Health facility preferred for chronic illness]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1370" y="0" width="200" height="30" uuid="61fbb0ea-c6d6-4d2f-8547-ddaea4d7cd18">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4557ce7-389b-42c4-b8de-b4762f0d607d"/>
+                </reportElement>
+                <text><![CDATA[Name of the Health facility preferred for chronic illness]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1570" y="0" width="200" height="30" uuid="6e9a588d-94db-4137-8dcd-301ba9d8f195">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="403ab0c7-0fb9-4c22-a231-1771b4f9923e"/>
+                </reportElement>
+                <text><![CDATA[Health facility preferred for acute illness]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1770" y="0" width="200" height="30" uuid="16608ecb-4c27-4fce-905c-82a0bd02f40e">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9eb50e4a-eaf8-4a6a-9711-96bc40810e22"/>
+                </reportElement>
+                <text><![CDATA[Name of the Health facility preferred for acute illness]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="ColumnHeader" x="1970" y="0" width="117" height="30" uuid="93c05654-8672-4083-971a-22337a64f76e">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2feced4-d76f-41bb-abb2-672696a48b54"/>
+                </reportElement>
+                <text><![CDATA[Out of pocket expenditure]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="30" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+            <textField textAdjust="StretchHeight" hyperlinkType="Reference" hyperlinkTarget="Blank">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="0" y="0" width="117" height="30" uuid="338679b6-696c-4f87-960a-2cd28f8ecc49">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f6b5848d-8ae1-423e-9e12-6d12514528b8"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Household name}]]></textFieldExpression>
+                <hyperlinkReferenceExpression><![CDATA[$V{COLUMN_URL}]]></hyperlinkReferenceExpression>
+                <hyperlinkTooltipExpression><![CDATA["Click to view dashboard"]]></hyperlinkTooltipExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="117" y="0" width="117" height="30" uuid="8b8a8b47-e45c-4309-967a-86255ceb32be">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40496b7b-52e6-4bc0-9548-9048d5b92bea"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Household number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="234" y="0" width="117" height="30" uuid="8b8a8b47-e45c-4319-967a-86255ceb32be">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40493b7b-52e6-4bc0-9548-9048d5b92bea"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Surveillance Unit}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="351" y="0" width="117" height="30" uuid="dc0d79ab-403c-497b-9b22-43c25657ec90">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="23050c2a-ffda-4df4-ad53-49e8dfb33243"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Panchayat}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="468" y="0" width="117" height="30" uuid="b36e9b5d-1534-48bc-acef-950f97b71ab9">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9ab87c71-5596-410b-8d38-52aa59bc9732"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Village}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="585" y="0" width="117" height="30" uuid="82ce2425-f4d9-4309-bc7a-8bd0a7dd3a13">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4820d98d-82ef-4a78-ae72-4694cf496104"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Mobile Number}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="702" y="0" width="117" height="30" uuid="7be8e019-0b92-4f68-96cc-6a250fdde7ab">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="615b37a9-cab5-4171-a89e-2615dca57a56"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Name of Head of Family}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="819" y="0" width="117" height="30" uuid="6764c441-a87c-4b34-b74a-450ae26a3d93">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="034cf4f1-664f-49b2-8787-c30e868754d7"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Religion}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="936" y="0" width="117" height="30" uuid="a5fb3602-ba8b-498c-8892-73ef291786ad">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="324fcd3c-b690-4528-8ae4-c11a3974ee0d"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Social class}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1053" y="0" width="117" height="30" uuid="beb9919e-af70-4770-b3ee-8ecce74be02f">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0307c2e3-ed33-445d-aad3-8febef3c1c0a"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Ration card}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1170" y="0" width="200" height="30" uuid="f356f97e-42b5-4021-a8a6-97f654a8e9e9">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6ef209db-7750-44a6-b69b-6b841ec2df85"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Health facility preferred for chronic illness}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1370" y="0" width="200" height="30" uuid="94f89822-3b5e-4a84-9461-c8d2a4580cdb">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4557ce7-389b-42c4-b8de-b4762f0d607d"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Name of the Health facility preferred for chronic illness}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1570" y="0" width="200" height="30" uuid="3385cd3f-0a5b-46c8-abd8-c2a3148f95fb">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="403ab0c7-0fb9-4c22-a231-1771b4f9923e"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Health facility preferred for acute illness}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1770" y="0" width="200" height="30" uuid="1218df97-a2c2-4f8c-9265-5338a9cf46ec">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9eb50e4a-eaf8-4a6a-9711-96bc40810e22"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Name of the Health facility preferred for acute illness}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="1970" y="0" width="117" height="30" uuid="cd2dd3e1-3a1e-4ce3-9a3a-3d05fed65026">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2feced4-d76f-41bb-abb2-672696a48b54"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{Out of pocket expenditure}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
