@@ -814,6 +814,8 @@ SELECT individual.id                                                            
        programencounter.is_voided                                                  AS "Enc.is_voided",
        (single_select_coded((programenrolment.observations ->>
                              '0fc3b733-0ee0-4554-b316-e5e29c1978d2'::text)))::text AS "Enl.Smoking or consume smokeless products",
+       (multi_select_coded((programenrolment.observations ->
+                             'd41af1b4-8f7e-4643-a3ff-b17d442c1fae'::text)))        AS "Enl.Risk Score",
        (single_select_coded((programenrolment.observations ->>
                              'ac4d5664-0b5f-467f-a3c9-c0e4c8c221b7'::text)))::text AS "Enl.Alcohol consumption",
        (programenrolment.observations ->>
@@ -854,6 +856,8 @@ SELECT individual.id                                                            
                              '82efa85a-46a9-4c75-8c53-c488b8c48c54'::text)))::text AS "Enl.Bleeding after intercourse",
        (single_select_coded((programenrolment.observations ->>
                              '84a99b8c-f9bb-4436-9d83-d79a60a0b450'::text)))::text AS "Enl.Foul smelling vaginal discharge",
+       (multi_select_coded((programencounter.observations ->
+                             'd41af1b4-8f7e-4643-a3ff-b17d442c1fae'::text)))       AS "Enc.Risk Score",
        (single_select_coded((programencounter.observations ->>
                              '0fc3b733-0ee0-4554-b316-e5e29c1978d2'::text)))::text AS "Enc.Smoking or consume smokeless products",
        (single_select_coded((programencounter.observations ->>
