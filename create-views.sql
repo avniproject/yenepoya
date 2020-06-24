@@ -796,9 +796,11 @@ SELECT individual.id                                                            
        individual.date_of_birth_verified                                           AS "Ind.date_of_birth_verified",
        individual.registration_date                                                AS "Ind.registration_date",
        individual.facility_id                                                      AS "Ind.facility_id",
-       a.title                                                                     AS "Ind.Area",
+       village.title                                                               as "Ind.village",
+       panchayat.title                                                             as "Ind.panchayat",
+       surveillance_unit.title                                                     as "Ind.surveillance_unit",
        individual.is_voided                                                        AS "Ind.is_voided",
-       (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text) AS "Ind.Contact Number",
+       (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)  AS "Ind.Contact Number",
        programenrolment.id                                                         AS "Enl.Id",
        programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
        programenrolment.program_exit_date_time                                     AS "Enl.program_exit_date_time",
@@ -913,7 +915,9 @@ FROM program_enrolment programenrolment
     AND oet.uuid::text = 'b0d16b85-218c-4392-999c-4fa19476cf42'::text
          LEFT JOIN individual individual ON programenrolment.individual_id = individual.id
          LEFT JOIN gender g ON g.id = individual.gender_id
-         LEFT JOIN address_level a ON individual.address_id = a.id
+         left join address_level village on individual.address_id = village.id
+         left join address_level panchayat on village.parent_id = panchayat.id
+         left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
 WHERE op.uuid::text = '85a36148-26a2-4a30-921c-5c1fc64e8acc'::text
   AND programenrolment.enrolment_date_time IS NOT NULL;
 
