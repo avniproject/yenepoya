@@ -436,28 +436,28 @@ create view yenepoya_diabetes_followup_view
              "Enl.Whether your blood sugar level is under control", "Enl.enrolment_date_time", "Ind.village",
              "Ind.panchayat", "Ind.surveillance_unit", "Rank")
 as
-SELECT individual.id                                                                                                 AS "Ind.Id",
-       individual.address_id                                                                                         AS "Ind.address_id",
-       individual.uuid                                                                                               AS "Ind.uuid",
-       individual.first_name                                                                                         AS "Ind.first_name",
-       individual.last_name                                                                                          AS "Ind.last_name",
-       g.name                                                                                                        AS "Ind.Gender",
-       individual.date_of_birth                                                                                      AS "Ind.date_of_birth",
-       individual.date_of_birth_verified                                                                             AS "Ind.date_of_birth_verified",
-       individual.registration_date                                                                                  AS "Ind.registration_date",
-       individual.facility_id                                                                                        AS "Ind.facility_id",
-       village.title                                                                                                 AS "Ind.Area",
-       individual.is_voided                                                                                          AS "Ind.is_voided",
-       programenrolment.id                                                                                           AS "Enl.Id",
-       oet.name                                                                                                      AS "Enc.Type",
-       programencounter.id                                                                                           AS "Enc.Id",
-       programencounter.earliest_visit_date_time                                                                     AS "Enc.earliest_visit_date_time",
-       programencounter.encounter_date_time                                                                          AS "Enc.encounter_date_time",
-       programencounter.program_enrolment_id                                                                         AS "Enc.program_enrolment_id",
-       programencounter.uuid                                                                                         AS "Enc.uuid",
-       programencounter.name                                                                                         AS "Enc.name",
-       programencounter.max_visit_date_time                                                                          AS "Enc.max_visit_date_time",
-       programencounter.is_voided                                                                                    AS "Enc.is_voided",
+SELECT individual.id                                                                        AS "Ind.Id",
+       individual.address_id                                                                AS "Ind.address_id",
+       individual.uuid                                                                      AS "Ind.uuid",
+       individual.first_name                                                                AS "Ind.first_name",
+       individual.last_name                                                                 AS "Ind.last_name",
+       g.name                                                                               AS "Ind.Gender",
+       individual.date_of_birth                                                             AS "Ind.date_of_birth",
+       individual.date_of_birth_verified                                                    AS "Ind.date_of_birth_verified",
+       individual.registration_date                                                         AS "Ind.registration_date",
+       individual.facility_id                                                               AS "Ind.facility_id",
+       village.title                                                                              AS "Ind.Area",
+       individual.is_voided                                                                 AS "Ind.is_voided",
+       programenrolment.id                                                                  AS "Enl.Id",
+       oet.name                                                                             AS "Enc.Type",
+       programencounter.id                                                                  AS "Enc.Id",
+       programencounter.earliest_visit_date_time                                            AS "Enc.earliest_visit_date_time",
+       programencounter.encounter_date_time                                                 AS "Enc.encounter_date_time",
+       programencounter.program_enrolment_id                                                AS "Enc.program_enrolment_id",
+       programencounter.uuid                                                                AS "Enc.uuid",
+       programencounter.name                                                                AS "Enc.name",
+       programencounter.max_visit_date_time                                                 AS "Enc.max_visit_date_time",
+       programencounter.is_voided                                                           AS "Enc.is_voided",
        (individual.observations ->>
         'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)                                                                AS "Ind.Contact Number",
        (single_select_coded((programencounter.observations ->>
@@ -499,66 +499,67 @@ SELECT individual.id                                                            
        (programencounter.observations ->>
         '4144ec30-c97a-41c0-9049-76258ca7973c'::text)                                                                AS "Enc.Any complications,specify",
        (single_select_coded((programencounter.observations ->>
-                             '319c1184-2afb-4e10-9523-840645b6a130'::text)))::text                                   AS "Enc.whether your blood sugar level is under control",
+                             '319c1184-2afb-4e10-9523-840645b6a130'::text)))::text          AS "Enc.whether your blood sugar level is under control",
        (single_select_coded((programenrolment.observations ->>
-                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text                                   AS "Enl.Adherence to medications",
+                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text AS "Enl.Adherence to medications",
        (single_select_coded((programenrolment.observations ->>
-                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text                                   AS "Enl.Do you check your foot daily",
+                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text AS "Enl.Do you check your foot daily",
        (single_select_coded((programenrolment.observations ->>
-                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text                                   AS "Enl.What about your physical activity",
+                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text AS "Enl.What about your physical activity",
        (single_select_coded((programenrolment.observations ->>
-                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text                                   AS "Enl.Alcohol use in last 1 year",
+                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text AS "Enl.Alcohol use in last 1 year",
        (single_select_coded((programenrolment.observations ->>
-                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text                                   AS "Enl.What about the use of tobacco",
+                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text AS "Enl.What about the use of tobacco",
        (single_select_coded((programenrolment.observations ->>
-                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text                                   AS "Enl.Eating of fast foods like fried and bakery items weekly",
+                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text AS "Enl.Eating of fast foods like fried and bakery items weekly",
        (single_select_coded((programenrolment.observations ->>
-                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text                                   AS "Enl.Habit of vegetable intake atleast 3 servings daily",
+                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text AS "Enl.Habit of vegetable intake atleast 3 servings daily",
        (single_select_coded((programenrolment.observations ->>
-                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text                                   AS "Enl.Habit of fruit intake atleast 3 servings daily",
+                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text AS "Enl.Habit of fruit intake atleast 3 servings daily",
        (programenrolment.observations ->>
-        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                                                                AS "Enl.Height in CM",
+        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                              AS "Enl.Height in CM",
        (programenrolment.observations ->>
-        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                                                                AS "Enl.Weight",
+        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                              AS "Enl.Weight",
        (programenrolment.observations ->>
-        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                                                                AS "Enl.Mid arm circumference",
+        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                              AS "Enl.Mid arm circumference",
        (programenrolment.observations ->>
-        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                                                                AS "Enl.Waist circumference",
+        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                              AS "Enl.Waist circumference",
        (single_select_coded((programenrolment.observations ->>
-                             'c78e883a-60de-4629-8d85-8e4512cd13d5'::text)))::text                                   AS "Enl.Abnormal waist circumference",
+                             'c78e883a-60de-4629-8d85-8e4512cd13d5'::text)))::text AS "Enl.Abnormal waist circumference",
        (single_select_coded((programenrolment.observations ->>
-                             '1cae9bd0-0dba-4479-954a-2d569c58d711'::text)))::text                                   AS "Enl.Waist circumference is normal",
+                             '1cae9bd0-0dba-4479-954a-2d569c58d711'::text)))::text AS "Enl.Waist circumference is normal",
        (programenrolment.observations ->>
-        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                                                                AS "Enl.Blood Pressure (systolic)",
+        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                              AS "Enl.Blood Pressure (systolic)",
        (programenrolment.observations ->>
-        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                                                AS "Enl.Blood Pressure (Diastolic)",
+        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                              AS "Enl.Blood Pressure (Diastolic)",
        (programenrolment.observations ->>
-        '3e30648a-5829-45bb-b2ef-f797462c397e'::text)                                                                AS "Enl.Fasting blood sugar level reports in last one month",
+        '3e30648a-5829-45bb-b2ef-f797462c397e'::text)                              AS "Enl.Fasting blood sugar level reports in last one month",
        (programenrolment.observations ->>
-        '22868608-488a-4be8-9dd3-d2c50fe1f6aa'::text)                                                                AS "Enl.Post prandial blood sugar level reports in last one month",
+        '22868608-488a-4be8-9dd3-d2c50fe1f6aa'::text)                              AS "Enl.Post prandial blood sugar level reports in last one month",
        (programenrolment.observations ->>
-        '18d36389-e42d-4366-a316-053407c3a0ab'::text)                                                                AS "Enl.Random blood sugar levels report",
+        '18d36389-e42d-4366-a316-053407c3a0ab'::text)                              AS "Enl.Random blood sugar levels report",
        (single_select_coded((programenrolment.observations ->>
-                             '319c1184-2afb-4e10-9523-840645b6a130'::text)))::text                                   AS "Enl.Whether your blood sugar level is under control",
-       programenrolment.enrolment_date_time                                                                          AS "Enl.enrolment_date_time",
-       village.title                                                                                                 AS "Ind.village",
-       panchayat.title                                                                                               AS "Ind.panchayat",
-       surveillance_unit.title                                                                                       AS "Ind.surveillance_unit",
+                             '319c1184-2afb-4e10-9523-840645b6a130'::text)))::text AS "Enl.Whether your blood sugar level is under control",
+       programenrolment.enrolment_date_time                                                     AS "Enl.enrolment_date_time",
+       village.title                                                                                  AS "Ind.village",
+       panchayat.title                                                                          AS "Ind.panchayat",
+       surveillance_unit.title                                                                  AS "Ind.surveillance_unit",
        row_number()
-       OVER (PARTITION BY individual.id ORDER BY programencounter.encounter_date_time DESC)                          AS "Rank"
-FROM ((((((((program_enrolment programenrolment
-    LEFT JOIN program_encounter programencounter ON (((programencounter.program_enrolment_id = programenrolment.id) AND
-                                                      (programencounter.encounter_date_time IS NOT NULL))))
-    LEFT JOIN operational_encounter_type oet ON (((programencounter.encounter_type_id = oet.encounter_type_id) AND
-                                                  ((oet.uuid)::text = '52814e7b-28a6-4acb-a9bd-eb01d6ee4698'::text))))
-    LEFT JOIN operational_program op ON ((op.program_id = programenrolment.program_id)))
-    LEFT JOIN individual individual ON ((programenrolment.individual_id = individual.id)))
-    LEFT JOIN gender g ON ((g.id = individual.gender_id)))
-    LEFT JOIN address_level village ON ((individual.address_id = village.id)))
-    LEFT JOIN address_level panchayat ON ((village.parent_id = panchayat.id)))
-         LEFT JOIN address_level surveillance_unit ON ((surveillance_unit.id = panchayat.parent_id)))
-WHERE (((op.uuid)::text = '2106f644-da4e-46cd-9940-a495be09d857'::text) AND
-       (programenrolment.enrolment_date_time IS NOT NULL));
+       OVER (PARTITION BY individual.id ORDER BY programencounter.encounter_date_time DESC) AS "Rank"
+FROM program_enrolment programenrolment
+       LEFT JOIN program_encounter programencounter ON programencounter.program_enrolment_id = programenrolment.id AND
+                                                       programencounter.encounter_date_time IS NOT NULL
+       LEFT JOIN operational_encounter_type oet ON programencounter.encounter_type_id = oet.encounter_type_id AND
+                                                   oet.uuid::text = '52814e7b-28a6-4acb-a9bd-eb01d6ee4698'::text
+       LEFT JOIN operational_program op ON op.program_id = programenrolment.program_id
+       LEFT JOIN individual individual ON programenrolment.individual_id = individual.id
+       LEFT JOIN gender g ON g.id = individual.gender_id
+       LEFT JOIN address_level village ON individual.address_id = village.id
+       left join address_level panchayat on village.parent_id = panchayat.id
+       left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+WHERE op.uuid::text = '2106f644-da4e-46cd-9940-a495be09d857'::text
+  AND programenrolment.enrolment_date_time IS NOT NULL;
+
 
 drop view if exists yenepoya_history_of_fever_form_view;
 create view yenepoya_history_of_fever_form_view
