@@ -765,7 +765,7 @@ SELECT individual.id                                                            
        (programencounter.observations ->>
         'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                           AS "Enc.blood Pressure (Diastolic)",
        (single_select_coded((programencounter.observations ->>
-                             '8bc6db2a-388d-4028-a995-865ff018c8f6'::text)))::text              AS "Enc.whether your blood sugar level is under control",
+                             '8bc6db2a-388d-4028-a995-865ff018c8f6'::text)))::text              AS "Enc.Whether your blood pressure is under control",
        programencounter.cancel_date_time                                                        AS "EncCancel.cancel_date_time",
        (single_select_coded((programencounter.observations ->>
                              '5592def2-fe5e-4234-9253-ca5fd0322e26'::text)))::text              AS "EncCancel.Reason Of Cancellation",
@@ -806,7 +806,7 @@ SELECT individual.id                                                            
        (programenrolment.observations ->>
         'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                           AS "Enl.Blood Pressure (Diastolic)",
        (single_select_coded((programenrolment.observations ->>
-                             '8bc6db2a-388d-4028-a995-865ff018c8f6'::text)))::text              AS "Enl.Whether your blood sugar level is under control",
+                             '8bc6db2a-388d-4028-a995-865ff018c8f6'::text)))::text              AS "Enl.Whether your blood pressure is under control",
        programenrolment.enrolment_date_time                                                     AS "Enl.enrolment_date_time",
        a.title                                                                                  AS "Ind.village",
        panchayat.title                                                                          AS "Ind.panchayat",
