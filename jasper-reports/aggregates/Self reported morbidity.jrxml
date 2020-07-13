@@ -15,8 +15,11 @@
     <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
     <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="180"/>
     <property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="812"/>
-    <property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="765"/>
-    <property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="225"/>
+    <property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="892"/>
+    <property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="97"/>
+    <property name="ireport.jasperserver.user" value="jasperadmin"/>
+    <property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Aggregates/Self_reported_morbidity"/>
+    <property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Aggregates/Self_reported_morbidity_files/main_jrxml"/>
     <template><![CDATA["repo:/Templates/Styles/AggregateReportStyles.jrtx"]]></template>
     <parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
     <parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
@@ -25,49 +28,135 @@
     <parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
     <parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
     <queryString language="SQL">
-        <![CDATA[with latest_both_characteristics as (
-    select unnest(array ['Are there any individuals in your family with known case of chronic illness?',
-        'Are there any individuals in your family with any illness in last two weeks?']) as characteristics,
-           unnest(array ["Enc.Are there members with known case of chronic illness?",
-               "Enc.Are there members with any illness in last two weeks?"])             as categories
-    from (select *,
+        <![CDATA[with agg_data as (
+    select count(*) filter ( where cronic_illness like '%No%')             cronic_illness_no,
+           count(*) filter ( where cronic_illness like '%DM%')             cronic_illness_dm,
+           count(*) filter ( where cronic_illness like '%HT%')             cronic_illness_ht,
+           count(*) filter ( where cronic_illness like '%CKD%')            cronic_illness_ckd,
+           count(*) filter ( where cronic_illness like '%Heart disease%')  cronic_illness_heart,
+           count(*) filter ( where cronic_illness like '%TB%')             cronic_illness_tb,
+           count(*) filter ( where cronic_illness like '%Asthma%')         cronic_illness_asthma,
+           count(*) filter ( where cronic_illness like '%Cancer%')         cronic_illness_cancer,
+           count(*) filter ( where cronic_illness like '%Mental illness%') cronic_illness_mental_illness,
+           count(*) filter ( where cronic_illness like '%Stroke%')         cronic_illness_stroke,
+           count(*) filter ( where cronic_illness like '%Any other%')      cronic_illness_other,
+           count(*) filter ( where accute_illness like '%No%')             accute_illness_no,
+           count(*) filter ( where accute_illness like '%Fever%')          accute_illness_fever,
+           count(*) filter ( where accute_illness like '%Malaria%')        accute_illness_malaria,
+           count(*) filter ( where accute_illness like '%Dengue%')         accute_illness_dengue,
+           count(*) filter ( where accute_illness like '%Cough%')          accute_illness_cough,
+           count(*) filter ( where accute_illness like '%Cold%')           accute_illness_cold,
+           count(*) filter ( where accute_illness like '%Diarrhoea%')      accute_illness_diarrhoea,
+           count(*) filter ( where accute_illness like '%Low backache%')   accute_illness_low_backache,
+           count(*) filter ( where accute_illness like '%Joint pains%')    accute_illness_joint_pain,
+           count(*) filter ( where accute_illness like '%Any other%')      accute_illness_other,
+           (select count(*) from yenepoya_household_registration)          total
+    from (select "Enc.Are there members with known case of chronic illness?"             cronic_illness,
+                 "Enc.Are there members with any illness in last two weeks?"             accute_illness,
                  row_number()
                  OVER (PARTITION BY "Ind.Id" ORDER BY "Enc.encounter_date_time" desc) as visit_number
           from yenepoya_household_survey_view
-			where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+          where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
             and $X{IN,"Ind.panchayat",PARAM_PANCHAYAT_NAME}
             and $X{IN,"Ind.village",PARAM_VILLAGE_NAME}
             and $X{IN,"Ind.Gender",PARAM_GENDER_NAME}
             and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
          ) partitioned_data
     WHERE visit_number = 1
-),
-     agg_data as (select characteristics,
-                         unnest(string_to_array(categories, ' ,'))  as categories,
-                         count(*)                                   as number,
-                         (count(*) * 100.0) /  ((select count(*) from yenepoya_household_registration)) as proportion
-                  from latest_both_characteristics
-                  group by 1, 2)
-
---distinct is used because same concept answer(No) is there in both concepts
-select distinct case
-                    when coalesce(agg_data.characteristics, c.name) =
-                         'Are there any individuals in your family with known case of chronic illness?'
-                        then 'Family with known case of chronic illness'
-                    when coalesce(agg_data.characteristics, c.name) =
-                         'Are there any individuals in your family with any illness in last two weeks?'
-                        then 'Family with acute illness in last two weeks' end
-                                                       as "Characteristics",
-                coalesce(agg_data.categories, ac.name) as "Categories",
-                coalesce(agg_data.number, 0)           as "Number",
-                nullif(agg_data.proportion, 0)          as "Proportion"
-from concept c
-         join concept_answer ca on c.id = ca.concept_id and not ca.is_voided
-         join concept ac on ca.answer_concept_id = ac.id
-         left join agg_data on agg_data.categories = ac.name
-where c.name in ('Are there any individuals in your family with known case of chronic illness?',
-                 'Are there any individuals in your family with any illness in last two weeks?')
-order by 1;]]>
+)
+select unnest(array [
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with known case of chronic illness',
+    'Family with acute illness in last two weeks',
+    'Family with acute illness in last two weeks',
+    'Family with acute illness in last two weeks',
+    'Family with acute illness in last two weeks',
+    'Family with acute illness in last two weeks',
+    'Family with acute illness in last two weeks',
+    'Family with acute illness in last two weeks',
+    'Family with acute illness in last two weeks',
+    'Family with acute illness in last two weeks',
+    'Family with acute illness in last two weeks'
+    ])        as "Characteristics",
+       unnest(Array [
+           'No',
+           'DM',
+           'HT',
+           'CKD',
+           'Heart disease',
+           'TB',
+           'Asthma',
+           'Cancer',
+           'Mental illness',
+           'Stroke',
+           'Any other',
+           'No',
+           'Fever',
+           'Malaria',
+           'Dengue',
+           'Cough',
+           'Cold',
+           'Diarrhoea',
+           'Low backache',
+           'Joint pains',
+           'Any other'
+           ]) as "Categories",
+       unnest(Array [
+           cronic_illness_no,
+           cronic_illness_dm,
+           cronic_illness_ht,
+           cronic_illness_ckd,
+           cronic_illness_heart,
+           cronic_illness_tb,
+           cronic_illness_asthma,
+           cronic_illness_cancer,
+           cronic_illness_mental_illness,
+           cronic_illness_stroke,
+           cronic_illness_other,
+           accute_illness_no,
+           accute_illness_fever,
+           accute_illness_malaria,
+           accute_illness_dengue,
+           accute_illness_cough,
+           accute_illness_cold,
+           accute_illness_diarrhoea,
+           accute_illness_low_backache,
+           accute_illness_joint_pain,
+           accute_illness_other
+           ]) as "Number",
+       unnest(Array [
+           nullif((cronic_illness_no * 100) / total, 0),
+           nullif((cronic_illness_dm * 100) / total, 0),
+           nullif((cronic_illness_ht * 100) / total, 0),
+           nullif((cronic_illness_ckd * 100) / total, 0),
+           nullif((cronic_illness_heart * 100) / total, 0),
+           nullif((cronic_illness_tb * 100) / total, 0),
+           nullif((cronic_illness_asthma * 100) / total, 0),
+           nullif((cronic_illness_cancer * 100) / total, 0),
+           nullif((cronic_illness_mental_illness * 100) / total, 0),
+           nullif((cronic_illness_stroke * 100) / total, 0),
+           nullif((cronic_illness_other * 100) / total, 0),
+           nullif((accute_illness_no * 100) / total, 0),
+           nullif((accute_illness_fever * 100) / total, 0),
+           nullif((accute_illness_malaria * 100) / total, 0),
+           nullif((accute_illness_dengue * 100) / total, 0),
+           nullif((accute_illness_cough * 100) / total, 0),
+           nullif((accute_illness_cold * 100) / total, 0),
+           nullif((accute_illness_diarrhoea * 100) / total, 0),
+           nullif((accute_illness_low_backache * 100) / total, 0),
+           nullif((accute_illness_joint_pain * 100) / total, 0),
+           nullif((accute_illness_other * 100) / total, 0)
+           ]) as "Proportion"
+from agg_data;]]>
     </queryString>
     <field name="Characteristics" class="java.lang.String">
         <property name="com.jaspersoft.studio.field.label" value="Characteristics"/>
