@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Aggregate_3Groups_7" pageWidth="1684" pageHeight="720" columnWidth="1080" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa1a9231-754c-4c0f-8a57-3e034206cd5a">
+	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Staging (Avani)"/>
+	<property name="ireport.jasperserver.user" value="NupoorK"/>
+	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Aggregates/Blood_pressure_measurement_in_hypertensive_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Aggregates/Blood_pressure_measurement_in_hypertensive"/>
+	<template><![CDATA["repo:AggregateReportStyles.jrtx"]]></template>
+	<parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[with data as (
+     select count(*) filter (where
+            coalesce("Enc.blood Pressure (systolic)", "Enl.Blood Pressure (systolic)")::NUMERIC <
+            120 )                                                                          as SysOptimal,
+           count(*) filter (where
+               coalesce("Enc.blood Pressure (systolic)",
+                        "Enl.Blood Pressure (systolic)")::NUMERIC between 120 and 129)     as SysNormal,
+           count(*) filter (where
+               coalesce("Enc.blood Pressure (systolic)",
+                        "Enl.Blood Pressure (systolic)")::NUMERIC between 130 and 139)     as SysHighNormal,
+           count(*) filter (where
+               coalesce("Enc.blood Pressure (systolic)",
+                        "Enl.Blood Pressure (systolic)")::NUMERIC between 140 and 159)     as SysGrade1,
+           count(*) filter (where
+               coalesce("Enc.blood Pressure (systolic)",
+                        "Enl.Blood Pressure (systolic)")::NUMERIC between 160 and 179)     as SysGrade2,
+           count(*) filter (where
+                   coalesce("Enc.blood Pressure (systolic)",
+                            "Enl.Blood Pressure (systolic)")::NUMERIC >=
+                   180)                                                                    as SysGrade3,
+           count(*) filter (where
+                   coalesce( "Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric <
+                   80)                                                                     as DiaOptimal,
+           count(*) filter (where
+               coalesce(
+                        "Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric between 80 and 84)      as DiaNormal,
+           count(*) filter (where
+               coalesce(
+                        "Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric between 85 and 89)      as DiaHighNormal,
+           count(*) filter (where
+               coalesce(
+                        "Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric between 90 and 99)      as DiaGrade1,
+           count(*) filter (where
+               coalesce("Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric between 100 and 109)    as DiaGrade2,
+
+           count(*) filter (where
+                   coalesce("Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric >
+                   110)                                                                    as DiaGrade3,
+           count(*) filter (where
+                       coalesce("Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric < 80 or
+                       coalesce("Enc.blood Pressure (systolic)", "Enl.Blood Pressure (systolic)")::NUMERIC <
+                       120)                                                                as SysDiaOptimal,
+           count(*) filter (where
+                   coalesce("Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric between 80 and 84 or
+                   coalesce("Enc.blood Pressure (systolic)",
+                            "Enl.Blood Pressure (systolic)")::NUMERIC between 120 and 129) as SysDiaNormal,
+
+           count(*) filter (where
+                   coalesce("Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric between 85 and 89 or
+                   coalesce("Enc.blood Pressure (systolic)",
+                            "Enl.Blood Pressure (systolic)")::NUMERIC between 130 and 139) as SysDiaHighNormal,
+
+           count(*) filter (where
+                   coalesce("Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric between 90 and 99 or
+                   coalesce("Enc.blood Pressure (systolic)",
+                            "Enl.Blood Pressure (systolic)")::NUMERIC between 140 and 159) as SysDiaHighGrade1,
+
+           count(*) filter (where
+                   coalesce("Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric between 100 and 109 or
+                   coalesce("Enc.blood Pressure (systolic)",
+                            "Enl.Blood Pressure (systolic)")::NUMERIC between 160 and 179) as SysDiaHighGrade2,
+
+           count(*) filter (where
+                       coalesce("Enc.blood Pressure (Diastolic)","Enl.Blood Pressure (Diastolic)")::numeric > 110 or
+                       coalesce("Enc.blood Pressure (systolic)", "Enl.Blood Pressure (systolic)")::NUMERIC >
+                       180)                                                                as SysDiaHighGrade3,
+           count(*) filter (where
+                   coalesce(
+                            "Enc.Whether your blood pressure is under control","Enl.Whether your blood pressure is under control"
+                       ) = 'Yes')                                                          as underControl,
+
+
+           nullif(count(*), 0)                                                             as total_enrolment
+    from (select *,
+                 row_number()
+                 OVER (PARTITION BY "Ind.Id" ORDER BY coalesce("Enc.encounter_date_time", "Enl.enrolment_date_time") desc) as visit_number
+          from yenepoya_hypertension_followup_view
+          where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            and $X{IN,"Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            and $X{IN,"Ind.village",PARAM_VILLAGE_NAME}
+             and $X{IN,"Ind.Gender",PARAM_GENDER_NAME}
+            and (
+              $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+              or $X{BETWEEN,"Enl.enrolment_date_time",PARAM_DATE_START, PARAM_DATE_END}
+              )
+
+         ) partitioned_data
+    where visit_number = 1
+)
+
+select unnest(
+               array ['Hypertensives with optimal systolic blood pressure',
+                   'Hypertensives with normal systolic blood pressure',
+                   'Hypertensives with high normal systolic blood pressure',
+                   'Hypertensives with grade 1 systolic blood pressure',
+                   'Hypertensives with grade 2 systolic blood pressure',
+                   'Hypertensives with grade 3 systolic blood pressure',
+                   'Hypertensives with optimal Diastolic blood pressure',
+                   'Hypertensives with normal Diastolic blood pressure',
+                   'Hypertensives with high normal Diastolic blood pressure',
+                   'Hypertensives with grade 1 Diastolic blood pressure',
+                   'Hypertensives with grade 2 Diastolic blood pressure',
+                   'Hypertensives with grade 3 Diastolic blood pressure',
+                   'Hypertensives with optimal systolic and/or diastolic blood pressure',
+                   'Hypertensives with normal systolic and/or diastolic blood pressure',
+                   'Hypertensives with high normal systolic and/or diastolic blood pressure',
+                   'Hypertensives with grade 1 systolic and/or diastolic blood pressure',
+                   'Hypertensives with grade 2 systolic and/or diastolic blood pressure',
+                   'Hypertensives with grade 3 systolic and/or diastolic blood pressure',
+                   'Hypertensives who believe their blood pressure is under control'
+
+                   ]) as "Characteristics",
+       unnest(
+               array [SysOptimal,
+                   SysNormal,
+                   SysHighNormal,
+                   SysGrade1,
+                   SysGrade2,
+                   SysGrade3,
+                   DiaOptimal,
+                   DiaNormal,
+                   DiaHighNormal,
+                   DiaGrade1,
+                   DiaGrade2,
+                   DiaGrade3,
+                   SysDiaOptimal,
+                   SysDiaNormal,
+                   SysDiaHighNormal,
+                   SysDiaHighGrade1,
+                   SysDiaHighGrade2,
+                   SysDiaHighGrade3,
+                   underControl
+                   ]) as "Number",
+       unnest(array [
+           nullif(((SysOptimal * 100.0) / total_enrolment), 0),
+           nullif(((SysNormal * 100.0) / total_enrolment), 0),
+           nullif(((SysHighNormal * 100.0) / total_enrolment), 0),
+           nullif(((SysGrade1 * 100.0) / total_enrolment), 0),
+           nullif(((SysGrade2 * 100.0) / total_enrolment), 0),
+           nullif(((SysGrade3 * 100.0) / total_enrolment), 0),
+           nullif(((DiaOptimal * 100.0) / total_enrolment), 0),
+           nullif(((DiaNormal * 100.0) / total_enrolment), 0),
+           nullif(((DiaHighNormal * 100.0) / total_enrolment), 0),
+           nullif(((DiaGrade1 * 100.0) / total_enrolment), 0),
+           nullif(((DiaGrade2 * 100.0) / total_enrolment), 0),
+           nullif(((DiaGrade3 * 100.0) / total_enrolment), 0),
+           nullif(((SysDiaOptimal * 100.0) / total_enrolment), 0),
+           nullif(((SysDiaNormal * 100.0) / total_enrolment), 0),
+           nullif(((SysDiaHighNormal * 100.0) / total_enrolment), 0),
+           nullif(((SysDiaHighGrade1 * 100.0) / total_enrolment), 0),
+           nullif(((SysDiaHighGrade2 * 100.0) / total_enrolment), 0),
+           nullif(((SysDiaHighGrade3 * 100.0) / total_enrolment), 0),
+           nullif(((underControl * 100.0) / total_enrolment), 0)
+           ])         as "Proportion"
+from data]]>
+	</queryString>
+	<field name="Characteristics" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Characteristics"/>
+	</field>
+	<field name="Number" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Number"/>
+	</field>
+	<field name="Proportion" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Proportion"/>
+	</field>
+	<variable name="DYNAMIC_WHERE" class="java.lang.String">
+		<variableExpression><![CDATA[$F{Characteristics}.equals("Hypertensives with optimal systolic blood pressure")? "and Blood_Pressure_Systolic::Numeric < 120":$F{Characteristics}.equals("Hypertensives with normal systolic blood pressure")? "and Blood_Pressure_Systolic::Numeric between 120 and 129":$F{Characteristics}.equals("Hypertensives with high normal systolic blood pressure")? "and Blood_Pressure_Systolic::Numeric between 130 and 139":$F{Characteristics}.equals("Hypertensives with grade 1 systolic blood pressure")? "and Blood_Pressure_Systolic::Numeric between 140 and 159":$F{Characteristics}.equals("Hypertensives with grade 2 systolic blood pressure")? "and Blood_Pressure_Systolic::Numeric between 160 and 179":$F{Characteristics}.equals("Hypertensives with grade 3 systolic blood pressure")? "and Blood_Pressure_Systolic::Numeric >= 180":$F{Characteristics}.equals("Hypertensives with optimal Diastolic blood pressure")? "and Blood_Pressure_Diastolic::Numeric < 80":$F{Characteristics}.equals("Hypertensives with normal Diastolic blood pressure")? "and Blood_Pressure_Diastolic::Numeric between 80 and 84":$F{Characteristics}.equals("Hypertensives with high normal Diastolic blood pressure")? "and Blood_Pressure_Diastolic::Numeric between 85 and 89":$F{Characteristics}.equals("Hypertensives with grade 1 Diastolic blood pressure")? "and Blood_Pressure_Diastolic::Numeric between 90 and 99":$F{Characteristics}.equals("Hypertensives with grade 2 Diastolic blood pressure")? "and Blood_Pressure_Diastolic::Numeric between 100 and 109":$F{Characteristics}.equals("Hypertensives with grade 3 Diastolic blood pressure")? "and Blood_Pressure_Diastolic::Numeric >= 110":
+$F{Characteristics}.equals("Hypertensives with optimal systolic and/or diastolic blood pressure")? "and Blood_Pressure_Systolic::Numeric < 120 or Blood_Pressure_Diastolic::Numer < 80":$F{Characteristics}.equals("Hypertensives with normal systolic and/or diastolic blood pressure")? "and Blood_Pressure_Systolic::Numeric between 120 and 129 or Blood_Pressure_Diastolic::Numer between 80 and 84":$F{Characteristics}.equals("Hypertensives with high normal systolic and/or diastolic blood pressure")? "and Blood_Pressure_Systolic::Numeric between 130 and 139 or Blood_Pressure_Diastolic::Numer between 85 and 89":$F{Characteristics}.equals("Hypertensives with grade 1 systolic and/or diastolic blood pressure")? "and Blood_Pressure_Systolic::Numeric between 140 and 159 or Blood_Pressure_Diastolic::Numer between 90 and 99":$F{Characteristics}.equals("Hypertensives with grade 2 systolic and/or diastolic blood pressure")? "and Blood_Pressure_Systolic::Numeric between 160 and 179 or Blood_Pressure_Diastolic::Numer between 100 and 109":$F{Characteristics}.equals("Hypertensives with grade 3 systolic and/or diastolic blood pressure")? "and Blood_Pressure_Systolic::Numeric >= 180 or Blood_Pressure_Diastolic::Numeric >= 110":$F{Characteristics}.equals("Hypertensives who believe their blood pressure is under control")? "and blood_sugar_level_under_control='Yes'":"and 1=1"]]></variableExpression>
+	</variable>
+	<background>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ReportTitle" x="0" y="0" width="1164" height="50" uuid="b41c1dbc-657e-4f9f-93da-2951563f95d4"/>
+				<text><![CDATA[Blood Pressure measurement in Hypertensives]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="GroupHeader" x="0" y="0" width="548" height="30" uuid="87ccbe60-9142-4072-8c2c-eed0fff58ba0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff963d16-7cc3-44d9-8f30-995fb81218d3"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
+				<text><![CDATA[Characteristics]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="548" y="0" width="332" height="30" uuid="e1167e86-5cc4-4dff-960c-c4396584fd16">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6a26b2c-22ea-4e1f-99c9-794859ca1e3b"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
+				<text><![CDATA[Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="880" y="0" width="284" height="30" uuid="52ba2ceb-2d45-43a5-ab05-2a4bb34f8bef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca28863f-aad6-4ce9-9968-0ba6260364f7"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
+				<text><![CDATA[Proportion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowTextElement" stretchType="RelativeToTallestObject" x="0" y="0" width="548" height="30" uuid="4144db43-0849-4979-adad-4a118573bb42">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff963d16-7cc3-44d9-8f30-995fb81218d3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Characteristics}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" hyperlinkType="ReportExecution">
+				<reportElement style="DataRowElement" stretchType="RelativeToTallestObject" x="548" y="0" width="332" height="30" uuid="0c9f06aa-6c6c-44ce-82ba-5934fbd7b910">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6a26b2c-22ea-4e1f-99c9-794859ca1e3b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
+				<hyperlinkWhenExpression><![CDATA[$F{Number} > 0]]></hyperlinkWhenExpression>
+				<hyperlinkTooltipExpression><![CDATA["Click for the line list"]]></hyperlinkTooltipExpression>
+				<hyperlinkParameter name="_report">
+					<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Blood_Pressure_measurement_in_Hypertensives_Linelists"]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_DATE_END">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_DATE_START">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_GENDER_NAME">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_GENDER_NAME}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+					<hyperlinkParameterExpression><![CDATA[$V{DYNAMIC_WHERE}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowPreCalculatedPercentageElement" stretchType="RelativeToTallestObject" x="880" y="0" width="284" height="30" uuid="159711d8-25fd-4f7e-92e8-9fb156d50227">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca28863f-aad6-4ce9-9968-0ba6260364f7"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Proportion} == null ? "0%" : $F{Proportion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

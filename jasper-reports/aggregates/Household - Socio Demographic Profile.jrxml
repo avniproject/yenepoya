@@ -3,9 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Household - Socio Demographic Profile" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e2f75785-76ee-47c0-a6d2-90e8276fed3b">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@staging"/>
 	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
-	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.user" value="NupoorK"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Aggregates/Household_SocioDemographic_Profile_files/main_jrxml"/>
+	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Aggregates/Household_SocioDemographic_Profile_files/main"/>
 	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Aggregates/Household_SocioDemographic_Profile"/>
 	<template><![CDATA["repo:/Templates/Styles/AggregateReportStyles.jrtx"]]></template>
 	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
@@ -539,7 +539,7 @@ from count_query]]>
 							<jr:detailCell style="Table 1_TD" height="30">
 								<staticText>
 									<reportElement style="DataRowTextElement" x="0" y="0" width="500" height="30" uuid="0c20f28d-95ba-4a59-8764-ebf4301f8f2c"/>
-									<text><![CDATA[Households availing Social Security Schemes]]></text>
+									<text><![CDATA[Households availing social security schemes]]></text>
 								</staticText>
 							</jr:detailCell>
 						</jr:column>
@@ -1002,7 +1002,7 @@ from count_query]]>
 									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
 									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
 									<hyperlinkParameter name="_report">
-										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Individual_socio_demographic_profile___Linelist"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Individual_household_socio_demographic_profile___Linelist"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DATE_START">
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
@@ -1070,7 +1070,7 @@ from count_query]]>
 									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
 									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
 									<hyperlinkParameter name="_report">
-										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Individual_socio_demographic_profile___Linelist"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Individual_household_socio_demographic_profile___Linelist"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DATE_START">
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
@@ -1138,7 +1138,7 @@ from count_query]]>
 									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
 									<hyperlinkWhenExpression><![CDATA[$F{count} > 0]]></hyperlinkWhenExpression>
 									<hyperlinkParameter name="_report">
-										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Individual_socio_demographic_profile___Linelist"]]></hyperlinkParameterExpression>
+										<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Individual_household_socio_demographic_profile___Linelist"]]></hyperlinkParameterExpression>
 									</hyperlinkParameter>
 									<hyperlinkParameter name="PARAM_DATE_START">
 										<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>

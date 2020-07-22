@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="a" pageWidth="1500" pageHeight="720" columnWidth="1080" leftMargin="250" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa1a9231-754c-4c0f-8a57-3e034206cd5a">
+	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="yenepoya@prod"/>
+	<property name="ireport.jasperserver.user" value="NupoorK"/>
+	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Aggregates/Fever_Survey_Details_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Aggregates/Fever_Survey_Details"/>
+	<template><![CDATA["repo:/Templates/Styles/AggregateReportStyles.jrtx"]]></template>
+	<parameter name="PARAM_DATE_START" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_DATE_END" class="java.sql.Timestamp"/>
+	<parameter name="PARAM_SURVEILLANCE_UNIT" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_PANCHAYAT_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[with fever_survey
+         as (select count(*) filter (where "Enc.History of fever in last 15 days" = 'Yes')                  as "Enc.History of fever in last 15 days",
+                    count(*) filter (where "Enc.Have you consulted the doctor" = 'Yes')                     as "Enc.Have you consulted the doctor",
+                    count(*) filter (where "Enc.Was malaria/dengue test done" = 'Yes')                      as "Enc.Was malaria/dengue test done",
+                    count(*) filter (where "Enc.Specify the test result" != 'Negative')                     as "Enc.Specify the test result",
+                    count(*) filter (where "Enc.Treatment taken" = 'Yes')                                   as "Enc.Treatment taken",
+                    count(*)
+                    filter (where "Enc.Have you taken the full course of treatment" = 'Yes')                as "Enc.Have you taken the full course of treatment",
+                    count(*)
+                    filter (where "Enc.Are you practising any mosquito prevention method" = 'Yes')          as "Enc.Are you practising any mosquito prevention method",
+                    count(*)
+                    filter (where "Enc.Have you been provided LLIN by Govt. health workers" = 'Yes')        as "Enc.Have you been provided LLIN by Govt. health workers",
+                    count(*) filter (where "Enc.Are you utilizing the LLIN?" = 'Yes')                       as "Enc.Are you utilizing the LLIN?",
+                    count(*)
+                    filter (where "Enc.Any Govt. health worker/MPW visited house in past 3 months" = 'Yes') as "Enc.Any Govt. health worker/MPW visited house in past 3 months",
+                    count(*)
+                    filter (where "Enc.Are you aware of mosquito control other than LLIN?" = 'Yes')         as "Enc.Are you aware of mosquito control other than LLIN?",
+                    count(*)                                                                                as total_record
+             		from (select *,
+                          row_number()
+                          OVER (PARTITION BY "Ind.Id" ORDER BY "Enc.encounter_date_time" desc) as visit_number
+             	from yenepoya_history_of_fever_form_view
+             		where $X{IN,"Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
+            		  and $X{IN,"Ind.panchayat",PARAM_PANCHAYAT_NAME}
+            		  and $X{IN,"Ind.village",PARAM_VILLAGE_NAME}
+            		  and $X{BETWEEN,"Enc.encounter_date_time",PARAM_DATE_START, PARAM_DATE_END}
+            		  and $X{IN, "Ind.Gender",PARAM_GENDER_NAME}
+    ) partitioned_data
+             WHERE visit_number = 1)
+             
+select unnest(array [
+		'With history of fever in last 15 days',
+    	'Have consulted the doctor',
+    	'Have fever tested for malaria/dengue',
+    	'Tested found to be positive',
+    	'Tested positive treatment taken',
+    	'Taken full course of treatment',
+    	'Practising any method of prevention against mosquito',
+    	'Individuals with history of fever where provided with LLIN by Govt. health workers',
+    	'Those given LLIN where actually utilizing the LLIN',
+    	'Individuals with history of fever visited by any govt. health worker/MPW  in past 3 months',
+    	'Individuals with history of fever who are aware of any mosquito control measures undertaken by the Govt. health worker other than the LLIN ( examples)'
+
+    ]) as "Characteristics",
+      
+    unnest(array [
+    	   "Enc.History of fever in last 15 days",
+           "Enc.Have you consulted the doctor",
+           "Enc.Was malaria/dengue test done",
+           "Enc.Specify the test result",
+           "Enc.Treatment taken",
+           "Enc.Have you taken the full course of treatment",
+           "Enc.Are you practising any mosquito prevention method",
+           "Enc.Have you been provided LLIN by Govt. health workers",
+           "Enc.Are you utilizing the LLIN?",
+           "Enc.Any Govt. health worker/MPW visited house in past 3 months",
+           "Enc.Are you aware of mosquito control other than LLIN?"
+           ]) as "Number",
+      
+    unnest(array [
+           ("Enc.History of fever in last 15 days"::numeric * 100 ) / NULLIF(total_record,0) ,
+           ("Enc.Have you consulted the doctor"::numeric * 100 )/ NULLIF("Enc.History of fever in last 15 days"::numeric,0) ,
+           ("Enc.Was malaria/dengue test done"::numeric * 100) / NULLIF("Enc.History of fever in last 15 days"::numeric,0) ,
+           ("Enc.Specify the test result"::numeric * 100) / NULLIF(total_record,0) ,
+           ("Enc.Treatment taken"::numeric * 100) / NULLIF("Enc.Specify the test result"::numeric, 0) ,
+           ("Enc.Have you taken the full course of treatment"::numeric * 100) / NULLIF("Enc.Treatment taken"::numeric,0) ,
+           ("Enc.Are you practising any mosquito prevention method"::numeric * 100) / NULLIF(total_record,0) ,
+           ("Enc.Have you been provided LLIN by Govt. health workers"::numeric  * 100) /
+           NULLIF("Enc.History of fever in last 15 days"::numeric,0),
+           ("Enc.Are you utilizing the LLIN?"::numeric * 100) /
+           NULLIF("Enc.Have you been provided LLIN by Govt. health workers"::numeric, 0) ,
+           ("Enc.Any Govt. health worker/MPW visited house in past 3 months"::numeric  * 100) /
+           NULLIF("Enc.History of fever in last 15 days"::numeric, 0),
+           ("Enc.Are you aware of mosquito control other than LLIN?"::numeric * 100) /
+           NULLIF("Enc.History of fever in last 15 days"::numeric, 0) 
+           ]) as "Proportion"
+from fever_survey;]]>
+	</queryString>
+	<field name="Characteristics" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Characteristics"/>
+	</field>
+	<field name="Number" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Number"/>
+	</field>
+	<field name="Proportion" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Proportion"/>
+	</field>
+	<variable name="DYNAMIC_WHERE" class="java.lang.String">
+		<variableExpression><![CDATA[$F{Characteristics}.equals("With History of fever in last 15 days") ? "and followup.\"Enc.History of fever in last 15 days\" = 'Yes'"  :
+$F{Characteristics}.equals("Have consulted the doctor") ? "and \"Enc.Have you consulted the doctor\" = 'Yes'" :
+$F{Characteristics}.equals("Have fever tested for malaria/dengue") ? "and \"Enc.Was malaria/dengue test done\"  = 'Yes'"  :
+$F{Characteristics}.equals("Tested found to be positive") ? "and \"Enc.Specify the test result\" != 'Negative'" :
+$F{Characteristics}.equals("Tested positive treatment taken") ? "and \"Enc.Treatment taken\" = 'Yes'" :
+$F{Characteristics}.equals("Taken full course of treatment") ? "and \"Enc.Have you taken the full course of treatment\" = 'Yes'" :
+$F{Characteristics}.equals("Practising any method of prevention against mosquito") ? "and \"Enc.Are you practising any mosquito prevention method\" = 'Yes'" :
+$F{Characteristics}.equals("Individuals with history of fever where provided with LLIN by Govt. health workers") ? "and \"Enc.Have you been provided LLIN by Govt. health workers\" = 'Yes'" :
+$F{Characteristics}.equals("Those given LLIN where actually utilizing the LLIN") ? "and \"Enc.Are you utilizing the LLIN?\" = 'Yes'" :
+$F{Characteristics}.equals("Individuals with history of fever visited by Any Govt. health worker/MPW  in past 3 months") ? "and \"Enc.Any Govt. health worker/MPW visited house in past 3 months\" = 'Yes'" :
+$F{Characteristics}.equals("Individuals with history of fever who are aware of any mosquito control measures undertaken by the Govt. health worker other than the LLIN ( examples)?") ? "and \"Enc.Are you aware of mosquito control other than LLIN?\" = 'Yes'" :
+"and 1=1"]]></variableExpression>
+	</variable>
+	<background>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ReportTitle" x="-100" y="0" width="680" height="50" uuid="b41c1dbc-657e-4f9f-93da-2951563f95d4"/>
+				<text><![CDATA[Fever Survey Details]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="ColumnHeader" x="0" y="0" width="300" height="30" uuid="6bbeb455-a64f-4ad6-98f4-4344d2a69ced"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
+				<text><![CDATA[Characteristics]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="300" y="0" width="80" height="30" uuid="6bbeb455-a64f-4ad6-98f4-4344d2a69ced"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
+				<text><![CDATA[Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="ColumnHeader" x="380" y="0" width="80" height="30" uuid="6bbeb455-a64f-4ad6-98f4-4344d2a69ced"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#0D0303"/>
+				</box>
+				<text><![CDATA[Proportion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowTextElement" stretchType="RelativeToTallestObject" x="0" y="0" width="300" height="30" uuid="a06291a4-1652-4d4c-bc69-494233474439"/>
+				<textFieldExpression><![CDATA[$F{Characteristics}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
+				<reportElement style="DataRowNumericElement" stretchType="RelativeToTallestObject" x="300" y="0" width="80" height="30" uuid="a06291a4-1652-4d4c-bc69-494233474439"/>
+				<textFieldExpression><![CDATA[$F{Number}]]></textFieldExpression>
+				<hyperlinkWhenExpression><![CDATA[$F{Number} > 0]]></hyperlinkWhenExpression>
+				<hyperlinkTooltipExpression><![CDATA["Click for the line list"]]></hyperlinkTooltipExpression>
+				<hyperlinkParameter name="PARAM_DATE_END">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_END}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_DATE_START">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_DATE_START}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_PANCHAYAT_NAME">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_PANCHAYAT_NAME}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_SURVEILLANCE_UNIT">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_SURVEILLANCE_UNIT}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_VILLAGE_NAME">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_VILLAGE_NAME}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_GENDER_NAME">
+					<hyperlinkParameterExpression><![CDATA[$P{PARAM_GENDER_NAME}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="PARAM_DYNAMIC_WHERE">
+					<hyperlinkParameterExpression><![CDATA[$V{DYNAMIC_WHERE}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="_report">
+					<hyperlinkParameterExpression><![CDATA["/yenepoya/Reports/Linelists/Fever_Survey_Details_Linelist"]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement style="DataRowPreCalculatedPercentageElement" stretchType="RelativeToTallestObject" x="380" y="0" width="80" height="30" uuid="a06291a4-1652-4d4c-bc69-494233474439"/>
+				<textFieldExpression><![CDATA[$F{Proportion} == null ? "0%" : $F{Proportion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

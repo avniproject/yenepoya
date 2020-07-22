@@ -4,8 +4,8 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yenepoya1"/>
 	<property name="ireport.jasperserver.url" value="https://reporting-jasper.avniproject.org/jasperserver/"/>
-	<property name="ireport.jasperserver.user" value="jasperadmin"/>
-	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Aggregates/Individual_SocioDemographic_Profile_files/main_jrxml"/>
+	<property name="ireport.jasperserver.user" value="NupoorK"/>
+	<property name="ireport.jasperserver.report.resource" value="/yenepoya/Reports/Aggregates/Individual_SocioDemographic_Profile_files/main"/>
 	<property name="ireport.jasperserver.reportUnit" value="/yenepoya/Reports/Aggregates/Individual_SocioDemographic_Profile"/>
 	<template><![CDATA["repo:/Templates/Styles/AggregateReportStyles.jrtx"]]></template>
 	<style name="Table_TH" mode="Opaque" backcolor="#73E6E6">
@@ -450,8 +450,8 @@
 		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
 		<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
 		<queryString language="SQL">
-			<![CDATA[select 'total population' "Label",
-count(*) "Number",
+			<![CDATA[select 'Total population' "Label", 
+count(*) "Number", 
 'NA' "Percentage"
 from yenepoya_individual_registration_view
 where $X{IN, "Ind.surveillance_unit" , PARAM_SURVEILLANCE_UNIT}
@@ -587,7 +587,7 @@ where $X{IN,yir."Ind.surveillance_unit" ,PARAM_SURVEILLANCE_UNIT}
 		<parameter name="PARAM_VILLAGE_NAME" class="java.util.List" nestedType="java.lang.String"/>
 		<parameter name="PARAM_GENDER_NAME" class="java.util.List" nestedType="java.lang.String"/>
 		<queryString language="SQL">
-			<![CDATA[select 'Total population 0-5Years',
+			<![CDATA[select 'Total population 0-5 Years',
        count("Ind.Id") filter ( where extract(year from age(current_timestamp, "Ind.date_of_birth")) <= 5 ),
        nullif((count("Ind.Id") filter ( where extract(year from age(current_timestamp, "Ind.date_of_birth")) <= 5 ) * 100) /
        nullif(count(*), 0),0)
