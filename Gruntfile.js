@@ -38,7 +38,7 @@ module.exports = IDI.configure(
             catchments: [
                "metadata/sample_catchment.json"
             ],
-            checklistDetails: [],
+            checklistDetails: ["checklist.json"],
             concepts: ["concepts.json"],
             addressLevelTypes: [],
             locations: ["metadata/location.json"],
