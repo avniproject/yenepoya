@@ -683,6 +683,7 @@
     {
       "uuid": "b774c56c-0b9f-447d-b52e-32929d575977",
       "formUUID": "36ad8983-3b73-4972-80b9-0e680f34db8e",
+      "expiresAfter": 365,
       "concept": {
         "uuid": "218e4231-112c-4cf8-ab2c-26a4fd992307",
         "comment": "Pentavalent 1"
@@ -717,9 +718,22 @@
         {
           "displayOrder": 3,
           "start": 70,
-          "end": 1825,
+          "end": 365,
           "state": "Overdue",
           "color": "#FFC2C2",
+          "from": {
+            "day": 0
+          },
+          "to": {
+            "day": 0
+          }
+        },
+        {
+          "displayOrder": 4,
+          "start": 365,
+          "end": 1825,
+          "state": "Expired",
+          "color": "grey",
           "from": {
             "day": 0
           },
@@ -733,6 +747,7 @@
       "uuid": "eeda086c-608c-4824-bccc-503bc80cb3fa",
       "formUUID": "36ad8983-3b73-4972-80b9-0e680f34db8e",
       "dependentOn": "b774c56c-0b9f-447d-b52e-32929d575977",
+      "expiresAfter": 730,
       "minDaysFromStartDate": 70,
       "minDaysFromDependent": 28,
       "concept": {
@@ -769,9 +784,22 @@
         {
           "displayOrder": 3,
           "start": 28,
-          "end": 1825,
+          "end": 730,
           "state": "Overdue",
           "color": "#FFC2C2",
+          "from": {
+            "day": 0
+          },
+          "to": {
+            "day": 0
+          }
+        },
+        {
+          "displayOrder": 4,
+          "start": 730,
+          "end": 1825,
+          "state": "Expired",
+          "color": "grey",
           "from": {
             "day": 0
           },
@@ -784,7 +812,7 @@
     {
       "uuid": "f1b4219b-de58-4fbd-8f25-2bc1c4161283",
       "formUUID": "36ad8983-3b73-4972-80b9-0e680f34db8e",
-      "expiresAfter": 365,
+      "expiresAfter": 730,
       "dependentOn": "eeda086c-608c-4824-bccc-503bc80cb3fa",
       "minDaysFromStartDate": 98,
       "minDaysFromDependent": 28,
@@ -796,7 +824,7 @@
         {
           "displayOrder": 1,
           "start": 0,
-          "end": 365,
+          "end": 21,
           "state": "Due",
           "color": "#FBF9DA",
           "from": {
@@ -808,7 +836,33 @@
         },
         {
           "displayOrder": 2,
-          "start": 365,
+          "start": 21,
+          "end": 28,
+          "state": "Critical",
+          "color": "#F9DBBF",
+          "from": {
+            "day": 0
+          },
+          "to": {
+            "day": 0
+          }
+        },
+        {
+          "displayOrder": 3,
+          "start": 28,
+          "end": 730,
+          "state": "Overdue",
+          "color": "#FFC2C2",
+          "from": {
+            "day": 0
+          },
+          "to": {
+            "day": 0
+          }
+        },
+        {
+          "displayOrder": 4,
+          "start": 730,
           "end": 1825,
           "state": "Expired",
           "color": "grey",
