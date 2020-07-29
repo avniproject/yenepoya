@@ -1069,8 +1069,10 @@ as SELECT individual.id "Ind.Id",
           individual.date_of_birth "Ind.date_of_birth", 
           individual.date_of_birth_verified "Ind.date_of_birth_verified",
           individual.registration_date "Ind.registration_date", 
-          individual.facility_id "Ind.facility_id",
-           a.title "Ind.Area", 
+          individual.facility_id "Ind.facility_id",           
+          a.title                                                               as "Ind.village",
+          panchayat.title                                                             as "Ind.panchayat",
+          surveillance_unit.title                                                     as "Ind.surveillance_unit",
            individual.is_voided "Ind.is_voided", 
            op.name "Enl.Program Name", 
             programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
@@ -1131,7 +1133,10 @@ as SELECT individual.id "Ind.Id",
         LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id 
         LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id 
         LEFT OUTER JOIN gender g ON g.id = individual.gender_id 
-        LEFT OUTER JOIN address_level a ON individual.address_id = a.id 
+        LEFT JOIN address_level a ON individual.address_id = a.id
+        LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
+        LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+
         
         WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd' 
         AND programEnrolment.enrolment_date_time IS NOT NULL;
@@ -1151,8 +1156,10 @@ as SELECT individual.id "Ind.Id",
           individual.date_of_birth_verified "Ind.date_of_birth_verified",
           individual.registration_date "Ind.registration_date", 
           individual.facility_id "Ind.facility_id",
-           a.title "Ind.Area", 
-           individual.is_voided "Ind.is_voided", 
+          a.title                                                               as "Ind.village",
+          panchayat.title                                                             as "Ind.panchayat",
+          surveillance_unit.title                                                     as "Ind.surveillance_unit",
+          individual.is_voided "Ind.is_voided", 
            op.name "Enl.Program Name", 
            programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
            programenrolment.program_exit_date_time                                     AS "Enl.program_exit_date_time",
@@ -1249,9 +1256,11 @@ as SELECT individual.id "Ind.Id",
         LEFT OUTER JOIN program_enrolment programEnrolment ON programEncounter.program_enrolment_id = programEnrolment.id 
         LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id 
         LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id LEFT OUTER JOIN gender g ON g.id = individual.gender_id 
-        LEFT OUTER JOIN address_level a ON individual.address_id = a.id 
-        
-        WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd' 
+        LEFT JOIN address_level a ON individual.address_id = a.id
+        LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
+        LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+
+ WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd' 
         AND oet.uuid = '36c9cb57-180b-4377-a87e-0694d2c3aaf3' 
         AND programEncounter.encounter_date_time IS NOT NULL 
         AND programEnrolment.enrolment_date_time IS NOT NULL;
@@ -1270,8 +1279,10 @@ as SELECT individual.id "Ind.Id",
                    individual.date_of_birth_verified "Ind.date_of_birth_verified",
                    individual.registration_date "Ind.registration_date",
                    individual.facility_id  "Ind.facility_id",
-                   a.title "Ind.Area",
-                   individual.is_voided "Ind.is_voided",
+                    a.title                                                               as "Ind.village",
+                    panchayat.title                                                             as "Ind.panchayat",
+                    surveillance_unit.title                                                     as "Ind.surveillance_unit",
+                    individual.is_voided "Ind.is_voided",
                    op.name "Enl.Program Name",
                    programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
                    programenrolment.program_exit_date_time                                     AS "Enl.program_exit_date_time",
@@ -1377,8 +1388,10 @@ as SELECT individual.id "Ind.Id",
                         LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id 
                         LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id
                         LEFT OUTER JOIN gender g ON g.id = individual.gender_id 
-                        LEFT OUTER JOIN address_level a ON individual.address_id = a.id 
-                        
+                         LEFT JOIN address_level a ON individual.address_id = a.id
+        LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
+        LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+
                         WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd'  
                         AND oet.uuid = '40634b19-9060-45ef-b890-6821adc82270'
                         AND programEncounter.encounter_date_time IS NOT NULL  
@@ -1398,7 +1411,9 @@ as SELECT individual.id "Ind.Id",
          individual.date_of_birth_verified "Ind.date_of_birth_verified",
          individual.registration_date "Ind.registration_date",
          individual.facility_id  "Ind.facility_id",
-         a.title "Ind.Area",
+          a.title                                                               as "Ind.village",
+          panchayat.title                                                             as "Ind.panchayat",
+          surveillance_unit.title                                                     as "Ind.surveillance_unit",
          individual.is_voided "Ind.is_voided",
          op.name "Enl.Program Name",
          programEnrolment.id  "Enl.Id",
@@ -1489,8 +1504,10 @@ as SELECT individual.id "Ind.Id",
          LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id 
          LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id 
          LEFT OUTER JOIN gender g ON g.id = individual.gender_id
-         LEFT OUTER JOIN address_level a ON individual.address_id = a.id
-         
+          LEFT JOIN address_level a ON individual.address_id = a.id
+        LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
+        LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+ 
          WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd'
          AND oet.uuid = '3e166862-081e-41f0-84a5-f8e3cda733bf'
          AND programEncounter.encounter_date_time IS NOT NULL 
