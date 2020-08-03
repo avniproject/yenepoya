@@ -1513,4 +1513,43 @@ as SELECT individual.id "Ind.Id",
          AND programEncounter.encounter_date_time IS NOT NULL 
          AND programEnrolment.enrolment_date_time IS NOT NULL;
 
+drop view if exists yenepoya_child_checklist_form_view;
+create view yenepoya_child_checklist_form_view as (
+       SELECT individual.id                                                               AS "Ind.Id",
+              individual.address_id                                                       AS "Ind.address_id",
+              individual.uuid                                                             AS "Ind.uuid",
+              individual.first_name                                                       AS "Ind.first_name",
+              individual.last_name                                                        AS "Ind.last_name",
+              g.name                                                                      AS "Ind.Gender",
+              individual.date_of_birth                                                    AS "Ind.date_of_birth",
+              individual.date_of_birth_verified                                           AS "Ind.date_of_birth_verified",
+              individual.registration_date                                                AS "Ind.registration_date",
+              individual.facility_id                                                      AS "Ind.facility_id",
+              village.title                                                               as "Ind.village",
+              panchayat.title                                                             as "Ind.panchayat",
+              surveillance_unit.title                                                     as "Ind.surveillance_unit",
+              individual.is_voided                                                        AS "Ind.is_voided",
+              (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)  AS "Ind.Contact Number",
+              programenrolment.id                                                         AS "Enl.Id",
+              programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
+              programenrolment.program_exit_date_time                                     AS "Enl.program_exit_date_time",
+              programenrolment.is_voided                                                  AS "Enl.is_voided",
+              single_select_coded(checklist_item.observations ->> '284354e3-78c4-41d7-830e-771aa313d171')::TEXT as "ChecklistItem.Vaccination provider",
+              u.name    "ChecklistItem.username",
+  FROM checklist_item
+         JOIN checklist on checklist_item.checklist_id = checklist.id
+         JOIN program_enrolment programEnrolment on checklist.program_enrolment_id = programEnrolment.id
+         JOIN operational_program op ON op.program_id = programEnrolment.program_id
+         JOIN individual individual ON programEnrolment.individual_id = individual.id
+         JOIN gender g ON g.id = individual.gender_id
+         left join address_level village on individual.address_id = village.id
+         left join address_level panchayat on village.parent_id = panchayat.id
+         left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+         LEFT JOIN audit a ON checklist_item.audit_id = a.id
+         LEFT JOIN users u ON a.created_by_id = u.id
+  WHERE op.uuid = '4b2372a8-3198-4bd9-8863-df4d1e618948'
+    AND programEnrolment.enrolment_date_time IS NOT NULL
+    AND checklist_item.completion_date IS NOT NULL
+);
+
 set role none;
