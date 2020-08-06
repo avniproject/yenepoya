@@ -1,0 +1,157 @@
+[ {
+  "uuid" : "a1fe32c9-46d6-4c2c-acc6-574f3486a0a0",
+  "id" : 83,
+  "individualAIsToBRelation" : {
+    "uuid" : "182d757b-b383-4792-a8d0-4f752863652b",
+    "id" : 134,
+    "name" : "Father"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "4df65c96-8c03-4b05-b91f-dbbbc383d399",
+    "id" : 132,
+    "name" : "son"
+  }
+}, {
+  "uuid" : "a2e764a6-2354-49fe-8c90-a3f2c8c63095",
+  "id" : 84,
+  "individualAIsToBRelation" : {
+    "uuid" : "182d757b-b383-4792-a8d0-4f752863652b",
+    "id" : 134,
+    "name" : "Father"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "7809590c-2838-4474-aa81-723667c02f57",
+    "id" : 133,
+    "name" : "Daughter"
+  }
+}, {
+  "uuid" : "26973982-1c94-4357-b515-de586f933156",
+  "id" : 85,
+  "individualAIsToBRelation" : {
+    "uuid" : "aaed8ff3-8afe-48e2-b5f7-764902760bcf",
+    "id" : 135,
+    "name" : "Mother"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "4df65c96-8c03-4b05-b91f-dbbbc383d399",
+    "id" : 132,
+    "name" : "son"
+  }
+}, {
+  "uuid" : "aaac20ef-b8ec-4064-b9bf-aa5b90e0db8b",
+  "id" : 86,
+  "individualAIsToBRelation" : {
+    "uuid" : "aaed8ff3-8afe-48e2-b5f7-764902760bcf",
+    "id" : 135,
+    "name" : "Mother"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "7809590c-2838-4474-aa81-723667c02f57",
+    "id" : 133,
+    "name" : "Daughter"
+  }
+}, {
+  "uuid" : "410e6371-120c-43a8-8e4c-4f73b3b46f3a",
+  "id" : 87,
+  "individualAIsToBRelation" : {
+    "uuid" : "b24baea3-86bd-4180-a3bb-9face7ff938e",
+    "id" : 136,
+    "name" : "Husband"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "79f4835c-114e-4cd2-b228-6e89ae7e4d89",
+    "id" : 137,
+    "name" : "Wife"
+  }
+}, {
+  "uuid" : "280c9298-bf4a-4cce-abbd-558ae19c78b2",
+  "id" : 88,
+  "individualAIsToBRelation" : {
+    "uuid" : "c441abae-c26f-4916-8def-028fc8ff2cda",
+    "id" : 138,
+    "name" : "Brother"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "c441abae-c26f-4916-8def-028fc8ff2cda",
+    "id" : 138,
+    "name" : "Brother"
+  }
+}, {
+  "uuid" : "0dde7b53-6fd6-4764-833c-4a5b54799243",
+  "id" : 89,
+  "individualAIsToBRelation" : {
+    "uuid" : "11b385fb-9825-4db9-8a80-63e3ff138ab3",
+    "id" : 139,
+    "name" : "Sister"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "11b385fb-9825-4db9-8a80-63e3ff138ab3",
+    "id" : 139,
+    "name" : "Sister"
+  }
+}, {
+  "uuid" : "a5f32d30-69be-4565-917e-9758a90a742c",
+  "id" : 90,
+  "individualAIsToBRelation" : {
+    "uuid" : "c441abae-c26f-4916-8def-028fc8ff2cda",
+    "id" : 138,
+    "name" : "Brother"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "11b385fb-9825-4db9-8a80-63e3ff138ab3",
+    "id" : 139,
+    "name" : "Sister"
+  }
+}, {
+  "uuid" : "44ec744c-565f-42f3-a261-e1b7e69405be",
+  "id" : 91,
+  "individualAIsToBRelation" : {
+    "uuid" : "89d760cb-f349-446a-b906-08f9c5fb4a77",
+    "id" : 142,
+    "name" : "Grandfather"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "60339907-63e3-4398-bb14-c12d5d7a4acb",
+    "id" : 140,
+    "name" : "Grand son"
+  }
+}, {
+  "uuid" : "58898b28-fd7f-4af6-8136-bfabd2250f9a",
+  "id" : 92,
+  "individualAIsToBRelation" : {
+    "uuid" : "89d760cb-f349-446a-b906-08f9c5fb4a77",
+    "id" : 142,
+    "name" : "Grandfather"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "86612d2c-5c7d-4863-9b35-551a419151e2",
+    "id" : 141,
+    "name" : "Grand daughter"
+  }
+}, {
+  "uuid" : "f6e68776-87ff-4164-adbc-334e153cc2ad",
+  "id" : 93,
+  "individualAIsToBRelation" : {
+    "uuid" : "40f634da-fc17-458d-a269-f0caff758d71",
+    "id" : 143,
+    "name" : "Grand mother"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "60339907-63e3-4398-bb14-c12d5d7a4acb",
+    "id" : 140,
+    "name" : "Grand son"
+  }
+}, {
+  "uuid" : "597b48f0-df13-4f0c-a689-db234a3d25aa",
+  "id" : 94,
+  "individualAIsToBRelation" : {
+    "uuid" : "40f634da-fc17-458d-a269-f0caff758d71",
+    "id" : 143,
+    "name" : "Grand mother"
+  },
+  "individualBIsToARelation" : {
+    "uuid" : "86612d2c-5c7d-4863-9b35-551a419151e2",
+    "id" : 141,
+    "name" : "Grand daughter"
+  }
+} ]

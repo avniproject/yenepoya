@@ -1,0 +1,7 @@
+{
+  "name" : "ANC Followup Encounter Cancellation (voided~979)",
+  "uuid" : "5a49667e-2356-400e-8061-6431b449661f",
+  "formType" : "ProgramEncounterCancellation",
+  "formElementGroups" : [ ],
+  "voided" : true
+}

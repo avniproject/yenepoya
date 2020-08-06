@@ -1,0 +1,331 @@
+{
+  "name" : "Child Enrolment",
+  "uuid" : "ced947d4-a684-4a08-ace1-ae4bf8d776d1",
+  "formType" : "ProgramEnrolment",
+  "formElementGroups" : [ {
+    "uuid" : "737320b8-428c-4b37-9280-6b8968de49d3",
+    "name" : "Birth Information",
+    "displayOrder" : 1.0,
+    "display" : "Birth Information",
+    "formElements" : [ {
+      "name" : "Birth order of the child",
+      "uuid" : "b50e5fe3-9eb4-4062-a2f7-d3806d33bfb3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Birth order of the child",
+        "uuid" : "2cec6829-f0c5-4c5d-8517-3a216fa34f4d"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Birth weight of the baby in kgs",
+      "uuid" : "a06f85ef-1a4d-4e5b-9bea-1d0d7d2b9c96",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Birth weight of the baby in kgs",
+        "uuid" : "b852e7b8-1c5f-4a7d-9262-99dd3ac2718c"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Colostrum given to the child",
+      "uuid" : "d07254fb-2c8f-4a09-af8f-535c89070794",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Colostrum given to the child",
+        "uuid" : "923b2b78-6138-436b-b691-8e319c4f9c9c"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "fb8b8458-08de-44c4-b6ab-52790fede568",
+    "name" : "Current Status",
+    "displayOrder" : 2.0,
+    "display" : "Current Status",
+    "formElements" : [ {
+      "name" : "Present height of the child in cm",
+      "uuid" : "85d8f3f2-fc36-49e1-9a2e-66efd7f473f0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Height",
+        "uuid" : "502552c4-7d2a-4e81-b6ce-acacfaf21560"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Present weight of the child in kgs",
+      "uuid" : "2b367006-97ec-4ecb-910a-2e413f5ed1ff",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Present weight of the child in kgs",
+        "uuid" : "9f21ecb8-93a2-461f-842f-15dd5602bfb9"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Present weight of the child in kgs",
+      "uuid" : "3f15ee18-4f7f-4088-95bc-86f831619384",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "e9190320-3211-4d9f-a72c-288f42cf830c"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
+      "name" : "Nutritional Status",
+      "uuid" : "5dd82dcf-5209-4568-9594-b606b4c16b18",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Nutritional Status",
+        "uuid" : "594d859a-65dc-45e7-ae44-fffedd1de1b8"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "\n\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const formElement = params.formElement;\n\n    let height = programEnrolment.findLatestObservationInEntireEnrolment(\"Height\", programEnrolment);\n    let weight = programEnrolment.findObservation(\"Present weight of the child in kgs\");\n    const individual = programEnrolment.individual;\n    const asOnDate = programEnrolment.enrolmentDateTime;\n    height = height && height.getValue();\n    weight = weight && weight.getValue();\n    let value = '';\n    value = ruleServiceLibraryInterfaceForSharingModules.common.getZScore(individual, asOnDate, weight, height);\n\n    const getGradeforZscore = (zScore) => {\n        let grade;\n        if (zScore <= -3) {\n            grade = 3;\n        } else if (zScore > -3 && zScore < -2) {\n            grade = 2;\n        } else if (zScore >= -2) {\n            grade = 1;\n        }\n        return grade;\n    };\n    const zScoreGradeStatusMappingWeightForAge = {\n        '1': 'Normal',\n        '2': 'Moderately Underweight',\n        '3': 'Severely Underweight'\n    };\n\n    const wfaGrade = getGradeforZscore(value.wfa);\n    const wfaStatus = zScoreGradeStatusMappingWeightForAge[wfaGrade];\n\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, wfaStatus);\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Present Mid Arm Circumference in CM",
+      "uuid" : "2a340ede-e4a6-4d44-929d-590f96223679",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Present Mid Arm Circumference in CM",
+        "uuid" : "86f5e096-cbfc-4fa3-b045-08d81f82e23c"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Nutritional Status from Mid Arm Circumference",
+      "uuid" : "5d7df65d-15db-4005-a8a3-9fe4c54c7467",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Nutritional Status from Mid Arm Circumference",
+        "uuid" : "87f7bb37-a357-4d1d-bc4c-d5060b883212"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : false,
+      "voided" : true
+    }, {
+      "name" : "Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
+      "uuid" : "4c5b880a-a705-42cf-902a-356203c16da2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
+        "uuid" : "1f0dbb20-1da6-40cb-bb69-cbee9fb570f6"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Duration of Exclusive breastfeeding in months",
+      "uuid" : "36aa388e-1a36-40b6-8580-751c98f46c05",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Duration of Exclusive breastfeeding in months",
+        "uuid" : "b78188e8-9f08-497d-8b2f-197c14c5445c"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Child bottle-fed or not",
+      "uuid" : "088ead8a-304d-4e1d-b66d-ec135fc4becf",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Child bottle-fed or not",
+        "uuid" : "4fae8872-daae-4ab4-a2c0-2b3ddd59bb33"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If yes, Duration of bottle feeding in months",
+      "uuid" : "e8556005-2d1e-489f-8087-d4ec123acca9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If yes, Duration of bottle feeding in months",
+        "uuid" : "3e2cb7b9-9fdb-4de5-8562-070243841e54"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Child bottle-fed or not').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Child weaned at 6 months of age",
+      "uuid" : "9c75dadd-abfa-4d6b-82a3-8f1f411f8695",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Child weaned at 6 months of age",
+        "uuid" : "e45c7db0-f3d0-44de-9f82-61238f31bf80"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "c288dbaf-6781-46da-80b2-d9b16907ef35",
+    "name" : "Health Status",
+    "displayOrder" : 3.0,
+    "display" : "Health Status",
+    "formElements" : [ {
+      "name" : "Health status of the child",
+      "uuid" : "bc96860c-1625-4cb7-887c-a2c61f09d535",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health status of the child",
+        "uuid" : "7e2abce5-0dfa-4fb8-8480-c5a74e3caeac"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If any health complaints specify",
+      "uuid" : "9bf79aa5-52f8-4b88-979e-f371cbee0604",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If any health complaints specify",
+        "uuid" : "e9f6eeea-5ce3-4d7a-9765-5d9540177df1"
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Health status of the child').containsAnswerConceptName(\"Any complaints\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Child attained all developmental milestones",
+      "uuid" : "dddcf162-f2c5-43fa-a687-2836ef6e3f43",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Child attained all developmental milestones",
+        "uuid" : "a35a4955-fe92-40b0-bdd6-0101cdd5af8a"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Health status of the child').containsAnswerConceptName(\"Any complaints\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Does the child have any deformity?",
+      "uuid" : "999f58f9-3f27-48ad-b7f4-f2d28af36f61",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does the child have any deformity",
+        "uuid" : "cd633d8c-eef0-4396-a096-4c321fb1a44c"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Health status of the child').containsAnswerConceptName(\"Any complaints\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Does the child have any known deficiency?",
+      "uuid" : "49bd6040-0250-4027-9ef6-fa2b6016be9a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does the child have any known deficiency",
+        "uuid" : "6645ac75-db15-4cc7-8ba0-7695396def8e"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Health status of the child').containsAnswerConceptName(\"Any complaints\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Does the child have any known deficiency?",
+      "uuid" : "f17f1766-54c4-4300-b36e-207134950cfa",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does the child have any known deficiency (voided~38662)",
+        "uuid" : "708be0a6-0e99-44d6-84a3-83096f180c14"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : false,
+      "voided" : true
+    }, {
+      "name" : "Child fully immunized till date",
+      "uuid" : "5072cf22-072e-4978-8384-983dc3436d5d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Child fully immunized till date",
+        "uuid" : "226d2d35-d003-48a7-a699-542d9d0b8b84"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Child experienced acute respiratory infection in the last 3 months",
+      "uuid" : "96d3edb4-6b75-4ee6-8ea6-6ad09fdd792c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Child experienced acute respiratory infection in the last 3 months",
+        "uuid" : "77e29849-fa61-4d63-b73f-fb9f6a61ef05"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Health status of the child').containsAnswerConceptName(\"Any complaints\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Child experienced diarrhoea in the last 3 months",
+      "uuid" : "6e2b5bde-897a-4343-88b0-b3b38d299fec",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Child experienced diarrhoea in the last 3 months",
+        "uuid" : "af2c1850-88e8-4922-9987-77fba6eafb89"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Health status of the child').containsAnswerConceptName(\"Any complaints\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Does the child has any other health problem?",
+      "uuid" : "91038a38-c67c-4048-b057-b6843b18cbc5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does the child has any other health problem",
+        "uuid" : "47b12e85-1b82-415d-a488-07b98be7cc76"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Health status of the child').containsAnswerConceptName(\"Any complaints\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Please specify the health problem",
+      "uuid" : "b6918c55-5069-46d6-9d8f-0e8e6356a661",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Other",
+        "uuid" : "7868f697-abc9-4f49-8a0d-3deab5679502"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Does the child has any other health problem').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Does the child have any known deficiency?",
+      "uuid" : "52824fd6-bbbf-46c7-8446-918c0733390f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does the child have any known deficiency (voided~38661)",
+        "uuid" : "84b4cc6b-aee6-4076-8ce0-48eaa39b3e21"
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    } ]
+  } ],
+  "decisionRule" : "\n\n\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const complicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'High Risk Conditions'\n    });\n    \n    \n    //nutritional status\n     const moderatelyUndereight = programEncounter.getObservationReadableValue('Nutritional Status');\n     if(moderatelyUndereight == 'Moderately Underweight'){          \n       complicationsBuilder\n        .addComplication(\"Moderately Underweight\")\n       }else if(moderatelyUndereight == 'Severely Underweight'){\n       complicationsBuilder\n        .addComplication(\"Severely Underweight\")\n       }\n\n  \n\n    \n    //developement milestone\n   const milestone = programEncounter.getObservationReadableValue('Child attained all developmental milestones');\n    if(milestone == 'Delayed'){\n    complicationsBuilder\n                .addComplication(\"Child developmental milestones delayed\");\n   }\n    \n  //deformity\n     complicationsBuilder\n        .addComplication(\"Child have deformity\")\n        .when.valueInEncounter(\"Does the child have any deformity\").containsAnswerConceptName('Yes');\n  \n      \n   //respiratory infection\n       complicationsBuilder\n        .addComplication(\"Child experienced acute respiratory infection\")\n        .when.valueInEncounter(\"Child experienced acute respiratory infection in the last 3 months\").containsAnswerConceptName('Yes');\n\n\n       //diarrhea\n       complicationsBuilder\n        .addComplication(\"Child experienced diarrhea\")\n        .when.valueInEncounter(\"Child experienced diarrhoea in the last 3 months\").containsAnswerConceptName('Yes');\n\n\n         //respiratory infection\n       complicationsBuilder\n        .addComplication(\"Child has other health problems\")\n        .when.valueInEncounter(\"Does the child has any other health problem\").containsAnswerConceptName('Yes');\n        \n\n   const midArmComplicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'Mid-Arm circumference status'\n    });\n\n    const midArmCircumference = programEncounter.getObservationValue('Present Mid Arm Circumference in CM');\n    if(midArmCircumference >= 13.5){\n     midArmComplicationsBuilder\n        .addComplication(\"Normal\")\n    }else if(midArmCircumference >= 12.5 && midArmCircumference < 13.5){\n    midArmComplicationsBuilder\n        .addComplication(\"mild malnutrition\")\n    }else if(midArmCircumference >= 11.5 && midArmCircumference < 12.5){\n    midArmComplicationsBuilder\n        .addComplication(\"moderate malnutrition\")\n    }else if(midArmCircumference < 11.5){\n    midArmComplicationsBuilder\n        .addComplication(\"severe malnutrition\")\n    }\n\n        \n    decisions.enrolmentDecisions.push(complicationsBuilder.getComplications());\n    decisions.enrolmentDecisions.push(midArmComplicationsBuilder.getComplications());\n \n    return decisions;\n};",
+  "visitScheduleRule" : "\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEnrolment\n    });\n    const dob = imports.moment(programEnrolment.individual.dateOfBirth);\n    const ageIndays = imports.moment().diff(dob, \"days\");\n    const ageInYears = imports.moment().diff(dob, \"years\");\n    const getVisitNumber = () => {\n        switch (true) {\n            case ageIndays < 42 :\n                return 1;\n            case ageIndays >= 42 && ageIndays < 70  :\n                return 2;\n            case ageIndays >= 70 && ageIndays < 98  :\n                return 3;\n            case ageIndays >= 98 && ageIndays < 274  :\n                return 4;\n            case ageIndays >= 274 && ageIndays < 487  :\n                return 5;\n            case ageIndays >= 487 && ageInYears < 5  :\n                return 6;\n            case ageInYears >= 5  :\n                return 7;\n        }\n    };\n    scheduleBuilder\n        .add({\n            name: \"Child Growth Followup \" + getVisitNumber(),\n            encounterType: \"Child Growth Followup\",\n            earliestDate: imports.moment(programEnrolment.enrolmentDateTime).toDate(),\n            maxDate: imports.moment(programEnrolment.enrolmentDateTime).add(8, 'days').toDate()\n        });\n    return scheduleBuilder.getAllUnique(\"encounterType\");\n};",
+  "validationRule" : "",
+  "checklistsRule" : "'use strict';\n({params, imports}) => {\n  let vaccination = params.checklistDetails.find(cd => cd.name === 'Vaccination');\n  if (vaccination === undefined) return [];\n  const vaccinationList = {\n    baseDate: params.entity.individual.dateOfBirth,\n    detail: {uuid: vaccination.uuid},\n    items: vaccination.items.map(vi => ({\n      detail: {uuid: vi.uuid}\n    }))\n  };\n  return [vaccinationList];\n};"
+}

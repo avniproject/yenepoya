@@ -1,0 +1,40 @@
+{
+  "name" : "ET Session Followup Encounter (voided~234)",
+  "uuid" : "c5809fc7-ef77-47e1-acc8-1d172e60972c",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "cda10b5b-1b6c-4f02-8bce-d77258a540f4",
+    "name" : "Basic details",
+    "displayOrder" : 1.0,
+    "display" : "Basic details",
+    "formElements" : [ {
+      "name" : "Have you tried something new in your business",
+      "uuid" : "4211d14f-b4ec-4ac0-90c8-5acba463416d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Have you tried something new in your business",
+        "uuid" : "f1ede6a0-186e-4999-adef-2df4ce3d1541"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "What have you tried?",
+      "uuid" : "4252aebf-dc64-45a3-8b3c-b81aa438870e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "New experiment in business",
+        "uuid" : "655a2396-d4f2-4c8a-86db-aab5b75be9e0"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('New experiment in business').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};\n",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "voided" : true
+}

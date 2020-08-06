@@ -1,0 +1,28 @@
+{
+  "name" : "ET Enrolment (voided~232)",
+  "uuid" : "9d34f2ce-654c-4c28-98fa-c4481e781804",
+  "formType" : "ProgramEnrolment",
+  "formElementGroups" : [ {
+    "uuid" : "e957334c-0694-4c4b-bdff-b3385ff07b59",
+    "name" : "Business details",
+    "displayOrder" : 1.0,
+    "display" : "Business details",
+    "formElements" : [ {
+      "name" : "What is the type of business",
+      "uuid" : "effe77d1-1bfc-45f3-8db6-7b649713b8c2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of business",
+        "uuid" : "7462c55f-302a-44bf-82aa-b18771d80304"
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "voided" : true
+}

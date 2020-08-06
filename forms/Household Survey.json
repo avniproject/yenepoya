@@ -44,6 +44,18 @@
       "mandatory" : true,
       "voided" : true
     }, {
+      "name" : "Number of individuals in the household",
+      "uuid" : "e8a005c0-4cba-4684-ab83-9a596cebdd60",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Number of individuals in the household",
+        "uuid" : "0bd4084c-11cb-4a30-84aa-c4cf5b2926d1"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true,
+      "voided" : true
+    }, {
       "name" : "Are there any individuals in your family with known case of chronic illness?",
       "uuid" : "8ee0efa3-1afc-49e2-95eb-04ba791e5349",
       "keyValues" : [ ],
@@ -51,7 +63,7 @@
         "name" : "Are there any individuals in your family with known case of chronic illness?",
         "uuid" : "c5c9d1b4-54f8-4676-ba39-18d9a5f3c7a3"
       },
-      "displayOrder" : 4.0,
+      "displayOrder" : 5.0,
       "type" : "MultiSelect",
       "mandatory" : true
     }, {
@@ -62,7 +74,7 @@
         "name" : "Specify  known case of chronic illness",
         "uuid" : "caa23e49-901e-43ac-a246-33a16e83493a"
       },
-      "displayOrder" : 5.0,
+      "displayOrder" : 6.0,
       "type" : "SingleSelect",
       "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are there any individuals in your family with known case of chronic illness?').containsAnswerConceptName(\"Any other\");\n  return statusBuilder.build();\n};",
       "mandatory" : true
@@ -74,7 +86,7 @@
         "name" : "Are there any individuals in your family with any illness in last two weeks?",
         "uuid" : "0b5215d5-f721-4993-8f30-b85f5b397988"
       },
-      "displayOrder" : 6.0,
+      "displayOrder" : 7.0,
       "type" : "MultiSelect",
       "mandatory" : true
     }, {
@@ -85,7 +97,7 @@
         "name" : "Specify illness in last two weeks",
         "uuid" : "9b12024d-08e0-486b-b4b9-ddc21b6f199d"
       },
-      "displayOrder" : 7.0,
+      "displayOrder" : 8.0,
       "type" : "SingleSelect",
       "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Are there any individuals in your family with any illness in last two weeks?').containsAnswerConceptName(\"Any other\");\n  return statusBuilder.build();\n};",
       "mandatory" : true
@@ -97,7 +109,7 @@
         "name" : "Any member in your family with some disability",
         "uuid" : "2a1c24fd-912a-485d-bf8e-5a722d8ab5a1"
       },
-      "displayOrder" : 8.0,
+      "displayOrder" : 9.0,
       "type" : "SingleSelect",
       "mandatory" : true
     }, {
@@ -108,7 +120,7 @@
         "name" : "If Yes give details about disability",
         "uuid" : "71124244-b1e2-42a7-82b3-15b79524352e"
       },
-      "displayOrder" : 9.0,
+      "displayOrder" : 10.0,
       "type" : "SingleSelect",
       "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Any member in your family with some disability').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
       "mandatory" : true
@@ -120,7 +132,7 @@
         "name" : "Household Total Expenditure per month",
         "uuid" : "00edb1c7-acda-4982-a414-0ea121f616bf"
       },
-      "displayOrder" : 10.0,
+      "displayOrder" : 11.0,
       "type" : "SingleSelect",
       "mandatory" : true
     }, {
@@ -131,7 +143,7 @@
         "name" : "Out-of-pocket payments equalling or exceeding 10% of a household’s total expenditure.",
         "uuid" : "0cff16cb-8018-4908-aecc-9d6410b797d1"
       },
-      "displayOrder" : 11.0,
+      "displayOrder" : 12.0,
       "type" : "SingleSelect",
       "mandatory" : true
     } ]
@@ -437,6 +449,7 @@
       },
       "displayOrder" : 5.0,
       "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Health facility preferred for acute illness').containsAnswerConceptNameOtherThan(\"no health care\");\n  return statusBuilder.build();\n};",
       "mandatory" : true
     }, {
       "name" : "Specify Other",

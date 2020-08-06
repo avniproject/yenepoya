@@ -40,6 +40,7 @@
       },
       "displayOrder" : 3.0,
       "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n    //const individual = params.entity;\n    const formElement = params.formElement;\n    const programEncounter = params.entity;\n\n    const statusBuilder = new\n    imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n    const male = programEncounter.individual.isMale();\n    if (male) {\n        statusBuilder.skipAnswers(\"House wife\");\n    }\n    return statusBuilder.build();\n};",
       "mandatory" : true
     }, {
       "name" : "Relationship with HoF",
@@ -349,11 +350,11 @@
       "type" : "SingleSelect",
       "mandatory" : true
     }, {
-      "name" : "History of flu like symptoms in last 6 weeks",
+      "name" : "History of flu like symptoms in last 10 days",
       "uuid" : "d6f9f5a1-fb9b-4f1a-acd6-7270ad306823",
       "keyValues" : [ ],
       "concept" : {
-        "name" : "History of flu like symptoms in last 6 weeks",
+        "name" : "History of flu like symptoms in last 10 days",
         "uuid" : "13a1a45c-c32e-4bcf-804e-dc2915a00a8f"
       },
       "displayOrder" : 12.0,

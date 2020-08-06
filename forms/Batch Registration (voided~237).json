@@ -1,0 +1,28 @@
+{
+  "name" : "Batch Registration (voided~237)",
+  "uuid" : "23409497-7797-4eda-8480-9b7bbd7bddf7",
+  "formType" : "IndividualProfile",
+  "formElementGroups" : [ {
+    "uuid" : "a00c5af7-3a4d-4dac-99be-014b13846961",
+    "name" : "Batch Name",
+    "displayOrder" : 1.0,
+    "display" : "Batch Name",
+    "formElements" : [ {
+      "name" : "Batch Name",
+      "uuid" : "7c3b07b1-a681-472b-a758-b125228c2057",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Batch Name",
+        "uuid" : "5b72b876-1243-406c-b5fd-7eac708c973a"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "voided" : true
+}

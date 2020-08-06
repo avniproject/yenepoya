@@ -36,7 +36,7 @@
       "voided" : true
     } ]
   } ],
-  "decisionRule" : "",
+  "decisionRule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const complicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'Note'\n    });\n  \n    complicationsBuilder.addComplication(\"Link individual to the household\");\n    decisions.encounterDecisions.push(complicationsBuilder.getComplications());\n\n    return decisions;\n};",
   "visitScheduleRule" : "\n\"use strict\";\n({params, imports}) => {\n    const Encounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({Encounter});\n    const earliestDate = Encounter.registrationDate;\n    const maxDate = imports.moment(earliestDate).add('15', 'days').toDate();\n    const registrationDate = imports.moment(Encounter.registrationDate).format(\"MM DD YYYY\");\n    const currentDate = imports.moment().format(\"MM DD YYYY\");\n    if (registrationDate >= currentDate) {\n        scheduleBuilder.add({\n            name: 'Individual Survey',\n            encounterType: 'Individual Survey',\n            earliestDate: earliestDate,\n            maxDate\n        });\n\n    }\n    return scheduleBuilder.getAll();\n};",
   "validationRule" : "",
   "checklistsRule" : ""

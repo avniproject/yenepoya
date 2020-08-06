@@ -1,0 +1,55 @@
+[ {
+  "groupSubjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "memberSubjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "role" : "Head of household",
+  "maximumNumberOfMembers" : 1,
+  "minimumNumberOfMembers" : 1
+}, {
+  "groupSubjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "memberSubjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "role" : "Member",
+  "maximumNumberOfMembers" : 100,
+  "minimumNumberOfMembers" : 1
+}, {
+  "groupSubjectTypeUUID" : "802ee159-7177-4214-8afc-7ccd1197d04c",
+  "memberSubjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "role" : "Member",
+  "maximumNumberOfMembers" : 20,
+  "minimumNumberOfMembers" : 1
+}, {
+  "groupSubjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "memberSubjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "role" : "Head of household",
+  "maximumNumberOfMembers" : 1,
+  "minimumNumberOfMembers" : 1
+}, {
+  "groupSubjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "memberSubjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "role" : "Member",
+  "maximumNumberOfMembers" : 100,
+  "minimumNumberOfMembers" : 1
+}, {
+  "groupSubjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "memberSubjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "role" : "Head of household",
+  "maximumNumberOfMembers" : 1,
+  "minimumNumberOfMembers" : 1
+}, {
+  "groupSubjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "memberSubjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "role" : "Member",
+  "maximumNumberOfMembers" : 100,
+  "minimumNumberOfMembers" : 1
+}, {
+  "groupSubjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "memberSubjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "role" : "Head of household",
+  "maximumNumberOfMembers" : 1,
+  "minimumNumberOfMembers" : 1
+}, {
+  "groupSubjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "memberSubjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "role" : "Member",
+  "maximumNumberOfMembers" : 100,
+  "minimumNumberOfMembers" : 1
+} ]

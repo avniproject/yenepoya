@@ -1,110 +1,104 @@
 {
-  "operationalEncounterTypes": [
-    {
-      "uuid": "36c9cb57-180b-4377-a87e-0694d2c3aaf3",
-      "encounterType": {
-        "uuid": "ef79eb31-2d19-441d-bb21-0838ceaed958"
-      },
-      "name": "ANC Followup"
+  "operationalEncounterTypes" : [ {
+    "uuid" : "36c9cb57-180b-4377-a87e-0694d2c3aaf3",
+    "encounterType" : {
+      "uuid" : "ef79eb31-2d19-441d-bb21-0838ceaed958"
     },
-    {
-      "uuid": "f3e19d16-d6d4-4981-919e-fd7c604f9d62",
-      "encounterType": {
-        "uuid": "16a3be1b-18a1-45e9-bfc8-f7915898abef"
-      },
-      "name": "Individual Survey"
+    "name" : "ANC Followup"
+  }, {
+    "uuid" : "f3e19d16-d6d4-4981-919e-fd7c604f9d62",
+    "encounterType" : {
+      "uuid" : "16a3be1b-18a1-45e9-bfc8-f7915898abef"
     },
-    {
-      "uuid": "0e511773-157a-400c-837c-33e46a30b71e",
-      "encounterType": {
-        "uuid": "db6846c1-1f95-45d0-a1e4-71cac701a699"
-      },
-      "name": "History of Fever"
+    "name" : "Individual Survey"
+  }, {
+    "uuid" : "0e511773-157a-400c-837c-33e46a30b71e",
+    "encounterType" : {
+      "uuid" : "db6846c1-1f95-45d0-a1e4-71cac701a699"
     },
-    {
-      "uuid": "b0d16b85-218c-4392-999c-4fa19476cf42",
-      "encounterType": {
-        "uuid": "b2f419dc-209a-4285-b74c-29d93f2a628e"
-      },
-      "name": "NCD Followup"
+    "name" : "History of Fever"
+  }, {
+    "uuid" : "b0d16b85-218c-4392-999c-4fa19476cf42",
+    "encounterType" : {
+      "uuid" : "b2f419dc-209a-4285-b74c-29d93f2a628e"
     },
-    {
-      "uuid": "5defe5af-b031-4783-80d6-52d49aa66884",
-      "encounterType": {
-        "uuid": "66c93422-eb3a-4ae0-b537-3802899f40cb"
-      },
-      "name": "HT Followup"
+    "name" : "NCD Followup"
+  }, {
+    "uuid" : "5defe5af-b031-4783-80d6-52d49aa66884",
+    "encounterType" : {
+      "uuid" : "66c93422-eb3a-4ae0-b537-3802899f40cb"
     },
-    {
-      "uuid": "423a6bb7-eedf-4220-bbb7-676f9aac0385",
-      "encounterType": {
-        "uuid": "92f8c72e-d6d4-4936-976e-8446a03ec9bf"
-      },
-      "name": "DM Followup"
+    "name" : "HT Followup"
+  }, {
+    "uuid" : "423a6bb7-eedf-4220-bbb7-676f9aac0385",
+    "encounterType" : {
+      "uuid" : "92f8c72e-d6d4-4936-976e-8446a03ec9bf"
     },
-    {
-      "uuid": "bcd9b84b-2558-44ad-9d85-113c29fc2e0a",
-      "encounterType": {
-        "uuid": "95fe37f3-8d4d-40cc-ae13-73d65545b27e"
-      },
-      "name": "Child Growth Followup"
+    "name" : "DM Followup"
+  }, {
+    "uuid" : "bcd9b84b-2558-44ad-9d85-113c29fc2e0a",
+    "encounterType" : {
+      "uuid" : "95fe37f3-8d4d-40cc-ae13-73d65545b27e"
     },
-    {
-      "uuid": "09fc1477-026a-4a08-9c4b-8daf4977bf62",
-      "encounterType": {
-        "uuid": "2cdd5f42-183d-452e-ba25-987000042c8b"
-      },
-      "name": "Child PNC"
+    "name" : "Child Growth Followup"
+  }, {
+    "uuid" : "3e166862-081e-41f0-84a5-f8e3cda733bf",
+    "encounterType" : {
+      "uuid" : "aa36ccd0-6299-4780-b39f-4af4b56a533b"
     },
-    {
-      "uuid": "3e166862-081e-41f0-84a5-f8e3cda733bf",
-      "encounterType": {
-        "uuid": "aa36ccd0-6299-4780-b39f-4af4b56a533b"
-      },
-      "name": "Mother PNC"
+    "name" : "Mother PNC"
+  }, {
+    "uuid" : "40634b19-9060-45ef-b890-6821adc82270",
+    "encounterType" : {
+      "uuid" : "1aba6a27-d053-4816-ae87-e1701d373724"
     },
-    {
-      "uuid": "40634b19-9060-45ef-b890-6821adc82270",
-      "encounterType": {
-        "uuid": "1aba6a27-d053-4816-ae87-e1701d373724"
-      },
-      "name": "Delivery"
+    "name" : "Delivery"
+  }, {
+    "uuid" : "08bc784a-d63f-4f50-bf28-786f3b623511",
+    "encounterType" : {
+      "uuid" : "b2aa40b4-c050-4b76-a2a1-34c45b56aa0f"
     },
-    {
-      "uuid": "6d6ce610-e73e-4513-8715-39e53d95f08d",
-      "encounterType": {
-        "uuid": "b62926e3-9d30-4094-877b-410d9796f1c3"
-      },
-      "name": "Abortion"
+    "name" : "Household Registration (voided~274)",
+    "voided" : true
+  }, {
+    "uuid" : "767e7ef2-4a45-4c17-9939-773f97c0baf0",
+    "encounterType" : {
+      "uuid" : "0c823f64-b2ec-420b-9e28-5e953b66b6d1"
     },
-    {
-      "uuid": "1e7f091a-531d-4b69-a854-7ca047199907",
-      "encounterType": {
-        "uuid": "2d652262-32c8-499f-a151-b5443750f702"
-      },
-      "name": "Abortion followup"
+    "name" : "Household Survey"
+  }, {
+    "uuid" : "2e059d9e-f2b1-4dde-b1c2-d2d0ebfb8a63",
+    "encounterType" : {
+      "uuid" : "44baa1f7-c7f4-404b-9b1e-18a145344728"
     },
-    {
-      "uuid": "08bc784a-d63f-4f50-bf28-786f3b623511",
-      "encounterType": {
-        "uuid": "b2aa40b4-c050-4b76-a2a1-34c45b56aa0f"
-      },
-      "name": "Household Registration (voided~274)",
-      "voided": true
+    "name" : "ET Session Followup (voided~198)",
+    "voided" : true
+  }, {
+    "uuid" : "52814e7b-28a6-4acb-a9bd-eb01d6ee4698",
+    "encounterType" : {
+      "uuid" : "5d578f58-f9aa-4123-b6b4-f8154effb5c1"
     },
-    {
-      "uuid": "767e7ef2-4a45-4c17-9939-773f97c0baf0",
-      "encounterType": {
-        "uuid": "0c823f64-b2ec-420b-9e28-5e953b66b6d1"
-      },
-      "name": "Household Survey"
+    "name" : "Diabetes Followup"
+  }, {
+    "uuid" : "1e7f091a-531d-4b69-a854-7ca047199907",
+    "encounterType" : {
+      "uuid" : "2d652262-32c8-499f-a151-b5443750f702"
     },
-    {
-      "uuid": "52814e7b-28a6-4acb-a9bd-eb01d6ee4698",
-      "encounterType": {
-        "uuid": "5d578f58-f9aa-4123-b6b4-f8154effb5c1"
-      },
-      "name": "Diabetes Followup"
-    }
-  ]
+    "name" : "Abortion followup (voided~196)",
+    "voided" : true
+  }, {
+    "uuid" : "6d6ce610-e73e-4513-8715-39e53d95f08d",
+    "encounterType" : {
+      "uuid" : "b62926e3-9d30-4094-877b-410d9796f1c3"
+    },
+    "name" : "Abortion (voided~195)",
+    "voided" : true
+  }, {
+    "uuid" : "09fc1477-026a-4a08-9c4b-8daf4977bf62",
+    "encounterType" : {
+      "uuid" : "2cdd5f42-183d-452e-ba25-987000042c8b"
+    },
+    "name" : "Child PNC (voided~187)",
+    "voided" : true
+  } ]
 }

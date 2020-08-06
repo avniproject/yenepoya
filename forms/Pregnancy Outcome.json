@@ -1,0 +1,468 @@
+{
+  "name" : "Pregnancy Outcome",
+  "uuid" : "3f857df6-4dcf-4e37-af78-ef08b57414bb",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "7fc1e26c-f39b-4b9e-a8e3-2b891b232b05",
+    "name" : "Outcome Information",
+    "displayOrder" : 1.0,
+    "display" : "Outcome Information",
+    "formElements" : [ {
+      "name" : "Date of Pregnancy Outcome",
+      "uuid" : "967befea-e477-4463-b664-ee99ab8140a0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of Pregnancy Outcome",
+        "uuid" : "227adfb9-d254-4bf2-a4e2-1bac9358d867"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "//SAMPLE RULE EXAMPLE\n'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n const outcomeDate = programEncounter.getObservationReadableValue('Date of Pregnancy Outcome');\n let visitDate = programEncounter.encounterDateTime;\n \n if(imports.moment(outcomeDate).isAfter(visitDate, 'date')){\n statusBuilder.validationError(\"Date of Pregnancy Outcome cannot be after visit date\");\n }\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Pregnancy outcome",
+      "uuid" : "a12e79fb-a9db-4eed-ad6b-3382b1dd25f0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Pregnancy outcome",
+        "uuid" : "a2adfec5-d84b-44a2-a410-7ebe2fdfe431"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Gestational Age",
+      "uuid" : "74103852-f6c0-4eb8-8f6e-568402753df6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Gestational age in weeks",
+        "uuid" : "5030abb0-43f0-41e3-b618-50ac64e57113"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const formElement = params.formElement;\n    const statusBuilder = new\n    imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n    const outcome = programEncounter.getObservationReadableValue('Pregnancy outcome');\n    console.log('outcome',outcome);\n    const edd =  programEncounter.findLatestObservationInEntireEnrolment('Estimated Date of Delivery'); \n   let visibility=!_.isEqual(outcome,\"Abortion (spontaneous)\");\n   console.log('visibility',visibility);\n \n    const value =  \n ruleServiceLibraryInterfaceForSharingModules.motherCalculations.gestationalAgeForEDD(edd.getReadableValue(),programEncounter.encountertDateTime);\n    return  new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value);\n       \n};",
+      "mandatory" : true
+    }, {
+      "name" : "Order of this delivery",
+      "uuid" : "bf7f60b5-6e0d-4d30-b979-93df4cb3cf0f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Order of this delivery",
+        "uuid" : "ef04966b-a0b4-4173-b5b7-49b1d26721b2"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnyAnswerConceptName(\"Single live birth\",\"Multiple live birth\",\"Live Birth and Still Birth\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Place of delivery",
+      "uuid" : "bc44d9e1-5eec-495f-9ec9-9c358167e425",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Place of delivery",
+        "uuid" : "5c125db9-506f-44fc-9771-91b63316583b"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnswerConceptNameOtherThan(\"Abortion (spontaneous)\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Type of delivery",
+      "uuid" : "c11a3c3d-31fe-4d4a-ba20-7369cfbab27e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of delivery",
+        "uuid" : "7bd8cbdc-bc4b-42f1-87e2-09130ceb298c"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnswerConceptNameOtherThan(\"Abortion (spontaneous)\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Type of person who conducted the delivery",
+      "uuid" : "ed8e55da-f0db-499a-83da-bd184cc71572",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of person who conducted the delivery",
+        "uuid" : "d2ba600e-3b2e-4ed2-bb67-c65af4dbdcdc"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnswerConceptNameOtherThan(\"Abortion (spontaneous)\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "175a1aa2-f9ab-4c3f-a3e9-63f4cfa3da8c",
+    "name" : "Baby Information",
+    "displayOrder" : 2.0,
+    "display" : "Baby Information",
+    "formElements" : [ {
+      "name" : "Number of Babies",
+      "uuid" : "f03da11a-a666-44a2-9066-236d69797ede",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Number of Babies",
+        "uuid" : "7be55c84-4cdc-4165-89a9-a1621c12f9a4"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnyAnswerConceptName(\"Multiple live birth\",\"Live Birth and Still Birth\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Gender of the baby",
+      "uuid" : "32a2090f-ad52-4cf7-a8b5-a3527d5335b9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Gender of the baby",
+        "uuid" : "0c953cca-3d44-4834-a888-4d3f58ce8183"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnswerConceptNameOtherThan(\"Abortion (spontaneous)\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Gender of the baby 2",
+      "uuid" : "b5a16b76-ef04-44d6-8985-f5d7298fcaaa",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Gender of the baby 2",
+        "uuid" : "d8e6e4b1-4aaf-47b2-a68f-1eec293da0b6"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Number of Babies').is.greaterThanOrEqualTo(2);\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Gender of the baby 3",
+      "uuid" : "cfe8271a-2979-4313-81b0-07df13c02662",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Gender of the baby 3",
+        "uuid" : "e231e0a0-d4b8-4312-94fb-abdad593d2ef"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Number of Babies').is.greaterThanOrEqualTo(3);\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Birth weight of the baby in kgs",
+      "uuid" : "678431f2-d585-42de-a681-3bc8a30fc8d5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Birth weight of the baby in kgs",
+        "uuid" : "b852e7b8-1c5f-4a7d-9262-99dd3ac2718c"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnswerConceptNameOtherThan(\"Abortion (spontaneous)\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Birth weight of the baby 2 in kgs",
+      "uuid" : "77d3de49-1e17-4394-b502-c2f66149a8d9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Birth weight of the baby 2 in kgs",
+        "uuid" : "9f31cc39-60d1-4501-84fb-5d0ef2edd840"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Number of Babies').is.greaterThanOrEqualTo(2);\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Birth weight of the baby 3 in kgs",
+      "uuid" : "3872dd1c-6357-4561-8a91-dfe661db25ef",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Birth weight of the baby 3 in kgs",
+        "uuid" : "a099aad2-703c-42dc-bc1a-89f0cd6ffd70"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Number of Babies').is.greaterThanOrEqualTo(3);\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Colostrum given",
+      "uuid" : "bfe7a10d-e2d1-4ca3-89a5-0fb214fed96f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Colostrum given",
+        "uuid" : "ceb91b63-c9e2-456e-af24-32c15e2c9433"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnyAnswerConceptName(\"Single live birth\",\"Multiple live birth\",\"Live Birth and Still Birth\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Initiated breast feeding within 1 hr for normal delivery or 2 hr for CS",
+      "uuid" : "80009643-36a0-4dac-a3b0-e3201e256135",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Initiated breast feeding within 1 hr for normal delivery or 2 hr for CS",
+        "uuid" : "a85e83dc-f37c-48ef-af84-9aa52c82d620"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnyAnswerConceptName(\"Single live birth\",\"Multiple live birth\",\"Live Birth and Still Birth\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "eec5f9d4-8639-4229-b7ce-e3e8433bf00b",
+    "name" : "Health Status",
+    "displayOrder" : 3.0,
+    "display" : "Health Status",
+    "formElements" : [ {
+      "name" : "Pregnancy complications",
+      "uuid" : "0bfa61f5-119a-4723-b486-c621ed6d6bbb",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Pregnancy complications",
+        "uuid" : "b648b78f-79af-45d6-b8c4-b77a77967a73"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnswerConceptNameOtherThan(\"Abortion (spontaneous)\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "If yes specify",
+      "uuid" : "945c68c7-132a-437f-a173-daa9640e145d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If yes specify",
+        "uuid" : "575adac4-05da-42f9-9400-2ea0ce6bad4a"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy complications').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Health status of the new born",
+      "uuid" : "e270bc1f-6e42-4ea8-98da-ce13bd5d78c2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health status of the new born",
+        "uuid" : "c9aeb1ee-ddc1-4872-b885-e3e000463610"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Pregnancy outcome').containsAnyAnswerConceptName(\"Single live birth\",\"Multiple live birth\",\"Live Birth and Still Birth\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Whether discharged within 48 hours/Two days?",
+      "uuid" : "9406e201-b670-4312-886e-679b98f9b9cc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Whether discharged within 48 hours/Two days",
+        "uuid" : "9878f701-2476-4d9b-9811-08b77748826a"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Place of delivery').containsAnyAnswerConceptName(\"Subcentre\",\"PHC\",\"CHC\",\"District hospital\",\"Private medical college hospital\",\"Private hospital\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Practicing any family planning methods",
+      "uuid" : "23df1d0a-625f-4b2d-a1d0-b922f0ee4093",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Practicing any family planning methods",
+        "uuid" : "1b12cdc2-3403-4a1b-b796-2772e1c66e81"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "If yes specify",
+      "uuid" : "e0683145-9f4a-4228-9015-785cd497e3a1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "IF YES specify",
+        "uuid" : "31de6e7e-ba59-4416-8f79-9f668bf3b59d"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Practicing any family planning methods').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : false
+    } ]
+  }, {
+    "uuid" : "278bd207-d972-4e48-9633-9b130a39aa3e",
+    "name" : "Child Immunisation",
+    "displayOrder" : 4.0,
+    "display" : "Child Immunisation",
+    "formElements" : [ {
+      "name" : "Child Immunization before discharge from the hospital?",
+      "uuid" : "1ef0386c-6347-4895-ac0b-09e82726ef10",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Child Immunization before discharge from the hospital",
+        "uuid" : "8f33bbb7-982d-4401-ae9f-f49c3a0063ac"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Place of delivery').containsAnswerConceptNameOtherThan(\"Home delivery\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Zero dose OPV",
+      "uuid" : "49e2fc45-0902-4b28-8899-5233f55c8069",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Zero dose OPV",
+        "uuid" : "5d322b1b-9682-4d9d-919d-4f0ba9bd1928"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Child Immunization before discharge from the hospital').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "BCG",
+      "uuid" : "3ae1ddfb-dd13-4011-8ef9-63e085d68b4f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "BCG",
+        "uuid" : "55be5f5b-64c4-493d-bc7b-267f21d606ff"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Child Immunization before discharge from the hospital').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "HBV",
+      "uuid" : "01d026da-a766-4259-b06d-6c10edabb617",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "HBV",
+        "uuid" : "011d87b7-0404-4fcd-a85a-87893ea85678"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Child Immunization before discharge from the hospital').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "9bc86c43-0f28-4130-9345-fc3f2609b006",
+    "name" : "Services Availed",
+    "displayOrder" : 5.0,
+    "display" : "Services Availed",
+    "formElements" : [ {
+      "name" : "Received and consumed iron and folic acid tablets",
+      "uuid" : "269f9be2-30c5-4c34-a96e-9214fbd644ba",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received and consumed iron and folic acid tablets",
+        "uuid" : "519d0b30-7296-481c-bc62-b9a9ec640426"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Received any financial benefit under JSY",
+      "uuid" : "448b8d1b-1836-45b3-900c-7b0eebed2ee8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received any financial benefit under JSY",
+        "uuid" : "d99fa549-b82e-404c-9f26-24cc71b6c43b"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Received any financial benefit under JSSK",
+      "uuid" : "5ebc3cea-78dc-4e38-913c-8e20af65e43c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received any financial benefit under JSSK",
+        "uuid" : "6f274445-9121-4cf2-8b79-6d95be16be32"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Received & consumed supplementary nutrition (Cooked food/THR) from Anganwadi centre",
+      "uuid" : "111d0ec4-0f8b-4ace-a452-aa8743315574",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received & consumed supplementary nutrition (Cooked food/THR) from Anganwadi centre",
+        "uuid" : "87f44c12-e03a-4fdd-bce1-ce0d0f487908"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "6a6eb444-1b5f-4a38-8dae-2146a75ab815",
+    "name" : "Vitals",
+    "displayOrder" : 6.0,
+    "display" : "Vitals",
+    "formElements" : [ {
+      "name" : "Height",
+      "uuid" : "b322b10e-50a6-4c35-ada2-2bcf0c12fd15",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Height in CM",
+        "uuid" : "80d88c23-1e44-423a-96bf-5ddaf105042e"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().valueInEntireEnrolment(\"Height in CM\").is.notDefined;\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Weight",
+      "uuid" : "eabf2542-c859-41e6-974c-46b06ff18104",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "e9190320-3211-4d9f-a72c-288f42cf830c"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "BMI",
+      "uuid" : "0fdef747-00ad-4806-a62a-213f6221bb80",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "BMI",
+        "uuid" : "0b5ae1e8-e44a-4457-a38a-44d5103a8fdd"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const formElement = params.formElement;\n    \nlet height = programEncounter.findLatestObservationInEntireEnrolment(\"Height in CM\", programEncounter);\nlet weight = programEncounter.findObservation(\"Weight\");\n        height = height && height.getValue();\n        weight = weight && weight.getValue();\n       \n        let value = '';\n        if (_.isFinite(weight) && _.isFinite(height)) {\n         value = ruleServiceLibraryInterfaceForSharingModules.common.calculateBMI(weight, height);\n       }\n       \n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, value);\n  };",
+      "mandatory" : true
+    }, {
+      "name" : "Haemoglobin level",
+      "uuid" : "71390048-bdb9-4638-abf5-34a528c54626",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Hemoglobin level",
+        "uuid" : "a121ed17-61fd-4497-bb13-10ccc34c1db0"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Blood Pressure (Systolic)",
+      "uuid" : "a45736f9-a7b2-48b4-9825-df91c76280dd",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (systolic)",
+        "uuid" : "7a320ebc-366d-4301-8e8b-71edcbaad78d"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Blood Pressure (Diastolic)",
+      "uuid" : "43cec41f-96e8-40bb-a150-b8d8ae2cc071",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (Diastolic)",
+        "uuid" : "f9469b1c-47f5-494f-8e1e-e5dbb5c87b51"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "\n\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const complicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'High Risk Conditions'\n    });\n    \n      //High Blood Pressure\n     complicationsBuilder\n        .addComplication(\"High Blood Pressure\")\n        .when.valueInEncounter(\"Blood Pressure (Diastolic)\")\n        .is.greaterThanOrEqualTo(91)\n        .or.when.valueInEncounter(\"Blood Pressure (systolic)\")\n        .is.greaterThanOrEqualTo(141);\n        \n       //High Blood Pressure\n     complicationsBuilder\n        .addComplication(\"Low Blood Pressure\")\n        .when.valueInEncounter(\"Blood Pressure (Diastolic)\")\n        .is.lessThanOrEqualTo(49)\n        .or.when.valueInEncounter(\"Blood Pressure (systolic)\")\n        .is.lessThanOrEqualTo(89);\n      \n      \n      //Hb\n       complicationsBuilder\n        .addComplication(\"Abnormal Hb\")\n        .when.valueInEncounter(\"Hemoglobin level\")\n        .is.lessThan(12)\n        .or.when.valueInEncounter(\"Hemoglobin level\")\n        .is.greaterThan(15.5);    \n      \n     //Bmi    \n    const bmi = programEncounter.getObservationValue('BMI');\n    if(bmi < 18.5){\n       complicationsBuilder\n                .addComplication(\"Underweight\");\n    }else if (bmi >= 25 && bmi <= 29.9)\n    {\n       complicationsBuilder\n                .addComplication(\"Overweight\");\n    }else if (bmi >= 30)\n     {\n       complicationsBuilder\n                .addComplication(\"Obese\");\n    }\n    \n   \n   \n    decisions.encounterDecisions.push(complicationsBuilder.getComplications());\n    return decisions;\n};",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter\n    });\n    \n    scheduleBuilder\n        .add({\n            name: \"PNC 1\",\n            encounterType: \"Mother PNC\",\n            earliestDate: programEncounter.encounterDateTime,\n            maxDate: imports.moment(programEncounter.encounterDateTime).add(8, 'days').toDate()\n        }).when.valueInEncounter('Pregnancy outcome').containsAnswerConceptNameOtherThan('Abortion (spontaneous)');\n\n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

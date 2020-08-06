@@ -1,0 +1,7 @@
+{
+  "name" : "Hypertension Exit (voided~725)",
+  "uuid" : "dc4b8093-13b9-4946-b125-264842a442fb",
+  "formType" : "ProgramExit",
+  "formElementGroups" : [ ],
+  "voided" : true
+}

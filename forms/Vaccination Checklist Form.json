@@ -1,0 +1,39 @@
+{
+  "name" : "Vaccination Checklist Form",
+  "uuid" : "36ad8983-3b73-4972-80b9-0e680f34db8e",
+  "formType" : "ChecklistItem",
+  "formElementGroups" : [ {
+    "uuid" : "53692a2c-40f7-487d-bea9-f3c2085dfb00",
+    "name" : "Vaccination details",
+    "displayOrder" : 1.0,
+    "display" : "Vaccination details",
+    "formElements" : [ {
+      "name" : "Provided by",
+      "uuid" : "7271a964-796e-45c0-9dcf-f8b0ecb2865a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Vaccination provider",
+        "uuid" : "284354e3-78c4-41d7-830e-771aa313d171"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "c7f359e4-0c1d-4406-b8c1-013a3284a365",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Vaccination Provider",
+        "uuid" : "351a1eb4-9d45-443c-8286-b7b914fe246c"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "//SAMPLE RULE EXAMPLE\n'use strict';\n({params, imports}) => {\n  const checklistItem = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({checklistItem, formElement});\n    statusBuilder.show().when.valueInChecklistItem('Vaccination provider').containsAnswerConceptName(\"Other\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

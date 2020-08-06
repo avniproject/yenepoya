@@ -1,0 +1,318 @@
+{
+  "name" : "ANC Followup",
+  "uuid" : "d0467201-46c9-41b9-a28f-2969bdc5ce6f",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "28ef14bb-50e1-4ca9-a4c5-df97880fb626",
+    "name" : "Current Pregnancy",
+    "displayOrder" : 1.0,
+    "display" : "Current Pregnancy",
+    "formElements" : [ {
+      "name" : "Gestational age in weeks",
+      "uuid" : "94083104-dde4-42f5-bdf0-a10de8b859f9",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Gestational age in weeks",
+        "uuid" : "5030abb0-43f0-41e3-b618-50ac64e57113"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const formElement = params.formElement;\n    const edd =  programEncounter.findLatestObservationInEntireEnrolment('Estimated Date of Delivery');\n    \n     const value =  ruleServiceLibraryInterfaceForSharingModules.motherCalculations.gestationalAgeForEDD(edd.getReadableValue(),programEncounter.encountertDateTime);\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, value);\n};",
+      "mandatory" : true
+    }, {
+      "name" : "No of antenatal visits in present pregnancy you made to the health facility",
+      "uuid" : "d16c931e-0c5a-4685-aebe-8e716b9e5e18",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "No of antenatal visits in present pregnancy you made to the health facility",
+        "uuid" : "8dfb696a-0111-4a26-a52c-1119912dcd5e"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "No of home visits made by ASHA/ANM in present pregnancy",
+      "uuid" : "959ae12c-8810-4da1-99d9-647b4d643406",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "No of home visits made by ASHA/ANM in present pregnancy",
+        "uuid" : "9d3d23c2-23b7-43c4-9f85-754effc4b308"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Have you received first dose of TT?",
+      "uuid" : "a66f67e5-eaa9-4e06-9ef3-8d7dec02d715",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Have you received first dose of TT",
+        "uuid" : "f8380766-d281-477a-a91f-249ee6073dec"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  const value=programEncounter.findLatestObservationInEntireEnrolment('Have you received first dose of TT');\n  console.log('value',value.getReadableValue());\n \n    statusBuilder.show().whenItem( value.getReadableValue() == 'No').is.truthy;\n  \n  return statusBuilder.build();\n  \n    \n}; ",
+      "mandatory" : true
+    }, {
+      "name" : "Date of first dose of TT",
+      "uuid" : "beb56ded-261e-4faa-b109-9b5dd4b13a66",
+      "keyValues" : [ {
+        "key" : "datePickerMode",
+        "value" : "Calendar"
+      } ],
+      "concept" : {
+        "name" : "Date of first dose of TT",
+        "uuid" : "0389ab96-b15e-4fc5-872f-75bc2fabe138"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Have you received first dose of TT').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Have you received second dose of TT",
+      "uuid" : "41a705d4-d586-48cc-a3b3-eaddb5e3dbd5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Have you received second dose of TT",
+        "uuid" : "a4527091-7229-410f-8df0-1d2484f99169"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  const value=programEncounter.findLatestObservationInEntireEnrolment('Have you received second dose of TT');\n  console.log('valuettt',value.getReadableValue());\n \n    statusBuilder.show().whenItem( value.getReadableValue() == 'No').is.truthy.or.whenItem( value.getReadableValue() == 'Not eligible').is.truthy;\n  \n  return statusBuilder.build();\n  \n    \n}; ",
+      "mandatory" : true
+    }, {
+      "name" : "Date of second dose of TT",
+      "uuid" : "0508c634-784b-4409-9cfc-f711e4cd5452",
+      "keyValues" : [ {
+        "key" : "datePickerMode",
+        "value" : "Calendar"
+      } ],
+      "concept" : {
+        "name" : "Date of second dose of TT",
+        "uuid" : "bcafed31-d484-4a1d-b141-15f2f470d7ae"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Have you received second dose of TT').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Received and consumed iron and folic acid tablets?",
+      "uuid" : "bdc377c9-e691-4abd-9764-7a3a4a1ade96",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received and consumed iron and folic acid tablets",
+        "uuid" : "519d0b30-7296-481c-bc62-b9a9ec640426"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Received and consumed calcium tablet?",
+      "uuid" : "71e23750-9ac0-481f-977a-d690c61abfc9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received and consumed calcium tablet",
+        "uuid" : "5188bc03-371a-495d-b724-385c5fbb0c58"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Received and consumed Albendazole tablet?",
+      "uuid" : "4ef5d040-a6ae-4ccc-aec1-619ae86970f8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received and consumed Albendazole tablet",
+        "uuid" : "dd280449-48fd-4086-9d98-fd56aebc9a3d"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "da1ac161-797d-4553-8e7a-0eba618169f6",
+    "name" : "Vitals",
+    "displayOrder" : 2.0,
+    "display" : "Vitals",
+    "formElements" : [ {
+      "name" : "Weight",
+      "uuid" : "c63e3ba4-4667-407f-a5f7-8276773847d0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "e9190320-3211-4d9f-a72c-288f42cf830c"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "BMI",
+      "uuid" : "f2129fc7-bdf9-4304-97ee-4db82f37f51e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "BMI",
+        "uuid" : "0b5ae1e8-e44a-4457-a38a-44d5103a8fdd"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const formElement = params.formElement;\n    \nlet height = programEncounter.findLatestObservationInEntireEnrolment(\"Height in CM\", programEncounter);\nlet weight = programEncounter.findObservation(\"Weight\");\n        height = height && height.getValue();\n        weight = weight && weight.getValue();\n       \n        let value = '';\n        if (_.isFinite(weight) && _.isFinite(height)) {\n         value = ruleServiceLibraryInterfaceForSharingModules.common.calculateBMI(weight, height);\n       }\n       \n        //console.log('value',value);\n        \n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, value);\n  };",
+      "mandatory" : true
+    }, {
+      "name" : "Haemoglobin level",
+      "uuid" : "e9c20e33-4166-4dc1-83b3-12bb209180d4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Hemoglobin level",
+        "uuid" : "a121ed17-61fd-4497-bb13-10ccc34c1db0"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Blood Pressure Systolic",
+      "uuid" : "66825718-6bed-4250-9a38-bb678d481e0e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (systolic)",
+        "uuid" : "7a320ebc-366d-4301-8e8b-71edcbaad78d"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Blood Pressure Diastolic",
+      "uuid" : "c427b7ef-1eba-49f8-af30-ac58cbd081c1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (Diastolic)",
+        "uuid" : "f9469b1c-47f5-494f-8e1e-e5dbb5c87b51"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Random Blood Sugar Level",
+      "uuid" : "d5b91bc9-5556-4adb-9965-290a3719824c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Random blood sugar levels report",
+        "uuid" : "18d36389-e42d-4366-a316-053407c3a0ab"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "c3ccb10d-e1d1-4e61-bb2e-86eee3c434af",
+    "name" : "Services Availed",
+    "displayOrder" : 3.0,
+    "display" : "Services Availed",
+    "formElements" : [ {
+      "name" : "Availed services under PMSMA scheme?",
+      "uuid" : "9a4dbed5-7e6e-4e19-9986-3bf33bcbe3c7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Availed services under PMSMA scheme",
+        "uuid" : "9fc68cda-63b0-4a67-9917-681f6636ff89"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Whether received one specialist consultation?",
+      "uuid" : "e94e103b-26ae-4175-bc90-612157498fc0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Whether received one specialist consultation",
+        "uuid" : "d5ad5edc-756c-4243-b49e-514219b9f9b8"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Availed services under PMSMA scheme').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Whether thyroid Profile done?",
+      "uuid" : "cdebc497-cdfb-4bd6-8027-77c5e2ca8f97",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Whether thyroid profile done",
+        "uuid" : "b4ddba1a-7acc-4b28-9892-1d865dec88f6"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Availed services under PMSMA scheme').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Whether anomaly scan done",
+      "uuid" : "70a85cdf-d027-4dd8-8694-3604f5444581",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Whether anomaly scan done",
+        "uuid" : "574b3d38-50c0-4085-8812-cd3c3a3294b1"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Availed services under PMSMA scheme').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Received & consumed supplementary nutrition (Cooked food/THR) from Anganwadi centre",
+      "uuid" : "13e142eb-a31b-4f99-b437-b373e4c04f3d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received & consumed supplementary nutrition (Cooked food/THR) from Anganwadi centre",
+        "uuid" : "87f44c12-e03a-4fdd-bce1-ce0d0f487908"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "How many times in a last one year utilized the services?",
+      "uuid" : "a94f88fb-bb0a-4e2f-8ad3-a8a60d46e1b3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "How many times in a last one year utilized the services",
+        "uuid" : "5e19aac4-ed3e-4ab2-b47d-692301fffa49"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Received & consumed supplementary nutrition (Cooked food/THR) from Anganwadi centre').containsAnswerConceptName(\"Received and Consumed\");\n  return statusBuilder.build();\n};",
+      "mandatory" : false
+    } ]
+  }, {
+    "uuid" : "64fc2663-6ce6-4c64-8629-2d9c67b7a5ee",
+    "name" : "Symptoms",
+    "displayOrder" : 4.0,
+    "display" : "Symptoms",
+    "formElements" : [ {
+      "name" : "History of bleeding/leaking per vagina?",
+      "uuid" : "98fe9a12-23d4-4c1e-9c21-e1568915afc2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "History of bleeding/leaking per vagina",
+        "uuid" : "646b471d-08cd-4ebe-a5ba-9a3c781d26a3"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Foetal movements felt?",
+      "uuid" : "495c1401-71c1-48be-8af8-00592798ecfa",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Foetal movements felt",
+        "uuid" : "0e5f1135-f3a8-4b66-8fb6-3acb74959e3a"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Gestational age in weeks').is.greaterThanOrEqualTo(20);\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const complicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'High Risk Conditions'\n    });\n    \n     //Bmi\n    const bmi = programEncounter.getObservationValue('BMI');\n    if (bmi < 18.5 || bmi > 24.9){\n    complicationsBuilder\n     .addComplication(\"Abnormal BMI\")\n        \n    }\n    \n     //Hb\n    complicationsBuilder\n        .addComplication(\"Abnormal Hb\")\n        .when.valueInEncounter(\"Hemoglobin level\")\n        .is.lessThan(12)\n        .or.when.valueInEncounter(\"Hemoglobin level\")\n        .is.greaterThan(15.5);\n    \n    \n     //High Blood Pressure\n    complicationsBuilder\n        .addComplication(\"High Blood Pressure\")\n        .when.valueInEncounter(\"Blood Pressure (Diastolic)\")\n        .is.greaterThanOrEqualTo(91)\n        .or.when.valueInEncounter(\"Blood Pressure (systolic)\")\n        .is.greaterThanOrEqualTo(141);\n\n\n    complicationsBuilder\n        .addComplication(\"Low Blood Pressure\")\n        .when.valueInEncounter(\"Blood Pressure (Diastolic)\")\n        .is.lessThanOrEqualTo(49)\n        .or.when.valueInEncounter(\"Blood Pressure (systolic)\")\n        .is.lessThanOrEqualTo(89);\n        \n       \n     complicationsBuilder\n            .addComplication(\"History of bleeding/leaking per Vagina\")\n            .when.valueInEncounter(\"History of bleeding/leaking per vagina\")\n        .containsAnswerConceptName(\"Yes\");\n    \n    //RBS\n    const rbs = programEncounter.getObservationValue('Random blood sugar levels report');\n    if (rbs < 21 || rbs > 139) {\n        complicationsBuilder\n            .addComplication(\"abnormal RBS\");\n    }\n    \n    \n    //Feotal movement\n    \n        complicationsBuilder\n            .addComplication(\"Foetal movement not felt\")\n            .when.valueInEncounter(\"Foetal movements felt\")\n        .containsAnswerConceptName(\"No\");\n    \n    \n      decisions.encounterDecisions.push(complicationsBuilder.getComplications());\n    return decisions;\n};",
+  "visitScheduleRule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter\n    });\n    const lmp = programEncounter.programEnrolment.getObservationReadableValue('Last menstrual period');\n    const getNextVisit = () => {\n        switch (programEncounter.name) {\n            case 'ANC Followup 1' : {\n                const earliestDate = imports.moment(lmp).add(14, 'weeks');\n                return ({\n                    name: 'ANC Followup 2',\n                    earliestDate: earliestDate.toDate(),\n                    maxDate: earliestDate.add(8, 'days').toDate()\n                });\n            }\n            case 'ANC Followup 2' : {\n                const earliestDate = imports.moment(lmp).add(28, 'weeks');\n                return ({\n                    name: 'ANC Followup 3', earliestDate: earliestDate.toDate(),\n                    maxDate: earliestDate.add(8, 'days').toDate()\n                });\n            }\n            case 'ANC Followup 3' : {\n                const earliestDate = imports.moment(lmp).add(36, 'weeks');\n                return ({\n                    name: 'ANC Followup 4', earliestDate: earliestDate.toDate(),\n                    maxDate: earliestDate.add(8, 'days').toDate()\n                });\n            }\n            case 'ANC Followup 4' :\n                return null;\n        }\n    };\n    const nextVisit = getNextVisit();\n    nextVisit && scheduleBuilder\n        .add({...nextVisit, encounterType: \"ANC Followup\"});\n    return scheduleBuilder.getAllUnique(\"encounterType\");\n};",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

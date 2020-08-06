@@ -1,0 +1,249 @@
+{
+  "name" : "PNC Followup",
+  "uuid" : "75616e11-06f9-4a38-83a3-50d39350f98a",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "bb0a952d-ea6c-4715-b38e-4aec9ed9de48",
+    "name" : "Health Status",
+    "displayOrder" : 1.0,
+    "display" : "Health Status",
+    "formElements" : [ {
+      "name" : "Pregnancy complications from last visit",
+      "uuid" : "12a87a68-e5a7-4651-a401-5382ae5e65bd",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Pregnancy complications from last visit",
+        "uuid" : "f263bd30-d350-45bf-bba4-b9c28b98dcbf"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Health status of the new born",
+      "uuid" : "c5c2bf8f-b993-42dd-a1a5-4e44e619dd7b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health status of new born in PNC",
+        "uuid" : "b3773e5b-93e4-43cd-946c-2e7623254d63"
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Practicing any family planning methods",
+      "uuid" : "0a26a760-b445-43b8-b398-2f5ba82ab622",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Practicing any family planning methods",
+        "uuid" : "1b12cdc2-3403-4a1b-b796-2772e1c66e81"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If yes specify",
+      "uuid" : "82842b1e-1a2c-4293-bd43-f5a2a7805136",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "IF YES specify",
+        "uuid" : "31de6e7e-ba59-4416-8f79-9f668bf3b59d"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().when.valueInEncounter('Practicing any family planning methods').containsAnswerConceptName(\"Yes\");\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Immunization status of child",
+      "uuid" : "ddc6fd92-e203-43f5-9f0c-a5c56c1f9c20",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Immunization status of child",
+        "uuid" : "b355767f-f082-4292-a9c8-1ef2c6ca81b7"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ]
+  }, {
+    "uuid" : "45261c3d-d17a-48bc-a5ce-c73814f3e6f5",
+    "name" : "Services Availed",
+    "displayOrder" : 2.0,
+    "display" : "Services Availed ",
+    "formElements" : [ {
+      "name" : "Received and consumed iron and folic acid tablets?",
+      "uuid" : "7a942b6a-f191-4e89-be4a-d924b944f278",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received and consumed iron and folic acid tablets",
+        "uuid" : "519d0b30-7296-481c-bc62-b9a9ec640426"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Received and consumed calcium tablet?",
+      "uuid" : "b292dbad-3f95-46f0-a124-d297cb367ab4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received and consumed calcium tablet",
+        "uuid" : "5188bc03-371a-495d-b724-385c5fbb0c58"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Received any financial benefit under JSY",
+      "uuid" : "e7ca83f8-3e7c-4d6a-a0ef-4c1b007c2eff",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received any financial benefit under JSY",
+        "uuid" : "d99fa549-b82e-404c-9f26-24cc71b6c43b"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Received any financial benefit under JSSK",
+      "uuid" : "ba64d097-fa73-42bb-8823-11f51fe6e145",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received any financial benefit under JSSK",
+        "uuid" : "6f274445-9121-4cf2-8b79-6d95be16be32"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Received & consumed supplementary nutrition (Cooked food/THR) from Anganwadi centre",
+      "uuid" : "80fcf361-1fe5-47c6-910b-c36cadeaf9d7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Received & consumed supplementary nutrition (Cooked food/THR) from Anganwadi centre",
+        "uuid" : "87f44c12-e03a-4fdd-bce1-ce0d0f487908"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "99f56010-75e5-471b-9286-a68b58d6d93d",
+    "name" : "Vitals",
+    "displayOrder" : 3.0,
+    "display" : "Vitals",
+    "formElements" : [ {
+      "name" : "Height",
+      "uuid" : "57199866-f135-45fd-a8fe-e5634de876bb",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Height in CM",
+        "uuid" : "80d88c23-1e44-423a-96bf-5ddaf105042e"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new\n  imports.rulesConfig.FormElementStatusBuilder({programEncounter, formElement});\n  statusBuilder.show().valueInEntireEnrolment(\"Height in CM\").is.notDefined;\n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Weight",
+      "uuid" : "d54e04fe-c9aa-4240-b211-9a08202283b5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "e9190320-3211-4d9f-a72c-288f42cf830c"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "BMI",
+      "uuid" : "1dccc88e-cfe1-405b-b20a-49d1db74907a",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "BMI",
+        "uuid" : "0b5ae1e8-e44a-4457-a38a-44d5103a8fdd"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const formElement = params.formElement;\n    \nlet height = programEncounter.findLatestObservationInEntireEnrolment(\"Height in CM\", programEncounter);\nlet weight = programEncounter.findObservation(\"Weight\");\n        height = height && height.getValue();\n        weight = weight && weight.getValue();\n       \n        let value = '';\n        if (_.isFinite(weight) && _.isFinite(height)) {\n         value = ruleServiceLibraryInterfaceForSharingModules.common.calculateBMI(weight, height);\n       }\n       \n        //console.log('value',value);\n        \n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, value);\n  };",
+      "mandatory" : true
+    }, {
+      "name" : "Haemoglobin level",
+      "uuid" : "4d51f588-b2eb-426f-a587-ef7d1bcdabf6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Hemoglobin level",
+        "uuid" : "a121ed17-61fd-4497-bb13-10ccc34c1db0"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Blood Pressure (Systolic)",
+      "uuid" : "e6c4c43f-7a20-4c90-8675-dd0fab1422f6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (systolic)",
+        "uuid" : "7a320ebc-366d-4301-8e8b-71edcbaad78d"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Blood Pressure (Diastolic)",
+      "uuid" : "29cf886d-22c0-4f2c-bf5e-c8176d238ff0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (Diastolic)",
+        "uuid" : "f9469b1c-47f5-494f-8e1e-e5dbb5c87b51"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Practicing exclusive breast feeding",
+      "uuid" : "4d102c6c-3483-4558-b9f5-9f61165ea7e3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Practicing exclusive breast feeding",
+        "uuid" : "fca3dc5c-72ba-4923-b17a-ab66c1126276"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  }, {
+    "uuid" : "e0eddbe2-77d4-4894-a08b-d9ffb5629197",
+    "name" : "Followup",
+    "displayOrder" : 4.0,
+    "display" : "Followup",
+    "formElements" : [ {
+      "name" : "No of postnatal visits in present pregnancy (first 42 days) you made to the health facility",
+      "uuid" : "b0768920-3cf0-486c-bb99-27869ac010d1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "No of postnatal visits in present pregnancy (first 42 days) you made to the health facility",
+        "uuid" : "89319985-aded-4213-adeb-b694c1767d3f"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "No of home visits made by ASHA/ANM in present pregnancy within 42 days of your delivery",
+      "uuid" : "8eaec453-2393-477d-b530-b9ce00e53670",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "No of home visits made by ASHA/ANM in present pregnancy within 42 days of your delivery",
+        "uuid" : "a8f3aeb4-2a3d-4708-8133-587f048f1190"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "\n\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const decisions = params.decisions;\n    const complicationsBuilder = new imports.rulesConfig.complicationsBuilder({\n        programEncounter: programEncounter,\n        complicationsConcept: 'High Risk Conditions'\n    });\n         //Bmi\n    const bmi = programEncounter.getObservationValue('BMI');\n    if (bmi < 18.5 || bmi > 24.9){\n    complicationsBuilder\n     .addComplication(\"Abnormal BMI\")\n        \n    }\n      //High Blood Pressure\n     complicationsBuilder\n        .addComplication(\"High Blood Pressure\")\n        .when.valueInEncounter(\"Blood Pressure (Diastolic)\")\n        .is.greaterThanOrEqualTo(91)\n        .or.when.valueInEncounter(\"Blood Pressure (systolic)\")\n        .is.greaterThanOrEqualTo(141);\n    \n     complicationsBuilder\n        .addComplication(\"Low Blood Pressure\")\n        .when.valueInEncounter(\"Blood Pressure (Diastolic)\")\n        .is.lessThanOrEqualTo(49)\n        .or.when.valueInEncounter(\"Blood Pressure (systolic)\")\n        .is.lessThanOrEqualTo(89);\n      \n       \n\n    //pregComp\n    complicationsBuilder\n                .addComplication(\"Pregnancy Complications\")\n                .when.valueInEncounter(\"Pregnancy complications from last visit\")\n        .containsAnswerConceptName(\"Yes\"); \n    //healthStatus\n    complicationsBuilder\n                .addComplication(\"Abnormal health status\")\n                .when.valueInEncounter(\"Health status of new born in PNC\")\n        .containsAnswerConceptNameOtherThan(\"Normal\");  \n      //Hb\n       complicationsBuilder\n        .addComplication(\"Abnormal Hb\")\n        .when.valueInEncounter(\"Hemoglobin level\")\n        .is.lessThan(12)\n        .or.when.valueInEncounter(\"Hemoglobin level\")\n        .is.greaterThan(15.5);  \n        \n    decisions.encounterDecisions.push(complicationsBuilder.getComplications());\n    return decisions;\n};",
+  "visitScheduleRule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({\n        programEncounter\n    });\n    if (programEncounter.name === 'PNC 1') {\n        const dateOfDelivery = programEncounter.programEnrolment.getObservationReadableValueInEntireEnrolment('Date of Pregnancy Outcome');\n        const earlistDate = imports.moment(dateOfDelivery).add(42, 'days');\n        scheduleBuilder\n            .add({\n                name: \"PNC 2\",\n                encounterType: \"Mother PNC\",\n                earliestDate: earlistDate.toDate(),\n                maxDate: earlistDate.add(8, 'days').toDate()\n            });\n    }\n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : ""
+}

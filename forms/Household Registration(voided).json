@@ -1,0 +1,226 @@
+{
+  "name" : "Household Registration(voided)",
+  "uuid" : "1a734d67-6ec0-4761-b59c-71e5dbe5067d",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "2d96cf12-04e3-4c94-9ac5-a985a608240f",
+    "name" : "Identification",
+    "displayOrder" : 1.0,
+    "display" : "Identification",
+    "formElements" : [ {
+      "name" : "Name of the surveillance Unit",
+      "uuid" : "11b83ea2-a54a-494a-9557-e5929db97efd",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the surveillance Unit",
+        "uuid" : "1de1bfa2-030a-4ccb-8381-ee5105048fa2"
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name of the panchayat/Ward",
+      "uuid" : "2795333a-280f-4abb-8ee0-2744ff253bf8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the panchayat/Ward",
+        "uuid" : "673a87ab-78cd-42a3-a6cf-47761c8beffe"
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "landmark",
+      "uuid" : "e1e3d9c1-8c50-48c6-8b77-a15d4e5611f7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "landmark",
+        "uuid" : "ef182a85-8f38-418e-bf0e-fcf2c3c655f0"
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name of the PHC/UPHC",
+      "uuid" : "6d05fda3-7efd-4c34-8c40-30a7c5b5a4f1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the PHC/UPHC",
+        "uuid" : "1948be58-d42e-4313-8ec5-ac9ca87eb399"
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Other",
+      "uuid" : "d9e05cf7-d4e6-4090-ba41-f49d94b585ec",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Other",
+        "uuid" : "7868f697-abc9-4f49-8a0d-3deab5679502"
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name of the sub centre",
+      "uuid" : "f2c6c452-c7bb-44ce-a41d-fbdd1bd78aef",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the sub centre",
+        "uuid" : "e9ce5187-db1e-40cf-ad42-4b1c27d553f8"
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Household number",
+      "uuid" : "ca2100fb-7b3e-453f-8720-ae1b147a38ed",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Household number",
+        "uuid" : "558469e8-d993-45ec-9d9b-f019c3642bab"
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Name of the head of the family",
+      "uuid" : "06e690a9-001a-4d60-8413-99de3ff30a9f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of the head of the family",
+        "uuid" : "6633afc7-d0e4-4427-87d4-277d8942ff48"
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Gender of HoF",
+      "uuid" : "c6bbd43b-97f3-4809-8730-1548b99c451a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Gender of HoF",
+        "uuid" : "83fbfa4c-164e-4eb2-b207-d9263c1b3b4d"
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Type of family",
+      "uuid" : "04927a09-e7c6-43f6-9067-5b5f74d57ecc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of family",
+        "uuid" : "52a8b9a2-499b-4362-a95f-4df018cd644a"
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Total Income",
+      "uuid" : "e5a1fddf-04d7-42c0-8c86-0657fcdd4806",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Total Income",
+        "uuid" : "752cf346-243e-447a-a973-53891cb110b0"
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Contact Number",
+      "uuid" : "a129c975-7596-4abe-b4da-5560e3295312",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Contact Number",
+        "uuid" : "b8f2d179-0638-4016-afa2-a2bbf0f48e6a"
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Mother Tongue",
+      "uuid" : "86f3a556-129a-4623-a046-ce2fa7a1accd",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Mother Tongue",
+        "uuid" : "57251d49-3cfb-4e49-a053-7364a663bf1d"
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "357f268d-42a8-4ade-8775-af6e0e6eb211",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other mother tongue",
+        "uuid" : "f2058089-18f8-4442-84cf-94cf1cea28a6"
+      },
+      "displayOrder" : 14.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Which religion do you practice?",
+      "uuid" : "87fd53f7-0615-42bd-9e5f-8980d7d079bb",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Which religion do you practice?",
+        "uuid" : "60320b20-433d-4167-84e2-5cea3351739f"
+      },
+      "displayOrder" : 15.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "You belong to which social class?",
+      "uuid" : "fb40554a-596c-40f7-b01d-0dc7357a9a8d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "You belong to which social class?",
+        "uuid" : "26024a7b-b664-4eef-90e4-1fe23283378f"
+      },
+      "displayOrder" : 16.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "09682e31-e0ff-4474-a9ff-1ca3560f4d17",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other social class",
+        "uuid" : "81323643-274c-4831-9d1a-a17e2dfcd225"
+      },
+      "displayOrder" : 17.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Are you resident of this area for more than 1 year",
+      "uuid" : "4beca3aa-4996-4b67-9ce5-c9188352a19a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are you resident of this area for more than 1 year",
+        "uuid" : "2253872c-c629-4f6f-96bc-72ba23892290"
+      },
+      "displayOrder" : 18.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Type of Ration card",
+      "uuid" : "1537e257-745a-4ba7-aa33-5d6823470a91",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type of Ration card",
+        "uuid" : "49344ffb-d10c-4e30-a284-356396970bcf"
+      },
+      "displayOrder" : 19.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ]
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "voided" : true
+}

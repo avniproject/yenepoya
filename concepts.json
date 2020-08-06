@@ -1,4 +1,10 @@
 [ {
+  "name" : "0",
+  "uuid" : "5fa19450-76a7-4a64-ab1b-4be9a861da6d",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
   "name" : "1",
   "uuid" : "0d58e68d-c31a-444a-a220-4d87bdb8fba5",
   "dataType" : "NA",
@@ -83,8 +89,32 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Abnormal BMI",
+  "uuid" : "be433fe3-53d2-490c-80e5-f5f88e53b382",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
   "name" : "Abnormal Conditions",
   "uuid" : "3b5a85b9-e461-4763-9e20-a378d10786f6",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Abnormal Hb",
+  "uuid" : "661f0a4c-6650-4371-b8f0-85f942e97851",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Abnormal health status",
+  "uuid" : "a0a86bc1-3574-4b6d-bff6-f73b7b9bbb39",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "abnormal RBS",
+  "uuid" : "8f7f957f-c26f-41c5-a763-349cc302698d",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -100,6 +130,16 @@
     "order" : 0.0
   } ],
   "keyValues" : [ ]
+}, {
+  "name" : "Abortion",
+  "uuid" : "be3d89a0-d76d-4267-befb-f1e25b982f6f",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Abortion (spontaneous)",
+  "uuid" : "71b92029-86c2-4099-8f27-738559970150",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Acceessibility",
   "uuid" : "80fd937b-15c5-4597-8a28-db90fed52c9d",
@@ -133,7 +173,7 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "agricultural labourer",
+  "name" : "Agricultural labourer",
   "uuid" : "bfd70d2e-2d17-4b07-8132-c691497d2206",
   "dataType" : "NA",
   "active" : true,
@@ -219,6 +259,34 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Anganwadi centre",
+  "uuid" : "6891b349-ac77-47f2-b6c4-f09aa048e963",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "ANM",
+  "uuid" : "d1f267ad-f698-402f-8dca-6d1593dd1eac",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Antenatal checkup received",
+  "uuid" : "184bf8da-db08-4167-b312-afcf2ab654a6",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Missing/Not Responded",
+    "uuid" : "6bd2e10d-0bd6-4416-9965-f7beffdd0e20",
+    "order" : 2.0
+  } ]
+}, {
   "name" : "Anthyodaya anna yojana",
   "uuid" : "cdbaa400-4ea2-4758-953f-3db824c9c604",
   "dataType" : "NA",
@@ -265,6 +333,24 @@
     "order" : 1.0
   } ],
   "keyValues" : [ ]
+}, {
+  "name" : "Any medical illness diagnosed from last visit",
+  "uuid" : "c8698b30-5dac-47bc-a2d3-209bb4912aaa",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
 }, {
   "name" : "Any member in your family with some disability",
   "uuid" : "2a1c24fd-912a-485d-bf8e-5a722d8ab5a1",
@@ -323,17 +409,22 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "any other",
+  "uuid" : "9e63579b-ea8c-443e-842d-351103d18383",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
   "name" : "Any other",
   "uuid" : "2ed1960a-08e6-4c0e-83da-0e40086ab091",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "any other",
-  "uuid" : "9e63579b-ea8c-443e-842d-351103d18383",
+  "name" : "Any other complication",
+  "uuid" : "de203918-d3b2-4d21-9fbf-c36e11f6c6b8",
   "dataType" : "NA",
-  "active" : true,
-  "keyValues" : [ ]
+  "active" : true
 }, {
   "name" : "any other specify",
   "uuid" : "2123ee6d-1693-4f08-99fd-299dbc342832",
@@ -422,7 +513,8 @@
   }, {
     "name" : "diarrhoea",
     "uuid" : "90e18ee1-cb7f-40d3-aa3f-074b685063fc",
-    "order" : 4.0
+    "order" : 4.0,
+    "voided" : true
   }, {
     "name" : "Cough",
     "uuid" : "6470242b-70a2-4012-81f3-68e44adfbb95",
@@ -430,19 +522,38 @@
   }, {
     "name" : "cold",
     "uuid" : "459808e3-dc87-4b95-90bc-8ea880c3f417",
-    "order" : 6.0
+    "order" : 6.0,
+    "voided" : true
   }, {
     "name" : "low backache",
     "uuid" : "5096f462-f15f-483f-9bef-4716e09d7fa6",
-    "order" : 7.0
+    "order" : 7.0,
+    "voided" : true
   }, {
     "name" : "joint pains",
     "uuid" : "2e2d7bca-0c95-4c0d-b465-c3e361aa2c8b",
-    "order" : 8.0
+    "order" : 8.0,
+    "voided" : true
   }, {
     "name" : "Any other",
     "uuid" : "2ed1960a-08e6-4c0e-83da-0e40086ab091",
     "order" : 9.0
+  }, {
+    "name" : "Cold",
+    "uuid" : "92be2f7d-28b6-4a11-a654-aa7bc0eb0ae2",
+    "order" : 10.0
+  }, {
+    "name" : "Diarrhoea",
+    "uuid" : "1cb1bae0-200d-41c1-b498-a25b0ba4f184",
+    "order" : 11.0
+  }, {
+    "name" : "Low backache",
+    "uuid" : "121c6a0b-90a7-4080-a579-40c6958fe724",
+    "order" : 12.0
+  }, {
+    "name" : "Joint pains",
+    "uuid" : "d79885f7-5f35-4424-b440-7320dcc9a0bf",
+    "order" : 13.0
   } ],
   "keyValues" : [ ]
 }, {
@@ -474,13 +585,14 @@
   }, {
     "name" : "stroke",
     "uuid" : "c6dcfe0d-51f7-49e7-810e-d25faf216e1c",
-    "order" : 5.0
+    "order" : 5.0,
+    "voided" : true
   }, {
     "name" : "TB",
     "uuid" : "14782716-bb88-49a6-8aaf-fcbe7c7b7349",
     "order" : 6.0
   }, {
-    "name" : "Asthama",
+    "name" : "Asthma",
     "uuid" : "cadc9e36-9574-4759-ab2e-ec6cdc665b6c",
     "order" : 7.0
   }, {
@@ -500,6 +612,10 @@
     "name" : "Any other",
     "uuid" : "2ed1960a-08e6-4c0e-83da-0e40086ab091",
     "order" : 11.0
+  }, {
+    "name" : "Stroke",
+    "uuid" : "4030f8ee-bfd2-40c1-add1-7e71ad717e9f",
+    "order" : 12.0
   } ],
   "keyValues" : [ ]
 }, {
@@ -556,7 +672,7 @@
     "uuid" : "14782716-bb88-49a6-8aaf-fcbe7c7b7349",
     "order" : 6.0
   }, {
-    "name" : "Asthama",
+    "name" : "Asthma",
     "uuid" : "cadc9e36-9574-4759-ab2e-ec6cdc665b6c",
     "order" : 7.0
   }, {
@@ -742,13 +858,23 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "ARI",
+  "uuid" : "83f5864d-a0d6-4f2f-81d4-53217aa93fec",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Artificial pots",
   "uuid" : "28113a65-3b92-4d6c-a0a2-9a391b8abbd0",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "Asthama",
+  "name" : "Assisted",
+  "uuid" : "d7f2ee9a-6c76-42d1-849d-e13a78a54b22",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Asthma",
   "uuid" : "cadc9e36-9574-4759-ab2e-ec6cdc665b6c",
   "dataType" : "NA",
   "active" : true,
@@ -765,6 +891,20 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Availed services under PMSMA scheme",
+  "uuid" : "9fc68cda-63b0-4a67-9917-681f6636ff89",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
 }, {
   "name" : "Ayushman Bharat",
   "uuid" : "aee5bc1b-aad0-454f-8929-873b4afb6af1",
@@ -783,6 +923,30 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Batch Name",
+  "uuid" : "5b72b876-1243-406c-b5fd-7eac708c973a",
+  "dataType" : "Text",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "BCG",
+  "uuid" : "55be5f5b-64c4-493d-bc7b-267f21d606ff",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
 }, {
   "name" : "Beary",
   "uuid" : "e0a11ce8-eb82-468d-bf79-76d29a2be46c",
@@ -808,11 +972,26 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Birth Defect",
+  "uuid" : "83819c7d-a6c9-4dc2-9cac-81b7c567a05c",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Birth order of the child",
   "uuid" : "2cec6829-f0c5-4c5d-8517-3a216fa34f4d",
   "dataType" : "Numeric",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Birth weight of the baby 2 in kgs",
+  "uuid" : "9f31cc39-60d1-4501-84fb-5d0ef2edd840",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "Birth weight of the baby 3 in kgs",
+  "uuid" : "a099aad2-703c-42dc-bc1a-89f0cd6ffd70",
+  "dataType" : "Numeric",
+  "active" : true
 }, {
   "name" : "Birth weight of the baby in kgs",
   "uuid" : "b852e7b8-1c5f-4a7d-9262-99dd3ac2718c",
@@ -914,6 +1093,40 @@
     "order" : 1.0
   } ]
 }, {
+  "name" : "BMI",
+  "uuid" : "0b5ae1e8-e44a-4457-a38a-44d5103a8fdd",
+  "dataType" : "Numeric",
+  "lowNormal" : 18.5,
+  "highNormal" : 24.9,
+  "unit" : "kg/m²",
+  "active" : true
+}, {
+  "name" : "BMI Status",
+  "uuid" : "fa2a334c-7011-4713-a7a3-2691c5b1718a",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Normal",
+    "uuid" : "0d66b321-92bc-489f-ab0b-f3762f6489ed",
+    "order" : 0.0
+  }, {
+    "name" : "Overweight",
+    "uuid" : "fa9f11fe-cc1f-4512-b1a7-e7fb8a8120e7",
+    "abnormal" : true,
+    "order" : 1.0
+  }, {
+    "name" : "Underweight",
+    "uuid" : "0c3ab357-4d33-4701-b86b-3e5cab4e561c",
+    "abnormal" : true,
+    "order" : 2.0
+  }, {
+    "name" : "Obese",
+    "uuid" : "555989ba-835c-45b7-8233-ff71f4c470dc",
+    "abnormal" : true,
+    "order" : 3.0
+  } ],
+  "keyValues" : [ ]
+}, {
   "name" : "boiling",
   "uuid" : "1926fcd1-2474-41f4-8f70-1a7365672b02",
   "dataType" : "NA",
@@ -980,6 +1193,11 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Caesarean",
+  "uuid" : "02ca2b63-3c20-4aa1-ad3c-d470be77cfd9",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Cancer",
   "uuid" : "05e31d6f-1cff-4f51-a6fe-948baa5312cf",
   "dataType" : "NA",
@@ -1004,8 +1222,19 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Cardiovascular disease",
+  "uuid" : "e8f9a867-f3ce-4684-b666-f0d4c3b87f79",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "CGHS",
   "uuid" : "00f16c9f-bc94-4db1-8af2-b5fc81b78466",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Change in Marital Status",
+  "uuid" : "c6a19385-f7e3-499c-86c1-f09fb1568ad2",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -1036,6 +1265,192 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Child attained all developmental milestones",
+  "uuid" : "a35a4955-fe92-40b0-bdd6-0101cdd5af8a",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "Delayed",
+    "uuid" : "f3295ef8-496f-4116-ada7-76a0c1913dd4",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Child bottle-fed or not",
+  "uuid" : "4fae8872-daae-4ab4-a2c0-2b3ddd59bb33",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Child developmental milestones delayed",
+  "uuid" : "9bf3999a-059c-4696-9d62-d1c5ee4c83b6",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Child experienced acute respiratory infection",
+  "uuid" : "40316d0b-5b6b-4581-b276-bae29940d4ef",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Child experienced acute respiratory infection in the last 3 months",
+  "uuid" : "77e29849-fa61-4d63-b73f-fb9f6a61ef05",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Child experienced diarrhea",
+  "uuid" : "50ce5455-f103-41b9-96a4-6f165c0ad6c0",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Child experienced diarrhoea in the last 3 months",
+  "uuid" : "af2c1850-88e8-4922-9987-77fba6eafb89",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Child fully immunized till date",
+  "uuid" : "226d2d35-d003-48a7-a699-542d9d0b8b84",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
+  "uuid" : "1f0dbb20-1da6-40cb-bb69-cbee9fb570f6",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Child had fever",
+  "uuid" : "c75ad415-da4f-4613-bbf1-68ede5bd68a6",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Child had the fast or difficult breathing",
+  "uuid" : "11717d55-0184-4b06-bc77-490255e2861a",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Child has other health problems",
+  "uuid" : "90ad73f3-5f38-4e83-9829-883c6bfb5db7",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Child have deformity",
+  "uuid" : "ea07ad63-a3fa-47a3-9493-792dad5c29dd",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Child Immunization before discharge from the hospital",
+  "uuid" : "8f33bbb7-982d-4401-ae9f-f49c3a0063ac",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Child weaned at 6 months of age",
+  "uuid" : "e45c7db0-f3d0-44de-9f82-61238f31bf80",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
   "name" : "Chlorination",
   "uuid" : "75536b7c-0c21-469d-b1ef-f3cef8703272",
   "dataType" : "NA",
@@ -1060,14 +1475,20 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Coconut shells",
+  "uuid" : "bb0b6a89-44fd-4872-8aee-57ee1d883791",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
   "name" : "coconut shells",
   "uuid" : "88904b70-09cb-4b81-9925-f980599bf650",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "Coconut shells",
-  "uuid" : "bb0b6a89-44fd-4872-8aee-57ee1d883791",
+  "name" : "cold",
+  "uuid" : "459808e3-dc87-4b95-90bc-8ea880c3f417",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -1078,11 +1499,23 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "cold",
-  "uuid" : "459808e3-dc87-4b95-90bc-8ea880c3f417",
-  "dataType" : "NA",
+  "name" : "Colostrum given",
+  "uuid" : "ceb91b63-c9e2-456e-af24-32c15e2c9433",
+  "dataType" : "Coded",
   "active" : true,
-  "keyValues" : [ ]
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
 }, {
   "name" : "Colostrum given to the child",
   "uuid" : "923b2b78-6138-436b-b691-8e319c4f9c9c",
@@ -1103,11 +1536,21 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Completed till date",
+  "uuid" : "e9f4853a-41c7-4df9-b66d-388302b85b13",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Condoms",
   "uuid" : "85cd10ce-093b-4363-9b1b-37b736df5fbe",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Congenital anomaly",
+  "uuid" : "da3bb51a-291b-4620-b64d-80ca9e38c664",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Consumed in past/ sometimes now",
   "uuid" : "507868c2-1025-4a8f-b757-24d416a53ac9",
@@ -1179,7 +1622,7 @@
     "uuid" : "28846496-9feb-49bf-94b0-d9efbd96d1d2",
     "order" : 1.0
   }, {
-    "name" : "Female marriage",
+    "name" : "Change in Marital Status",
     "uuid" : "c6a19385-f7e3-499c-86c1-f09fb1568ad2",
     "order" : 2.0
   }, {
@@ -1211,6 +1654,21 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Date of first dose of TT",
+  "uuid" : "0389ab96-b15e-4fc5-872f-75bc2fabe138",
+  "dataType" : "Date",
+  "active" : true
+}, {
+  "name" : "Date of Pregnancy Outcome",
+  "uuid" : "227adfb9-d254-4bf2-a4e2-1bac9358d867",
+  "dataType" : "Date",
+  "active" : true
+}, {
+  "name" : "Date of second dose of TT",
+  "uuid" : "bcafed31-d484-4a1d-b141-15f2f470d7ae",
+  "dataType" : "Date",
+  "active" : true
+}, {
   "name" : "Daughter",
   "uuid" : "f6185bc8-892a-454f-8aba-689b5dce1a47",
   "dataType" : "NA",
@@ -1227,6 +1685,16 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Deficiency",
+  "uuid" : "e119e982-db0b-4d89-8702-317b0c8b6605",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Deformity",
+  "uuid" : "8d261be4-92da-49bf-8482-7eae40904187",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Delayed",
   "uuid" : "f3295ef8-496f-4116-ada7-76a0c1913dd4",
@@ -1246,6 +1714,11 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Developmental delay",
+  "uuid" : "0cb4c93e-2c4a-46b1-92e5-ec1340d132fb",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Diabetes followup,have you developed any complication",
   "uuid" : "60ad9a6a-cb8d-4145-9f8a-295d8fcc1759",
   "dataType" : "Coded",
@@ -1260,14 +1733,14 @@
     "order" : 1.0
   } ]
 }, {
-  "name" : "Diarrhoea",
-  "uuid" : "1cb1bae0-200d-41c1-b498-a25b0ba4f184",
+  "name" : "diarrhoea",
+  "uuid" : "90e18ee1-cb7f-40d3-aa3f-074b685063fc",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "diarrhoea",
-  "uuid" : "90e18ee1-cb7f-40d3-aa3f-074b685063fc",
+  "name" : "Diarrhoea",
+  "uuid" : "1cb1bae0-200d-41c1-b498-a25b0ba4f184",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -1387,6 +1860,78 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Doctor",
+  "uuid" : "b8b3d307-bad2-40d1-87fe-af6842366582",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Does the child has any other health problem",
+  "uuid" : "47b12e85-1b82-415d-a488-07b98be7cc76",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Does the child have any deformity",
+  "uuid" : "cd633d8c-eef0-4396-a096-4c321fb1a44c",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Does the child have any known deficiency",
+  "uuid" : "6645ac75-db15-4cc7-8ba0-7695396def8e",
+  "dataType" : "Text",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Does the child have any known deficiency (voided~38661)",
+  "uuid" : "84b4cc6b-aee6-4076-8ce0-48eaa39b3e21",
+  "dataType" : "Text",
+  "active" : true,
+  "voided" : true
+}, {
+  "name" : "Does the child have any known deficiency (voided~38662)",
+  "uuid" : "708be0a6-0e99-44d6-84a3-83096f180c14",
+  "dataType" : "Coded",
+  "active" : true,
+  "voided" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
   "name" : "Domestic purification methods used",
   "uuid" : "7ba3b46e-d9f7-4f91-b38d-a587a4686951",
   "dataType" : "Coded",
@@ -1420,6 +1965,18 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "DPT B1",
+  "uuid" : "8896a72a-bb0a-4589-9cdd-d58c04ec9f58",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "DPT B2",
+  "uuid" : "ef5845c0-aa4c-4bba-a323-4fe30babb573",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
   "name" : "Drainage",
   "uuid" : "49c1f3cc-43f5-4173-8742-caeae24ad680",
   "dataType" : "NA",
@@ -1432,7 +1989,7 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "driver",
+  "name" : "Driver",
   "uuid" : "383d2b72-a3cc-4b8e-8540-d509378ebb3c",
   "dataType" : "NA",
   "active" : true,
@@ -1448,6 +2005,25 @@
   "uuid" : "2aefc479-7123-4867-9ff8-a8e2f6b31b43",
   "dataType" : "Text",
   "active" : true
+}, {
+  "name" : "Duration of Exclusive breastfeeding in months",
+  "uuid" : "b78188e8-9f08-497d-8b2f-197c14c5445c",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "Early registration (<12 weeks)",
+  "uuid" : "2fd7c36a-b025-4cb6-954c-2806e9b1269f",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
 }, {
   "name" : "Eating of fast foods like fried and bakery items weekly",
   "uuid" : "182d8aef-512d-4d50-8fd8-95cb01f3ccbe",
@@ -1480,7 +2056,7 @@
     "uuid" : "a25e5cbb-ba40-4596-8fce-beef9066a9ee",
     "order" : 1.0
   }, {
-    "name" : "secondary",
+    "name" : "Secondary",
     "uuid" : "26b4c395-c137-411c-87cd-7044c4c96e6d",
     "order" : 2.0
   }, {
@@ -1544,7 +2120,12 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "engeenier",
+  "name" : "Emergency OC pills",
+  "uuid" : "85ce75e9-2cc2-435c-9496-523738acfed7",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Engineer",
   "uuid" : "cf3d3051-71b7-4070-920f-0a0d41158d20",
   "dataType" : "NA",
   "active" : true,
@@ -1561,6 +2142,11 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Estimated Date of Delivery",
+  "uuid" : "448d443b-ffd6-446e-bbb9-bf1b1ef450b4",
+  "dataType" : "Date",
+  "active" : true
 }, {
   "name" : "Extended",
   "uuid" : "833643ee-24ba-4f28-b747-852c2aa280d3",
@@ -1645,12 +2231,6 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "Female marriage",
-  "uuid" : "c6a19385-f7e3-499c-86c1-f09fb1568ad2",
-  "dataType" : "NA",
-  "active" : true,
-  "keyValues" : [ ]
-}, {
   "name" : "Fever",
   "uuid" : "898cebc8-2022-4ba5-b6c0-dbda1a124791",
   "dataType" : "NA",
@@ -1690,6 +2270,30 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Foetal movement not felt",
+  "uuid" : "668b5b26-24a1-45d1-a9ab-7b476348f3dd",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Foetal movements felt",
+  "uuid" : "0e5f1135-f3a8-4b66-8fb6-3acb74959e3a",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
   "name" : "Fogging",
   "uuid" : "5cc45640-89b1-4496-9b76-5dacd3f7b7b4",
   "dataType" : "NA",
@@ -1722,6 +2326,11 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Fruit seller",
+  "uuid" : "5eb7251b-9243-48b1-b8f3-bcf317290fbf",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "gadgets with internet facility",
   "uuid" : "e68890ba-f978-4c4d-a958-9fd22125cc87",
   "dataType" : "NA",
@@ -1753,11 +2362,70 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Gender of the baby",
+  "uuid" : "0c953cca-3d44-4834-a888-4d3f58ce8183",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Male",
+    "uuid" : "12343da0-a278-4b30-a54c-8e2d10471778",
+    "order" : 0.0
+  }, {
+    "name" : "Female",
+    "uuid" : "973fd3d2-d18d-404f-b4b6-1cdd8ac63566",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Gender of the baby 2",
+  "uuid" : "d8e6e4b1-4aaf-47b2-a68f-1eec293da0b6",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Male",
+    "uuid" : "12343da0-a278-4b30-a54c-8e2d10471778",
+    "order" : 0.0
+  }, {
+    "name" : "Female",
+    "uuid" : "973fd3d2-d18d-404f-b4b6-1cdd8ac63566",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Gender of the baby 3",
+  "uuid" : "e231e0a0-d4b8-4312-94fb-abdad593d2ef",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Male",
+    "uuid" : "12343da0-a278-4b30-a54c-8e2d10471778",
+    "order" : 0.0
+  }, {
+    "name" : "Female",
+    "uuid" : "973fd3d2-d18d-404f-b4b6-1cdd8ac63566",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
   "name" : "General",
   "uuid" : "f46eeff3-797b-4adf-ae35-fcc83034e93c",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Gestational age in weeks",
+  "uuid" : "5030abb0-43f0-41e3-b618-50ac64e57113",
+  "dataType" : "Numeric",
+  "active" : true
 }, {
   "name" : "Give details (Name,illness,Age,gender)",
   "uuid" : "7def0fd7-d6ce-4df5-b109-656ecf5e5aef",
@@ -1824,6 +2492,11 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Gravida",
+  "uuid" : "3ee9088e-8809-44d1-9e76-c5bcca84fe3b",
+  "dataType" : "Numeric",
+  "active" : true
 }, {
   "name" : "Habit of fruit intake atleast 3 servings daily",
   "uuid" : "2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d",
@@ -1897,6 +2570,38 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Have you received first dose of TT",
+  "uuid" : "f8380766-d281-477a-a91f-249ee6073dec",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Have you received second dose of TT",
+  "uuid" : "a4527091-7229-410f-8df0-1d2484f99169",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not eligible",
+    "uuid" : "25e8e8da-d16d-43c1-a8b2-53c9fbe238b1",
+    "order" : 2.0
+  } ]
+}, {
   "name" : "Have you suffered from TB in the last 5 years?",
   "uuid" : "1df01bab-167a-4d80-b266-0bd13be7755a",
   "dataType" : "Coded",
@@ -1927,6 +2632,21 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Have you tried something new in your business",
+  "uuid" : "f1ede6a0-186e-4999-adef-2df4ce3d1541",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ],
+  "keyValues" : [ ]
+}, {
   "name" : "Have you utilized 24*7 hour Mobile Malaria Detection Unit?",
   "uuid" : "e224f89f-f9a1-4731-9c05-3ce61d46eef5",
   "dataType" : "Coded",
@@ -1941,6 +2661,24 @@
     "order" : 1.0
   } ],
   "keyValues" : [ ]
+}, {
+  "name" : "HBV",
+  "uuid" : "011d87b7-0404-4fcd-a85a-87893ea85678",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
 }, {
   "name" : "Health facility preferred for acute illness",
   "uuid" : "da29256e-720c-4071-a8f4-9e563749aef1",
@@ -1980,9 +2718,95 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Health status of new born in PNC",
+  "uuid" : "b3773e5b-93e4-43cd-946c-2e7623254d63",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Normal",
+    "uuid" : "0d66b321-92bc-489f-ab0b-f3762f6489ed",
+    "unique" : true,
+    "order" : 0.0
+  }, {
+    "name" : "Birth Defect",
+    "uuid" : "83819c7d-a6c9-4dc2-9cac-81b7c567a05c",
+    "order" : 1.0
+  }, {
+    "name" : "Congenital anomaly",
+    "uuid" : "da3bb51a-291b-4620-b64d-80ca9e38c664",
+    "order" : 2.0
+  }, {
+    "name" : "Deficiency",
+    "uuid" : "e119e982-db0b-4d89-8702-317b0c8b6605",
+    "order" : 3.0
+  }, {
+    "name" : "ARI",
+    "uuid" : "83f5864d-a0d6-4f2f-81d4-53217aa93fec",
+    "order" : 4.0
+  }, {
+    "name" : "Diarrhoea",
+    "uuid" : "1cb1bae0-200d-41c1-b498-a25b0ba4f184",
+    "order" : 5.0
+  }, {
+    "name" : "Fever",
+    "uuid" : "898cebc8-2022-4ba5-b6c0-dbda1a124791",
+    "order" : 6.0
+  }, {
+    "name" : "Developmental delay",
+    "uuid" : "0cb4c93e-2c4a-46b1-92e5-ec1340d132fb",
+    "order" : 7.0
+  } ]
+}, {
+  "name" : "Health status of the child",
+  "uuid" : "7e2abce5-0dfa-4fb8-8480-c5a74e3caeac",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Normal",
+    "uuid" : "0d66b321-92bc-489f-ab0b-f3762f6489ed",
+    "order" : 0.0
+  }, {
+    "name" : "Any complaints",
+    "uuid" : "0dd2dec0-7ebc-46db-8f52-a9f4a201381b",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Health status of the new born",
+  "uuid" : "c9aeb1ee-ddc1-4872-b885-e3e000463610",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Normal",
+    "uuid" : "0d66b321-92bc-489f-ab0b-f3762f6489ed",
+    "order" : 0.0
+  }, {
+    "name" : "Birth Defect",
+    "uuid" : "83819c7d-a6c9-4dc2-9cac-81b7c567a05c",
+    "order" : 1.0
+  }, {
+    "name" : "Deformity",
+    "uuid" : "8d261be4-92da-49bf-8482-7eae40904187",
+    "order" : 2.0
+  }, {
+    "name" : "Death",
+    "uuid" : "28846496-9feb-49bf-94b0-d9efbd96d1d2",
+    "order" : 3.0
+  }, {
+    "name" : "Physological Jaundice",
+    "uuid" : "9a5ee632-50b9-4fe5-bdde-11cade8efdcf",
+    "order" : 4.0
+  } ]
+}, {
   "name" : "Heart disease",
   "uuid" : "2442f446-885b-4918-9940-ec9e6edf9647",
   "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Height",
+  "uuid" : "502552c4-7d2a-4e81-b6ce-acacfaf21560",
+  "dataType" : "Numeric",
+  "unit" : "cm",
   "active" : true,
   "keyValues" : [ ]
 }, {
@@ -1992,7 +2816,154 @@
   "unit" : "cm",
   "active" : true
 }, {
-  "name" : "HINDI",
+  "name" : "Hemoglobin level",
+  "uuid" : "a121ed17-61fd-4497-bb13-10ccc34c1db0",
+  "dataType" : "Numeric",
+  "lowNormal" : 12.0,
+  "highNormal" : 15.5,
+  "unit" : "g/dL",
+  "active" : true
+}, {
+  "name" : "HEPB 0",
+  "uuid" : "946dd9ad-b625-47f2-8992-41af738eba54",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "High Blood Pressure",
+  "uuid" : "f0245a66-2846-45cc-8760-2113500ff57b",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "High Risk Conditions",
+  "uuid" : "f03679f8-3228-4f52-96f9-a78578cc61c2",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Multipara",
+    "uuid" : "4469da6b-60e7-4305-bf5e-2039a2fb92c2",
+    "abnormal" : true,
+    "order" : 0.0
+  }, {
+    "name" : "High Blood Pressure",
+    "uuid" : "f0245a66-2846-45cc-8760-2113500ff57b",
+    "abnormal" : true,
+    "order" : 1.0
+  }, {
+    "name" : "Abnormal Hb",
+    "uuid" : "661f0a4c-6650-4371-b8f0-85f942e97851",
+    "abnormal" : true,
+    "order" : 2.0
+  }, {
+    "name" : "Overweight",
+    "uuid" : "fa9f11fe-cc1f-4512-b1a7-e7fb8a8120e7",
+    "abnormal" : true,
+    "order" : 3.0
+  }, {
+    "name" : "Underweight",
+    "uuid" : "0c3ab357-4d33-4701-b86b-3e5cab4e561c",
+    "abnormal" : true,
+    "order" : 4.0
+  }, {
+    "name" : "Obese",
+    "uuid" : "555989ba-835c-45b7-8233-ff71f4c470dc",
+    "abnormal" : true,
+    "order" : 5.0
+  }, {
+    "name" : "abnormal RBS",
+    "uuid" : "8f7f957f-c26f-41c5-a763-349cc302698d",
+    "abnormal" : true,
+    "order" : 6.0
+  }, {
+    "name" : "History of bleeding/leaking per Vagina",
+    "uuid" : "bdc82858-4a75-4524-8eb3-53dd7f476d20",
+    "abnormal" : true,
+    "order" : 7.0
+  }, {
+    "name" : "Foetal movement not felt",
+    "uuid" : "668b5b26-24a1-45d1-a9ab-7b476348f3dd",
+    "abnormal" : true,
+    "order" : 8.0
+  }, {
+    "name" : "History of previous Cesarean Section",
+    "uuid" : "a60cb140-a48e-4aab-a24e-8f21d20bca81",
+    "abnormal" : true,
+    "order" : 9.0
+  }, {
+    "name" : "Past Obstetric History",
+    "uuid" : "134eeba0-fbc8-4af2-9319-79f22cf63fab",
+    "abnormal" : true,
+    "order" : 10.0
+  }, {
+    "name" : "Pregnancy Complications",
+    "uuid" : "92d5bbd2-6ba1-44bf-b381-79fa185ab380",
+    "abnormal" : true,
+    "order" : 11.0
+  }, {
+    "name" : "Abnormal health status",
+    "uuid" : "a0a86bc1-3574-4b6d-bff6-f73b7b9bbb39",
+    "abnormal" : true,
+    "order" : 12.0
+  }, {
+    "name" : "Child developmental milestones delayed",
+    "uuid" : "9bf3999a-059c-4696-9d62-d1c5ee4c83b6",
+    "abnormal" : true,
+    "order" : 13.0
+  }, {
+    "name" : "Child have deformity",
+    "uuid" : "ea07ad63-a3fa-47a3-9493-792dad5c29dd",
+    "abnormal" : true,
+    "order" : 14.0
+  }, {
+    "name" : "Child experienced acute respiratory infection",
+    "uuid" : "40316d0b-5b6b-4581-b276-bae29940d4ef",
+    "abnormal" : true,
+    "order" : 15.0
+  }, {
+    "name" : "Child experienced diarrhea",
+    "uuid" : "50ce5455-f103-41b9-96a4-6f165c0ad6c0",
+    "abnormal" : true,
+    "order" : 16.0
+  }, {
+    "name" : "Child has other health problems",
+    "uuid" : "90ad73f3-5f38-4e83-9829-883c6bfb5db7",
+    "abnormal" : true,
+    "order" : 17.0
+  }, {
+    "name" : "Severely Underweight",
+    "uuid" : "57908a8e-6d6e-4df8-8699-c8ec9e9e013d",
+    "abnormal" : true,
+    "order" : 18.0
+  }, {
+    "name" : "Moderately Underweight",
+    "uuid" : "29b0d4f5-5855-4b1c-b501-6db80787d9d5",
+    "abnormal" : true,
+    "order" : 19.0
+  }, {
+    "name" : "Low Blood Pressure",
+    "uuid" : "d50670ac-b61f-4a00-b575-06ad6e3bfa9d",
+    "abnormal" : true,
+    "order" : 20.0
+  }, {
+    "name" : "Child had the fast or difficult breathing",
+    "uuid" : "11717d55-0184-4b06-bc77-490255e2861a",
+    "abnormal" : true,
+    "order" : 21.0
+  }, {
+    "name" : "Child had fever",
+    "uuid" : "c75ad415-da4f-4613-bbf1-68ede5bd68a6",
+    "abnormal" : true,
+    "order" : 22.0
+  }, {
+    "name" : "Abnormal BMI",
+    "uuid" : "be433fe3-53d2-490c-80e5-f5f88e53b382",
+    "abnormal" : true,
+    "order" : 23.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Hindi",
   "uuid" : "660b3d5f-00e2-4b01-b23e-66ca3ace5840",
   "dataType" : "NA",
   "active" : true,
@@ -2000,6 +2971,30 @@
 }, {
   "name" : "Hinduism",
   "uuid" : "b6b4fae9-9a44-4eea-990d-9ae997d41e89",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "History of bleeding/leaking per vagina",
+  "uuid" : "646b471d-08cd-4ebe-a5ba-9a3c781d26a3",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "History of bleeding/leaking per Vagina",
+  "uuid" : "bdc82858-4a75-4524-8eb3-53dd7f476d20",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -2076,7 +3071,7 @@
   } ],
   "keyValues" : [ ]
 }, {
-  "name" : "History of flu like symptoms in last 6 weeks",
+  "name" : "History of flu like symptoms in last 10 days",
   "uuid" : "13a1a45c-c32e-4bcf-804e-dc2915a00a8f",
   "dataType" : "Coded",
   "active" : true,
@@ -2111,6 +3106,32 @@
     "order" : 6.0
   } ],
   "keyValues" : [ ]
+}, {
+  "name" : "History of previous cesarean section",
+  "uuid" : "9b338ab9-73f3-4e32-b625-914c754f52f0",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "abnormal" : true,
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "History of previous Cesarean Section",
+  "uuid" : "a60cb140-a48e-4aab-a24e-8f21d20bca81",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Home delivery",
+  "uuid" : "7c3abaec-526a-4e02-a772-a41e4e9265b1",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Hospitalization",
   "uuid" : "d0905970-a36c-417e-b0ed-1875207cf92a",
@@ -2160,11 +3181,50 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "How many times in a last one year utilized the services",
+  "uuid" : "5e19aac4-ed3e-4ab2-b47d-692301fffa49",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
   "name" : "HT",
   "uuid" : "522e2821-a25d-4b35-a8c6-0be438aea517",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "If any health complaints specify",
+  "uuid" : "e9f6eeea-5ce3-4d7a-9765-5d9540177df1",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Birth Defect",
+    "uuid" : "83819c7d-a6c9-4dc2-9cac-81b7c567a05c",
+    "order" : 0.0
+  }, {
+    "name" : "Congenital anomaly",
+    "uuid" : "da3bb51a-291b-4620-b64d-80ca9e38c664",
+    "order" : 1.0
+  }, {
+    "name" : "Deficiency",
+    "uuid" : "e119e982-db0b-4d89-8702-317b0c8b6605",
+    "order" : 2.0
+  }, {
+    "name" : "ARI",
+    "uuid" : "83f5864d-a0d6-4f2f-81d4-53217aa93fec",
+    "order" : 3.0
+  }, {
+    "name" : "Diarrhoea",
+    "uuid" : "1cb1bae0-200d-41c1-b498-a25b0ba4f184",
+    "order" : 4.0
+  }, {
+    "name" : "Fever",
+    "uuid" : "898cebc8-2022-4ba5-b6c0-dbda1a124791",
+    "order" : 5.0
+  }, {
+    "name" : "Developmental delay",
+    "uuid" : "0cb4c93e-2c4a-46b1-92e5-ec1340d132fb",
+    "order" : 6.0
+  } ]
 }, {
   "name" : "If someone from your family is having some mentalillness,whether she/he is availing the health services",
   "uuid" : "67c33f11-2358-4360-8b86-65633232c773",
@@ -2185,11 +3245,159 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "If the medical illness is DM/HT/Thyroid disorder then whether is was  diagnosed during current pregnancy",
+  "uuid" : "9a4b7389-92e3-4cb2-9330-4911e9959899",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes, DM",
+    "uuid" : "70dab772-6c72-4c6c-ab17-7947f61a10eb",
+    "order" : 0.0
+  }, {
+    "name" : "Yes, HT",
+    "uuid" : "fb6f352e-4c5a-4c7c-b851-4759d8dfb4ed",
+    "order" : 1.0
+  }, {
+    "name" : "Yes, Thyroid",
+    "uuid" : "b606c47e-4560-4da7-a838-b1370d7ca1f7",
+    "order" : 2.0
+  }, {
+    "name" : "Yes, DM and HT",
+    "uuid" : "29e4b255-222d-476f-94a5-6520d6c16ce6",
+    "order" : 3.0
+  }, {
+    "name" : "Yes, DM and Thyroid disorder",
+    "uuid" : "cf4ccb01-5f88-488c-a516-4cf829a2e175",
+    "order" : 4.0
+  }, {
+    "name" : "Yes, HT and Thyroid disorder",
+    "uuid" : "c6dc96fc-f8b4-4999-9feb-011dc18da724",
+    "order" : 5.0
+  }, {
+    "name" : "Yes, DM, HT & Thyroid disorder",
+    "uuid" : "abf293fe-7f4e-4fa7-ad76-5e6f33e0e924",
+    "order" : 6.0
+  } ]
+}, {
   "name" : "If Yes give details about disability",
   "uuid" : "71124244-b1e2-42a7-82b3-15b79524352e",
   "dataType" : "Text",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "IF yes how many times in a week utilized the services",
+  "uuid" : "f123fcf5-c94c-4a8f-8fc0-eddb4ddd200e",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "If yes specify",
+  "uuid" : "575adac4-05da-42f9-9400-2ea0ce6bad4a",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "IF YES specify",
+  "uuid" : "31de6e7e-ba59-4416-8f79-9f668bf3b59d",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "IUCD",
+    "uuid" : "a2da56ed-0ce8-4bfd-b0fe-bf77491cdfe8",
+    "order" : 0.0
+  }, {
+    "name" : "Condoms",
+    "uuid" : "85cd10ce-093b-4363-9b1b-37b736df5fbe",
+    "order" : 1.0
+  }, {
+    "name" : "Tubectomy",
+    "uuid" : "7155ceb6-766c-471d-9c68-3bafd4cdbd13",
+    "order" : 2.0
+  }, {
+    "name" : "Vasectomy",
+    "uuid" : "4aad278f-d378-4b31-9589-209cc31c7777",
+    "order" : 3.0
+  }, {
+    "name" : "injectable contraceptive",
+    "uuid" : "df830209-3093-4dae-b9a6-c67de2633698",
+    "order" : 4.0
+  }, {
+    "name" : "Emergency OC pills",
+    "uuid" : "85ce75e9-2cc2-435c-9496-523738acfed7",
+    "order" : 5.0
+  } ]
+}, {
+  "name" : "If yes, Duration of bottle feeding in months",
+  "uuid" : "3e2cb7b9-9fdb-4de5-8562-070243841e54",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "If yes, Medical illness",
+  "uuid" : "141e5d6a-2882-4d76-8730-e369614c9b3f",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "No medical illness",
+    "uuid" : "6d21c79f-6694-4dad-a505-1a387dc88e7e",
+    "unique" : true,
+    "order" : 0.0
+  }, {
+    "name" : "DM",
+    "uuid" : "a90315ba-30c5-4b0d-96e3-355e43a0bb5c",
+    "order" : 1.0
+  }, {
+    "name" : "HT",
+    "uuid" : "522e2821-a25d-4b35-a8c6-0be438aea517",
+    "order" : 2.0
+  }, {
+    "name" : "Thyroid",
+    "uuid" : "f444ebab-52f9-4154-aa8e-3fb0c347d3d2",
+    "order" : 3.0
+  }, {
+    "name" : "Cardiovascular disease",
+    "uuid" : "e8f9a867-f3ce-4684-b666-f0d4c3b87f79",
+    "order" : 4.0
+  }, {
+    "name" : "Severe anaemia",
+    "uuid" : "556e5f8b-4c95-43b5-83a1-af101f672fd6",
+    "order" : 5.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 6.0
+  } ]
+}, {
+  "name" : "If yes, preferred place of antenatal check up",
+  "uuid" : "a48e9723-5b93-4e1a-a8ac-43d7192c5edb",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Sub centre",
+    "uuid" : "178f5f7e-47a7-45aa-9433-281349080f14",
+    "order" : 0.0
+  }, {
+    "name" : "PHC",
+    "uuid" : "706c83e9-2891-40b5-9d6e-1a30e4f235fa",
+    "order" : 1.0
+  }, {
+    "name" : "CHC",
+    "uuid" : "90fcd000-a1a7-4c65-927a-a3720a38c531",
+    "order" : 2.0
+  }, {
+    "name" : "District hospital",
+    "uuid" : "e53b3ab0-49a4-41a0-891b-d8e187e52c5c",
+    "order" : 3.0
+  }, {
+    "name" : "Private medical college hospital",
+    "uuid" : "959b7685-e1f8-4271-bb0b-8021f5018a72",
+    "order" : 4.0
+  }, {
+    "name" : "Private hospital",
+    "uuid" : "49e04d87-95ad-4337-bf68-c69f22a1f9a1",
+    "order" : 5.0
+  }, {
+    "name" : "Missing/Not Responded",
+    "uuid" : "6bd2e10d-0bd6-4416-9965-f7beffdd0e20",
+    "order" : 6.0
+  } ]
 }, {
   "name" : "If you have flu like illness then have you consulted any doctor?",
   "uuid" : "814af782-b235-4c50-a7c6-6a40398f1a0e",
@@ -2216,6 +3424,20 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Immunization status of child",
+  "uuid" : "b355767f-f082-4292-a9c8-1ef2c6ca81b7",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Completed till date",
+    "uuid" : "e9f4853a-41c7-4df9-b66d-388302b85b13",
+    "order" : 0.0
+  }, {
+    "name" : "Partial",
+    "uuid" : "b29b8380-57bc-4eef-9c38-de42953deebf",
+    "order" : 1.0
+  } ]
+}, {
   "name" : "In migrant",
   "uuid" : "ff05ccc6-d427-4df7-b858-bdf35f975a20",
   "dataType" : "NA",
@@ -2228,8 +3450,43 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Initiated breast feeding within 1 hr for normal delivery or 2 hr for CS",
+  "uuid" : "a85e83dc-f37c-48ef-af84-9aa52c82d620",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "injectable contraceptive",
+  "uuid" : "df830209-3093-4dae-b9a6-c67de2633698",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Inoli",
   "uuid" : "d7fa0e0b-39d1-417a-9e10-32f9e9d356f3",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "IPV 1",
+  "uuid" : "e45f068e-c52d-4232-89a1-8cbf08bdace3",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "IPV 2",
+  "uuid" : "398853e2-ef27-448a-804c-867761c46740",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -2252,6 +3509,20 @@
     "order" : 2.0
   } ],
   "keyValues" : [ ]
+}, {
+  "name" : "Is present pregnancy registered",
+  "uuid" : "41ff539e-2f33-43cb-a902-036c9b114860",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
 }, {
   "name" : "Is there a latrine in your house?",
   "uuid" : "cfa00c40-3c1a-4f98-9c34-f2f5e13f229b",
@@ -2278,6 +3549,11 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "IUCD",
+  "uuid" : "a2da56ed-0ce8-4bfd-b0fe-bf77491cdfe8",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "IUD",
   "uuid" : "4fd5321e-ff81-44bf-b504-2b260d123d38",
   "dataType" : "NA",
@@ -2296,14 +3572,14 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "Joint pains",
-  "uuid" : "d79885f7-5f35-4424-b440-7320dcc9a0bf",
+  "name" : "joint pains",
+  "uuid" : "2e2d7bca-0c95-4c0d-b465-c3e361aa2c8b",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "joint pains",
-  "uuid" : "2e2d7bca-0c95-4c0d-b465-c3e361aa2c8b",
+  "name" : "Joint pains",
+  "uuid" : "d79885f7-5f35-4424-b440-7320dcc9a0bf",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -2386,7 +3662,7 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "labourer",
+  "name" : "Labourer",
   "uuid" : "589209e3-54dd-4c37-af02-8b776bfdcbd4",
   "dataType" : "NA",
   "active" : true,
@@ -2404,11 +3680,21 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "lawyer",
+  "name" : "Last menstrual period",
+  "uuid" : "a9440019-fc51-43a9-a695-43bbe77d2da1",
+  "dataType" : "Date",
+  "active" : true
+}, {
+  "name" : "Lawyer",
   "uuid" : "2a991126-18d1-4b64-9f0f-c2caacfcaa53",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "LBW baby",
+  "uuid" : "0c246c2c-aab9-405f-98f7-b3929de75b42",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Less than 150 minutes a week",
   "uuid" : "c0806a37-0705-4133-8b33-00366f0a4a03",
@@ -2422,14 +3708,31 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Link individual to the household",
+  "uuid" : "4c9f4d32-997d-46da-81e1-9938613fe358",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Live Birth and Still Birth",
+  "uuid" : "3c4899b7-457f-4fb7-9562-eac8f9fb34fa",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "low backache",
+  "uuid" : "5096f462-f15f-483f-9bef-4716e09d7fa6",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
   "name" : "Low backache",
   "uuid" : "121c6a0b-90a7-4080-a579-40c6958fe724",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "low backache",
-  "uuid" : "5096f462-f15f-483f-9bef-4716e09d7fa6",
+  "name" : "Low Blood Pressure",
+  "uuid" : "d50670ac-b61f-4a00-b575-06ad6e3bfa9d",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -2445,6 +3748,11 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "LSCS",
+  "uuid" : "bda969d4-cfd2-46df-ba6c-5feb29841483",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Lump in the breast",
   "uuid" : "d9f8ee0c-960f-43d7-9b02-aa2557a9aa10",
@@ -2548,6 +3856,18 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Measles 1",
+  "uuid" : "85739598-46c0-4f4f-b4b3-d4c9add615c0",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Measles 2",
+  "uuid" : "6f1c5a27-9ae0-4b86-bd7e-0402bfd21cd4",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
   "name" : "Medical college (Other than YMCH)",
   "uuid" : "de0b2463-70be-464b-8b80-43d38d4e7853",
   "dataType" : "NA",
@@ -2647,8 +3967,19 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Missing/Not Responded",
+  "uuid" : "6bd2e10d-0bd6-4416-9965-f7beffdd0e20",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "moderate malnutrition",
   "uuid" : "06907002-0afa-41e7-8cf3-ba6f9751bd49",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Moderately Underweight",
+  "uuid" : "29b0d4f5-5855-4b1c-b501-6db80787d9d5",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -2735,7 +4066,7 @@
     "uuid" : "a00f9238-f227-494d-bd9f-f5374dd0e28c",
     "order" : 3.0
   }, {
-    "name" : "HINDI",
+    "name" : "Hindi",
     "uuid" : "660b3d5f-00e2-4b01-b23e-66ca3ace5840",
     "order" : 4.0
   }, {
@@ -2751,8 +4082,24 @@
     "name" : "Other",
     "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
     "order" : 7.0
+  }, {
+    "name" : "other please specify",
+    "uuid" : "539b58a9-ea9a-402b-950a-0271053198bd",
+    "order" : 8.0,
+    "voided" : true
   } ],
   "keyValues" : [ ]
+}, {
+  "name" : "Multipara",
+  "uuid" : "4469da6b-60e7-4305-bf5e-2039a2fb92c2",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Multiple live birth",
+  "uuid" : "a56826c5-7d06-4cbf-8340-924decf2c0ee",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Myalgia",
   "uuid" : "e09573c1-bdd3-4e11-b7e8-30ae430a6358",
@@ -2765,6 +4112,11 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Name of the ASHA",
+  "uuid" : "11682aa1-5e0e-4f76-834e-c0e4c3eb03e3",
+  "dataType" : "Text",
+  "active" : true
 }, {
   "name" : "Name of the head of the family",
   "uuid" : "6633afc7-d0e4-4427-87d4-277d8942ff48",
@@ -2925,7 +4277,7 @@
     "uuid" : "7b2aff0e-1f96-4197-a45a-e9c89377f7ea",
     "order" : 0.0
   }, {
-    "name" : "yen card",
+    "name" : "Yen Arogya Card",
     "uuid" : "5d6c2add-f9b5-470d-9d63-1aaa6a723329",
     "order" : 1.0
   }, {
@@ -3009,7 +4361,7 @@
     "uuid" : "395842ba-6ac4-4a9b-9e58-2d782c72159f",
     "order" : 6.0
   }, {
-    "name" : "Private hospital and other specify",
+    "name" : "Private Hospital",
     "uuid" : "0dec78d2-aec9-4ee8-a05d-e5413a67e04d",
     "order" : 7.0
   }, {
@@ -3052,7 +4404,7 @@
     "uuid" : "395842ba-6ac4-4a9b-9e58-2d782c72159f",
     "order" : 6.0
   }, {
-    "name" : "Private hospital and other specify",
+    "name" : "Private Hospital",
     "uuid" : "0dec78d2-aec9-4ee8-a05d-e5413a67e04d",
     "order" : 7.0
   }, {
@@ -3089,6 +4441,12 @@
   "name" : "Never user",
   "uuid" : "37027d69-43c2-455c-aba1-6728ac09c31a",
   "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "New experiment in business",
+  "uuid" : "655a2396-d4f2-4c8a-86db-aab5b75be9e0",
+  "dataType" : "Text",
   "active" : true,
   "keyValues" : [ ]
 }, {
@@ -3143,6 +4501,46 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "No medical illness",
+  "uuid" : "6d21c79f-6694-4dad-a505-1a387dc88e7e",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "No of abortions in the past",
+  "uuid" : "1617d0e0-83e0-4f10-ba1c-7fb24a1cc3da",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "No of antenatal visits in present pregnancy",
+  "uuid" : "21cf25b4-7c0f-470c-9886-47ca4279bd6a",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "No of antenatal visits in present pregnancy you made to the health facility",
+  "uuid" : "8dfb696a-0111-4a26-a52c-1119912dcd5e",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "No of home visits made by ASHA/ANM in present pregnancy",
+  "uuid" : "9d3d23c2-23b7-43c4-9f85-754effc4b308",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "No of home visits made by ASHA/ANM in present pregnancy within 42 days of your delivery",
+  "uuid" : "a8f3aeb4-2a3d-4708-8133-587f048f1190",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "No of living children",
+  "uuid" : "9bfe3d44-73b6-4f1b-a6f1-0b85f018ff34",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "No of postnatal visits in present pregnancy (first 42 days) you made to the health facility",
+  "uuid" : "89319985-aded-4213-adeb-b694c1767d3f",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
   "name" : "No potential breeding site",
   "uuid" : "a97d5c33-2cbd-4248-b14c-fdfacae740e1",
   "dataType" : "NA",
@@ -3167,6 +4565,11 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Normal with Episiotomy",
+  "uuid" : "f3e78f19-57d1-4497-bd7f-d103a89a12c0",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Not answered",
   "uuid" : "2438b62a-f044-4de2-b97b-a4c672feadf4",
   "dataType" : "NA",
@@ -3185,6 +4588,11 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Not eligible",
+  "uuid" : "25e8e8da-d16d-43c1-a8b2-53c9fbe238b1",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Not in Eligible Criteria",
   "uuid" : "b78df98e-67f9-48a7-8290-07b08999d7b5",
   "dataType" : "NA",
@@ -3196,6 +4604,11 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Not received",
+  "uuid" : "e2dadbe9-537b-4a5f-88c5-ad4c2f338bcf",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Not responded",
   "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
@@ -3209,11 +4622,29 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Note",
+  "uuid" : "72aa4629-d32e-47e4-96fd-f8098762490c",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Link individual to the household",
+    "uuid" : "4c9f4d32-997d-46da-81e1-9938613fe358",
+    "abnormal" : true,
+    "order" : 0.0
+  } ],
+  "keyValues" : [ ]
+}, {
   "name" : "Nuclear",
   "uuid" : "9c55fe14-6303-414a-9742-043b2443154a",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Number of Babies",
+  "uuid" : "7be55c84-4cdc-4165-89a9-a1621c12f9a4",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 1.0,
+  "active" : true
 }, {
   "name" : "Number of individuals in the household",
   "uuid" : "0bd4084c-11cb-4a30-84aa-c4cf5b2926d1",
@@ -3221,14 +4652,56 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Nurse",
+  "uuid" : "6c71ce97-9ffa-478c-98dc-dbf4cd62c223",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Nursing home",
   "uuid" : "d40dedd6-1040-4ef2-85e5-bb63efbfbcd0",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Nutri",
+  "uuid" : "eae69dea-4ec5-4622-8e69-36b7a4289f3b",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Normal",
+    "uuid" : "0d66b321-92bc-489f-ab0b-f3762f6489ed",
+    "order" : 0.0
+  }, {
+    "name" : "Moderately Underweight",
+    "uuid" : "29b0d4f5-5855-4b1c-b501-6db80787d9d5",
+    "abnormal" : true,
+    "order" : 1.0
+  }, {
+    "name" : "Severely Underweight",
+    "uuid" : "57908a8e-6d6e-4df8-8699-c8ec9e9e013d",
+    "abnormal" : true,
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Nutritional Status",
+  "uuid" : "594d859a-65dc-45e7-ae44-fffedd1de1b8",
+  "dataType" : "Text",
+  "active" : true
+}, {
+  "name" : "Nutritional Status from Mid Arm Circumference",
+  "uuid" : "87f7bb37-a357-4d1d-bc4c-d5060b883212",
+  "dataType" : "Text",
+  "active" : true
+}, {
   "name" : "OBC",
   "uuid" : "6fa2ad8f-eca2-49b4-bdcd-cdb73d7527cf",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Obese",
+  "uuid" : "555989ba-835c-45b7-8233-ff71f4c470dc",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -3252,11 +4725,11 @@
     "uuid" : "b8925f2a-5c8e-4f8e-be89-a7dce0221c36",
     "order" : 1.0
   }, {
-    "name" : "labourer",
+    "name" : "Labourer",
     "uuid" : "589209e3-54dd-4c37-af02-8b776bfdcbd4",
     "order" : 2.0
   }, {
-    "name" : "agricultural labourer",
+    "name" : "Agricultural labourer",
     "uuid" : "bfd70d2e-2d17-4b07-8132-c691497d2206",
     "order" : 3.0
   }, {
@@ -3264,11 +4737,11 @@
     "uuid" : "b9db2183-214f-44fb-bff2-7c4dc159fa5d",
     "order" : 4.0
   }, {
-    "name" : "skilled worker",
+    "name" : "Skilled worker",
     "uuid" : "f0b534c9-5c50-4e0e-a568-0ef067b5622b",
     "order" : 5.0
   }, {
-    "name" : "petty business",
+    "name" : "Petty business",
     "uuid" : "922519fc-ffd0-4689-9847-12d58bb103e5",
     "order" : 6.0
   }, {
@@ -3280,7 +4753,7 @@
     "uuid" : "7d8ff961-50d5-4582-87d1-ff037a75f04b",
     "order" : 8.0
   }, {
-    "name" : "teacher",
+    "name" : "Teacher",
     "uuid" : "c0588976-e915-4103-9635-2282081a19fa",
     "order" : 9.0
   }, {
@@ -3288,19 +4761,19 @@
     "uuid" : "0a8952b8-1b15-452e-ae3d-068ff9be0ebe",
     "order" : 10.0
   }, {
-    "name" : "lawyer",
+    "name" : "Lawyer",
     "uuid" : "2a991126-18d1-4b64-9f0f-c2caacfcaa53",
     "order" : 11.0
   }, {
-    "name" : "engeenier",
+    "name" : "Engineer",
     "uuid" : "cf3d3051-71b7-4070-920f-0a0d41158d20",
     "order" : 12.0
   }, {
-    "name" : "driver",
+    "name" : "Driver",
     "uuid" : "383d2b72-a3cc-4b8e-8540-d509378ebb3c",
     "order" : 13.0
   }, {
-    "name" : "retiered Health worker",
+    "name" : "Retired health worker",
     "uuid" : "82efd4f1-eec3-4035-9d51-a4c6f8b7ec09",
     "order" : 14.0
   }, {
@@ -3348,14 +4821,20 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "Other",
-  "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+  "name" : "Order of this delivery",
+  "uuid" : "ef04966b-a0b4-4173-b5b7-49b1d26721b2",
+  "dataType" : "Numeric",
+  "lowAbsolute" : 1.0,
+  "active" : true
+}, {
+  "name" : "other",
+  "uuid" : "6b02a9ee-7477-4bf8-9d0e-ef314ffec53f",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "other",
-  "uuid" : "6b02a9ee-7477-4bf8-9d0e-ef314ffec53f",
+  "name" : "Other",
+  "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -3365,6 +4844,11 @@
   "dataType" : "Text",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "other please specify",
+  "uuid" : "539b58a9-ea9a-402b-950a-0271053198bd",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Other Reason of Cancellation",
   "uuid" : "8263f129-5851-4f9d-a909-818dacacd862",
@@ -3388,6 +4872,11 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Other Vaccination Provider",
+  "uuid" : "351a1eb4-9d45-443c-8286-b7b914fe246c",
+  "dataType" : "Text",
+  "active" : true
 }, {
   "name" : "Others",
   "uuid" : "2257f6f3-eb9a-41ec-a6b8-bf3de6019e53",
@@ -3432,14 +4921,79 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Overweight",
+  "uuid" : "fa9f11fe-cc1f-4512-b1a7-e7fb8a8120e7",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
   "name" : "Panjikallu",
   "uuid" : "e3507b4e-238e-424f-89ec-d6cf22a8a661",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Para",
+  "uuid" : "368466f7-3aac-4155-a114-6269cef2e90c",
+  "dataType" : "Numeric",
+  "active" : true
+}, {
+  "name" : "Parity",
+  "uuid" : "a2ff788b-17df-4eb8-ba7c-afa9ba0b3ec5",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Multipara",
+    "uuid" : "4469da6b-60e7-4305-bf5e-2039a2fb92c2",
+    "abnormal" : true,
+    "order" : 0.0
+  } ],
+  "keyValues" : [ ]
+}, {
   "name" : "Parmanent Migration",
   "uuid" : "72c44148-f010-4c30-bc99-1fc6420fd1c1",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Partial",
+  "uuid" : "b29b8380-57bc-4eef-9c38-de42953deebf",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Past Obstetric history",
+  "uuid" : "d06dd2e8-ae04-4288-aab3-e55c87ecfb03",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Normal",
+    "uuid" : "0d66b321-92bc-489f-ab0b-f3762f6489ed",
+    "unique" : true,
+    "order" : 0.0
+  }, {
+    "name" : "LSCS",
+    "uuid" : "bda969d4-cfd2-46df-ba6c-5feb29841483",
+    "order" : 1.0
+  }, {
+    "name" : "Abortion",
+    "uuid" : "be3d89a0-d76d-4267-befb-f1e25b982f6f",
+    "order" : 2.0
+  }, {
+    "name" : "Still birth",
+    "uuid" : "8fe7fd8b-bd91-4285-bdae-6fedabbaa269",
+    "order" : 3.0
+  }, {
+    "name" : "LBW baby",
+    "uuid" : "0c246c2c-aab9-405f-98f7-b3929de75b42",
+    "order" : 4.0
+  }, {
+    "name" : "Any other complication",
+    "uuid" : "de203918-d3b2-4d21-9fbf-c36e11f6c6b8",
+    "order" : 5.0
+  } ]
+}, {
+  "name" : "Past Obstetric History",
+  "uuid" : "134eeba0-fbc8-4af2-9319-79f22cf63fab",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -3450,7 +5004,25 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "petty business",
+  "name" : "Pentavalent 1",
+  "uuid" : "218e4231-112c-4cf8-ab2c-26a4fd992307",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Pentavalent 2",
+  "uuid" : "38959e76-1bf5-48a0-8e59-30087dcac9c4",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Pentavalent 3",
+  "uuid" : "2d4b4f76-3d06-4888-8d68-574a041220da",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Petty business",
   "uuid" : "922519fc-ffd0-4689-9847-12d58bb103e5",
   "dataType" : "NA",
   "active" : true,
@@ -3476,6 +5048,11 @@
     "order" : 1.0
   } ]
 }, {
+  "name" : "Physological Jaundice",
+  "uuid" : "9a5ee632-50b9-4fe5-bdde-11cade8efdcf",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Pilimogaru",
   "uuid" : "0c7d4824-e68f-4343-b2ec-4da4e78f5c35",
   "dataType" : "NA",
@@ -3484,6 +5061,108 @@
 }, {
   "name" : "piped water supply by panchayat or muncipal corporation",
   "uuid" : "2e6a359f-dfb0-4409-bd6c-d34724a3bb4b",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Place of delivery",
+  "uuid" : "5c125db9-506f-44fc-9771-91b63316583b",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Home delivery",
+    "uuid" : "7c3abaec-526a-4e02-a772-a41e4e9265b1",
+    "order" : 0.0
+  }, {
+    "name" : "Subcentre",
+    "uuid" : "edcc526c-2424-4988-b97e-ff961131a160",
+    "order" : 1.0
+  }, {
+    "name" : "PHC",
+    "uuid" : "706c83e9-2891-40b5-9d6e-1a30e4f235fa",
+    "order" : 2.0
+  }, {
+    "name" : "CHC",
+    "uuid" : "90fcd000-a1a7-4c65-927a-a3720a38c531",
+    "order" : 3.0
+  }, {
+    "name" : "District hospital",
+    "uuid" : "e53b3ab0-49a4-41a0-891b-d8e187e52c5c",
+    "order" : 4.0
+  }, {
+    "name" : "Private medical college hospital",
+    "uuid" : "959b7685-e1f8-4271-bb0b-8021f5018a72",
+    "order" : 5.0
+  }, {
+    "name" : "Private hospital",
+    "uuid" : "49e04d87-95ad-4337-bf68-c69f22a1f9a1",
+    "order" : 6.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 7.0
+  } ]
+}, {
+  "name" : "Place of registration",
+  "uuid" : "cb75cb80-d3a4-4a54-bd0d-82a5b76971ea",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Sub centre",
+    "uuid" : "178f5f7e-47a7-45aa-9433-281349080f14",
+    "order" : 0.0
+  }, {
+    "name" : "PHC",
+    "uuid" : "706c83e9-2891-40b5-9d6e-1a30e4f235fa",
+    "order" : 1.0
+  }, {
+    "name" : "CHC",
+    "uuid" : "90fcd000-a1a7-4c65-927a-a3720a38c531",
+    "order" : 2.0
+  }, {
+    "name" : "District hospital",
+    "uuid" : "e53b3ab0-49a4-41a0-891b-d8e187e52c5c",
+    "order" : 3.0
+  }, {
+    "name" : "Private medical college hospital lab",
+    "uuid" : "37d4270c-1fd7-42c0-b380-b77ac76e6036",
+    "order" : 4.0
+  }, {
+    "name" : "Private hospital",
+    "uuid" : "49e04d87-95ad-4337-bf68-c69f22a1f9a1",
+    "order" : 5.0
+  }, {
+    "name" : "Missing/Not Responded",
+    "uuid" : "6bd2e10d-0bd6-4416-9965-f7beffdd0e20",
+    "order" : 6.0
+  } ]
+}, {
+  "name" : "Polio 0",
+  "uuid" : "201b2c81-4992-4b4b-b111-f609d8e4def4",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Polio 1",
+  "uuid" : "2014c6a0-1145-41a4-a8ad-94e7f53b1d70",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Polio 2",
+  "uuid" : "7bd38149-a72d-4723-9e5a-9f8ff3e4b56d",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Polio 3",
+  "uuid" : "e96d5cd0-24dd-4927-8c0d-aa0e5a8f48ab",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Polio Booster",
+  "uuid" : "26a420c6-8c47-47f7-9a42-1aaaef9de38c",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -3528,6 +5207,42 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Practicing any family planning methods",
+  "uuid" : "1b12cdc2-3403-4a1b-b796-2772e1c66e81",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Practicing exclusive breast feeding",
+  "uuid" : "fca3dc5c-72ba-4923-b17a-ab66c1126276",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
   "name" : "preference for food with excess salt",
   "uuid" : "fc5fb2db-c47c-43c3-9872-c64fd0ec23e4",
   "dataType" : "Coded",
@@ -3546,12 +5261,69 @@
     "order" : 2.0
   } ]
 }, {
-  "name" : "Present height of the child in cm",
-  "uuid" : "502552c4-7d2a-4e81-b6ce-acacfaf21560",
-  "dataType" : "Numeric",
-  "unit" : "cm",
+  "name" : "Pregnancy complications",
+  "uuid" : "b648b78f-79af-45d6-b8c4-b77a77967a73",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Pregnancy Complications",
+  "uuid" : "92d5bbd2-6ba1-44bf-b381-79fa185ab380",
+  "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Pregnancy complications from last visit",
+  "uuid" : "f263bd30-d350-45bf-bba4-b9c28b98dcbf",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Pregnancy outcome",
+  "uuid" : "a2adfec5-d84b-44a2-a410-7ebe2fdfe431",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Single live birth",
+    "uuid" : "c747d659-2e36-493f-a377-5729ca7972e6",
+    "order" : 0.0
+  }, {
+    "name" : "Multiple live birth",
+    "uuid" : "a56826c5-7d06-4cbf-8340-924decf2c0ee",
+    "order" : 1.0
+  }, {
+    "name" : "Still birth",
+    "uuid" : "8fe7fd8b-bd91-4285-bdae-6fedabbaa269",
+    "order" : 2.0
+  }, {
+    "name" : "Live Birth and Still Birth",
+    "uuid" : "3c4899b7-457f-4fb7-9562-eac8f9fb34fa",
+    "order" : 3.0
+  }, {
+    "name" : "Abortion (spontaneous)",
+    "uuid" : "71b92029-86c2-4099-8f27-738559970150",
+    "order" : 4.0
+  } ]
 }, {
   "name" : "Present Mid Arm Circumference in CM",
   "uuid" : "86f5e096-cbfc-4fa3-b045-08d81f82e23c",
@@ -3603,7 +5375,7 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "Private hospital and other specify",
+  "name" : "Private Hospital",
   "uuid" : "0dec78d2-aec9-4ee8-a05d-e5413a67e04d",
   "dataType" : "NA",
   "active" : true,
@@ -3809,6 +5581,140 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Received & consumed supplementary nutrition (Cooked food/THR) from Anganwadi centre",
+  "uuid" : "87f44c12-e03a-4fdd-bce1-ce0d0f487908",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Received and Consumed",
+    "uuid" : "9b50641f-552a-48be-a437-9900aac280be",
+    "order" : 0.0
+  }, {
+    "name" : "Received and not consumed",
+    "uuid" : "deee4d0e-9891-4928-a2ae-9c768a9924ee",
+    "order" : 1.0
+  }, {
+    "name" : "Not received",
+    "uuid" : "e2dadbe9-537b-4a5f-88c5-ad4c2f338bcf",
+    "order" : 2.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 3.0
+  } ]
+}, {
+  "name" : "Received and Consumed",
+  "uuid" : "9b50641f-552a-48be-a437-9900aac280be",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Received and consumed Albendazole tablet",
+  "uuid" : "dd280449-48fd-4086-9d98-fd56aebc9a3d",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Received and Consumed",
+    "uuid" : "9b50641f-552a-48be-a437-9900aac280be",
+    "order" : 0.0
+  }, {
+    "name" : "Received and not consumed",
+    "uuid" : "deee4d0e-9891-4928-a2ae-9c768a9924ee",
+    "order" : 1.0
+  }, {
+    "name" : "Not received",
+    "uuid" : "e2dadbe9-537b-4a5f-88c5-ad4c2f338bcf",
+    "order" : 2.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 3.0
+  } ]
+}, {
+  "name" : "Received and consumed calcium tablet",
+  "uuid" : "5188bc03-371a-495d-b724-385c5fbb0c58",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Received and Consumed",
+    "uuid" : "9b50641f-552a-48be-a437-9900aac280be",
+    "order" : 0.0
+  }, {
+    "name" : "Received and not consumed",
+    "uuid" : "deee4d0e-9891-4928-a2ae-9c768a9924ee",
+    "order" : 1.0
+  }, {
+    "name" : "Not received",
+    "uuid" : "e2dadbe9-537b-4a5f-88c5-ad4c2f338bcf",
+    "order" : 2.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 3.0
+  } ]
+}, {
+  "name" : "Received and consumed iron and folic acid tablets",
+  "uuid" : "519d0b30-7296-481c-bc62-b9a9ec640426",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Received and Consumed",
+    "uuid" : "9b50641f-552a-48be-a437-9900aac280be",
+    "order" : 0.0
+  }, {
+    "name" : "Received and not consumed",
+    "uuid" : "deee4d0e-9891-4928-a2ae-9c768a9924ee",
+    "order" : 1.0
+  }, {
+    "name" : "Not received",
+    "uuid" : "e2dadbe9-537b-4a5f-88c5-ad4c2f338bcf",
+    "order" : 2.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 3.0
+  } ]
+}, {
+  "name" : "Received and not consumed",
+  "uuid" : "deee4d0e-9891-4928-a2ae-9c768a9924ee",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Received any financial benefit under JSSK",
+  "uuid" : "6f274445-9121-4cf2-8b79-6d95be16be32",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Received any financial benefit under JSY",
+  "uuid" : "d99fa549-b82e-404c-9f26-24cc71b6c43b",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
   "name" : "Reduced using tobacco compared to last visit",
   "uuid" : "b539e775-5f28-43c0-b28d-663ef072ca46",
   "dataType" : "NA",
@@ -3927,7 +5833,7 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "retiered Health worker",
+  "name" : "Retired health worker",
   "uuid" : "82efd4f1-eec3-4035-9d51-a4c6f8b7ec09",
   "dataType" : "NA",
   "active" : true,
@@ -3991,6 +5897,10 @@
     "uuid" : "686c3e1a-d647-48a3-a2ec-b815fa751a9f",
     "abnormal" : true,
     "order" : 8.0
+  }, {
+    "name" : "0",
+    "uuid" : "5fa19450-76a7-4a64-ab1b-4be9a861da6d",
+    "order" : 9.0
   } ],
   "keyValues" : [ ]
 }, {
@@ -4002,6 +5912,24 @@
 }, {
   "name" : "rodents",
   "uuid" : "636e921f-5db3-415a-8d9a-22f389b5bbde",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "ROTA 1",
+  "uuid" : "9d75b725-12df-4c32-9840-95c8f8f6d4c8",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "ROTA 2",
+  "uuid" : "d4c7c21d-520a-4729-8e1d-93df6576acd4",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "ROTA 3",
+  "uuid" : "a227611a-8eb5-41e5-a8da-e2ec622c4d4a",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -4036,7 +5964,7 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "secondary",
+  "name" : "Secondary",
   "uuid" : "26b4c395-c137-411c-87cd-7044c4c96e6d",
   "dataType" : "NA",
   "active" : true,
@@ -4090,8 +6018,19 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Severe anaemia",
+  "uuid" : "556e5f8b-4c95-43b5-83a1-af101f672fd6",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "severe malnutrition",
   "uuid" : "05e42602-3e70-40b6-8882-a9a593c3591b",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Severely Underweight",
+  "uuid" : "57908a8e-6d6e-4df8-8699-c8ec9e9e013d",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -4132,6 +6071,11 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Single live birth",
+  "uuid" : "c747d659-2e36-493f-a377-5729ca7972e6",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Single parent",
   "uuid" : "2eb879f5-c8d7-4c96-bd88-42426b2168e8",
   "dataType" : "NA",
@@ -4144,7 +6088,7 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "skilled worker",
+  "name" : "Skilled worker",
   "uuid" : "f0b534c9-5c50-4e0e-a568-0ef067b5622b",
   "dataType" : "NA",
   "active" : true,
@@ -4316,6 +6260,11 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Specify Other obstetric History",
+  "uuid" : "0cf117f9-fc79-438c-bfdc-3c3bbe5c8f6f",
+  "dataType" : "Text",
+  "active" : true
+}, {
   "name" : "Specify Reason of visiting preferred health care facility",
   "uuid" : "4239ddc6-60cc-4ac0-ad7d-3d35bf2caace",
   "dataType" : "Text",
@@ -4381,14 +6330,19 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "Stroke",
-  "uuid" : "4030f8ee-bfd2-40c1-add1-7e71ad717e9f",
+  "name" : "Still birth",
+  "uuid" : "8fe7fd8b-bd91-4285-bdae-6fedabbaa269",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "stroke",
+  "uuid" : "c6dcfe0d-51f7-49e7-810e-d25faf216e1c",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "stroke",
-  "uuid" : "c6dcfe0d-51f7-49e7-810e-d25faf216e1c",
+  "name" : "Stroke",
+  "uuid" : "4030f8ee-bfd2-40c1-add1-7e71ad717e9f",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -4404,6 +6358,11 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Subcentre",
+  "uuid" : "edcc526c-2424-4988-b97e-ff961131a160",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Surce of water collection",
   "uuid" : "0afc590f-5a27-44f2-94a6-28c2f8bc92a7",
@@ -4446,6 +6405,11 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Tailoring",
+  "uuid" : "45634b25-da91-448c-9de2-16123ae3259e",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Taluka Hospital",
   "uuid" : "04894dba-cbc5-47f6-bb57-b140b5ccde13",
   "dataType" : "NA",
@@ -4464,11 +6428,25 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "teacher",
+  "name" : "Teacher",
   "uuid" : "c0588976-e915-4103-9635-2282081a19fa",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Thai card available",
+  "uuid" : "59c70bbd-a02e-4519-8b65-8383ae59adbc",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
 }, {
   "name" : "Thenkabellur",
   "uuid" : "84e4e801-d0a3-4d22-a828-07c49336394a",
@@ -4481,6 +6459,11 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Thyroid",
+  "uuid" : "f444ebab-52f9-4154-aa8e-3fb0c347d3d2",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "Total Income",
   "uuid" : "752cf346-243e-447a-a973-53891cb110b0",
@@ -4533,6 +6516,11 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Tubectomy",
+  "uuid" : "7155ceb6-766c-471d-9c68-3bafd4cdbd13",
+  "dataType" : "NA",
+  "active" : true
+}, {
   "name" : "Tulu",
   "uuid" : "9d89b0a2-7bf8-48a8-9b6e-3176bb00c9ce",
   "dataType" : "NA",
@@ -4562,6 +6550,51 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Type of business",
+  "uuid" : "7462c55f-302a-44bf-82aa-b18771d80304",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Fruit seller",
+    "uuid" : "5eb7251b-9243-48b1-b8f3-bcf317290fbf",
+    "order" : 0.0
+  }, {
+    "name" : "Farmer",
+    "uuid" : "b8925f2a-5c8e-4f8e-be89-a7dce0221c36",
+    "order" : 1.0
+  }, {
+    "name" : "Tailoring",
+    "uuid" : "45634b25-da91-448c-9de2-16123ae3259e",
+    "order" : 2.0
+  } ],
+  "keyValues" : [ ]
+}, {
+  "name" : "Type of delivery",
+  "uuid" : "7bd8cbdc-bc4b-42f1-87e2-09130ceb298c",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Normal",
+    "uuid" : "0d66b321-92bc-489f-ab0b-f3762f6489ed",
+    "order" : 0.0
+  }, {
+    "name" : "Caesarean",
+    "uuid" : "02ca2b63-3c20-4aa1-ad3c-d470be77cfd9",
+    "order" : 1.0
+  }, {
+    "name" : "Assisted",
+    "uuid" : "d7f2ee9a-6c76-42d1-849d-e13a78a54b22",
+    "order" : 2.0
+  }, {
+    "name" : "Normal with Episiotomy",
+    "uuid" : "f3e78f19-57d1-4497-bd7f-d103a89a12c0",
+    "order" : 3.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 4.0
+  } ]
 }, {
   "name" : "Type of family",
   "uuid" : "52a8b9a2-499b-4362-a95f-4df018cd644a",
@@ -4690,6 +6723,28 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Type of person who conducted the delivery",
+  "uuid" : "d2ba600e-3b2e-4ed2-bb67-c65af4dbdcdc",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Doctor",
+    "uuid" : "b8b3d307-bad2-40d1-87fe-af6842366582",
+    "order" : 0.0
+  }, {
+    "name" : "Nurse",
+    "uuid" : "6c71ce97-9ffa-478c-98dc-dbf4cd62c223",
+    "order" : 1.0
+  }, {
+    "name" : "ANM",
+    "uuid" : "d1f267ad-f698-402f-8dca-6d1593dd1eac",
+    "order" : 2.0
+  }, {
+    "name" : "Unskilled Person",
+    "uuid" : "289337af-12d0-4a1c-94e7-fc9c050d7915",
+    "order" : 3.0
+  } ]
+}, {
   "name" : "Type of potential breeding sites present",
   "uuid" : "225531c0-df1c-4ac2-8a24-c20d38b2b124",
   "dataType" : "Coded",
@@ -4799,11 +6854,22 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Underweight",
+  "uuid" : "0c3ab357-4d33-4701-b86b-3e5cab4e561c",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
   "name" : "Unmarried",
   "uuid" : "6754a4fe-8bb2-4604-9774-2950ed1f7c67",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Unskilled Person",
+  "uuid" : "289337af-12d0-4a1c-94e7-fc9c050d7915",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "UPHC Bunder",
   "uuid" : "412fdabd-e42b-4423-a26e-ddb2cc8592c0",
@@ -4817,8 +6883,77 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
+  "name" : "Vaccination provider",
+  "uuid" : "284354e3-78c4-41d7-830e-771aa313d171",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Subcentre",
+    "uuid" : "edcc526c-2424-4988-b97e-ff961131a160",
+    "order" : 0.0
+  }, {
+    "name" : "Anganwadi centre",
+    "uuid" : "6891b349-ac77-47f2-b6c4-f09aa048e963",
+    "order" : 1.0
+  }, {
+    "name" : "PHC",
+    "uuid" : "706c83e9-2891-40b5-9d6e-1a30e4f235fa",
+    "order" : 2.0
+  }, {
+    "name" : "CHC",
+    "uuid" : "90fcd000-a1a7-4c65-927a-a3720a38c531",
+    "order" : 3.0
+  }, {
+    "name" : "District hospital",
+    "uuid" : "e53b3ab0-49a4-41a0-891b-d8e187e52c5c",
+    "order" : 4.0
+  }, {
+    "name" : "Private hospital",
+    "uuid" : "49e04d87-95ad-4337-bf68-c69f22a1f9a1",
+    "order" : 5.0
+  }, {
+    "name" : "Other",
+    "uuid" : "7a0eb10c-ea2c-493a-ae1f-ad1cc40e5355",
+    "order" : 6.0
+  } ]
+}, {
   "name" : "Vajpayee Arogyashree for BPL",
   "uuid" : "92840a55-9ed8-40f7-8e70-86ac7fb4d289",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Vasectomy",
+  "uuid" : "4aad278f-d378-4b31-9589-209cc31c7777",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Vitamin A 1",
+  "uuid" : "113f2b4d-5974-4d63-8ede-ecc36fc2180b",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Vitamin A 2",
+  "uuid" : "8c4cd4ff-7465-4ec8-bf57-837505f97a3b",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Vitamin A 3",
+  "uuid" : "d5cb9384-3dfe-4f26-8558-ad8016c8754f",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Vitamin A 4",
+  "uuid" : "74bb7c85-a88f-4a3b-bbf6-2d57055d0966",
+  "dataType" : "NA",
+  "active" : true,
+  "keyValues" : [ ]
+}, {
+  "name" : "Vitamin A 5",
+  "uuid" : "019a75e9-58c7-4fcb-b933-6313a9eecd51",
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
@@ -4903,6 +7038,11 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "week of registration",
+  "uuid" : "fff8bd3b-f054-46e4-934c-ab931117a435",
+  "dataType" : "Numeric",
+  "active" : true
 }, {
   "name" : "weekly once",
   "uuid" : "8fa4e484-a466-4980-b872-24571bf1b2bc",
@@ -5034,6 +7174,20 @@
   } ],
   "keyValues" : [ ]
 }, {
+  "name" : "Whether anomaly scan done",
+  "uuid" : "574b3d38-50c0-4085-8812-cd3c3a3294b1",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
+}, {
   "name" : "Whether any person in the family is terminally ill",
   "uuid" : "b0b10c81-bd2d-404e-9b65-d299b16cd7fd",
   "dataType" : "Coded",
@@ -5067,6 +7221,42 @@
     "order" : 1.0
   } ]
 }, {
+  "name" : "Whether Child had fever in the last 3 months",
+  "uuid" : "33861da7-a628-4f7c-9b72-891eeb85c9e7",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Whether discharged within 48 hours/Two days",
+  "uuid" : "9878f701-2476-4d9b-9811-08b77748826a",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
+}, {
   "name" : "Whether panchayt/corporation provide chlorinated water?",
   "uuid" : "2ee24106-43f2-4b2f-9ff7-75080851bed3",
   "dataType" : "Coded",
@@ -5085,6 +7275,66 @@
     "order" : 2.0
   } ],
   "keyValues" : [ ]
+}, {
+  "name" : "Whether present pregnancy is twin pregnancy",
+  "uuid" : "3b1763e9-3a77-4976-874f-ad11e9436a92",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Whether received one specialist consultation",
+  "uuid" : "d5ad5edc-756c-4243-b49e-514219b9f9b8",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
+}, {
+  "name" : "Whether the  newborn child received all home based newborn care visits by ASHA during first month of delivery",
+  "uuid" : "141f724d-4171-4eb0-b4c2-6e3a2365df31",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
+  } ]
+}, {
+  "name" : "Whether thyroid profile done",
+  "uuid" : "b4ddba1a-7acc-4b28-9892-1d865dec88f6",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  } ]
 }, {
   "name" : "whether you had any illness in last two weeks?",
   "uuid" : "11713bd0-3ce6-4e0a-b65d-4f86f03a16db",
@@ -5176,6 +7426,24 @@
     "name" : "Not responded",
     "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
     "order" : 3.0
+  } ]
+}, {
+  "name" : "Whether your child had the fast or difficult breathing due to a problem in the chest or to a blocked or runny nose in last 3 months?",
+  "uuid" : "653c3368-bc21-4a39-a834-cf5f27325d1d",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "Not responded",
+    "uuid" : "cb972958-7b9d-4830-a52b-1cf7e1237508",
+    "order" : 2.0
   } ]
 }, {
   "name" : "Which religion do you practice?",
@@ -5270,7 +7538,7 @@
   "active" : true,
   "keyValues" : [ ]
 }, {
-  "name" : "yen card",
+  "name" : "Yen Arogya Card",
   "uuid" : "5d6c2add-f9b5-470d-9d63-1aaa6a723329",
   "dataType" : "NA",
   "active" : true,
@@ -5305,6 +7573,41 @@
   "dataType" : "NA",
   "active" : true,
   "keyValues" : [ ]
+}, {
+  "name" : "Yes, DM",
+  "uuid" : "70dab772-6c72-4c6c-ab17-7947f61a10eb",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Yes, DM and HT",
+  "uuid" : "29e4b255-222d-476f-94a5-6520d6c16ce6",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Yes, DM and Thyroid disorder",
+  "uuid" : "cf4ccb01-5f88-488c-a516-4cf829a2e175",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Yes, DM, HT & Thyroid disorder",
+  "uuid" : "abf293fe-7f4e-4fa7-ad76-5e6f33e0e924",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Yes, HT",
+  "uuid" : "fb6f352e-4c5a-4c7c-b851-4759d8dfb4ed",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Yes, HT and Thyroid disorder",
+  "uuid" : "c6dc96fc-f8b4-4999-9feb-011dc18da724",
+  "dataType" : "NA",
+  "active" : true
+}, {
+  "name" : "Yes, Thyroid",
+  "uuid" : "b606c47e-4560-4da7-a838-b1370d7ca1f7",
+  "dataType" : "NA",
+  "active" : true
 }, {
   "name" : "YMCH",
   "uuid" : "a42b2c70-293b-40a6-8508-7124f1a7c81f",
@@ -5342,4 +7645,22 @@
     "order" : 5.0
   } ],
   "keyValues" : [ ]
+}, {
+  "name" : "Zero dose OPV",
+  "uuid" : "5d322b1b-9682-4d9d-919d-4f0ba9bd1928",
+  "dataType" : "Coded",
+  "active" : true,
+  "answers" : [ {
+    "name" : "Yes",
+    "uuid" : "6622dbfd-5859-4e1e-914d-d8036121fad2",
+    "order" : 0.0
+  }, {
+    "name" : "No",
+    "uuid" : "7e59b61e-a0e4-4b81-8dcb-01c0543d4015",
+    "order" : 1.0
+  }, {
+    "name" : "don't know",
+    "uuid" : "58962ab8-a6b5-40cf-9046-00b4e09ab742",
+    "order" : 2.0
+  } ]
 } ]

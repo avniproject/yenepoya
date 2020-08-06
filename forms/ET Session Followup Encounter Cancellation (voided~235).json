@@ -1,0 +1,7 @@
+{
+  "name" : "ET Session Followup Encounter Cancellation (voided~235)",
+  "uuid" : "af31eb0c-af68-49d8-ae34-5303088d7ff7",
+  "formType" : "ProgramEncounterCancellation",
+  "formElementGroups" : [ ],
+  "voided" : true
+}

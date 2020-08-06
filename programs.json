@@ -1,42 +1,49 @@
-[
-  {
-    "name": "Child",
-    "uuid": "5fc20ed1-699c-4329-86f4-3884fccceb18",
-    "colour": "darkorange",
-    "voided": false,
-    "enrolmentEligibilityCheckRule": null,
-    "enrolmentSummaryRule": null
-  },
-  {
-    "name": "Diabetes",
-    "uuid": "e40e9fe2-6afa-4344-9ada-e61000d36e40",
-    "colour": "#38ACEC",
-    "voided": false,
-    "enrolmentEligibilityCheckRule": null,
-    "enrolmentSummaryRule": null
-  },
-  {
-    "name": "Hypertension",
-    "uuid": "debe0d88-3b8a-4ac4-9f95-80a1af3b83c5",
-    "colour": "#368200",
-    "voided": false,
-    "enrolmentEligibilityCheckRule": null,
-    "enrolmentSummaryRule": null
-  },
-  {
-    "name": "NCD ",
-    "uuid": "9d6cd285-fb85-48f0-badc-6f004b9024d8",
-    "colour": "#2B1B17",
-    "voided": false,
-    "enrolmentEligibilityCheckRule": null,
-    "enrolmentSummaryRule": null
-  },
-  {
-    "name": "Pregnancy",
-    "uuid": "00c6dfe3-109c-4099-8550-89a457e9c176",
-    "colour": "darkmagenta",
-    "voided": false,
-    "enrolmentEligibilityCheckRule": null,
-    "enrolmentSummaryRule": null
-  }
-]
+[ {
+  "name" : "ET (voided~42)",
+  "uuid" : "c5623272-41f3-4fec-90a9-16174bbb6402",
+  "colour" : "#ff0000",
+  "voided" : true,
+  "active" : null,
+  "enrolmentEligibilityCheckRule" : "",
+  "enrolmentSummaryRule" : ""
+}, {
+  "name" : "Hypertension",
+  "uuid" : "debe0d88-3b8a-4ac4-9f95-80a1af3b83c5",
+  "colour" : "#368200",
+  "voided" : false,
+  "active" : null,
+  "enrolmentEligibilityCheckRule" : null,
+  "enrolmentSummaryRule" : "  \n'use strict';\n({params, imports}) =>  {\n    const summaries = [];\n    const programEnrolment = params.programEnrolment;\n  \n    \n    //Weight\n     const weight = programEnrolment.findObservationInEntireEnrolment('Weight');\n    if (weight) {\n      summaries.push({name: 'Weight', value: weight.getValue()});\n    }\n        console.log('==========>weight',weight.getReadableValue());\n  \n    //BP\n    const bpSys = programEnrolment.findObservationInEntireEnrolment('Blood Pressure (systolic)');\n    const bpDia = programEnrolment.findObservationInEntireEnrolment('Blood Pressure (Diastolic)');\n         \n    if (bpSys) {\n        const bpSysValue = bpSys.getValue();\n        const bpDiaValue = bpDia.getValue();\n        const finalBP=`${bpSysValue}/${bpDiaValue}`;\n         \n       summaries.push({name: 'BP', value: finalBP});\n    }\n       \n    return summaries;\n};"
+}, {
+  "name" : "Diabetes",
+  "uuid" : "e40e9fe2-6afa-4344-9ada-e61000d36e40",
+  "colour" : "#38ACEC",
+  "voided" : false,
+  "active" : null,
+  "enrolmentEligibilityCheckRule" : null,
+  "enrolmentSummaryRule" : "'use strict';\n({params, imports}) =>  {\n    const summaries = [];\n    const programEnrolment = params.programEnrolment;\n  \n      //BP\n    const bpSys = programEnrolment.findObservationInEntireEnrolment('Blood Pressure (systolic)');\n    const bpDia = programEnrolment.findObservationInEntireEnrolment('Blood Pressure (Diastolic)');\n         \n    if (bpSys) {\n        const bpSysValue = bpSys.getValue();\n        const bpDiaValue = bpDia.getValue();\n        const finalBP=`${bpSysValue}/${bpDiaValue}`;\n         \n       summaries.push({name: 'BP', value: finalBP});\n    }\n    \n    //fastinBloodSugar\n     const fastinBloodSugar = programEnrolment.findObservationInEntireEnrolment('Fasting blood sugar level reports in last one month');\n    if (fastinBloodSugar) {\n      summaries.push({name: 'Fasting blood sugar level reports in last one month', value: fastinBloodSugar.getValue()});\n    }\n        console.log('==========>fastinBloodSugar',fastinBloodSugar.getValue());\n  \n   //prandialBloodSugar\n     const prandialBloodSugar = programEnrolment.findObservationInEntireEnrolment('Post prandial blood sugar level reports in last one month');\n    if (prandialBloodSugar) {\n      summaries.push({name: 'Post prandial blood sugar level reports in last one month', value:       \n       prandialBloodSugar.getValue()});\n    }\n        console.log('==========>prandialBloodSugar',prandialBloodSugar.getValue());\n  \n  \n   //randomBloodSugar\n     const randomBloodSugar = programEnrolment.findObservationInEntireEnrolment('Random blood sugar levels report');\n    if (randomBloodSugar) {\n      summaries.push({name: 'Random blood sugar levels report', value:       \n       randomBloodSugar.getValue()});\n    }\n        console.log('==========>randomBloodSugar',randomBloodSugar.getValue());\n  \n  \n  \n       \n    return summaries;\n};"
+}, {
+  "name" : "NCD",
+  "uuid" : "9d6cd285-fb85-48f0-badc-6f004b9024d8",
+  "colour" : "#2B1B17",
+  "voided" : false,
+  "active" : null,
+  "enrolmentEligibilityCheckRule" : null,
+  "enrolmentSummaryRule" : "\n'use strict';\n({params, imports}) => {\n    const summaries = [];\n    const programEnrolment = params.programEnrolment;\n\n    //BP\n    const smoking = programEnrolment.findObservationInEntireEnrolment('Smoking or consume smokeless products');\n    const alcohol = programEnrolment.findObservationInEntireEnrolment('Alcohol consumption');\n    const historyOfDisease = programEnrolment.findObservationInEntireEnrolment('Family histroy of high BP, DM or heart disease');\n    const midArmCircumference = programEnrolment.findObservationInEntireEnrolment('Mid arm circumference');\n    const waistCircumference = programEnrolment.findObservationInEntireEnrolment('Waist circumference');\n    const physicalActivity = programEnrolment.findObservationInEntireEnrolment('Physical activity for >150 min/week');\n    const yoga = programEnrolment.findObservationInEntireEnrolment('Are you practicing any Yoga');\n\n\n    const NCDRiskFactorArray = [];\n    if (!_.isNil(smoking) && smoking !== 'Never') {\n        NCDRiskFactorArray.push('Smoking');\n    }\n    if (!_.isNil(alcohol.getReadableValue()) && alcohol.getReadableValue() == 'Yes') {\n        NCDRiskFactorArray.push('Alcohol consumption');\n    }\n\n    if (!_.isNil(historyOfDisease.getReadableValue()) && historyOfDisease.getReadableValue() == 'Yes') {\n        NCDRiskFactorArray.push('Family histroy of high BP, DM or heart disease');\n    }\n\n\n    if (!_.isNil(midArmCircumference.getReadableValue())) {\n        if (midArmCircumference.getReadableValue() < 19) {\n            NCDRiskFactorArray.push('severe malnutrition');\n        } else if (midArmCircumference.getReadableValue() >= 19 && midArmCircumference.getReadableValue() < 22) {\n            NCDRiskFactorArray.push('moderate malnutrition');\n        } else if (midArmCircumference.getReadableValue() == 22) {\n            NCDRiskFactorArray.push('mild malnutrition');\n        }\n    }\n    const isFemale = programEnrolment.individual.isFemale();\n\n    if (!_.isNil(waistCircumference.getReadableValue())) {\n        if (isFemale && waistCircumference.getReadableValue() >= 88) {\n            NCDRiskFactorArray.push('Abnormal waist circumference');\n        } else if (!isFemale && waistCircumference.getReadableValue() >= 102) {\n            NCDRiskFactorArray.push('Abnormal waist circumference');\n        }\n    }\n    if (!_.isNil(physicalActivity.getReadableValue()) && physicalActivity.getReadableValue() == 'No') {\n        NCDRiskFactorArray.push('Not doing physical activity for >150 min/week');\n    }\n\n    if (!_.isNil(yoga.getReadableValue()) && yoga.getReadableValue() == 'No') {\n        NCDRiskFactorArray.push('Not practicing yoga');\n    }\n\n\n    if (!_.isEmpty(NCDRiskFactorArray)) {\n        summaries.push({name: 'NCD Risk factor', value: NCDRiskFactorArray});\n    }\n\n    //Cancer Sign\n\n    const difficultyInOpeningMouth = programEnrolment.findObservationInEntireEnrolment('Difficulty in opening mouth');\n    const ulcerNotHealed = programEnrolment.findObservationInEntireEnrolment('Ulcer/ patch/ growth in mouth that has not healed for 2 weeks');\n    const changeInTone = programEnrolment.findObservationInEntireEnrolment('Whether change in the tone of voice');\n    const cancerSignArray = [];\n    console.log(\"----->>difficultyInOpeningMouth\", difficultyInOpeningMouth);\n\n    if (!_.isNil(difficultyInOpeningMouth)) {\n        if (difficultyInOpeningMouth.getReadableValue() == 'Yes') {\n            cancerSignArray.push('Difficulty in opening mouth');\n        }\n    }\n\n    if (!_.isNil(ulcerNotHealed)) {\n        if (ulcerNotHealed.getReadableValue() == 'Yes') {\n            cancerSignArray.push('Ulcer/ patch/ growth in mouth that has not healed for 2 weeks');\n        }\n    }\n\n    if (!_.isNil(changeInTone)) {\n        if (changeInTone.getReadableValue() == 'Yes') {\n            cancerSignArray.push('Change in the tone of voice');\n        }\n    }\n\n\n    if (!_.isEmpty(cancerSignArray)) {\n        summaries.push({name: 'Cancer Sign', value: cancerSignArray});\n    }\n\n\n    const lumpInBreast = programEnrolment.findObservationInEntireEnrolment('Lump in the breast');\n    const bloodStainedDischarge = programEnrolment.findObservationInEntireEnrolment('Blood stained discharge from nipple');\n    const changeInShapeBreast = programEnrolment.findObservationInEntireEnrolment('Change in shape and size of breast');\n    const bleedPeriods = programEnrolment.findObservationInEntireEnrolment('Bleeding between periods');\n    const bleedMenopause = programEnrolment.findObservationInEntireEnrolment('Bleeding after menopause');\n    const bleedIntercourse = programEnrolment.findObservationInEntireEnrolment('Bleeding after intercourse');\n    const foulSmelling = programEnrolment.findObservationInEntireEnrolment('Foul smelling vaginal discharge');\n    const cancerFemaleArray = [];\n\n\n    if (!_.isNil(lumpInBreast)) {\n        if (lumpInBreast.getReadableValue() == 'Yes') {\n            cancerFemaleArray.push('Lump in the breast');\n        }\n    }\n    if (!_.isNil(bloodStainedDischarge)) {\n        if (bloodStainedDischarge.getReadableValue() == 'Yes') {\n            cancerFemaleArray.push('Blood stained discharge from nipple');\n        }\n    }\n    if (!_.isNil(changeInShapeBreast)) {\n        if (changeInShapeBreast.getReadableValue() == 'Yes') {\n            cancerFemaleArray.push('Change in shape and size of breast');\n        }\n    }\n    if (!_.isNil(bleedPeriods)) {\n        if (bleedPeriods.getReadableValue() == 'Yes') {\n            cancerFemaleArray.push('Bleeding between periods');\n        }\n    }\n    if (!_.isNil(bleedMenopause)) {\n        if (bleedMenopause.getReadableValue() == 'Yes') {\n            cancerFemaleArray.push('Bleeding after menopause');\n        }\n    }\n    if (!_.isNil(bleedIntercourse)) {\n        if (bleedIntercourse.getReadableValue() == 'Yes') {\n            cancerFemaleArray.push('Bleeding after intercourse');\n        }\n    }\n    if (!_.isNil(foulSmelling)) {\n        if (foulSmelling.getReadableValue() == 'Yes') {\n            cancerFemaleArray.push('Foul smelling vaginal discharge');\n        }\n    }\n\n    if (!_.isEmpty(cancerFemaleArray)) {\n\n        summaries.push({name: 'Cancer-female sign', value: cancerFemaleArray});\n\n    }\n\n\n    return summaries;\n};"
+}, {
+  "name" : "Child",
+  "uuid" : "5fc20ed1-699c-4329-86f4-3884fccceb18",
+  "colour" : "darkorange",
+  "voided" : false,
+  "active" : null,
+  "enrolmentEligibilityCheckRule" : null,
+  "enrolmentSummaryRule" : "//SAMPLE RULE EXAMPLE\n'use strict';\n({params, imports}) =>  {\n    const summaries = [];\n    const programEnrolment = params.programEnrolment;\n    \n    //Nutritional Status\n    const nutitionalStatus = programEnrolment.findLatestObservationFromEncounters('Nutritional Status') || programEnrolment.findObservationInEntireEnrolment('Nutritional Status');\n    if (nutitionalStatus) {\n      summaries.push({name: 'Nutritional Status', value: nutitionalStatus.getValue()});\n    }\n    \n    //Health status of the child\n    //const healthStatus = programEnrolment.findLatestObservationFromEncounters('Health status of the child') || //programEnrolment.findObservationInEntireEnrolment('Health status of the child');\n    //if (healthStatus) {\n      //summaries.push({name: 'Health status of the child', value: healthStatus.getValue()});\n    //}\n    \n    //Does the child have any deformity\n    const hasDeformity = programEnrolment.findLatestObservationFromEncounters('Does the child have any deformity') || programEnrolment.findObservationInEntireEnrolment('Does the child have any deformity');\n    if (hasDeformity) {\n      summaries.push({name: 'Does the child have any deformity', value: hasDeformity.getValue()});\n    }\n    \n    \n    //Child attained all developmental milestones\n    const milestones = programEnrolment.findLatestObservationFromEncounters('Child attained all developmental milestones') || programEnrolment.findObservationInEntireEnrolment('Child attained all developmental milestones');\n    if (milestones) {\n      summaries.push({name: 'Child attained all developmental milestones', value: milestones.getValue()});\n    }\n    \n    //Does the child have any known deficiency\n    const deficiency = programEnrolment.findLatestObservationFromEncounters('Does the child have any known deficiency') || programEnrolment.findObservationInEntireEnrolment('Does the child have any known deficiency');\n    if (deficiency) {\n      summaries.push({name: 'Does the child have any known deficiency', value: deficiency.getValue()});\n    }\n    \n    \n       //Whether your child had the fast or difficult breathing due to a problem in the chest or to a blocked or runny nose in last 3 months?\n    const breathingDifficulty = programEnrolment.findLatestObservationFromEncounters('Whether your child had the fast or difficult breathing due to a problem in the chest or to a blocked or runny nose in last 3 months?');\n  if (breathingDifficulty) {\n      summaries.push({name: 'Whether your child had the fast or difficult breathing due to a problem in the chest or to a blocked or runny nose in last 3 months?', value: breathingDifficulty.getValue()});\n    }\n    \n       //Child experienced acute respiratory infection in the last 3 months\n    const infection = programEnrolment.findLatestObservationFromEncounters('Child experienced acute respiratory infection in the last 3 months') || programEnrolment.findObservationInEntireEnrolment('Child experienced acute respiratory infection in the last 3 months');\n    if (infection) {\n      summaries.push({name: 'Child experienced acute respiratory infection in the last 3 months', value: infection.getValue()});\n    }\n    \n    \n    //Whether Child had fever in the last 3 months\n    const fever = programEnrolment.findLatestObservationFromEncounters('Whether Child had fever in the last 3 months') || programEnrolment.findObservationInEntireEnrolment('Whether Child had fever in the last 3 months');\n    if (fever) {\n      summaries.push({name: 'Whether Child had fever in the last 3 months', value: fever.getValue()});\n    }\n    \n    \n    //Child experienced diarrhoea in the last 3 months\n     const diarrhoea = programEnrolment.findLatestObservationFromEncounters('Child experienced diarrhoea in the last 3 months') || programEnrolment.findObservationInEntireEnrolment('Child experienced diarrhoea in the last 3 months');\n    if (diarrhoea) {\n      summaries.push({name: 'Child experienced diarrhoea in the last 3 months', value: diarrhoea.getValue()});\n    }\n    \n    //Does the child has any other health problem\n     const other = programEnrolment.findLatestObservationFromEncounters('Does the child has any other health problem') || programEnrolment.findObservationInEntireEnrolment('Does the child has any other health problem');\n    if (other) {\n      summaries.push({name: 'Does the child has any other health problem', value: other.getValue()});\n    }\n    \n    return summaries;\n};"
+}, {
+  "name" : "Pregnancy",
+  "uuid" : "00c6dfe3-109c-4099-8550-89a457e9c176",
+  "colour" : "darkmagenta",
+  "voided" : false,
+  "active" : null,
+  "enrolmentEligibilityCheckRule" : null,
+  "enrolmentSummaryRule" : "//SAMPLE RULE EXAMPLE\n'use strict';\n({params, imports}) =>  {\n    const summaries = [];\n    const programEnrolment = params.programEnrolment;\n    \n    //Last menstrual period\n    const lmp = programEnrolment.findObservationInEntireEnrolment('Last menstrual period');\n    if (lmp) {\n      summaries.push({name: 'Last menstrual period', value: lmp.getValue()});\n    }\n    \n    //Estimated Date of Delivery\n    const edd = programEnrolment.findObservationInEntireEnrolment('Estimated Date of Delivery');\n    if (edd) {\n      summaries.push({name: 'Estimated Date of Delivery', value: edd.getValue()});\n    }\n    \n    //Gestational age in weeks\n     const gestationalAgeInweeks = programEnrolment.findObservationInEntireEnrolment('Gestational age in weeks');\n    if (gestationalAgeInweeks) {\n      summaries.push({name: 'Gestational age in weeks', value: gestationalAgeInweeks.getValue()});\n    }\n    \n    //Gravida\n     const gravida = programEnrolment.findObservationInEntireEnrolment('Gravida');\n    if (gravida) {\n      summaries.push({name: 'Gravida', value: gravida.getValue()});\n    }\n    \n    //BMI\n    const bmi = programEnrolment.findLatestObservationFromEncounters('BMI') || programEnrolment.findObservationInEntireEnrolment('BMI');\n    if (bmi) {\n      summaries.push({name: 'BMI', value: bmi.getValue()});\n    }\n    \n    return summaries;\n};"
+} ]

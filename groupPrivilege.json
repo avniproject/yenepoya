@@ -1,0 +1,163 @@
+[ {
+  "uuid" : "99836433-5d91-4641-82e6-60733f836232",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "867d5de9-0bf3-434c-9cb1-bd09a05250af",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "db6846c1-1f95-45d0-a1e4-71cac701a699"
+}, {
+  "uuid" : "a90d1da9-f269-410a-9f1d-f7237b42b83a",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "85ce5ed4-1490-4980-8c64-63fb423b5f14",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "db6846c1-1f95-45d0-a1e4-71cac701a699"
+}, {
+  "uuid" : "f801c88e-b21f-4d17-9d99-de605e9b60c2",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "51fa8342-3228-4945-88eb-4b41970fa425",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "db6846c1-1f95-45d0-a1e4-71cac701a699"
+}, {
+  "uuid" : "dcfcb2e5-5614-446a-b497-129f0f4646bb",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "9f2a3495-93b7-47c3-8560-d572b6a9fc61",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "16a3be1b-18a1-45e9-bfc8-f7915898abef"
+}, {
+  "uuid" : "9fd40114-bff2-43d7-82d6-9cb2d848ee48",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "867d5de9-0bf3-434c-9cb1-bd09a05250af",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "16a3be1b-18a1-45e9-bfc8-f7915898abef"
+}, {
+  "uuid" : "5ac6f053-ecfc-4b03-a577-fe56ec84cfc9",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "51fa8342-3228-4945-88eb-4b41970fa425",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "16a3be1b-18a1-45e9-bfc8-f7915898abef"
+}, {
+  "uuid" : "96d949ef-0294-42df-9d90-e3899e27aae6",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "85ce5ed4-1490-4980-8c64-63fb423b5f14",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "16a3be1b-18a1-45e9-bfc8-f7915898abef"
+}, {
+  "uuid" : "d4377502-5d23-464c-a092-927d96e94ce5",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "e3352a23-f478-4166-af11-e949cc69e1cc",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "16a3be1b-18a1-45e9-bfc8-f7915898abef"
+}, {
+  "uuid" : "40ee4dc2-937f-4e74-9458-e95055aac4b1",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "088a30ca-9ce2-4ab3-a517-e249cc43a4bf",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38"
+}, {
+  "uuid" : "ab755dc9-e2fe-4b60-9392-d37fb081ea53",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "0843ee63-721c-49c5-8374-818b512caf82",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38"
+}, {
+  "uuid" : "083722f8-1f0c-4e75-baaa-d81d185ec0b1",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "d9d7ae77-a67e-4644-8976-5b3551106a53",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38"
+}, {
+  "uuid" : "db2c012f-81dd-4ae9-96ae-8dca9d2f3f35",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "f2915fc4-d2cb-492a-b9bc-88a7bae11b75",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38"
+}, {
+  "uuid" : "702a2a68-dc03-49af-be77-5ea26c9cd0ce",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "9f2a3495-93b7-47c3-8560-d572b6a9fc61",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "db6846c1-1f95-45d0-a1e4-71cac701a699"
+}, {
+  "uuid" : "222d0206-8126-40d9-ae68-784ed8bf526a",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "e3352a23-f478-4166-af11-e949cc69e1cc",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "encounterTypeUUID" : "db6846c1-1f95-45d0-a1e4-71cac701a699"
+}, {
+  "uuid" : "ec68f6e0-c0e6-4401-8430-435e55f00015",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "51fa8342-3228-4945-88eb-4b41970fa425",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "encounterTypeUUID" : "0c823f64-b2ec-420b-9e28-5e953b66b6d1"
+}, {
+  "uuid" : "6683054f-ee89-4d33-b75c-7de98d032a4d",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "867d5de9-0bf3-434c-9cb1-bd09a05250af",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "encounterTypeUUID" : "0c823f64-b2ec-420b-9e28-5e953b66b6d1"
+}, {
+  "uuid" : "120bfb95-f772-438f-ae93-db63b34cc853",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "db791f27-0c04-4060-8938-6f18fb4069ee",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38"
+}, {
+  "uuid" : "d144a5c0-bf80-4af4-a13d-5639bc850b2f",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "67410e50-8b40-4735-bfb4-135b13580027",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38",
+  "allow" : true
+}, {
+  "uuid" : "726e5011-d1d2-49e1-921d-3783da4feffa",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "46c3aa38-1ef5-4639-a406-d0b4f9bcb420",
+  "subjectTypeUUID" : "d22027ff-e019-4d1c-9352-bd740efccc38"
+}, {
+  "uuid" : "8e5d5c1c-217f-4c3b-a63f-f0d5e18ca3ae",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "e3352a23-f478-4166-af11-e949cc69e1cc",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "encounterTypeUUID" : "0c823f64-b2ec-420b-9e28-5e953b66b6d1"
+}, {
+  "uuid" : "80c3db01-4378-4f37-9029-d09ae53a6654",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "85ce5ed4-1490-4980-8c64-63fb423b5f14",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "encounterTypeUUID" : "0c823f64-b2ec-420b-9e28-5e953b66b6d1"
+}, {
+  "uuid" : "bd93c770-e47f-4b22-bfdc-b33e9404f876",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "9f2a3495-93b7-47c3-8560-d572b6a9fc61",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "encounterTypeUUID" : "0c823f64-b2ec-420b-9e28-5e953b66b6d1"
+}, {
+  "uuid" : "47da8bc5-87be-4f38-ada1-e8d2c45371fd",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "088a30ca-9ce2-4ab3-a517-e249cc43a4bf",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6"
+}, {
+  "uuid" : "463ae19a-4106-4076-8035-36c7d8c36af6",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "db791f27-0c04-4060-8938-6f18fb4069ee",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6"
+}, {
+  "uuid" : "f1937894-4c88-4f59-b853-71dfa4116d29",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "46c3aa38-1ef5-4639-a406-d0b4f9bcb420",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6"
+}, {
+  "uuid" : "00559a70-e6eb-4ffb-ab94-d342ddcd13e9",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "0843ee63-721c-49c5-8374-818b512caf82",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6"
+}, {
+  "uuid" : "468fa823-83b3-4ef4-b2ee-9e4c79557c7a",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "d9d7ae77-a67e-4644-8976-5b3551106a53",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6"
+}, {
+  "uuid" : "abd7b4ce-b9ff-4ea7-b65c-88cd2c4c223d",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "f2915fc4-d2cb-492a-b9bc-88a7bae11b75",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6"
+}, {
+  "uuid" : "1f873eef-6163-42a8-8a53-ac04a94f6c27",
+  "groupUUID" : "332e0363-1257-45a5-a1e7-490680edf45b",
+  "privilegeUUID" : "67410e50-8b40-4735-bfb4-135b13580027",
+  "subjectTypeUUID" : "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+  "allow" : true
+} ]
