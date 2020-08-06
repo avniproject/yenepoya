@@ -1416,6 +1416,7 @@ as SELECT individual.id "Ind.Id",
           surveillance_unit.title                                                     as "Ind.surveillance_unit",
          individual.is_voided "Ind.is_voided",
          op.name "Enl.Program Name",
+        programenrolment.program_exit_date_time                               "Enl.program_exit_date_time",
          programEnrolment.id  "Enl.Id",
          programEnrolment.uuid  "Enl.uuid",
          programEnrolment.is_voided "Enl.is_voided",
@@ -1555,139 +1556,179 @@ create view yenepoya_child_checklist_form_view as (
 set role none;
 
 
-drop view if exists yenepoya_pnc_form_view;
-        create view yenepoya_child_enrolment_view
-        as
-SELECT
-    individual.id "Ind.Id",
-    individual.address_id "Ind.address_id",
-    individual.uuid "Ind.uuid",
-    individual.first_name "Ind.first_name",
-    individual.last_name "Ind.last_name",
-    g.name "Ind.Gender",
-    individual.date_of_birth "Ind.date_of_birth",
-    individual.date_of_birth_verified "Ind.date_of_birth_verified",
-    individual.registration_date "Ind.registration_date",
-    individual.facility_id  "Ind.facility_id",
-    a.title "Ind.Area",
-    individual.is_voided "Ind.is_voided",
-    op.name "Enl.Program Name",
-    programEnrolment.id  "Enl.Id",
-    programEnrolment.uuid  "Enl.uuid",
-    programEnrolment.is_voided "Enl.is_voided",
-
-    programEnrolment.program_exit_date_time "Enl.Program Exit Date",
-    (individual.observations->>'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT as "Ind.Contact Number",
-    (programEnrolment.observations->>'2cec6829-f0c5-4c5d-8517-3a216fa34f4d')::TEXT as "Enl.Birth order of the child",
-    (programEnrolment.observations->>'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT as "Enl.Birth weight of the baby in kgs",
-    single_select_coded(programEnrolment.observations->>'923b2b78-6138-436b-b691-8e319c4f9c9c')::TEXT as "Enl.Colostrum given to the child",
-    (programEnrolment.observations->>'502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT as "Enl.Height",
-    (programEnrolment.observations->>'9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT as "Enl.Present weight of the child in kgs",
-    (programEnrolment.observations->>'594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT as "Enl.Nutritional Status",
-    (programEnrolment.observations->>'86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT as "Enl.Present Mid Arm Circumference in CM",
-    single_select_coded(programEnrolment.observations->>'1f0dbb20-1da6-40cb-bb69-cbee9fb570f6')::TEXT as "Enl.Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
-    (programEnrolment.observations->>'b78188e8-9f08-497d-8b2f-197c14c5445c')::TEXT as "Enl.Duration of Exclusive breastfeeding in months",
-    single_select_coded(programEnrolment.observations->>'4fae8872-daae-4ab4-a2c0-2b3ddd59bb33')::TEXT as "Enl.Child bottle-fed or not",
-    (programEnrolment.observations->>'3e2cb7b9-9fdb-4de5-8562-070243841e54')::TEXT as "Enl.If yes, Duration of bottle feeding in months",
-    single_select_coded(programEnrolment.observations->>'e45c7db0-f3d0-44de-9f82-61238f31bf80')::TEXT as "Enl.Child weaned at 6 months of age",
-    single_select_coded(programEnrolment.observations->>'7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT as "Enl.Health status of the child",
-    multi_select_coded(programEnrolment.observations->'e9f6eeea-5ce3-4d7a-9765-5d9540177df1')::TEXT as "Enl.If any health complaints specify",
-    single_select_coded(programEnrolment.observations->>'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT as "Enl.Child attained all developmental milestones",
-    single_select_coded(programEnrolment.observations->>'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT as "Enl.Does the child have any deformity",
-    (programEnrolment.observations->>'6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT as "Enl.Does the child have any known deficiency",
-    single_select_coded(programEnrolment.observations->>'226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT as "Enl.Child fully immunized till date",
-    single_select_coded(programEnrolment.observations->>'77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT as "Enl.Child experienced acute respiratory infection in the last 3 months",
-    single_select_coded(programEnrolment.observations->>'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT as "Enl.Child experienced diarrhoea in the last 3 months",
-    single_select_coded(programEnrolment.observations->>'47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT as "Enl.Does the child has any other health problem",
-    (programEnrolment.observations->>'7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT as "Enl.Specify Other"
-
-FROM program_enrolment programEnrolment
-
-         LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id
-         LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id
-         LEFT OUTER JOIN gender g ON g.id = individual.gender_id
-         LEFT OUTER JOIN address_level a ON individual.address_id = a.id
-WHERE op.uuid = '4b2372a8-3198-4bd9-8863-df4d1e618948'
-
-
-
-create view yenepoya_child_growth_followup_view
+drop view if exists yenepoya_child_enrolment_view;
+create view yenepoya_child_enrolment_view
 as
-SELECT
-    individual.id "Ind.Id",
-    individual.address_id "Ind.address_id",
-    individual.uuid "Ind.uuid",
-    individual.first_name "Ind.first_name",
-    individual.last_name "Ind.last_name",
-    g.name "Ind.Gender",
-    individual.date_of_birth "Ind.date_of_birth",
-    individual.date_of_birth_verified "Ind.date_of_birth_verified",
-    individual.registration_date "Ind.registration_date",
-    individual.facility_id  "Ind.facility_id",
-    a.title "Ind.Area",
-    individual.is_voided "Ind.is_voided",
-    op.name "Enl.Program Name",
-    programEnrolment.id  "Enl.Id",
-    programEnrolment.uuid  "Enl.uuid",
-    programEnrolment.is_voided "Enl.is_voided",
-    oet.name "Enc.Type",
-    programEncounter.id "Enc.Id",
-    programEncounter.earliest_visit_date_time "Enc.earliest_visit_date_time",
-    programEncounter.encounter_date_time "Enc.encounter_date_time",
-    programEncounter.program_enrolment_id "Enc.program_enrolment_id",
-    programEncounter.uuid "Enc.uuid",
-    programEncounter.name "Enc.name",
-    programEncounter.max_visit_date_time "Enc.max_visit_date_time",
-    programEncounter.is_voided "Enc.is_voided",
-    (individual.observations->>'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT as "Ind.Contact Number",
-    (programEnrolment.observations->>'2cec6829-f0c5-4c5d-8517-3a216fa34f4d')::TEXT as "Enl.Birth order of the child",
-    (programEnrolment.observations->>'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT as "Enl.Birth weight of the baby in kgs",
-    single_select_coded(programEnrolment.observations->>'923b2b78-6138-436b-b691-8e319c4f9c9c')::TEXT as "Enl.Colostrum given to the child",
-    (programEnrolment.observations->>'502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT as "Enl.Height",
-    (programEnrolment.observations->>'9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT as "Enl.Present weight of the child in kgs",
-    (programEnrolment.observations->>'594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT as "Enl.Nutritional Status",
-    (programEnrolment.observations->>'86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT as "Enl.Present Mid Arm Circumference in CM",
-    single_select_coded(programEnrolment.observations->>'1f0dbb20-1da6-40cb-bb69-cbee9fb570f6')::TEXT as "Enl.Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
-    (programEnrolment.observations->>'b78188e8-9f08-497d-8b2f-197c14c5445c')::TEXT as "Enl.Duration of Exclusive breastfeeding in months",
-    single_select_coded(programEnrolment.observations->>'4fae8872-daae-4ab4-a2c0-2b3ddd59bb33')::TEXT as "Enl.Child bottle-fed or not",
-    (programEnrolment.observations->>'3e2cb7b9-9fdb-4de5-8562-070243841e54')::TEXT as "Enl.If yes, Duration of bottle feeding in months",
-    single_select_coded(programEnrolment.observations->>'e45c7db0-f3d0-44de-9f82-61238f31bf80')::TEXT as "Enl.Child weaned at 6 months of age",
-    single_select_coded(programEnrolment.observations->>'7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT as "Enl.Health status of the child",
-    multi_select_coded(programEnrolment.observations->'e9f6eeea-5ce3-4d7a-9765-5d9540177df1')::TEXT as "Enl.If any health complaints specify",
-    single_select_coded(programEnrolment.observations->>'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT as "Enl.Child attained all developmental milestones",
-    single_select_coded(programEnrolment.observations->>'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT as "Enl.Does the child have any deformity",
-    (programEnrolment.observations->>'6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT as "Enl.Does the child have any known deficiency",
-    single_select_coded(programEnrolment.observations->>'226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT as "Enl.Child fully immunized till date",
-    single_select_coded(programEnrolment.observations->>'77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT as "Enl.Child experienced acute respiratory infection in the last 3 months",
-    single_select_coded(programEnrolment.observations->>'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT as "Enl.Child experienced diarrhoea in the last 3 months",
-    single_select_coded(programEnrolment.observations->>'47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT as "Enl.Does the child has any other health problem",
-    (programEnrolment.observations->>'7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT as "Enl.Specify Other",
-    (programEncounter.observations->>'502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT as "Enc.Height",
-    (programEncounter.observations->>'9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT as "Enc.Present weight of the child in kgs",
-    (programEncounter.observations->>'594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT as "Enc.Nutritional Status",
-    (programEncounter.observations->>'86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT as "Enc.Present Mid Arm Circumference in CM",
-    single_select_coded(programEncounter.observations->>'7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT as "Enc.Health status of the child",
-    single_select_coded(programEncounter.observations->>'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT as "Enc.Does the child have any deformity",
-    single_select_coded(programEncounter.observations->>'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT as "Enc.Child attained all developmental milestones",
-    (programEncounter.observations->>'6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT as "Enc.Does the child have any known deficiency",
-    single_select_coded(programEncounter.observations->>'226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT as "Enc.Child fully immunized till date",
-    single_select_coded(programEncounter.observations->>'653c3368-bc21-4a39-a834-cf5f27325d1d')::TEXT as "Enc.Whether your child had the fast or difficult breathing due to a problem in the chest or to a blocked or runny nose in last 3 months?",
-    single_select_coded(programEncounter.observations->>'77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT as "Enc.Child experienced acute respiratory infection in the last 3 months",
-    single_select_coded(programEncounter.observations->>'33861da7-a628-4f7c-9b72-891eeb85c9e7')::TEXT as "Enc.Whether Child had fever in the last 3 months",
-    single_select_coded(programEncounter.observations->>'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT as "Enc.Child experienced diarrhoea in the last 3 months",
-    single_select_coded(programEncounter.observations->>'47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT as "Enc.Does the child has any other health problem",
-    single_select_coded(programEncounter.observations->>'141f724d-4171-4eb0-b4c2-6e3a2365df31')::TEXT as "Enc.Whether the  newborn child received all home based newborn care visits by ASHA during first month of delivery",
-    programEncounter.cancel_date_time "EncCancel.cancel_date_time",
-    single_select_coded(programEncounter.observations->>'5592def2-fe5e-4234-9253-ca5fd0322e26')::TEXT as "EncCancel.Reason Of Cancellation",
-    (programEncounter.observations->>'8263f129-5851-4f9d-a909-818dacacd862')::TEXT as "EncCancel.Other Reason of Cancellation"
+SELECT individual.id                                                                                          "Ind.Id",
+       individual.address_id                                                                                  "Ind.address_id",
+       individual.uuid                                                                                        "Ind.uuid",
+       individual.first_name                                                                                  "Ind.first_name",
+       individual.last_name                                                                                   "Ind.last_name",
+       g.name                                                                                                 "Ind.Gender",
+       individual.date_of_birth                                                                               "Ind.date_of_birth",
+       individual.date_of_birth_verified                                                                      "Ind.date_of_birth_verified",
+       individual.registration_date                                                                           "Ind.registration_date",
+       individual.facility_id                                                                                 "Ind.facility_id",
+       a.title                                                                                             AS "Ind.village",
+       panchayat.title                                                                                     AS "Ind.panchayat",
+       surveillance_unit.title                                                                             AS "Ind.surveillance_unit",
+       programenrolment.id                                                                     as "Enl.Id",
+       op.name                                                                                             AS "Enl.Program Name",
+       programenrolment.enrolment_date_time                                                                AS "Enl.enrolment_date_time",
+       programenrolment.program_exit_date_time                                                             AS "Enl.program_exit_date_time",
+       individual.is_voided                                                                                   "Ind.is_voided",
+       (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT                          as "Ind.Contact Number",
+       (programEnrolment.observations ->> '2cec6829-f0c5-4c5d-8517-3a216fa34f4d')::TEXT                    as "Enl.Birth order of the child",
+       (programEnrolment.observations ->> 'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT                    as "Enl.Birth weight of the baby in kgs",
+       single_select_coded(
+               programEnrolment.observations ->> '923b2b78-6138-436b-b691-8e319c4f9c9c')::TEXT             as "Enl.Colostrum given to the child",
+       (programEnrolment.observations ->> '502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT                    as "Enl.Height",
+       (programEnrolment.observations ->> '9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT                    as "Enl.Present weight of the child in kgs",
+       (programEnrolment.observations ->> '594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT                    as "Enl.Nutritional Status",
+       (programEnrolment.observations ->> '86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT                    as "Enl.Present Mid Arm Circumference in CM",
+       single_select_coded(
+               programEnrolment.observations ->> '1f0dbb20-1da6-40cb-bb69-cbee9fb570f6')::TEXT             as "Enl.Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
+       (programEnrolment.observations ->> 'b78188e8-9f08-497d-8b2f-197c14c5445c')::TEXT                    as "Enl.Duration of Exclusive breastfeeding in months",
+       single_select_coded(
+               programEnrolment.observations ->> '4fae8872-daae-4ab4-a2c0-2b3ddd59bb33')::TEXT             as "Enl.Child bottle-fed or not",
+       (programEnrolment.observations ->> '3e2cb7b9-9fdb-4de5-8562-070243841e54')::TEXT                    as "Enl.If yes, Duration of bottle feeding in months",
+       single_select_coded(
+               programEnrolment.observations ->> 'e45c7db0-f3d0-44de-9f82-61238f31bf80')::TEXT             as "Enl.Child weaned at 6 months of age",
+       single_select_coded(
+               programEnrolment.observations ->> '7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT             as "Enl.Health status of the child",
+       multi_select_coded(
+               programEnrolment.observations -> 'e9f6eeea-5ce3-4d7a-9765-5d9540177df1')::TEXT              as "Enl.If any health complaints specify",
+       single_select_coded(
+               programEnrolment.observations ->> 'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT             as "Enl.Child attained all developmental milestones",
+       single_select_coded(
+               programEnrolment.observations ->> 'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT             as "Enl.Does the child have any deformity",
+       (programEnrolment.observations ->> '6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT                    as "Enl.Does the child have any known deficiency",
+       single_select_coded(
+               programEnrolment.observations ->> '226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT             as "Enl.Child fully immunized till date",
+       single_select_coded(
+               programEnrolment.observations ->> '77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT             as "Enl.Child experienced acute respiratory infection in the last 3 months",
+       single_select_coded(
+               programEnrolment.observations ->> 'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT             as "Enl.Child experienced diarrhoea in the last 3 months",
+       single_select_coded(
+               programEnrolment.observations ->> '47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT             as "Enl.Does the child has any other health problem",
+       (programEnrolment.observations ->> '7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT                    as "Enl.Specify Other"
+
+FROM ((((((program_enrolment programenrolment
+    LEFT JOIN operational_program op ON ((op.program_id = programenrolment.program_id)))
+    LEFT JOIN individual individual ON ((programenrolment.individual_id = individual.id)))
+    LEFT JOIN gender g ON ((g.id = individual.gender_id)))
+    LEFT JOIN address_level a ON ((individual.address_id = a.id)))
+    LEFT JOIN address_level panchayat ON ((a.parent_id = panchayat.id)))
+         LEFT JOIN address_level surveillance_unit ON ((surveillance_unit.id = panchayat.parent_id)))
+WHERE (((op.uuid)::text = '4b2372a8-3198-4bd9-8863-df4d1e618948'::text) AND
+       (programenrolment.enrolment_date_time IS NOT NULL));
+
+
+create view   yenepoya_child_growth_followup_view as
+SELECT individual.id                                                                                          "Ind.Id",
+       individual.address_id                                                                                  "Ind.address_id",
+       individual.uuid                                                                                        "Ind.uuid",
+       individual.first_name                                                                                  "Ind.first_name",
+       individual.last_name                                                                                   "Ind.last_name",
+       g.name                                                                                                 "Ind.Gender",
+       individual.date_of_birth                                                                               "Ind.date_of_birth",
+       individual.date_of_birth_verified                                                                      "Ind.date_of_birth_verified",
+       individual.registration_date                                                                           "Ind.registration_date",
+       individual.facility_id                                                                                 "Ind.facility_id",
+       a.title                                                                                             AS "Ind.village",
+       panchayat.title                                                                                     AS "Ind.panchayat",
+       surveillance_unit.title                                                                             AS "Ind.surveillance_unit",
+       individual.is_voided                                                                                   "Ind.is_voided",
+       op.name                                                                                                "Enl.Program Name",
+       programEnrolment.id                                                                                    "Enl.Id",
+       programEnrolment.uuid                                                                                  "Enl.uuid",
+       programEnrolment.is_voided                                                                             "Enl.is_voided",
+       oet.name                                                                                               "Enc.Type",
+       programEncounter.id                                                                                    "Enc.Id",
+       programEncounter.earliest_visit_date_time                                                              "Enc.earliest_visit_date_time",
+       programEncounter.encounter_date_time                                                                   "Enc.encounter_date_time",
+       programEncounter.program_enrolment_id                                                                  "Enc.program_enrolment_id",
+       programEncounter.uuid                                                                                  "Enc.uuid",
+       programEncounter.name                                                                                  "Enc.name",
+       programEncounter.max_visit_date_time                                                                   "Enc.max_visit_date_time",
+       programEncounter.is_voided                                                                             "Enc.is_voided",
+       (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT                          as "Ind.Contact Number",
+       (programEnrolment.observations ->> '2cec6829-f0c5-4c5d-8517-3a216fa34f4d')::TEXT                    as "Enl.Birth order of the child",
+       (programEnrolment.observations ->> 'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT                    as "Enl.Birth weight of the baby in kgs",
+       single_select_coded(
+               programEnrolment.observations ->> '923b2b78-6138-436b-b691-8e319c4f9c9c')::TEXT             as "Enl.Colostrum given to the child",
+       (programEnrolment.observations ->> '502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT                    as "Enl.Height",
+       (programEnrolment.observations ->> '9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT                    as "Enl.Present weight of the child in kgs",
+       (programEnrolment.observations ->> '594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT                    as "Enl.Nutritional Status",
+       (programEnrolment.observations ->> '86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT                    as "Enl.Present Mid Arm Circumference in CM",
+       single_select_coded(
+               programEnrolment.observations ->> '1f0dbb20-1da6-40cb-bb69-cbee9fb570f6')::TEXT             as "Enl.Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
+       (programEnrolment.observations ->> 'b78188e8-9f08-497d-8b2f-197c14c5445c')::TEXT                    as "Enl.Duration of Exclusive breastfeeding in months",
+       single_select_coded(
+               programEnrolment.observations ->> '4fae8872-daae-4ab4-a2c0-2b3ddd59bb33')::TEXT             as "Enl.Child bottle-fed or not",
+       (programEnrolment.observations ->> '3e2cb7b9-9fdb-4de5-8562-070243841e54')::TEXT                    as "Enl.If yes, Duration of bottle feeding in months",
+       single_select_coded(
+               programEnrolment.observations ->> 'e45c7db0-f3d0-44de-9f82-61238f31bf80')::TEXT             as "Enl.Child weaned at 6 months of age",
+       single_select_coded(
+               programEnrolment.observations ->> '7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT             as "Enl.Health status of the child",
+       multi_select_coded(
+               programEnrolment.observations -> 'e9f6eeea-5ce3-4d7a-9765-5d9540177df1')::TEXT              as "Enl.If any health complaints specify",
+       single_select_coded(
+               programEnrolment.observations ->> 'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT             as "Enl.Child attained all developmental milestones",
+       single_select_coded(
+               programEnrolment.observations ->> 'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT             as "Enl.Does the child have any deformity",
+       (programEnrolment.observations ->> '6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT                    as "Enl.Does the child have any known deficiency",
+       single_select_coded(
+               programEnrolment.observations ->> '226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT             as "Enl.Child fully immunized till date",
+       single_select_coded(
+               programEnrolment.observations ->> '77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT             as "Enl.Child experienced acute respiratory infection in the last 3 months",
+       single_select_coded(
+               programEnrolment.observations ->> 'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT             as "Enl.Child experienced diarrhoea in the last 3 months",
+       single_select_coded(
+               programEnrolment.observations ->> '47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT             as "Enl.Does the child has any other health problem",
+       (programEnrolment.observations ->> '7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT                    as "Enl.Specify Other",
+       (programEncounter.observations ->> '502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT                    as "Enc.Height",
+       (programEncounter.observations ->> '9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT                    as "Enc.Present weight of the child in kgs",
+       (programEncounter.observations ->> '594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT                    as "Enc.Nutritional Status",
+       (programEncounter.observations ->> '86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT                    as "Enc.Present Mid Arm Circumference in CM",
+       single_select_coded(
+               programEncounter.observations ->> '7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT             as "Enc.Health status of the child",
+       single_select_coded(
+               programEncounter.observations ->> 'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT             as "Enc.Does the child have any deformity",
+       single_select_coded(
+               programEncounter.observations ->> 'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT             as "Enc.Child attained all developmental milestones",
+       (programEncounter.observations ->> '6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT                    as "Enc.Does the child have any known deficiency",
+       single_select_coded(
+               programEncounter.observations ->> '226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT             as "Enc.Child fully immunized till date",
+       single_select_coded(
+               programEncounter.observations ->> '653c3368-bc21-4a39-a834-cf5f27325d1d')::TEXT             as "Enc.Whether your child had the fast or difficult breathing due to a problem in the chest or to a blocked or runny nose in last 3 months?",
+       single_select_coded(
+               programEncounter.observations ->> '77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT             as "Enc.Child experienced acute respiratory infection in the last 3 months",
+       single_select_coded(
+               programEncounter.observations ->> '33861da7-a628-4f7c-9b72-891eeb85c9e7')::TEXT             as "Enc.Whether Child had fever in the last 3 months",
+       single_select_coded(
+               programEncounter.observations ->> 'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT             as "Enc.Child experienced diarrhoea in the last 3 months",
+       single_select_coded(
+               programEncounter.observations ->> '47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT             as "Enc.Does the child has any other health problem",
+       single_select_coded(
+               programEncounter.observations ->> '141f724d-4171-4eb0-b4c2-6e3a2365df31')::TEXT             as "Enc.Whether the  newborn child received all home based newborn care visits by ASHA during first month of delivery",
+       programEncounter.cancel_date_time                                                                      "EncCancel.cancel_date_time",
+       single_select_coded(
+               programEncounter.observations ->> '5592def2-fe5e-4234-9253-ca5fd0322e26')::TEXT             as "EncCancel.Reason Of Cancellation",
+       (programEncounter.observations ->> '8263f129-5851-4f9d-a909-818dacacd862')::TEXT                    as "EncCancel.Other Reason of Cancellation"
 FROM program_encounter programEncounter
          LEFT OUTER JOIN operational_encounter_type oet on programEncounter.encounter_type_id = oet.encounter_type_id
-         LEFT OUTER JOIN program_enrolment programEnrolment ON programEncounter.program_enrolment_id = programEnrolment.id
+         LEFT OUTER JOIN program_enrolment programEnrolment
+                         ON programEncounter.program_enrolment_id = programEnrolment.id
          LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id
          LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id
          LEFT OUTER JOIN gender g ON g.id = individual.gender_id
          LEFT OUTER JOIN address_level a ON individual.address_id = a.id
+         LEFT JOIN address_level panchayat ON ((a.parent_id = panchayat.id))
+         LEFT JOIN address_level surveillance_unit ON ((surveillance_unit.id = panchayat.parent_id))
 WHERE op.uuid = '4b2372a8-3198-4bd9-8863-df4d1e618948'
   AND oet.uuid = 'bcd9b84b-2558-44ad-9d85-113c29fc2e0a'
   AND programEncounter.encounter_date_time IS NOT NULL
   AND programEnrolment.enrolment_date_time IS NOT NULL;
+
+
