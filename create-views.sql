@@ -16,6 +16,7 @@ SELECT individual.id                                                            
        panchayat.title                                                             as "Ind.panchayat",
        surveillance_unit.title                                                     as "Ind.surveillance_unit",
        individual.is_voided                                                        AS "Ind.is_voided",
+       individual.registration_location                                               "Ind.registration_location",
        (single_select_coded((individual.observations ->>
                              '1de1bfa2-030a-4ccb-8381-ee5105048fa2'::text)))::text AS "Ind.Name of the surveillance Unit",
        (single_select_coded((individual.observations ->>
@@ -55,9 +56,9 @@ SELECT individual.id                                                            
        (single_select_coded((individual.observations ->>
                              '49344ffb-d10c-4e30-a284-356396970bcf'::text)))::text AS "Ind.Type of Ration card"
 FROM individual individual
-         join address_level village on individual.address_id = village.id
-         join address_level panchayat on village.parent_id = panchayat.id
-         join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+         left join address_level village on individual.address_id = village.id
+         left join address_level panchayat on village.parent_id = panchayat.id
+         left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
 WHERE (individual.subject_type_id = (SELECT subject_type.id
                                      FROM subject_type
                                      WHERE ((subject_type.name)::text = 'Household'::text)));
@@ -73,11 +74,11 @@ create view yenepoya_household_survey_view as (
            individual.date_of_birth_verified                                                    "Ind.date_of_birth_verified",
            individual.registration_date                                                         "Ind.registration_date",
            individual.facility_id                                                               "Ind.facility_id",
-           a.title                                                                              "Ind.Area",
            village.title                                                                        "Ind.village",
            panchayat.title                                                                      "Ind.panchayat",
            surveillance_unit.title                                                              "Ind.surveillance_unit",
            individual.is_voided                                                                 "Ind.is_voided",
+           individual.registration_location                                                     "Ind.registration_location",
            oet.name                                                                             "Enc.Type",
            encounter.id                                                                         "Enc.Id",
            encounter.earliest_visit_date_time                                                   "Enc.earliest_visit_date_time",
@@ -207,10 +208,9 @@ create view yenepoya_household_survey_view as (
     FROM encounter encounter
              JOIN operational_encounter_type oet on encounter.encounter_type_id = oet.encounter_type_id
              JOIN individual individual ON encounter.individual_id = individual.id
-             JOIN address_level a ON individual.address_id = a.id
-             JOIN address_level village on individual.address_id = village.id
-             JOIN address_level panchayat on village.parent_id = panchayat.id
-             JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+             LEFT JOIN address_level village on individual.address_id = village.id
+             LEFT JOIN address_level panchayat on village.parent_id = panchayat.id
+             LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
     WHERE oet.uuid = '767e7ef2-4a45-4c17-9939-773f97c0baf0'
       AND encounter.encounter_date_time IS NOT NULL
 );
@@ -232,6 +232,7 @@ SELECT individual.id                                                            
        panchayat.title                                                                        as "Ind.panchayat",
        surveillance_unit.title                                                                as "Ind.surveillance_unit",
        individual.is_voided                                                                   as "Ind.is_voided",
+       individual.registration_location                                                          "Ind.registration_location",
        (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT             as "Ind.Contact Number",
        (individual.observations ->> '558469e8-d993-45ec-9d9b-f019c3642bab')::TEXT             as "Ind.Household number",
        enc.uuid                                                                               as "Enc.uuid",
@@ -301,9 +302,9 @@ SELECT individual.id                                                            
 FROM individual individual
          JOIN gender g ON g.id = individual.gender_id
          JOIN encounter enc on individual.id = enc.individual_id
-         join address_level village on individual.address_id = village.id
-         join address_level panchayat on village.parent_id = panchayat.id
-         join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+         LEFT join address_level village on individual.address_id = village.id
+         LEFT join address_level panchayat on village.parent_id = panchayat.id
+         LEFT join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
 where subject_type_id = (select id from subject_type where name = 'Individual')
   and enc.name = 'Individual Survey'
   and enc.encounter_date_time notnull;
@@ -324,16 +325,15 @@ SELECT individual.id                                                            
        individual.date_of_birth_verified                                          AS "Ind.date_of_birth_verified",
        individual.registration_date                                               AS "Ind.registration_date",
        individual.facility_id                                                     AS "Ind.facility_id",
-       a.title                                                                    AS "Ind.Area",
        individual.is_voided                                                       AS "Ind.is_voided",
+       individual.registration_location                                              "Ind.registration_location",
        (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text) AS "Ind.Contact Number",
        (individual.observations ->> '558469e8-d993-45ec-9d9b-f019c3642bab'::text) AS "Ind.Household number"
 FROM individual individual
          join gender g ON g.id = individual.gender_id
-         join address_level a ON individual.address_id = a.id
-         join address_level village on individual.address_id = village.id
-         join address_level panchayat on village.parent_id = panchayat.id
-         join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+         left join address_level village on individual.address_id = village.id
+         left join address_level panchayat on village.parent_id = panchayat.id
+         left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
 WHERE (individual.subject_type_id = (SELECT subject_type.id
                                      FROM subject_type
                                      WHERE ((subject_type.name)::text = 'Individual'::text)));
@@ -353,6 +353,7 @@ SELECT individual.id                                                            
        individual.facility_id                                                      AS "Ind.facility_id",
        a.title                                                                     AS "Ind.Area",
        individual.is_voided                                                        AS "Ind.is_voided",
+       individual.registration_location                                               "Ind.registration_location",
        op.name                                                                     AS "Enl.Program Name",
        programenrolment.id                                                         AS "Enl.Id",
        programenrolment.uuid                                                       AS "Enl.uuid",
@@ -409,32 +410,32 @@ WHERE (((op.uuid)::text = '2106f644-da4e-46cd-9940-a495be09d857'::text) AND
 
 drop view if exists yenepoya_diabetes_followup_view;
 create view yenepoya_diabetes_followup_view
-            ("Ind.Id", "Ind.address_id", "Ind.uuid", "Ind.first_name", "Ind.last_name", "Ind.Gender",
-             "Ind.date_of_birth", "Ind.date_of_birth_verified", "Ind.registration_date", "Ind.facility_id", "Ind.Area",
-             "Ind.is_voided", "Enl.Id", "Enc.Type", "Enc.Id", "Enc.earliest_visit_date_time", "Enc.encounter_date_time",
-             "Enc.program_enrolment_id", "Enc.uuid", "Enc.name", "Enc.max_visit_date_time", "Enc.is_voided",
-             "Ind.Contact Number", "Enc.Adherence to medications", "Enc.Do you check your foot daily",
-             "Enc.What about your physical activity", "Enc.Alcohol use in last 1 year",
-             "Enc.What about the use of tobacco", "Enc.Eating of fast foods like fried and bakery items weekly",
-             "Enc.Habit of vegetable intake atleast 3 servings daily",
-             "Enc.Habit of fruit intake atleast 3 servings daily", "Enc.Height in CM", "Enc.weight",
-             "Enc.mid arm circumference", "Enc.waist circumference", "Enc.blood Pressure (systolic)",
-             "Enc.blood Pressure (Diastolic)", "Enc.random blood sugar levels report",
-             "Enc.fasting blood sugar level reports in last one month",
-             "Enc.post prandial blood sugar level reports in last one month",
-             "Enc.diabetes followup,have you developed any complication", "Enc.Any complications,specify",
-             "Enc.whether your blood sugar level is under control", "Enl.Adherence to medications",
-             "Enl.Do you check your foot daily", "Enl.What about your physical activity",
-             "Enl.Alcohol use in last 1 year", "Enl.What about the use of tobacco",
-             "Enl.Eating of fast foods like fried and bakery items weekly",
-             "Enl.Habit of vegetable intake atleast 3 servings daily",
-             "Enl.Habit of fruit intake atleast 3 servings daily", "Enl.Height in CM", "Enl.Weight",
-             "Enl.Mid arm circumference", "Enl.Waist circumference", "Enl.Abnormal waist circumference",
-             "Enl.Waist circumference is normal", "Enl.Blood Pressure (systolic)", "Enl.Blood Pressure (Diastolic)",
-             "Enl.Fasting blood sugar level reports in last one month",
-             "Enl.Post prandial blood sugar level reports in last one month", "Enl.Random blood sugar levels report",
-             "Enl.Whether your blood sugar level is under control", "Enl.enrolment_date_time", "Ind.village",
-             "Ind.panchayat", "Ind.surveillance_unit", "Rank")
+    ("Ind.Id", "Ind.address_id", "Ind.uuid", "Ind.first_name", "Ind.last_name", "Ind.Gender",
+     "Ind.date_of_birth", "Ind.date_of_birth_verified", "Ind.registration_date", "Ind.facility_id", "Ind.Area",
+     "Ind.is_voided", "Enl.Id", "Enc.Type", "Enc.Id", "Enc.earliest_visit_date_time", "Enc.encounter_date_time",
+     "Enc.program_enrolment_id", "Enc.uuid", "Enc.name", "Enc.max_visit_date_time", "Enc.is_voided",
+     "Ind.Contact Number", "Enc.Adherence to medications", "Enc.Do you check your foot daily",
+     "Enc.What about your physical activity", "Enc.Alcohol use in last 1 year",
+     "Enc.What about the use of tobacco", "Enc.Eating of fast foods like fried and bakery items weekly",
+     "Enc.Habit of vegetable intake atleast 3 servings daily",
+     "Enc.Habit of fruit intake atleast 3 servings daily", "Enc.Height in CM", "Enc.weight",
+     "Enc.mid arm circumference", "Enc.waist circumference", "Enc.blood Pressure (systolic)",
+     "Enc.blood Pressure (Diastolic)", "Enc.random blood sugar levels report",
+     "Enc.fasting blood sugar level reports in last one month",
+     "Enc.post prandial blood sugar level reports in last one month",
+     "Enc.diabetes followup,have you developed any complication", "Enc.Any complications,specify",
+     "Enc.whether your blood sugar level is under control", "Enl.Adherence to medications",
+     "Enl.Do you check your foot daily", "Enl.What about your physical activity",
+     "Enl.Alcohol use in last 1 year", "Enl.What about the use of tobacco",
+     "Enl.Eating of fast foods like fried and bakery items weekly",
+     "Enl.Habit of vegetable intake atleast 3 servings daily",
+     "Enl.Habit of fruit intake atleast 3 servings daily", "Enl.Height in CM", "Enl.Weight",
+     "Enl.Mid arm circumference", "Enl.Waist circumference", "Enl.Abnormal waist circumference",
+     "Enl.Waist circumference is normal", "Enl.Blood Pressure (systolic)", "Enl.Blood Pressure (Diastolic)",
+     "Enl.Fasting blood sugar level reports in last one month",
+     "Enl.Post prandial blood sugar level reports in last one month", "Enl.Random blood sugar levels report",
+     "Enl.Whether your blood sugar level is under control", "Enl.enrolment_date_time", "Ind.village",
+     "Ind.panchayat", "Ind.surveillance_unit", "Rank")
 as
 SELECT individual.id                                                                        AS "Ind.Id",
        individual.address_id                                                                AS "Ind.address_id",
@@ -446,7 +447,7 @@ SELECT individual.id                                                            
        individual.date_of_birth_verified                                                    AS "Ind.date_of_birth_verified",
        individual.registration_date                                                         AS "Ind.registration_date",
        individual.facility_id                                                               AS "Ind.facility_id",
-       village.title                                                                              AS "Ind.Area",
+       village.title                                                                        AS "Ind.Area",
        individual.is_voided                                                                 AS "Ind.is_voided",
        programenrolment.id                                                                  AS "Enl.Id",
        oet.name                                                                             AS "Enc.Type",
@@ -459,104 +460,104 @@ SELECT individual.id                                                            
        programencounter.max_visit_date_time                                                 AS "Enc.max_visit_date_time",
        programencounter.is_voided                                                           AS "Enc.is_voided",
        (individual.observations ->>
-        'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)                                                                AS "Ind.Contact Number",
+        'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)                                       AS "Ind.Contact Number",
        (single_select_coded((programencounter.observations ->>
-                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text                                   AS "Enc.Adherence to medications",
+                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text          AS "Enc.Adherence to medications",
        (single_select_coded((programencounter.observations ->>
-                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text                                   AS "Enc.Do you check your foot daily",
+                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text          AS "Enc.Do you check your foot daily",
        (single_select_coded((programencounter.observations ->>
-                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text                                   AS "Enc.What about your physical activity",
+                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text          AS "Enc.What about your physical activity",
        (single_select_coded((programencounter.observations ->>
-                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text                                   AS "Enc.Alcohol use in last 1 year",
+                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text          AS "Enc.Alcohol use in last 1 year",
        (single_select_coded((programencounter.observations ->>
-                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text                                   AS "Enc.What about the use of tobacco",
+                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text          AS "Enc.What about the use of tobacco",
        (single_select_coded((programencounter.observations ->>
-                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text                                   AS "Enc.Eating of fast foods like fried and bakery items weekly",
+                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text          AS "Enc.Eating of fast foods like fried and bakery items weekly",
        (single_select_coded((programencounter.observations ->>
-                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text                                   AS "Enc.Habit of vegetable intake atleast 3 servings daily",
+                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text          AS "Enc.Habit of vegetable intake atleast 3 servings daily",
        (single_select_coded((programencounter.observations ->>
-                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text                                   AS "Enc.Habit of fruit intake atleast 3 servings daily",
+                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text          AS "Enc.Habit of fruit intake atleast 3 servings daily",
        (programencounter.observations ->>
-        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                                                                AS "Enc.Height in CM",
+        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                                       AS "Enc.Height in CM",
        (programencounter.observations ->>
-        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                                                                AS "Enc.weight",
+        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                                       AS "Enc.weight",
        (programencounter.observations ->>
-        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                                                                AS "Enc.mid arm circumference",
+        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                                       AS "Enc.mid arm circumference",
        (programencounter.observations ->>
-        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                                                                AS "Enc.waist circumference",
+        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                                       AS "Enc.waist circumference",
        (programencounter.observations ->>
-        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                                                                AS "Enc.blood Pressure (systolic)",
+        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                                       AS "Enc.blood Pressure (systolic)",
        (programencounter.observations ->>
-        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                                                AS "Enc.blood Pressure (Diastolic)",
+        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                       AS "Enc.blood Pressure (Diastolic)",
        (programencounter.observations ->>
-        '18d36389-e42d-4366-a316-053407c3a0ab'::text)                                                                AS "Enc.random blood sugar levels report",
+        '18d36389-e42d-4366-a316-053407c3a0ab'::text)                                       AS "Enc.random blood sugar levels report",
        (programencounter.observations ->>
-        '3e30648a-5829-45bb-b2ef-f797462c397e'::text)                                                                AS "Enc.fasting blood sugar level reports in last one month",
+        '3e30648a-5829-45bb-b2ef-f797462c397e'::text)                                       AS "Enc.fasting blood sugar level reports in last one month",
        (programencounter.observations ->>
-        '22868608-488a-4be8-9dd3-d2c50fe1f6aa'::text)                                                                AS "Enc.post prandial blood sugar level reports in last one month",
+        '22868608-488a-4be8-9dd3-d2c50fe1f6aa'::text)                                       AS "Enc.post prandial blood sugar level reports in last one month",
        (single_select_coded((programencounter.observations ->>
-                             '60ad9a6a-cb8d-4145-9f8a-295d8fcc1759'::text)))::text                                   AS "Enc.diabetes followup,have you developed any complication",
+                             '60ad9a6a-cb8d-4145-9f8a-295d8fcc1759'::text)))::text          AS "Enc.diabetes followup,have you developed any complication",
        (programencounter.observations ->>
-        '4144ec30-c97a-41c0-9049-76258ca7973c'::text)                                                                AS "Enc.Any complications,specify",
+        '4144ec30-c97a-41c0-9049-76258ca7973c'::text)                                       AS "Enc.Any complications,specify",
        (single_select_coded((programencounter.observations ->>
                              '319c1184-2afb-4e10-9523-840645b6a130'::text)))::text          AS "Enc.whether your blood sugar level is under control",
        (single_select_coded((programenrolment.observations ->>
-                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text AS "Enl.Adherence to medications",
+                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text          AS "Enl.Adherence to medications",
        (single_select_coded((programenrolment.observations ->>
-                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text AS "Enl.Do you check your foot daily",
+                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text          AS "Enl.Do you check your foot daily",
        (single_select_coded((programenrolment.observations ->>
-                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text AS "Enl.What about your physical activity",
+                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text          AS "Enl.What about your physical activity",
        (single_select_coded((programenrolment.observations ->>
-                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text AS "Enl.Alcohol use in last 1 year",
+                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text          AS "Enl.Alcohol use in last 1 year",
        (single_select_coded((programenrolment.observations ->>
-                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text AS "Enl.What about the use of tobacco",
+                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text          AS "Enl.What about the use of tobacco",
        (single_select_coded((programenrolment.observations ->>
-                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text AS "Enl.Eating of fast foods like fried and bakery items weekly",
+                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text          AS "Enl.Eating of fast foods like fried and bakery items weekly",
        (single_select_coded((programenrolment.observations ->>
-                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text AS "Enl.Habit of vegetable intake atleast 3 servings daily",
+                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text          AS "Enl.Habit of vegetable intake atleast 3 servings daily",
        (single_select_coded((programenrolment.observations ->>
-                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text AS "Enl.Habit of fruit intake atleast 3 servings daily",
+                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text          AS "Enl.Habit of fruit intake atleast 3 servings daily",
        (programenrolment.observations ->>
-        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                              AS "Enl.Height in CM",
+        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                                       AS "Enl.Height in CM",
        (programenrolment.observations ->>
-        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                              AS "Enl.Weight",
+        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                                       AS "Enl.Weight",
        (programenrolment.observations ->>
-        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                              AS "Enl.Mid arm circumference",
+        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                                       AS "Enl.Mid arm circumference",
        (programenrolment.observations ->>
-        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                              AS "Enl.Waist circumference",
+        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                                       AS "Enl.Waist circumference",
        (single_select_coded((programenrolment.observations ->>
-                             'c78e883a-60de-4629-8d85-8e4512cd13d5'::text)))::text AS "Enl.Abnormal waist circumference",
+                             'c78e883a-60de-4629-8d85-8e4512cd13d5'::text)))::text          AS "Enl.Abnormal waist circumference",
        (single_select_coded((programenrolment.observations ->>
-                             '1cae9bd0-0dba-4479-954a-2d569c58d711'::text)))::text AS "Enl.Waist circumference is normal",
+                             '1cae9bd0-0dba-4479-954a-2d569c58d711'::text)))::text          AS "Enl.Waist circumference is normal",
        (programenrolment.observations ->>
-        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                              AS "Enl.Blood Pressure (systolic)",
+        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                                       AS "Enl.Blood Pressure (systolic)",
        (programenrolment.observations ->>
-        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                              AS "Enl.Blood Pressure (Diastolic)",
+        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                       AS "Enl.Blood Pressure (Diastolic)",
        (programenrolment.observations ->>
-        '3e30648a-5829-45bb-b2ef-f797462c397e'::text)                              AS "Enl.Fasting blood sugar level reports in last one month",
+        '3e30648a-5829-45bb-b2ef-f797462c397e'::text)                                       AS "Enl.Fasting blood sugar level reports in last one month",
        (programenrolment.observations ->>
-        '22868608-488a-4be8-9dd3-d2c50fe1f6aa'::text)                              AS "Enl.Post prandial blood sugar level reports in last one month",
+        '22868608-488a-4be8-9dd3-d2c50fe1f6aa'::text)                                       AS "Enl.Post prandial blood sugar level reports in last one month",
        (programenrolment.observations ->>
-        '18d36389-e42d-4366-a316-053407c3a0ab'::text)                              AS "Enl.Random blood sugar levels report",
+        '18d36389-e42d-4366-a316-053407c3a0ab'::text)                                       AS "Enl.Random blood sugar levels report",
        (single_select_coded((programenrolment.observations ->>
-                             '319c1184-2afb-4e10-9523-840645b6a130'::text)))::text AS "Enl.Whether your blood sugar level is under control",
-       programenrolment.enrolment_date_time                                                     AS "Enl.enrolment_date_time",
-       village.title                                                                                  AS "Ind.village",
-       panchayat.title                                                                          AS "Ind.panchayat",
-       surveillance_unit.title                                                                  AS "Ind.surveillance_unit",
+                             '319c1184-2afb-4e10-9523-840645b6a130'::text)))::text          AS "Enl.Whether your blood sugar level is under control",
+       programenrolment.enrolment_date_time                                                 AS "Enl.enrolment_date_time",
+       village.title                                                                        AS "Ind.village",
+       panchayat.title                                                                      AS "Ind.panchayat",
+       surveillance_unit.title                                                              AS "Ind.surveillance_unit",
        row_number()
        OVER (PARTITION BY individual.id ORDER BY programencounter.encounter_date_time DESC) AS "Rank"
 FROM program_enrolment programenrolment
-       LEFT JOIN program_encounter programencounter ON programencounter.program_enrolment_id = programenrolment.id AND
-                                                       programencounter.encounter_date_time IS NOT NULL
-       LEFT JOIN operational_encounter_type oet ON programencounter.encounter_type_id = oet.encounter_type_id AND
-                                                   oet.uuid::text = '52814e7b-28a6-4acb-a9bd-eb01d6ee4698'::text
-       LEFT JOIN operational_program op ON op.program_id = programenrolment.program_id
-       LEFT JOIN individual individual ON programenrolment.individual_id = individual.id
-       LEFT JOIN gender g ON g.id = individual.gender_id
-       LEFT JOIN address_level village ON individual.address_id = village.id
-       left join address_level panchayat on village.parent_id = panchayat.id
-       left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+         LEFT JOIN program_encounter programencounter ON programencounter.program_enrolment_id = programenrolment.id AND
+                                                         programencounter.encounter_date_time IS NOT NULL
+         LEFT JOIN operational_encounter_type oet ON programencounter.encounter_type_id = oet.encounter_type_id AND
+                                                     oet.uuid::text = '52814e7b-28a6-4acb-a9bd-eb01d6ee4698'::text
+         LEFT JOIN operational_program op ON op.program_id = programenrolment.program_id
+         LEFT JOIN individual individual ON programenrolment.individual_id = individual.id
+         LEFT JOIN gender g ON g.id = individual.gender_id
+         LEFT JOIN address_level village ON individual.address_id = village.id
+         left join address_level panchayat on village.parent_id = panchayat.id
+         left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
 WHERE op.uuid::text = '2106f644-da4e-46cd-9940-a495be09d857'::text
   AND programenrolment.enrolment_date_time IS NOT NULL;
 
@@ -576,6 +577,7 @@ SELECT individual.id                                                            
        individual.facility_id                                                                               AS "Ind.facility_id",
        a.title                                                                                              AS "Ind.Area",
        individual.is_voided                                                                                 AS "Ind.is_voided",
+       individual.registration_location                                                                        "Ind.registration_location",
        oet.name                                                                                             AS "Enc.Type",
        encounter.id                                                                                         AS "Enc.Id",
        encounter.earliest_visit_date_time                                                                   AS "Enc.earliest_visit_date_time",
@@ -657,6 +659,7 @@ SELECT individual.id                                                            
        individual.facility_id                                                      AS "Ind.facility_id",
        a.title                                                                     AS "Ind.Area",
        individual.is_voided                                                        AS "Ind.is_voided",
+       individual.registration_location                                               "Ind.registration_location",
        op.name                                                                     AS "Enl.Program Name",
        programenrolment.id                                                         AS "Enl.Id",
        programenrolment.uuid                                                       AS "Enl.uuid",
@@ -710,120 +713,119 @@ WHERE (((op.uuid)::text = '4e3dc382-f14a-4a56-8ab8-e4cc4faca774'::text) AND
 drop view if exists yenepoya_hypertension_followup_view;
 create view yenepoya_hypertension_followup_view
 as
-SELECT individual.id                                                                            AS "Ind.Id",
-       individual.address_id                                                                    AS "Ind.address_id",
-       individual.uuid                                                                          AS "Ind.uuid",
-       individual.first_name                                                                    AS "Ind.first_name",
-       individual.last_name                                                                     AS "Ind.last_name",
-       g.name                                                                                   AS "Ind.Gender",
-       individual.date_of_birth                                                                 AS "Ind.date_of_birth",
-       individual.date_of_birth_verified                                                        AS "Ind.date_of_birth_verified",
-       individual.registration_date                                                             AS "Ind.registration_date",
-       individual.facility_id                                                                   AS "Ind.facility_id",
-       a.title                                                                                  AS "Ind.Area",
-       individual.is_voided                                                                     AS "Ind.is_voided",
-       programenrolment.id                                                                      AS "Enl.Id",
-       oet.name                                                                                 AS "Enc.Type",
-       programencounter.id                                                                      AS "Enc.Id",
-       programencounter.earliest_visit_date_time                                                AS "Enc.earliest_visit_date_time",
-       programencounter.encounter_date_time                                                     AS "Enc.encounter_date_time",
-       programencounter.program_enrolment_id                                                    AS "Enc.program_enrolment_id",
-       programencounter.uuid                                                                    AS "Enc.uuid",
-       programencounter.name                                                                    AS "Enc.name",
-       programencounter.max_visit_date_time                                                     AS "Enc.max_visit_date_time",
-       programencounter.is_voided                                                               AS "Enc.is_voided",
+SELECT individual.id                                                                        AS "Ind.Id",
+       individual.address_id                                                                AS "Ind.address_id",
+       individual.uuid                                                                      AS "Ind.uuid",
+       individual.first_name                                                                AS "Ind.first_name",
+       individual.last_name                                                                 AS "Ind.last_name",
+       g.name                                                                               AS "Ind.Gender",
+       individual.date_of_birth                                                             AS "Ind.date_of_birth",
+       individual.date_of_birth_verified                                                    AS "Ind.date_of_birth_verified",
+       individual.registration_date                                                         AS "Ind.registration_date",
+       individual.facility_id                                                               AS "Ind.facility_id",
+       individual.is_voided                                                                 AS "Ind.is_voided",
+       programenrolment.id                                                                  AS "Enl.Id",
+       oet.name                                                                             AS "Enc.Type",
+       programencounter.id                                                                  AS "Enc.Id",
+       programencounter.earliest_visit_date_time                                            AS "Enc.earliest_visit_date_time",
+       programencounter.encounter_date_time                                                 AS "Enc.encounter_date_time",
+       programencounter.program_enrolment_id                                                AS "Enc.program_enrolment_id",
+       programencounter.uuid                                                                AS "Enc.uuid",
+       programencounter.name                                                                AS "Enc.name",
+       programencounter.max_visit_date_time                                                 AS "Enc.max_visit_date_time",
+       programencounter.is_voided                                                           AS "Enc.is_voided",
        (individual.observations ->>
-        'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)                                           AS "Ind.Contact Number",
+        'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)                                       AS "Ind.Contact Number",
        (single_select_coded((programencounter.observations ->>
-                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text              AS "Enc.Adherence to medications",
+                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text          AS "Enc.Adherence to medications",
        (single_select_coded((programencounter.observations ->>
-                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text              AS "Enc.Do you check your foot daily",
+                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text          AS "Enc.Do you check your foot daily",
        (single_select_coded((programencounter.observations ->>
-                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text              AS "Enc.What about your physical activity",
+                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text          AS "Enc.What about your physical activity",
        (single_select_coded((programencounter.observations ->>
-                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text              AS "Enc.Alcohol use in last 1 year",
+                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text          AS "Enc.Alcohol use in last 1 year",
        (single_select_coded((programencounter.observations ->>
-                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text              AS "Enc.What about the use of tobacco",
+                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text          AS "Enc.What about the use of tobacco",
        (single_select_coded((programencounter.observations ->>
-                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text              AS "Enc.Eating of fast foods like fried and bakery items weekly",
+                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text          AS "Enc.Eating of fast foods like fried and bakery items weekly",
        (single_select_coded((programencounter.observations ->>
-                             'fc5fb2db-c47c-43c3-9872-c64fd0ec23e4'::text)))::text              AS "Enc.preference for food with excess salt",
+                             'fc5fb2db-c47c-43c3-9872-c64fd0ec23e4'::text)))::text          AS "Enc.preference for food with excess salt",
        (single_select_coded((programencounter.observations ->>
-                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text              AS "Enc.Habit of vegetable intake atleast 3 servings daily",
+                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text          AS "Enc.Habit of vegetable intake atleast 3 servings daily",
        (single_select_coded((programencounter.observations ->>
-                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text              AS "Enc.Habit of fruit intake atleast 3 servings daily",
+                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text          AS "Enc.Habit of fruit intake atleast 3 servings daily",
        (programencounter.observations ->>
-        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                                           AS "Enc.Height in CM",
+        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                                       AS "Enc.Height in CM",
        (programencounter.observations ->>
-        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                                           AS "Enc.weight",
+        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                                       AS "Enc.weight",
        (programencounter.observations ->>
-        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                                           AS "Enc.mid arm circumference",
+        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                                       AS "Enc.mid arm circumference",
        (programencounter.observations ->>
-        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                                           AS "Enc.waist circumference",
+        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                                       AS "Enc.waist circumference",
        (programencounter.observations ->>
-        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                                           AS "Enc.blood Pressure (systolic)",
+        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                                       AS "Enc.blood Pressure (systolic)",
        (programencounter.observations ->>
-        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                           AS "Enc.blood Pressure (Diastolic)",
+        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                       AS "Enc.blood Pressure (Diastolic)",
        (single_select_coded((programencounter.observations ->>
-                             '8bc6db2a-388d-4028-a995-865ff018c8f6'::text)))::text              AS "Enc.Whether your blood pressure is under control",
-       programencounter.cancel_date_time                                                        AS "EncCancel.cancel_date_time",
+                             '8bc6db2a-388d-4028-a995-865ff018c8f6'::text)))::text          AS "Enc.Whether your blood pressure is under control",
+       programencounter.cancel_date_time                                                    AS "EncCancel.cancel_date_time",
        (single_select_coded((programencounter.observations ->>
-                             '5592def2-fe5e-4234-9253-ca5fd0322e26'::text)))::text              AS "EncCancel.Reason Of Cancellation",
+                             '5592def2-fe5e-4234-9253-ca5fd0322e26'::text)))::text          AS "EncCancel.Reason Of Cancellation",
        (programencounter.observations ->>
-        '8263f129-5851-4f9d-a909-818dacacd862'::text)                                           AS "EncCancel.Other Reason of Cancellation",
+        '8263f129-5851-4f9d-a909-818dacacd862'::text)                                       AS "EncCancel.Other Reason of Cancellation",
        (single_select_coded((programenrolment.observations ->>
-                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text              AS "Enl.Adherence to medications",
+                             '1341e326-d2b5-4cbc-b09a-108e10a84808'::text)))::text          AS "Enl.Adherence to medications",
        (single_select_coded((programenrolment.observations ->>
-                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text              AS "Enl.Do you check your foot daily",
+                             '644a912d-beb9-4140-a629-c6639b304e67'::text)))::text          AS "Enl.Do you check your foot daily",
        (single_select_coded((programenrolment.observations ->>
-                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text              AS "Enl.What about your physical activity",
+                             'd7e707f2-4c4e-47e8-8907-7dab7770fc89'::text)))::text          AS "Enl.What about your physical activity",
        (single_select_coded((programenrolment.observations ->>
-                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text              AS "Enl.Alcohol use in last 1 year",
+                             '29e472b6-0478-4de5-89f9-d7a4a373ff42'::text)))::text          AS "Enl.Alcohol use in last 1 year",
        (single_select_coded((programenrolment.observations ->>
-                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text              AS "Enl.What about the use of tobacco",
+                             'ec3e201d-f4de-4705-b954-02c750ca5063'::text)))::text          AS "Enl.What about the use of tobacco",
        (single_select_coded((programenrolment.observations ->>
-                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text              AS "Enl.Eating of fast foods like fried and bakery items weekly",
+                             '182d8aef-512d-4d50-8fd8-95cb01f3ccbe'::text)))::text          AS "Enl.Eating of fast foods like fried and bakery items weekly",
        (single_select_coded((programenrolment.observations ->>
-                             'fc5fb2db-c47c-43c3-9872-c64fd0ec23e4'::text)))::text              AS "Enl.preference for food with excess salt",
+                             'fc5fb2db-c47c-43c3-9872-c64fd0ec23e4'::text)))::text          AS "Enl.preference for food with excess salt",
        (single_select_coded((programenrolment.observations ->>
-                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text              AS "Enl.Habit of vegetable intake atleast 3 servings daily",
+                             'd31251b0-616a-47d5-84d6-7b5fad85baad'::text)))::text          AS "Enl.Habit of vegetable intake atleast 3 servings daily",
        (single_select_coded((programenrolment.observations ->>
-                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text              AS "Enl.Habit of fruit intake atleast 3 servings daily",
+                             '2ec1f0cb-1e3a-4c1e-be3b-a9790a9d832d'::text)))::text          AS "Enl.Habit of fruit intake atleast 3 servings daily",
        (programenrolment.observations ->>
-        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                                           AS "Enl.Height in CM",
+        '80d88c23-1e44-423a-96bf-5ddaf105042e'::text)                                       AS "Enl.Height in CM",
        (programenrolment.observations ->>
-        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                                           AS "Enl.Weight",
+        'e9190320-3211-4d9f-a72c-288f42cf830c'::text)                                       AS "Enl.Weight",
        (programenrolment.observations ->>
-        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                                           AS "Enl.Mid arm circumference",
+        '44a608f8-54d3-4a8b-96b8-7175c65e1d01'::text)                                       AS "Enl.Mid arm circumference",
        (programenrolment.observations ->>
-        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                                           AS "Enl.Waist circumference",
+        'a9f45a38-99a7-4fd8-8e28-1291434eace0'::text)                                       AS "Enl.Waist circumference",
        (single_select_coded((programenrolment.observations ->>
-                             'c78e883a-60de-4629-8d85-8e4512cd13d5'::text)))::text              AS "Enl.Abnormal waist circumference",
+                             'c78e883a-60de-4629-8d85-8e4512cd13d5'::text)))::text          AS "Enl.Abnormal waist circumference",
        (single_select_coded((programenrolment.observations ->>
-                             '1cae9bd0-0dba-4479-954a-2d569c58d711'::text)))::text              AS "Enl.Waist circumference is normal",
+                             '1cae9bd0-0dba-4479-954a-2d569c58d711'::text)))::text          AS "Enl.Waist circumference is normal",
        (programenrolment.observations ->>
-        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                                           AS "Enl.Blood Pressure (systolic)",
+        '7a320ebc-366d-4301-8e8b-71edcbaad78d'::text)                                       AS "Enl.Blood Pressure (systolic)",
        (programenrolment.observations ->>
-        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                           AS "Enl.Blood Pressure (Diastolic)",
+        'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51'::text)                                       AS "Enl.Blood Pressure (Diastolic)",
        (single_select_coded((programenrolment.observations ->>
-                             '8bc6db2a-388d-4028-a995-865ff018c8f6'::text)))::text              AS "Enl.Whether your blood pressure is under control",
-       programenrolment.enrolment_date_time                                                     AS "Enl.enrolment_date_time",
-       a.title                                                                                  AS "Ind.village",
-       panchayat.title                                                                          AS "Ind.panchayat",
-       surveillance_unit.title                                                                  AS "Ind.surveillance_unit",
+                             '8bc6db2a-388d-4028-a995-865ff018c8f6'::text)))::text          AS "Enl.Whether your blood pressure is under control",
+       programenrolment.enrolment_date_time                                                 AS "Enl.enrolment_date_time",
+       a.title                                                                              AS "Ind.village",
+       panchayat.title                                                                      AS "Ind.panchayat",
+       surveillance_unit.title                                                              AS "Ind.surveillance_unit",
        row_number()
-           OVER (PARTITION BY individual.id ORDER BY programencounter.encounter_date_time DESC) AS rank
+       OVER (PARTITION BY individual.id ORDER BY programencounter.encounter_date_time DESC) AS rank
 FROM program_enrolment programenrolment
-       LEFT JOIN program_encounter programencounter ON programencounter.program_enrolment_id = programenrolment.id AND
-                                                       programencounter.encounter_date_time IS NOT NULL
-       LEFT JOIN operational_encounter_type oet ON programencounter.encounter_type_id = oet.encounter_type_id AND
-                                                   oet.uuid::text = '5defe5af-b031-4783-80d6-52d49aa66884'::text
-       LEFT JOIN operational_program op ON op.program_id = programenrolment.program_id
-       LEFT JOIN individual individual ON programenrolment.individual_id = individual.id
-       LEFT JOIN gender g ON g.id = individual.gender_id
-       LEFT JOIN address_level a ON individual.address_id = a.id
-       left join address_level panchayat on a.parent_id = panchayat.id
-       left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+         LEFT JOIN program_encounter programencounter ON programencounter.program_enrolment_id = programenrolment.id AND
+                                                         programencounter.encounter_date_time IS NOT NULL
+         LEFT JOIN operational_encounter_type oet ON programencounter.encounter_type_id = oet.encounter_type_id AND
+                                                     oet.uuid::text = '5defe5af-b031-4783-80d6-52d49aa66884'::text
+         LEFT JOIN operational_program op ON op.program_id = programenrolment.program_id
+         LEFT JOIN individual individual ON programenrolment.individual_id = individual.id
+         LEFT JOIN gender g ON g.id = individual.gender_id
+         LEFT JOIN address_level a ON individual.address_id = a.id
+         left join address_level panchayat on a.parent_id = panchayat.id
+         left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
 WHERE op.uuid::text = '4e3dc382-f14a-4a56-8ab8-e4cc4faca774'::text
   AND programenrolment.enrolment_date_time IS NOT NULL;
 
@@ -933,7 +935,7 @@ SELECT individual.id                                                            
        (single_select_coded((programenrolment.observations ->>
                              '0fc3b733-0ee0-4554-b316-e5e29c1978d2'::text)))::text AS "Enl.Smoking or consume smokeless products",
        (multi_select_coded((programenrolment.observations ->
-                             'd41af1b4-8f7e-4643-a3ff-b17d442c1fae'::text)))        AS "Enl.Risk Score",
+                            'd41af1b4-8f7e-4643-a3ff-b17d442c1fae'::text)))        AS "Enl.Risk Score",
        (single_select_coded((programenrolment.observations ->>
                              'ac4d5664-0b5f-467f-a3c9-c0e4c8c221b7'::text)))::text AS "Enl.Alcohol consumption",
        (programenrolment.observations ->>
@@ -975,7 +977,7 @@ SELECT individual.id                                                            
        (single_select_coded((programenrolment.observations ->>
                              '84a99b8c-f9bb-4436-9d83-d79a60a0b450'::text)))::text AS "Enl.Foul smelling vaginal discharge",
        (multi_select_coded((programencounter.observations ->
-                             'd41af1b4-8f7e-4643-a3ff-b17d442c1fae'::text)))       AS "Enc.Risk Score",
+                            'd41af1b4-8f7e-4643-a3ff-b17d442c1fae'::text)))        AS "Enc.Risk Score",
        (single_select_coded((programencounter.observations ->>
                              '0fc3b733-0ee0-4554-b316-e5e29c1978d2'::text)))::text AS "Enc.Smoking or consume smokeless products",
        (single_select_coded((programencounter.observations ->>
@@ -1039,14 +1041,16 @@ WHERE op.uuid::text = '85a36148-26a2-4a30-921c-5c1fc64e8acc'::text
 
 
 create or replace view yenepoya_member_household_view as (
-    select concat(member.first_name, ' ', member.last_name) member_name,
-           member.id                                        member_id,
-           house.first_name                                 house_name,
-           house.id                                         house_id,
+    select concat(member.first_name, ' ', member.last_name)                                         member_name,
+           member.id                                                                                member_id,
+           house.first_name                                                                         house_name,
+           house.id                                                                                 house_id,
            (select concat(head.first_name, ' ', head.last_name)
             from individual head
-            where head.id = gs2.member_subject_id)          head_of_family_name,
-           gs2.member_subject_id                            head_of_family_id
+            where head.id = gs2.member_subject_id)                                                  head_of_family_name,
+           gs2.member_subject_id                                                                    head_of_family_id,
+           (house.observations ->> '558469e8-d993-45ec-9d9b-f019c3642bab')::text                    household_number,
+           single_select_coded(house.observations ->> '1948be58-d42e-4313-8ec5-ac9ca87eb399')::text name_of_phc_uphc
     from individual member
              join subject_type on member.subject_type_id = subject_type.id and subject_type.type = 'Person'
              left join group_subject gs on gs.member_subject_id = member.id and not gs.is_voided
@@ -1060,504 +1064,6 @@ create or replace view yenepoya_member_household_view as (
 
 drop view if exists yenepoya_pregnancy_enrolemt_view;
 create view yenepoya_pregnancy_enrolemt_view
-as SELECT individual.id "Ind.Id", 
-          individual.address_id "Ind.address_id",
-          individual.uuid "Ind.uuid",
-          individual.first_name "Ind.first_name", 
-          individual.last_name "Ind.last_name", 
-          g.name "Ind.Gender", 
-          individual.date_of_birth "Ind.date_of_birth", 
-          individual.date_of_birth_verified "Ind.date_of_birth_verified",
-          individual.registration_date "Ind.registration_date", 
-          individual.facility_id "Ind.facility_id",           
-          a.title                                                               as "Ind.village",
-          panchayat.title                                                             as "Ind.panchayat",
-          surveillance_unit.title                                                     as "Ind.surveillance_unit",
-           individual.is_voided "Ind.is_voided", 
-           op.name "Enl.Program Name", 
-            programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
-            programenrolment.program_exit_date_time                                     AS "Enl.program_exit_date_time",
-           programEnrolment.id "Enl.Id",
-           programEnrolment.uuid "Enl.uuid",
-           programEnrolment.is_voided "Enl.is_voided",
-           (individual.observations->>'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT as "Ind.Contact Number",
-           (programEnrolment.observations->>'a9440019-fc51-43a9-a695-43bbe77d2da1')::DATE as "Enl.Last menstrual period",
-           (programEnrolment.observations->>'448d443b-ffd6-446e-bbb9-bf1b1ef450b4')::DATE as "Enl.Estimated Date of Delivery",
-           (programEnrolment.observations->>'3ee9088e-8809-44d1-9e76-c5bcca84fe3b')::TEXT as "Enl.Gravida",
-           (programEnrolment.observations->>'368466f7-3aac-4155-a114-6269cef2e90c')::TEXT as "Enl.Para",
-           (programEnrolment.observations->>'9bfe3d44-73b6-4f1b-a6f1-0b85f018ff34')::TEXT as "Enl.No of living children",
-           (programEnrolment.observations->>'1617d0e0-83e0-4f10-ba1c-7fb24a1cc3da')::TEXT as "Enl.No of abortions in the past",
-           (programEnrolment.observations->>'5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT as "Enl.Gestational age in weeks",
-           single_select_coded(programEnrolment.observations->>'59c70bbd-a02e-4519-8b65-8383ae59adbc')::TEXT as "Enl.Thai card available",
-           (programEnrolment.observations->>'11682aa1-5e0e-4f76-834e-c0e4c3eb03e3')::TEXT as "Enl.Name of the ASHA",
-           single_select_coded(programEnrolment.observations->>'41ff539e-2f33-43cb-a902-036c9b114860')::TEXT as "Enl.Is present pregnancy registered",
-           (programEnrolment.observations->>'fff8bd3b-f054-46e4-934c-ab931117a435')::TEXT as "Enl.week of registration",
-           single_select_coded(programEnrolment.observations->>'cb75cb80-d3a4-4a54-bd0d-82a5b76971ea')::TEXT as "Enl.Place of registration",
-           single_select_coded(programEnrolment.observations->>'2fd7c36a-b025-4cb6-954c-2806e9b1269f')::TEXT as "Enl.Early registration (<12 weeks)",
-           single_select_coded(programEnrolment.observations->>'184bf8da-db08-4167-b312-afcf2ab654a6')::TEXT as "Enl.Antenatal checkup received",
-           single_select_coded(programEnrolment.observations->>'a48e9723-5b93-4e1a-a8ac-43d7192c5edb')::TEXT as "Enl.If yes, preferred place of antenatal check up",
-           (programEnrolment.observations->>'21cf25b4-7c0f-470c-9886-47ca4279bd6a')::TEXT as "Enl.No of antenatal visits in present pregnancy",
-           single_select_coded(programEnrolment.observations->>'f8380766-d281-477a-a91f-249ee6073dec')::TEXT as "Enl.Have you received first dose of TT",
-           (programEnrolment.observations->>'0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE as "Enl.Date of first dose of TT",
-           single_select_coded(programEnrolment.observations->>'a4527091-7229-410f-8df0-1d2484f99169')::TEXT as "Enl.Have you received second dose of TT",
-           (programEnrolment.observations->>'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE as "Enl.Date of second dose of TT",
-           single_select_coded(programEnrolment.observations->>'519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT as "Enl.Received and consumed iron and folic acid tablets",
-           single_select_coded(programEnrolment.observations->>'5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT as "Enl.Received and consumed calcium tablet",
-           single_select_coded(programEnrolment.observations->>'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT as "Enl.Received and consumed Albendazole tablet",
-           (programEnrolment.observations->>'80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT as "Enl.Height in CM",
-           (programEnrolment.observations->>'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT as "Enl.Weight",
-           (programEnrolment.observations->>'0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT as "Enl.BMI",
-           (programEnrolment.observations->>'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT as "Enl.Hemoglobin level",
-           (programEnrolment.observations->>'7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT as "Enl.Blood Pressure (systolic)",
-           (programEnrolment.observations->>'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT as "Enl.Blood Pressure (Diastolic)",
-           (programEnrolment.observations->>'18d36389-e42d-4366-a316-053407c3a0ab')::TEXT as "Enl.Random blood sugar levels report",
-           single_select_coded(programEnrolment.observations->>'9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT as "Enl.Availed services under PMSMA scheme",
-           single_select_coded(programEnrolment.observations->>'d5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT as "Enl.Whether received one specialist consultation",
-           single_select_coded(programEnrolment.observations->>'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT as "Enl.Whether thyroid profile done",
-           single_select_coded(programEnrolment.observations->>'574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT as "Enl.Whether anomaly scan done",
-           single_select_coded(programEnrolment.observations->>'87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT as "Enl.Received & consumed supplementary nutrition (Cooked food/TH",
-           (programEnrolment.observations->>'f123fcf5-c94c-4a8f-8fc0-eddb4ddd200e')::TEXT as "Enl.IF yes how many times in a week utilized the services",
-           single_select_coded(programEnrolment.observations->>'646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT as "Enl.History of bleeding/leaking per vagina",
-           single_select_coded(programEnrolment.observations->>'3b1763e9-3a77-4976-874f-ad11e9436a92')::TEXT as "Enl.Whether present pregnancy is twin pregnancy",
-           single_select_coded(programEnrolment.observations->>'0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT as "Enl.Foetal movements felt",
-           single_select_coded(programEnrolment.observations->>'c8698b30-5dac-47bc-a2d3-209bb4912aaa')::TEXT as "Enl.Any medical illness diagnosed from last visit",
-           multi_select_coded(programEnrolment.observations->'141e5d6a-2882-4d76-8730-e369614c9b3f')::TEXT as "Enl.If yes, Medical illness",
-           (programEnrolment.observations->>'7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT as "Enl.Specify Other",
-           single_select_coded(programEnrolment.observations->>'9a4b7389-92e3-4cb2-9330-4911e9959899')::TEXT as "Enl.If the medical illness is DM/HT/Thyroid disorder then wheth",
-           single_select_coded(programEnrolment.observations->>'9b338ab9-73f3-4e32-b625-914c754f52f0')::TEXT as "Enl.History of previous cesarean section",
-           multi_select_coded(programEnrolment.observations->'d06dd2e8-ae04-4288-aab3-e55c87ecfb03')::TEXT as "Enl.Past Obstetric history",
-           (programEnrolment.observations->>'0cf117f9-fc79-438c-bfdc-3c3bbe5c8f6f')::TEXT as "Enl.Specify Other obstetric History"
-             
-             
-        FROM program_enrolment programEnrolment
-        LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id 
-        LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id 
-        LEFT OUTER JOIN gender g ON g.id = individual.gender_id 
-        LEFT JOIN address_level a ON individual.address_id = a.id
-        LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
-        LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
-
-        
-        WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd' 
-        AND programEnrolment.enrolment_date_time IS NOT NULL;
-
-
-
-
-drop view if exists yenepoya_anc_form_view;
-create view yenepoya_anc_form_view
-as SELECT individual.id "Ind.Id", 
-          individual.address_id "Ind.address_id",
-          individual.uuid "Ind.uuid",
-          individual.first_name "Ind.first_name", 
-          individual.last_name "Ind.last_name", 
-          g.name "Ind.Gender", 
-          individual.date_of_birth "Ind.date_of_birth", 
-          individual.date_of_birth_verified "Ind.date_of_birth_verified",
-          individual.registration_date "Ind.registration_date", 
-          individual.facility_id "Ind.facility_id",
-          a.title                                                               as "Ind.village",
-          panchayat.title                                                             as "Ind.panchayat",
-          surveillance_unit.title                                                     as "Ind.surveillance_unit",
-          individual.is_voided "Ind.is_voided", 
-           op.name "Enl.Program Name", 
-           programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
-           programenrolment.program_exit_date_time                                     AS "Enl.program_exit_date_time",
-           programEnrolment.id "Enl.Id",
-           programEnrolment.uuid "Enl.uuid",
-           programEnrolment.is_voided "Enl.is_voided",
-           oet.name "Enc.Type",
-           programEncounter.id "Enc.Id",
-           programEncounter.earliest_visit_date_time "Enc.earliest_visit_date_time",
-           programEncounter.encounter_date_time "Enc.encounter_date_time",
-           programEncounter.program_enrolment_id "Enc.program_enrolment_id",
-           programEncounter.uuid "Enc.uuid",
-           programEncounter.name "Enc.name",
-           programEncounter.max_visit_date_time "Enc.max_visit_date_time",
-           programEncounter.is_voided "Enc.is_voided",
-           (individual.observations->>'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT as "Ind.Contact Number",
-           (programEnrolment.observations->>'a9440019-fc51-43a9-a695-43bbe77d2da1')::DATE as "Enl.Last menstrual period",
-           (programEnrolment.observations->>'448d443b-ffd6-446e-bbb9-bf1b1ef450b4')::DATE as "Enl.Estimated Date of Delivery",
-           (programEnrolment.observations->>'3ee9088e-8809-44d1-9e76-c5bcca84fe3b')::TEXT as "Enl.Gravida",
-           (programEnrolment.observations->>'368466f7-3aac-4155-a114-6269cef2e90c')::TEXT as "Enl.Para",
-           (programEnrolment.observations->>'9bfe3d44-73b6-4f1b-a6f1-0b85f018ff34')::TEXT as "Enl.No of living children",
-           (programEnrolment.observations->>'1617d0e0-83e0-4f10-ba1c-7fb24a1cc3da')::TEXT as "Enl.No of abortions in the past",
-           (programEnrolment.observations->>'5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT as "Enl.Gestational age in weeks",
-           single_select_coded(programEnrolment.observations->>'59c70bbd-a02e-4519-8b65-8383ae59adbc')::TEXT as "Enl.Thai card available",
-           (programEnrolment.observations->>'11682aa1-5e0e-4f76-834e-c0e4c3eb03e3')::TEXT as "Enl.Name of the ASHA",
-           single_select_coded(programEnrolment.observations->>'41ff539e-2f33-43cb-a902-036c9b114860')::TEXT as "Enl.Is present pregnancy registered",
-           (programEnrolment.observations->>'fff8bd3b-f054-46e4-934c-ab931117a435')::TEXT as "Enl.week of registration",
-           single_select_coded(programEnrolment.observations->>'cb75cb80-d3a4-4a54-bd0d-82a5b76971ea')::TEXT as "Enl.Place of registration",
-           single_select_coded(programEnrolment.observations->>'2fd7c36a-b025-4cb6-954c-2806e9b1269f')::TEXT as "Enl.Early registration (<12 weeks)",
-           single_select_coded(programEnrolment.observations->>'184bf8da-db08-4167-b312-afcf2ab654a6')::TEXT as "Enl.Antenatal checkup received",
-           single_select_coded(programEnrolment.observations->>'a48e9723-5b93-4e1a-a8ac-43d7192c5edb')::TEXT as "Enl.If yes, preferred place of antenatal check up",
-           (programEnrolment.observations->>'21cf25b4-7c0f-470c-9886-47ca4279bd6a')::TEXT as "Enl.No of antenatal visits in present pregnancy",
-           single_select_coded(programEnrolment.observations->>'f8380766-d281-477a-a91f-249ee6073dec')::TEXT as "Enl.Have you received first dose of TT",
-           (programEnrolment.observations->>'0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE as "Enl.Date of first dose of TT",
-           single_select_coded(programEnrolment.observations->>'a4527091-7229-410f-8df0-1d2484f99169')::TEXT as "Enl.Have you received second dose of TT",
-           (programEnrolment.observations->>'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE as "Enl.Date of second dose of TT",
-           single_select_coded(programEnrolment.observations->>'519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT as "Enl.Received and consumed iron and folic acid tablets",
-           single_select_coded(programEnrolment.observations->>'5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT as "Enl.Received and consumed calcium tablet",
-           single_select_coded(programEnrolment.observations->>'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT as "Enl.Received and consumed Albendazole tablet",
-           (programEnrolment.observations->>'80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT as "Enl.Height in CM",
-           (programEnrolment.observations->>'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT as "Enl.Weight",
-           (programEnrolment.observations->>'0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT as "Enl.BMI",
-           (programEnrolment.observations->>'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT as "Enl.Hemoglobin level",
-           (programEnrolment.observations->>'7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT as "Enl.Blood Pressure (systolic)",
-           (programEnrolment.observations->>'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT as "Enl.Blood Pressure (Diastolic)",
-           (programEnrolment.observations->>'18d36389-e42d-4366-a316-053407c3a0ab')::TEXT as "Enl.Random blood sugar levels report",
-           single_select_coded(programEnrolment.observations->>'9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT as "Enl.Availed services under PMSMA scheme",
-           single_select_coded(programEnrolment.observations->>'d5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT as "Enl.Whether received one specialist consultation",
-           single_select_coded(programEnrolment.observations->>'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT as "Enl.Whether thyroid profile done",
-           single_select_coded(programEnrolment.observations->>'574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT as "Enl.Whether anomaly scan done",
-           single_select_coded(programEnrolment.observations->>'87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT as "Enl.Received & consumed supplementary nutrition (Cooked food/TH",
-           (programEnrolment.observations->>'f123fcf5-c94c-4a8f-8fc0-eddb4ddd200e')::TEXT as "Enl.IF yes how many times in a week utilized the services",
-           single_select_coded(programEnrolment.observations->>'646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT as "Enl.History of bleeding/leaking per vagina",
-           single_select_coded(programEnrolment.observations->>'3b1763e9-3a77-4976-874f-ad11e9436a92')::TEXT as "Enl.Whether present pregnancy is twin pregnancy",
-           single_select_coded(programEnrolment.observations->>'0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT as "Enl.Foetal movements felt",
-           single_select_coded(programEnrolment.observations->>'c8698b30-5dac-47bc-a2d3-209bb4912aaa')::TEXT as "Enl.Any medical illness diagnosed from last visit",
-           multi_select_coded(programEnrolment.observations->'141e5d6a-2882-4d76-8730-e369614c9b3f')::TEXT as "Enl.If yes, Medical illness",
-           (programEnrolment.observations->>'7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT as "Enl.Specify Other",
-           single_select_coded(programEnrolment.observations->>'9a4b7389-92e3-4cb2-9330-4911e9959899')::TEXT as "Enl.If the medical illness is DM/HT/Thyroid disorder then wheth",
-           single_select_coded(programEnrolment.observations->>'9b338ab9-73f3-4e32-b625-914c754f52f0')::TEXT as "Enl.History of previous cesarean section",
-           multi_select_coded(programEnrolment.observations->'d06dd2e8-ae04-4288-aab3-e55c87ecfb03')::TEXT as "Enl.Past Obstetric history",
-           (programEnrolment.observations->>'0cf117f9-fc79-438c-bfdc-3c3bbe5c8f6f')::TEXT as "Enl.Specify Other obstetric History",
-            (programEncounter.observations->>'5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT as "Enc.Gestational age in weeks",
-            (programEncounter.observations->>'8dfb696a-0111-4a26-a52c-1119912dcd5e')::TEXT as "Enc.No of antenatal visits in present pregnancy you made to the",
-            (programEncounter.observations->>'9d3d23c2-23b7-43c4-9f85-754effc4b308')::TEXT as "Enc.No of home visits made by ASHA/ANM in present pregnancy",
-           single_select_coded(programEncounter.observations->>'f8380766-d281-477a-a91f-249ee6073dec')::TEXT as "Enc.Have you received first dose of TT",
-           (programEncounter.observations->>'0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE as "Enc.Date of first dose of TT",
-           single_select_coded(programEncounter.observations->>'a4527091-7229-410f-8df0-1d2484f99169')::TEXT as "Enc.Have you received second dose of TT",
-           (programEncounter.observations->>'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE as "Enc.Date of second dose of TT",
-           single_select_coded(programEncounter.observations->>'519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT as "Enc.Received and consumed iron and folic acid tablets",
-           single_select_coded(programEncounter.observations->>'5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT as "Enc.Received and consumed calcium tablet",
-           single_select_coded(programEncounter.observations->>'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT as "Enc.Received and consumed Albendazole tablet",
-           (programEncounter.observations->>'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT as "Enc.Weight",
-           (programEncounter.observations->>'0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT as "Enc.BMI",
-           (programEncounter.observations->>'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT as "Enc.Hemoglobin level",
-           (programEncounter.observations->>'7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT as "Enc.Blood Pressure (systolic)",
-           (programEncounter.observations->>'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT as "Enc.Blood Pressure (Diastolic)",
-           (programEncounter.observations->>'18d36389-e42d-4366-a316-053407c3a0ab')::TEXT as "Enc.Random blood sugar levels report",
-           single_select_coded(programEncounter.observations->>'9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT as "Enc.Availed services under PMSMA scheme",
-           single_select_coded(programEncounter.observations->>'d5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT as "Enc.Whether received one specialist consultation",
-           single_select_coded(programEncounter.observations->>'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT as "Enc.Whether thyroid profile done",
-           single_select_coded(programEncounter.observations->>'574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT as "Enc.Whether anomaly scan done",
-           single_select_coded(programEncounter.observations->>'87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT as "Enc.Received & consumed supplementary nutrition (Cooked food/TH",
-           (programEncounter.observations->>'5e19aac4-ed3e-4ab2-b47d-692301fffa49')::TEXT as "Enc.How many times in a last one year utilized the services",
-           single_select_coded(programEncounter.observations->>'646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT as "Enc.History of bleeding/leaking per vagina",
-           single_select_coded(programEncounter.observations->>'0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT as "Enc.Foetal movements felt",
-            programEncounter.cancel_date_time "EncCancel.cancel_date_time",
-             single_select_coded(programEncounter.observations->>'5592def2-fe5e-4234-9253-ca5fd0322e26')::TEXT as "EncCancel.Reason Of Cancellation",
-             (programEncounter.observations->>'8263f129-5851-4f9d-a909-818dacacd862')::TEXT as "EncCancel.Other Reason of Cancellation"
-             
-             
-        FROM program_encounter programEncounter 
-        LEFT OUTER JOIN operational_encounter_type oet on programEncounter.encounter_type_id = oet.encounter_type_id 
-        LEFT OUTER JOIN program_enrolment programEnrolment ON programEncounter.program_enrolment_id = programEnrolment.id 
-        LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id 
-        LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id LEFT OUTER JOIN gender g ON g.id = individual.gender_id 
-        LEFT JOIN address_level a ON individual.address_id = a.id
-        LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
-        LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
-
- WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd' 
-        AND oet.uuid = '36c9cb57-180b-4377-a87e-0694d2c3aaf3' 
-        AND programEncounter.encounter_date_time IS NOT NULL 
-        AND programEnrolment.enrolment_date_time IS NOT NULL;
-
-
-
-        drop view if exists yenepoya_pregnancy_outcome_form_view;
-        create view yenepoya_pregnancy_outcome_form_view
-        as SELECT  individual.id "Ind.Id",
-                   individual.address_id "Ind.address_id",
-                   individual.uuid "Ind.uuid",
-                   individual.first_name "Ind.first_name",
-                   individual.last_name "Ind.last_name",
-                   g.name "Ind.Gender",
-                   individual.date_of_birth "Ind.date_of_birth",
-                   individual.date_of_birth_verified "Ind.date_of_birth_verified",
-                   individual.registration_date "Ind.registration_date",
-                   individual.facility_id  "Ind.facility_id",
-                    a.title                                                               as "Ind.village",
-                    panchayat.title                                                             as "Ind.panchayat",
-                    surveillance_unit.title                                                     as "Ind.surveillance_unit",
-                    individual.is_voided "Ind.is_voided",
-                   op.name "Enl.Program Name",
-                   programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
-                   programenrolment.program_exit_date_time                                     AS "Enl.program_exit_date_time",
-                   programEnrolment.id  "Enl.Id",
-                   programEnrolment.uuid  "Enl.uuid",
-                   programEnrolment.is_voided "Enl.is_voided",
-                   oet.name "Enc.Type",
-                   programEncounter.id "Enc.Id",
-                   programEncounter.earliest_visit_date_time "Enc.earliest_visit_date_time",
-                   programEncounter.encounter_date_time "Enc.encounter_date_time",
-                   programEncounter.program_enrolment_id "Enc.program_enrolment_id",
-                   programEncounter.uuid "Enc.uuid",  programEncounter.name "Enc.name",
-                   programEncounter.max_visit_date_time "Enc.max_visit_date_time",
-                   programEncounter.is_voided "Enc.is_voided",
-                   (individual.observations->>'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT as "Ind.Contact Number",
-                   (programEnrolment.observations->>'a9440019-fc51-43a9-a695-43bbe77d2da1')::DATE as "Enl.Last menstrual period",
-                   (programEnrolment.observations->>'448d443b-ffd6-446e-bbb9-bf1b1ef450b4')::DATE as "Enl.Estimated Date of Delivery",
-                   (programEnrolment.observations->>'3ee9088e-8809-44d1-9e76-c5bcca84fe3b')::TEXT as "Enl.Gravida",
-                   (programEnrolment.observations->>'368466f7-3aac-4155-a114-6269cef2e90c')::TEXT as "Enl.Para",
-                   (programEnrolment.observations->>'9bfe3d44-73b6-4f1b-a6f1-0b85f018ff34')::TEXT as "Enl.No of living children",
-                   (programEnrolment.observations->>'1617d0e0-83e0-4f10-ba1c-7fb24a1cc3da')::TEXT as "Enl.No of abortions in the past",
-                   (programEnrolment.observations->>'5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT as "Enl.Gestational age in weeks",
-                   single_select_coded(programEnrolment.observations->>'59c70bbd-a02e-4519-8b65-8383ae59adbc')::TEXT as "Enl.Thai card available",
-                   (programEnrolment.observations->>'11682aa1-5e0e-4f76-834e-c0e4c3eb03e3')::TEXT as "Enl.Name of the ASHA",
-                   single_select_coded(programEnrolment.observations->>'41ff539e-2f33-43cb-a902-036c9b114860')::TEXT as "Enl.Is present pregnancy registered",
-                   (programEnrolment.observations->>'fff8bd3b-f054-46e4-934c-ab931117a435')::TEXT as "Enl.week of registration",
-                   single_select_coded(programEnrolment.observations->>'cb75cb80-d3a4-4a54-bd0d-82a5b76971ea')::TEXT as "Enl.Place of registration",
-                   single_select_coded(programEnrolment.observations->>'2fd7c36a-b025-4cb6-954c-2806e9b1269f')::TEXT as "Enl.Early registration (<12 weeks)",
-                   single_select_coded(programEnrolment.observations->>'184bf8da-db08-4167-b312-afcf2ab654a6')::TEXT as "Enl.Antenatal checkup received",
-                   single_select_coded(programEnrolment.observations->>'a48e9723-5b93-4e1a-a8ac-43d7192c5edb')::TEXT as "Enl.If yes, preferred place of antenatal check up",
-                   (programEnrolment.observations->>'21cf25b4-7c0f-470c-9886-47ca4279bd6a')::TEXT as "Enl.No of antenatal visits in present pregnancy",
-                   single_select_coded(programEnrolment.observations->>'f8380766-d281-477a-a91f-249ee6073dec')::TEXT as "Enl.Have you received first dose of TT",
-                   (programEnrolment.observations->>'0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE as "Enl.Date of first dose of TT",
-                   single_select_coded(programEnrolment.observations->>'a4527091-7229-410f-8df0-1d2484f99169')::TEXT as "Enl.Have you received second dose of TT",
-                   (programEnrolment.observations->>'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE as "Enl.Date of second dose of TT",
-                   single_select_coded(programEnrolment.observations->>'519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT as "Enl.Received and consumed iron and folic acid tablets",
-                   single_select_coded(programEnrolment.observations->>'5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT as "Enl.Received and consumed calcium tablet",
-                   single_select_coded(programEnrolment.observations->>'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT as "Enl.Received and consumed Albendazole tablet",
-                   (programEnrolment.observations->>'80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT as "Enl.Height in CM",
-                   (programEnrolment.observations->>'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT as "Enl.Weight",
-                   (programEnrolment.observations->>'0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT as "Enl.BMI",
-                   (programEnrolment.observations->>'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT as "Enl.Hemoglobin level",
-                   (programEnrolment.observations->>'7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT as "Enl.Blood Pressure (systolic)",
-                   (programEnrolment.observations->>'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT as "Enl.Blood Pressure (Diastolic)",
-                   (programEnrolment.observations->>'18d36389-e42d-4366-a316-053407c3a0ab')::TEXT as "Enl.Random blood sugar levels report",
-                   single_select_coded(programEnrolment.observations->>'9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT as "Enl.Availed services under PMSMA scheme",
-                   single_select_coded(programEnrolment.observations->>'d5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT as "Enl.Whether received one specialist consultation",
-                   single_select_coded(programEnrolment.observations->>'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT as "Enl.Whether thyroid profile done",
-                   single_select_coded(programEnrolment.observations->>'574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT as "Enl.Whether anomaly scan done",
-                   single_select_coded(programEnrolment.observations->>'87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT as "Enl.Received & consumed supplementary nutrition (Cooked food/TH",
-                   (programEnrolment.observations->>'f123fcf5-c94c-4a8f-8fc0-eddb4ddd200e')::TEXT as "Enl.IF yes how many times in a week utilized the services",
-                   single_select_coded(programEnrolment.observations->>'646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT as "Enl.History of bleeding/leaking per vagina",
-                   single_select_coded(programEnrolment.observations->>'3b1763e9-3a77-4976-874f-ad11e9436a92')::TEXT as "Enl.Whether present pregnancy is twin pregnancy",
-                   single_select_coded(programEnrolment.observations->>'0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT as "Enl.Foetal movements felt",
-                   single_select_coded(programEnrolment.observations->>'c8698b30-5dac-47bc-a2d3-209bb4912aaa')::TEXT as "Enl.Any medical illness diagnosed from last visit",
-                   multi_select_coded(programEnrolment.observations->'141e5d6a-2882-4d76-8730-e369614c9b3f')::TEXT as "Enl.If yes, Medical illness",
-                   (programEnrolment.observations->>'7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT as "Enl.Specify Other",
-                   single_select_coded(programEnrolment.observations->>'9a4b7389-92e3-4cb2-9330-4911e9959899')::TEXT as "Enl.If the medical illness is DM/HT/Thyroid disorder then wheth",
-                   single_select_coded(programEnrolment.observations->>'9b338ab9-73f3-4e32-b625-914c754f52f0')::TEXT as "Enl.History of previous cesarean section",
-                   multi_select_coded(programEnrolment.observations->'d06dd2e8-ae04-4288-aab3-e55c87ecfb03')::TEXT as "Enl.Past Obstetric history",
-                   (programEnrolment.observations->>'0cf117f9-fc79-438c-bfdc-3c3bbe5c8f6f')::TEXT as "Enl.Specify Other obstetric History", 
-                    (programEncounter.observations->>'227adfb9-d254-4bf2-a4e2-1bac9358d867')::DATE as "Enc.Date of Pregnancy Outcome",
-                    single_select_coded(programEncounter.observations->>'a2adfec5-d84b-44a2-a410-7ebe2fdfe431')::TEXT as "Enc.Pregnancy outcome",
-                    (programEncounter.observations->>'5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT as "Enc.Gestational age in weeks",
-                   (programEncounter.observations->>'ef04966b-a0b4-4173-b5b7-49b1d26721b2')::TEXT as "Enc.Order of this delivery",
-                   single_select_coded(programEncounter.observations->>'5c125db9-506f-44fc-9771-91b63316583b')::TEXT as "Enc.Place of delivery",
-                   single_select_coded(programEncounter.observations->>'7bd8cbdc-bc4b-42f1-87e2-09130ceb298c')::TEXT as "Enc.Type of delivery",
-                   single_select_coded(programEncounter.observations->>'d2ba600e-3b2e-4ed2-bb67-c65af4dbdcdc')::TEXT as "Enc.Type of person who conducted the delivery",
-                   (programEncounter.observations->>'7be55c84-4cdc-4165-89a9-a1621c12f9a4')::TEXT as "Enc.Number of Babies",
-                   single_select_coded(programEncounter.observations->>'0c953cca-3d44-4834-a888-4d3f58ce8183')::TEXT as "Enc.Gender of the baby",
-                   single_select_coded(programEncounter.observations->>'d8e6e4b1-4aaf-47b2-a68f-1eec293da0b6')::TEXT as "Enc.Gender of the baby 2",
-                   single_select_coded(programEncounter.observations->>'e231e0a0-d4b8-4312-94fb-abdad593d2ef')::TEXT as "Enc.Gender of the baby 3",
-                   (programEncounter.observations->>'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT as "Enc.Birth weight of the baby in kgs",
-                   (programEncounter.observations->>'9f31cc39-60d1-4501-84fb-5d0ef2edd840')::TEXT as "Enc.Birth weight of the baby 2 in kgs",
-                   (programEncounter.observations->>'a099aad2-703c-42dc-bc1a-89f0cd6ffd70')::TEXT as "Enc.Birth weight of the baby 3 in kgs",
-                     single_select_coded(programEncounter.observations->>'ceb91b63-c9e2-456e-af24-32c15e2c9433')::TEXT as "Enc.Colostrum given",
-                     single_select_coded(programEncounter.observations->>'a85e83dc-f37c-48ef-af84-9aa52c82d620')::TEXT as "Enc.Initiated breast feeding within 1 hr for normal delivery or",
-                     single_select_coded(programEncounter.observations->>'b648b78f-79af-45d6-b8c4-b77a77967a73')::TEXT as "Enc.Pregnancy complications",
-                     (programEncounter.observations->>'575adac4-05da-42f9-9400-2ea0ce6bad4a')::TEXT as "Enc.If yes specify",
-                     single_select_coded(programEncounter.observations->>'c9aeb1ee-ddc1-4872-b885-e3e000463610')::TEXT as "Enc.Health status of the new born",
-                     single_select_coded(programEncounter.observations->>'9878f701-2476-4d9b-9811-08b77748826a')::TEXT as "Enc.Whether discharged within 48 hours/Two days",
-                     single_select_coded(programEncounter.observations->>'1b12cdc2-3403-4a1b-b796-2772e1c66e81')::TEXT as "Enc.Practicing any family planning methods",
-                     single_select_coded(programEncounter.observations->>'31de6e7e-ba59-4416-8f79-9f668bf3b59d')::TEXT as "Enc.IF YES specify",
-                     single_select_coded(programEncounter.observations->>'8f33bbb7-982d-4401-ae9f-f49c3a0063ac')::TEXT as "Enc.Child Immunization before discharge from the hospital",
-                     single_select_coded(programEncounter.observations->>'5d322b1b-9682-4d9d-919d-4f0ba9bd1928')::TEXT as "Enc.Zero dose OPV",
-                     single_select_coded(programEncounter.observations->>'55be5f5b-64c4-493d-bc7b-267f21d606ff')::TEXT as "Enc.BCG",
-                     single_select_coded(programEncounter.observations->>'011d87b7-0404-4fcd-a85a-87893ea85678')::TEXT as "Enc.HBV",
-                     single_select_coded(programEncounter.observations->>'519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT as "Enc.Received and consumed iron and folic acid tablets",
-                     single_select_coded(programEncounter.observations->>'d99fa549-b82e-404c-9f26-24cc71b6c43b')::TEXT as "Enc.Received any financial benefit under JSY",
-                     single_select_coded(programEncounter.observations->>'6f274445-9121-4cf2-8b79-6d95be16be32')::TEXT as "Enc.Received any financial benefit under JSSK",
-                     single_select_coded(programEncounter.observations->>'87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT as "Enc.Received & consumed supplementary nutrition (Cooked food/TH",
-                     (programEncounter.observations->>'80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT as "Enc.Height in CM",
-                     (programEncounter.observations->>'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT as "Enc.Weight",
-                     (programEncounter.observations->>'0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT as "Enc.BMI",
-                     (programEncounter.observations->>'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT as "Enc.Hemoglobin level",
-                     (programEncounter.observations->>'7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT as "Enc.Blood Pressure (systolic)",
-                     (programEncounter.observations->>'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT as "Enc.Blood Pressure (Diastolic)",
-                       programEncounter.cancel_date_time "EncCancel.cancel_date_time"
-                       
-                        FROM program_encounter programEncounter  
-                        LEFT OUTER JOIN operational_encounter_type oet on programEncounter.encounter_type_id = oet.encounter_type_id 
-                        LEFT OUTER JOIN program_enrolment programEnrolment ON programEncounter.program_enrolment_id = programEnrolment.id 
-                        LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id 
-                        LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id
-                        LEFT OUTER JOIN gender g ON g.id = individual.gender_id 
-                         LEFT JOIN address_level a ON individual.address_id = a.id
-        LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
-        LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
-
-                        WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd'  
-                        AND oet.uuid = '40634b19-9060-45ef-b890-6821adc82270'
-                        AND programEncounter.encounter_date_time IS NOT NULL  
-                        AND programEnrolment.enrolment_date_time IS NOT NULL;
-    
-
-
-   drop view if exists yenepoya_pnc_form_view;
-        create view yenepoya_pnc_form_view
-        as  SELECT individual.id "Ind.Id",
-         individual.address_id "Ind.address_id",
-         individual.uuid "Ind.uuid",
-         individual.first_name "Ind.first_name",
-         individual.last_name "Ind.last_name",
-         g.name "Ind.Gender",
-         individual.date_of_birth "Ind.date_of_birth",
-         individual.date_of_birth_verified "Ind.date_of_birth_verified",
-         individual.registration_date "Ind.registration_date",
-         individual.facility_id  "Ind.facility_id",
-          a.title                                                               as "Ind.village",
-          panchayat.title                                                             as "Ind.panchayat",
-          surveillance_unit.title                                                     as "Ind.surveillance_unit",
-         individual.is_voided "Ind.is_voided",
-         op.name "Enl.Program Name",
-        programenrolment.program_exit_date_time                               "Enl.program_exit_date_time",
-         programEnrolment.id  "Enl.Id",
-         programEnrolment.uuid  "Enl.uuid",
-         programEnrolment.is_voided "Enl.is_voided",
-         oet.name "Enc.Type",
-         programEncounter.id "Enc.Id",
-         programEncounter.earliest_visit_date_time "Enc.earliest_visit_date_time",
-         programEncounter.encounter_date_time "Enc.encounter_date_time",
-         programEncounter.program_enrolment_id "Enc.program_enrolment_id",
-         programEncounter.uuid "Enc.uuid",
-         programEncounter.name "Enc.name",
-         programEncounter.max_visit_date_time "Enc.max_visit_date_time",
-         programEncounter.is_voided "Enc.is_voided",
-         (individual.observations->>'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT as "Ind.Contact Number",
-         (programEnrolment.observations->>'a9440019-fc51-43a9-a695-43bbe77d2da1')::DATE as "Enl.Last menstrual period",
-         (programEnrolment.observations->>'448d443b-ffd6-446e-bbb9-bf1b1ef450b4')::DATE as "Enl.Estimated Date of Delivery",
-         (programEnrolment.observations->>'3ee9088e-8809-44d1-9e76-c5bcca84fe3b')::TEXT as "Enl.Gravida",
-         (programEnrolment.observations->>'368466f7-3aac-4155-a114-6269cef2e90c')::TEXT as "Enl.Para",
-         (programEnrolment.observations->>'9bfe3d44-73b6-4f1b-a6f1-0b85f018ff34')::TEXT as "Enl.No of living children",
-         (programEnrolment.observations->>'1617d0e0-83e0-4f10-ba1c-7fb24a1cc3da')::TEXT as "Enl.No of abortions in the past",
-         (programEnrolment.observations->>'5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT as "Enl.Gestational age in weeks",
-         single_select_coded(programEnrolment.observations->>'59c70bbd-a02e-4519-8b65-8383ae59adbc')::TEXT as "Enl.Thai card available",
-         (programEnrolment.observations->>'11682aa1-5e0e-4f76-834e-c0e4c3eb03e3')::TEXT as "Enl.Name of the ASHA",
-         single_select_coded(programEnrolment.observations->>'41ff539e-2f33-43cb-a902-036c9b114860')::TEXT as "Enl.Is present pregnancy registered",
-         (programEnrolment.observations->>'fff8bd3b-f054-46e4-934c-ab931117a435')::TEXT as "Enl.week of registration",
-         single_select_coded(programEnrolment.observations->>'cb75cb80-d3a4-4a54-bd0d-82a5b76971ea')::TEXT as "Enl.Place of registration",
-         single_select_coded(programEnrolment.observations->>'2fd7c36a-b025-4cb6-954c-2806e9b1269f')::TEXT as "Enl.Early registration (<12 weeks)",
-         single_select_coded(programEnrolment.observations->>'184bf8da-db08-4167-b312-afcf2ab654a6')::TEXT as "Enl.Antenatal checkup received",
-         single_select_coded(programEnrolment.observations->>'a48e9723-5b93-4e1a-a8ac-43d7192c5edb')::TEXT as "Enl.If yes, preferred place of antenatal check up",
-         (programEnrolment.observations->>'21cf25b4-7c0f-470c-9886-47ca4279bd6a')::TEXT as "Enl.No of antenatal visits in present pregnancy",
-         single_select_coded(programEnrolment.observations->>'f8380766-d281-477a-a91f-249ee6073dec')::TEXT as "Enl.Have you received first dose of TT",
-         (programEnrolment.observations->>'0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE as "Enl.Date of first dose of TT",
-         single_select_coded(programEnrolment.observations->>'a4527091-7229-410f-8df0-1d2484f99169')::TEXT as "Enl.Have you received second dose of TT",
-         (programEnrolment.observations->>'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE as "Enl.Date of second dose of TT",
-         single_select_coded(programEnrolment.observations->>'519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT as "Enl.Received and consumed iron and folic acid tablets",
-         single_select_coded(programEnrolment.observations->>'5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT as "Enl.Received and consumed calcium tablet",
-         single_select_coded(programEnrolment.observations->>'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT as "Enl.Received and consumed Albendazole tablet",
-         (programEnrolment.observations->>'80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT as "Enl.Height in CM",
-         (programEnrolment.observations->>'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT as "Enl.Weight",
-         (programEnrolment.observations->>'0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT as "Enl.BMI",
-         (programEnrolment.observations->>'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT as "Enl.Hemoglobin level",
-         (programEnrolment.observations->>'7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT as "Enl.Blood Pressure (systolic)",
-         (programEnrolment.observations->>'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT as "Enl.Blood Pressure (Diastolic)",
-         (programEnrolment.observations->>'18d36389-e42d-4366-a316-053407c3a0ab')::TEXT as "Enl.Random blood sugar levels report",
-         single_select_coded(programEnrolment.observations->>'9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT as "Enl.Availed services under PMSMA scheme",
-         single_select_coded(programEnrolment.observations->>'d5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT as "Enl.Whether received one specialist consultation",
-         single_select_coded(programEnrolment.observations->>'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT as "Enl.Whether thyroid profile done",
-         single_select_coded(programEnrolment.observations->>'574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT as "Enl.Whether anomaly scan done",
-         single_select_coded(programEnrolment.observations->>'87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT as "Enl.Received & consumed supplementary nutrition (Cooked food/TH",
-         (programEnrolment.observations->>'f123fcf5-c94c-4a8f-8fc0-eddb4ddd200e')::TEXT as "Enl.IF yes how many times in a week utilized the services",
-         single_select_coded(programEnrolment.observations->>'646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT as "Enl.History of bleeding/leaking per vagina",
-         single_select_coded(programEnrolment.observations->>'3b1763e9-3a77-4976-874f-ad11e9436a92')::TEXT as "Enl.Whether present pregnancy is twin pregnancy",
-         single_select_coded(programEnrolment.observations->>'0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT as "Enl.Foetal movements felt",
-         single_select_coded(programEnrolment.observations->>'c8698b30-5dac-47bc-a2d3-209bb4912aaa')::TEXT as "Enl.Any medical illness diagnosed from last visit",
-         multi_select_coded(programEnrolment.observations->'141e5d6a-2882-4d76-8730-e369614c9b3f')::TEXT as "Enl.If yes, Medical illness",
-         (programEnrolment.observations->>'7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT as "Enl.Specify Other",
-         single_select_coded(programEnrolment.observations->>'9a4b7389-92e3-4cb2-9330-4911e9959899')::TEXT as "Enl.If the medical illness is DM/HT/Thyroid disorder then wheth",
-         single_select_coded(programEnrolment.observations->>'9b338ab9-73f3-4e32-b625-914c754f52f0')::TEXT as "Enl.History of previous cesarean section",
-         multi_select_coded(programEnrolment.observations->'d06dd2e8-ae04-4288-aab3-e55c87ecfb03')::TEXT as "Enl.Past Obstetric history",
-         (programEnrolment.observations->>'0cf117f9-fc79-438c-bfdc-3c3bbe5c8f6f')::TEXT as "Enl.Specify Other obstetric History",
-          single_select_coded(programEncounter.observations->>'f263bd30-d350-45bf-bba4-b9c28b98dcbf')::TEXT as "Enc.Pregnancy complications from last visit",
-          multi_select_coded(programEncounter.observations->'b3773e5b-93e4-43cd-946c-2e7623254d63')::TEXT as "Enc.Health status of new born in PNC",
-          single_select_coded(programEncounter.observations->>'1b12cdc2-3403-4a1b-b796-2772e1c66e81')::TEXT as "Enc.Practicing any family planning methods",
-          single_select_coded(programEncounter.observations->>'31de6e7e-ba59-4416-8f79-9f668bf3b59d')::TEXT as "Enc.IF YES specify",
-          single_select_coded(programEncounter.observations->>'b355767f-f082-4292-a9c8-1ef2c6ca81b7')::TEXT as "Enc.Immunization status of child",
-          single_select_coded(programEncounter.observations->>'519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT as "Enc.Received and consumed iron and folic acid tablets",
-          single_select_coded(programEncounter.observations->>'5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT as "Enc.Received and consumed calcium tablet",
-          single_select_coded(programEncounter.observations->>'d99fa549-b82e-404c-9f26-24cc71b6c43b')::TEXT as "Enc.Received any financial benefit under JSY",
-          single_select_coded(programEncounter.observations->>'6f274445-9121-4cf2-8b79-6d95be16be32')::TEXT as "Enc.Received any financial benefit under JSSK",
-          single_select_coded(programEncounter.observations->>'87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT as "Enc.Received & consumed supplementary nutrition (Cooked food/TH",
-          (programEncounter.observations->>'80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT as "Enc.Height in CM",
-          (programEncounter.observations->>'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT as "Enc.Weight",
-          (programEncounter.observations->>'0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT as "Enc.BMI",
-          (programEncounter.observations->>'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT as "Enc.Hemoglobin level",
-          (programEncounter.observations->>'7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT as "Enc.Blood Pressure (systolic)",
-          (programEncounter.observations->>'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT as "Enc.Blood Pressure (Diastolic)",
-          single_select_coded(programEncounter.observations->>'fca3dc5c-72ba-4923-b17a-ab66c1126276')::TEXT as "Enc.Practicing exclusive breast feeding",
-          (programEncounter.observations->>'89319985-aded-4213-adeb-b694c1767d3f')::TEXT as "Enc.No of postnatal visits in present pregnancy (first 42 days)",
-          (programEncounter.observations->>'a8f3aeb4-2a3d-4708-8133-587f048f1190')::TEXT as "Enc.No of home visits made by ASHA/ANM in present pregnancy wit",
-           programEncounter.cancel_date_time "EncCancel.cancel_date_time", 
-        single_select_coded(programEncounter.observations->>'5592def2-fe5e-4234-9253-ca5fd0322e26')::TEXT as "EncCancel.Reason Of Cancellation",
-        (programEncounter.observations->>'8263f129-5851-4f9d-a909-818dacacd862')::TEXT as "EncCancel.Other Reason of Cancellation"
-        
-        FROM program_encounter programEncounter
-         LEFT OUTER JOIN operational_encounter_type oet on programEncounter.encounter_type_id = oet.encounter_type_id 
-         LEFT OUTER JOIN program_enrolment programEnrolment ON programEncounter.program_enrolment_id = programEnrolment.id 
-         LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id 
-         LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id 
-         LEFT OUTER JOIN gender g ON g.id = individual.gender_id
-          LEFT JOIN address_level a ON individual.address_id = a.id
-        LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
-        LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
- 
-         WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd'
-         AND oet.uuid = '3e166862-081e-41f0-84a5-f8e3cda733bf'
-         AND programEncounter.encounter_date_time IS NOT NULL 
-         AND programEnrolment.enrolment_date_time IS NOT NULL;
-
-drop view if exists yenepoya_child_checklist_form_view;
-create view yenepoya_child_checklist_form_view as (
-       SELECT individual.id                                                               AS "Ind.Id",
-              individual.address_id                                                       AS "Ind.address_id",
-              individual.uuid                                                             AS "Ind.uuid",
-              individual.first_name                                                       AS "Ind.first_name",
-              individual.last_name                                                        AS "Ind.last_name",
-              g.name                                                                      AS "Ind.Gender",
-              individual.date_of_birth                                                    AS "Ind.date_of_birth",
-              individual.date_of_birth_verified                                           AS "Ind.date_of_birth_verified",
-              individual.registration_date                                                AS "Ind.registration_date",
-              individual.facility_id                                                      AS "Ind.facility_id",
-              village.title                                                               as "Ind.village",
-              panchayat.title                                                             as "Ind.panchayat",
-              surveillance_unit.title                                                     as "Ind.surveillance_unit",
-              individual.is_voided                                                        AS "Ind.is_voided",
-              (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)  AS "Ind.Contact Number",
-              programenrolment.id                                                         AS "Enl.Id",
-              programenrolment.enrolment_date_time                                        AS "Enl.enrolment_date_time",
-              programenrolment.program_exit_date_time                                     AS "Enl.program_exit_date_time",
-              programenrolment.is_voided                                                  AS "Enl.is_voided",
-              single_select_coded(checklist_item.observations ->> '284354e3-78c4-41d7-830e-771aa313d171')::TEXT as "ChecklistItem.Vaccination provider",
-              u.name    "ChecklistItem.username",
-  FROM checklist_item
-         JOIN checklist on checklist_item.checklist_id = checklist.id
-         JOIN program_enrolment programEnrolment on checklist.program_enrolment_id = programEnrolment.id
-         JOIN operational_program op ON op.program_id = programEnrolment.program_id
-         JOIN individual individual ON programEnrolment.individual_id = individual.id
-         JOIN gender g ON g.id = individual.gender_id
-         left join address_level village on individual.address_id = village.id
-         left join address_level panchayat on village.parent_id = panchayat.id
-         left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
-         LEFT JOIN audit a ON checklist_item.audit_id = a.id
-         LEFT JOIN users u ON a.created_by_id = u.id
-  WHERE op.uuid = '4b2372a8-3198-4bd9-8863-df4d1e618948'
-    AND programEnrolment.enrolment_date_time IS NOT NULL
-    AND checklist_item.completion_date IS NOT NULL
-);
-
-set role none;
-
-
-drop view if exists yenepoya_child_enrolment_view;
-create view yenepoya_child_enrolment_view
 as
 SELECT individual.id                                                                                          "Ind.Id",
        individual.address_id                                                                                  "Ind.address_id",
@@ -1569,62 +1075,110 @@ SELECT individual.id                                                            
        individual.date_of_birth_verified                                                                      "Ind.date_of_birth_verified",
        individual.registration_date                                                                           "Ind.registration_date",
        individual.facility_id                                                                                 "Ind.facility_id",
-       a.title                                                                                             AS "Ind.village",
-       panchayat.title                                                                                     AS "Ind.panchayat",
-       surveillance_unit.title                                                                             AS "Ind.surveillance_unit",
-       programenrolment.id                                                                     as "Enl.Id",
-       op.name                                                                                             AS "Enl.Program Name",
+       a.title                                                                                             as "Ind.village",
+       panchayat.title                                                                                     as "Ind.panchayat",
+       surveillance_unit.title                                                                             as "Ind.surveillance_unit",
+       individual.is_voided                                                                                   "Ind.is_voided",
+       op.name                                                                                                "Enl.Program Name",
+       individual.registration_date                                                                           "Ind.registration_date",
+       individual.facility_id                                                                                 "Ind.facility_id",
+       individual.is_voided                                                                                   "Ind.is_voided",
+       op.name                                                                                                "Enl.Program Name",
        programenrolment.enrolment_date_time                                                                AS "Enl.enrolment_date_time",
        programenrolment.program_exit_date_time                                                             AS "Enl.program_exit_date_time",
-       individual.is_voided                                                                                   "Ind.is_voided",
+       programEnrolment.id                                                                                    "Enl.Id",
+       programEnrolment.uuid                                                                                  "Enl.uuid",
+       programEnrolment.is_voided                                                                             "Enl.is_voided",
        (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT                          as "Ind.Contact Number",
-       (programEnrolment.observations ->> '2cec6829-f0c5-4c5d-8517-3a216fa34f4d')::TEXT                    as "Enl.Birth order of the child",
-       (programEnrolment.observations ->> 'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT                    as "Enl.Birth weight of the baby in kgs",
+       (programEnrolment.observations ->> 'a9440019-fc51-43a9-a695-43bbe77d2da1')::DATE                    as "Enl.Last menstrual period",
+       (programEnrolment.observations ->> '448d443b-ffd6-446e-bbb9-bf1b1ef450b4')::DATE                    as "Enl.Estimated Date of Delivery",
+       (programEnrolment.observations ->> '3ee9088e-8809-44d1-9e76-c5bcca84fe3b')::TEXT                    as "Enl.Gravida",
+       (programEnrolment.observations ->> '368466f7-3aac-4155-a114-6269cef2e90c')::TEXT                    as "Enl.Para",
+       (programEnrolment.observations ->> '9bfe3d44-73b6-4f1b-a6f1-0b85f018ff34')::TEXT                    as "Enl.No of living children",
+       (programEnrolment.observations ->> '1617d0e0-83e0-4f10-ba1c-7fb24a1cc3da')::TEXT                    as "Enl.No of abortions in the past",
+       (programEnrolment.observations ->> '5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT                    as "Enl.Gestational age in weeks",
        single_select_coded(
-               programEnrolment.observations ->> '923b2b78-6138-436b-b691-8e319c4f9c9c')::TEXT             as "Enl.Colostrum given to the child",
-       (programEnrolment.observations ->> '502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT                    as "Enl.Height",
-       (programEnrolment.observations ->> '9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT                    as "Enl.Present weight of the child in kgs",
-       (programEnrolment.observations ->> '594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT                    as "Enl.Nutritional Status",
-       (programEnrolment.observations ->> '86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT                    as "Enl.Present Mid Arm Circumference in CM",
+               programEnrolment.observations ->> '59c70bbd-a02e-4519-8b65-8383ae59adbc')::TEXT             as "Enl.Thai card available",
+       (programEnrolment.observations ->> '11682aa1-5e0e-4f76-834e-c0e4c3eb03e3')::TEXT                    as "Enl.Name of the ASHA",
        single_select_coded(
-               programEnrolment.observations ->> '1f0dbb20-1da6-40cb-bb69-cbee9fb570f6')::TEXT             as "Enl.Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
-       (programEnrolment.observations ->> 'b78188e8-9f08-497d-8b2f-197c14c5445c')::TEXT                    as "Enl.Duration of Exclusive breastfeeding in months",
+               programEnrolment.observations ->> '41ff539e-2f33-43cb-a902-036c9b114860')::TEXT             as "Enl.Is present pregnancy registered",
+       (programEnrolment.observations ->> 'fff8bd3b-f054-46e4-934c-ab931117a435')::TEXT                    as "Enl.week of registration",
        single_select_coded(
-               programEnrolment.observations ->> '4fae8872-daae-4ab4-a2c0-2b3ddd59bb33')::TEXT             as "Enl.Child bottle-fed or not",
-       (programEnrolment.observations ->> '3e2cb7b9-9fdb-4de5-8562-070243841e54')::TEXT                    as "Enl.If yes, Duration of bottle feeding in months",
+               programEnrolment.observations ->> 'cb75cb80-d3a4-4a54-bd0d-82a5b76971ea')::TEXT             as "Enl.Place of registration",
        single_select_coded(
-               programEnrolment.observations ->> 'e45c7db0-f3d0-44de-9f82-61238f31bf80')::TEXT             as "Enl.Child weaned at 6 months of age",
+               programEnrolment.observations ->> '2fd7c36a-b025-4cb6-954c-2806e9b1269f')::TEXT             as "Enl.Early registration (<12 weeks)",
        single_select_coded(
-               programEnrolment.observations ->> '7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT             as "Enl.Health status of the child",
+               programEnrolment.observations ->> '184bf8da-db08-4167-b312-afcf2ab654a6')::TEXT             as "Enl.Antenatal checkup received",
+       single_select_coded(
+               programEnrolment.observations ->> 'a48e9723-5b93-4e1a-a8ac-43d7192c5edb')::TEXT             as "Enl.If yes, preferred place of antenatal check up",
+       (programEnrolment.observations ->> '21cf25b4-7c0f-470c-9886-47ca4279bd6a')::TEXT                    as "Enl.No of antenatal visits in present pregnancy",
+       single_select_coded(
+               programEnrolment.observations ->> 'f8380766-d281-477a-a91f-249ee6073dec')::TEXT             as "Enl.Have you received first dose of TT",
+       (programEnrolment.observations ->> '0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE                    as "Enl.Date of first dose of TT",
+       single_select_coded(
+               programEnrolment.observations ->> 'a4527091-7229-410f-8df0-1d2484f99169')::TEXT             as "Enl.Have you received second dose of TT",
+       (programEnrolment.observations ->> 'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE                    as "Enl.Date of second dose of TT",
+       single_select_coded(
+               programEnrolment.observations ->> '519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT             as "Enl.Received and consumed iron and folic acid tablets",
+       single_select_coded(
+               programEnrolment.observations ->> '5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT             as "Enl.Received and consumed calcium tablet",
+       single_select_coded(
+               programEnrolment.observations ->> 'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT             as "Enl.Received and consumed Albendazole tablet",
+       (programEnrolment.observations ->> '80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT                    as "Enl.Height in CM",
+       (programEnrolment.observations ->> 'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT                    as "Enl.Weight",
+       (programEnrolment.observations ->> '0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT                    as "Enl.BMI",
+       (programEnrolment.observations ->> 'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT                    as "Enl.Hemoglobin level",
+       (programEnrolment.observations ->> '7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT                    as "Enl.Blood Pressure (systolic)",
+       (programEnrolment.observations ->> 'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT                    as "Enl.Blood Pressure (Diastolic)",
+       (programEnrolment.observations ->> '18d36389-e42d-4366-a316-053407c3a0ab')::TEXT                    as "Enl.Random blood sugar levels report",
+       single_select_coded(
+               programEnrolment.observations ->> '9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT             as "Enl.Availed services under PMSMA scheme",
+       single_select_coded(
+               programEnrolment.observations ->> 'd5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT             as "Enl.Whether received one specialist consultation",
+       single_select_coded(
+               programEnrolment.observations ->> 'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT             as "Enl.Whether thyroid profile done",
+       single_select_coded(
+               programEnrolment.observations ->> '574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT             as "Enl.Whether anomaly scan done",
+       single_select_coded(
+               programEnrolment.observations ->> '87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT             as "Enl.Received & consumed supplementary nutrition (Cooked food/TH",
+       (programEnrolment.observations ->> 'f123fcf5-c94c-4a8f-8fc0-eddb4ddd200e')::TEXT                    as "Enl.IF yes how many times in a week utilized the services",
+       single_select_coded(
+               programEnrolment.observations ->> '646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT             as "Enl.History of bleeding/leaking per vagina",
+       single_select_coded(
+               programEnrolment.observations ->> '3b1763e9-3a77-4976-874f-ad11e9436a92')::TEXT             as "Enl.Whether present pregnancy is twin pregnancy",
+       single_select_coded(
+               programEnrolment.observations ->> '0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT             as "Enl.Foetal movements felt",
+       single_select_coded(
+               programEnrolment.observations ->> 'c8698b30-5dac-47bc-a2d3-209bb4912aaa')::TEXT             as "Enl.Any medical illness diagnosed from last visit",
        multi_select_coded(
-               programEnrolment.observations -> 'e9f6eeea-5ce3-4d7a-9765-5d9540177df1')::TEXT              as "Enl.If any health complaints specify",
+               programEnrolment.observations -> '141e5d6a-2882-4d76-8730-e369614c9b3f')::TEXT              as "Enl.If yes, Medical illness",
+       (programEnrolment.observations ->> '7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT                    as "Enl.Specify Other",
        single_select_coded(
-               programEnrolment.observations ->> 'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT             as "Enl.Child attained all developmental milestones",
+               programEnrolment.observations ->> '9a4b7389-92e3-4cb2-9330-4911e9959899')::TEXT             as "Enl.If the medical illness is DM/HT/Thyroid disorder then wheth",
        single_select_coded(
-               programEnrolment.observations ->> 'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT             as "Enl.Does the child have any deformity",
-       (programEnrolment.observations ->> '6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT                    as "Enl.Does the child have any known deficiency",
-       single_select_coded(
-               programEnrolment.observations ->> '226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT             as "Enl.Child fully immunized till date",
-       single_select_coded(
-               programEnrolment.observations ->> '77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT             as "Enl.Child experienced acute respiratory infection in the last 3 months",
-       single_select_coded(
-               programEnrolment.observations ->> 'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT             as "Enl.Child experienced diarrhoea in the last 3 months",
-       single_select_coded(
-               programEnrolment.observations ->> '47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT             as "Enl.Does the child has any other health problem",
-       (programEnrolment.observations ->> '7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT                    as "Enl.Specify Other"
-
-FROM ((((((program_enrolment programenrolment
-    LEFT JOIN operational_program op ON ((op.program_id = programenrolment.program_id)))
-    LEFT JOIN individual individual ON ((programenrolment.individual_id = individual.id)))
-    LEFT JOIN gender g ON ((g.id = individual.gender_id)))
-    LEFT JOIN address_level a ON ((individual.address_id = a.id)))
-    LEFT JOIN address_level panchayat ON ((a.parent_id = panchayat.id)))
-         LEFT JOIN address_level surveillance_unit ON ((surveillance_unit.id = panchayat.parent_id)))
-WHERE (((op.uuid)::text = '4b2372a8-3198-4bd9-8863-df4d1e618948'::text) AND
-       (programenrolment.enrolment_date_time IS NOT NULL));
+               programEnrolment.observations ->> '9b338ab9-73f3-4e32-b625-914c754f52f0')::TEXT             as "Enl.History of previous cesarean section",
+       multi_select_coded(
+               programEnrolment.observations -> 'd06dd2e8-ae04-4288-aab3-e55c87ecfb03')::TEXT              as "Enl.Past Obstetric history",
+       (programEnrolment.observations ->> '0cf117f9-fc79-438c-bfdc-3c3bbe5c8f6f')::TEXT                    as "Enl.Specify Other obstetric History"
 
 
-create view   yenepoya_child_growth_followup_view as
+FROM program_enrolment programEnrolment
+         LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id
+         LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id
+         LEFT OUTER JOIN gender g ON g.id = individual.gender_id
+         LEFT JOIN address_level a ON individual.address_id = a.id
+         LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
+         LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+
+
+WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd'
+  AND programEnrolment.enrolment_date_time IS NOT NULL;
+
+
+
+drop view if exists yenepoya_anc_form_view;
+create view yenepoya_anc_form_view
+as
 SELECT individual.id                                                                                          "Ind.Id",
        individual.address_id                                                                                  "Ind.address_id",
        individual.uuid                                                                                        "Ind.uuid",
@@ -1635,11 +1189,15 @@ SELECT individual.id                                                            
        individual.date_of_birth_verified                                                                      "Ind.date_of_birth_verified",
        individual.registration_date                                                                           "Ind.registration_date",
        individual.facility_id                                                                                 "Ind.facility_id",
-       a.title                                                                                             AS "Ind.village",
-       panchayat.title                                                                                     AS "Ind.panchayat",
-       surveillance_unit.title                                                                             AS "Ind.surveillance_unit",
+       a.title                                                                                             as "Ind.village",
+       panchayat.title                                                                                     as "Ind.panchayat",
+       surveillance_unit.title                                                                             as "Ind.surveillance_unit",
        individual.is_voided                                                                                   "Ind.is_voided",
        op.name                                                                                                "Enl.Program Name",
+       individual.is_voided                                                                                   "Ind.is_voided",
+       op.name                                                                                                "Enl.Program Name",
+       programenrolment.enrolment_date_time                                                                AS "Enl.enrolment_date_time",
+       programenrolment.program_exit_date_time                                                             AS "Enl.program_exit_date_time",
        programEnrolment.id                                                                                    "Enl.Id",
        programEnrolment.uuid                                                                                  "Enl.uuid",
        programEnrolment.is_voided                                                                             "Enl.is_voided",
@@ -1653,69 +1211,713 @@ SELECT individual.id                                                            
        programEncounter.max_visit_date_time                                                                   "Enc.max_visit_date_time",
        programEncounter.is_voided                                                                             "Enc.is_voided",
        (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT                          as "Ind.Contact Number",
-       (programEnrolment.observations ->> '2cec6829-f0c5-4c5d-8517-3a216fa34f4d')::TEXT                    as "Enl.Birth order of the child",
-       (programEnrolment.observations ->> 'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT                    as "Enl.Birth weight of the baby in kgs",
+       (programEnrolment.observations ->> 'a9440019-fc51-43a9-a695-43bbe77d2da1')::DATE                    as "Enl.Last menstrual period",
+       (programEnrolment.observations ->> '448d443b-ffd6-446e-bbb9-bf1b1ef450b4')::DATE                    as "Enl.Estimated Date of Delivery",
+       (programEnrolment.observations ->> '3ee9088e-8809-44d1-9e76-c5bcca84fe3b')::TEXT                    as "Enl.Gravida",
+       (programEnrolment.observations ->> '368466f7-3aac-4155-a114-6269cef2e90c')::TEXT                    as "Enl.Para",
+       (programEnrolment.observations ->> '9bfe3d44-73b6-4f1b-a6f1-0b85f018ff34')::TEXT                    as "Enl.No of living children",
+       (programEnrolment.observations ->> '1617d0e0-83e0-4f10-ba1c-7fb24a1cc3da')::TEXT                    as "Enl.No of abortions in the past",
+       (programEnrolment.observations ->> '5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT                    as "Enl.Gestational age in weeks",
        single_select_coded(
-               programEnrolment.observations ->> '923b2b78-6138-436b-b691-8e319c4f9c9c')::TEXT             as "Enl.Colostrum given to the child",
-       (programEnrolment.observations ->> '502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT                    as "Enl.Height",
-       (programEnrolment.observations ->> '9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT                    as "Enl.Present weight of the child in kgs",
-       (programEnrolment.observations ->> '594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT                    as "Enl.Nutritional Status",
-       (programEnrolment.observations ->> '86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT                    as "Enl.Present Mid Arm Circumference in CM",
+               programEnrolment.observations ->> '59c70bbd-a02e-4519-8b65-8383ae59adbc')::TEXT             as "Enl.Thai card available",
+       (programEnrolment.observations ->> '11682aa1-5e0e-4f76-834e-c0e4c3eb03e3')::TEXT                    as "Enl.Name of the ASHA",
        single_select_coded(
-               programEnrolment.observations ->> '1f0dbb20-1da6-40cb-bb69-cbee9fb570f6')::TEXT             as "Enl.Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
-       (programEnrolment.observations ->> 'b78188e8-9f08-497d-8b2f-197c14c5445c')::TEXT                    as "Enl.Duration of Exclusive breastfeeding in months",
+               programEnrolment.observations ->> '41ff539e-2f33-43cb-a902-036c9b114860')::TEXT             as "Enl.Is present pregnancy registered",
+       (programEnrolment.observations ->> 'fff8bd3b-f054-46e4-934c-ab931117a435')::TEXT                    as "Enl.week of registration",
        single_select_coded(
-               programEnrolment.observations ->> '4fae8872-daae-4ab4-a2c0-2b3ddd59bb33')::TEXT             as "Enl.Child bottle-fed or not",
-       (programEnrolment.observations ->> '3e2cb7b9-9fdb-4de5-8562-070243841e54')::TEXT                    as "Enl.If yes, Duration of bottle feeding in months",
+               programEnrolment.observations ->> 'cb75cb80-d3a4-4a54-bd0d-82a5b76971ea')::TEXT             as "Enl.Place of registration",
        single_select_coded(
-               programEnrolment.observations ->> 'e45c7db0-f3d0-44de-9f82-61238f31bf80')::TEXT             as "Enl.Child weaned at 6 months of age",
+               programEnrolment.observations ->> '2fd7c36a-b025-4cb6-954c-2806e9b1269f')::TEXT             as "Enl.Early registration (<12 weeks)",
        single_select_coded(
-               programEnrolment.observations ->> '7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT             as "Enl.Health status of the child",
+               programEnrolment.observations ->> '184bf8da-db08-4167-b312-afcf2ab654a6')::TEXT             as "Enl.Antenatal checkup received",
+       single_select_coded(
+               programEnrolment.observations ->> 'a48e9723-5b93-4e1a-a8ac-43d7192c5edb')::TEXT             as "Enl.If yes, preferred place of antenatal check up",
+       (programEnrolment.observations ->> '21cf25b4-7c0f-470c-9886-47ca4279bd6a')::TEXT                    as "Enl.No of antenatal visits in present pregnancy",
+       single_select_coded(
+               programEnrolment.observations ->> 'f8380766-d281-477a-a91f-249ee6073dec')::TEXT             as "Enl.Have you received first dose of TT",
+       (programEnrolment.observations ->> '0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE                    as "Enl.Date of first dose of TT",
+       single_select_coded(
+               programEnrolment.observations ->> 'a4527091-7229-410f-8df0-1d2484f99169')::TEXT             as "Enl.Have you received second dose of TT",
+       (programEnrolment.observations ->> 'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE                    as "Enl.Date of second dose of TT",
+       single_select_coded(
+               programEnrolment.observations ->> '519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT             as "Enl.Received and consumed iron and folic acid tablets",
+       single_select_coded(
+               programEnrolment.observations ->> '5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT             as "Enl.Received and consumed calcium tablet",
+       single_select_coded(
+               programEnrolment.observations ->> 'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT             as "Enl.Received and consumed Albendazole tablet",
+       (programEnrolment.observations ->> '80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT                    as "Enl.Height in CM",
+       (programEnrolment.observations ->> 'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT                    as "Enl.Weight",
+       (programEnrolment.observations ->> '0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT                    as "Enl.BMI",
+       (programEnrolment.observations ->> 'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT                    as "Enl.Hemoglobin level",
+       (programEnrolment.observations ->> '7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT                    as "Enl.Blood Pressure (systolic)",
+       (programEnrolment.observations ->> 'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT                    as "Enl.Blood Pressure (Diastolic)",
+       (programEnrolment.observations ->> '18d36389-e42d-4366-a316-053407c3a0ab')::TEXT                    as "Enl.Random blood sugar levels report",
+       single_select_coded(
+               programEnrolment.observations ->> '9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT             as "Enl.Availed services under PMSMA scheme",
+       single_select_coded(
+               programEnrolment.observations ->> 'd5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT             as "Enl.Whether received one specialist consultation",
+       single_select_coded(
+               programEnrolment.observations ->> 'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT             as "Enl.Whether thyroid profile done",
+       single_select_coded(
+               programEnrolment.observations ->> '574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT             as "Enl.Whether anomaly scan done",
+       single_select_coded(
+               programEnrolment.observations ->> '87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT             as "Enl.Received & consumed supplementary nutrition (Cooked food/TH",
+       (programEnrolment.observations ->> 'f123fcf5-c94c-4a8f-8fc0-eddb4ddd200e')::TEXT                    as "Enl.IF yes how many times in a week utilized the services",
+       single_select_coded(
+               programEnrolment.observations ->> '646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT             as "Enl.History of bleeding/leaking per vagina",
+       single_select_coded(
+               programEnrolment.observations ->> '3b1763e9-3a77-4976-874f-ad11e9436a92')::TEXT             as "Enl.Whether present pregnancy is twin pregnancy",
+       single_select_coded(
+               programEnrolment.observations ->> '0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT             as "Enl.Foetal movements felt",
+       single_select_coded(
+               programEnrolment.observations ->> 'c8698b30-5dac-47bc-a2d3-209bb4912aaa')::TEXT             as "Enl.Any medical illness diagnosed from last visit",
        multi_select_coded(
-               programEnrolment.observations -> 'e9f6eeea-5ce3-4d7a-9765-5d9540177df1')::TEXT              as "Enl.If any health complaints specify",
-       single_select_coded(
-               programEnrolment.observations ->> 'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT             as "Enl.Child attained all developmental milestones",
-       single_select_coded(
-               programEnrolment.observations ->> 'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT             as "Enl.Does the child have any deformity",
-       (programEnrolment.observations ->> '6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT                    as "Enl.Does the child have any known deficiency",
-       single_select_coded(
-               programEnrolment.observations ->> '226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT             as "Enl.Child fully immunized till date",
-       single_select_coded(
-               programEnrolment.observations ->> '77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT             as "Enl.Child experienced acute respiratory infection in the last 3 months",
-       single_select_coded(
-               programEnrolment.observations ->> 'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT             as "Enl.Child experienced diarrhoea in the last 3 months",
-       single_select_coded(
-               programEnrolment.observations ->> '47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT             as "Enl.Does the child has any other health problem",
+               programEnrolment.observations -> '141e5d6a-2882-4d76-8730-e369614c9b3f')::TEXT              as "Enl.If yes, Medical illness",
        (programEnrolment.observations ->> '7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT                    as "Enl.Specify Other",
-       (programEncounter.observations ->> '502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT                    as "Enc.Height",
-       (programEncounter.observations ->> '9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT                    as "Enc.Present weight of the child in kgs",
-       (programEncounter.observations ->> '594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT                    as "Enc.Nutritional Status",
-       (programEncounter.observations ->> '86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT                    as "Enc.Present Mid Arm Circumference in CM",
        single_select_coded(
-               programEncounter.observations ->> '7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT             as "Enc.Health status of the child",
+               programEnrolment.observations ->> '9a4b7389-92e3-4cb2-9330-4911e9959899')::TEXT             as "Enl.If the medical illness is DM/HT/Thyroid disorder then wheth",
        single_select_coded(
-               programEncounter.observations ->> 'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT             as "Enc.Does the child have any deformity",
+               programEnrolment.observations ->> '9b338ab9-73f3-4e32-b625-914c754f52f0')::TEXT             as "Enl.History of previous cesarean section",
+       multi_select_coded(
+               programEnrolment.observations -> 'd06dd2e8-ae04-4288-aab3-e55c87ecfb03')::TEXT              as "Enl.Past Obstetric history",
+       (programEnrolment.observations ->> '0cf117f9-fc79-438c-bfdc-3c3bbe5c8f6f')::TEXT                    as "Enl.Specify Other obstetric History",
+       (programEncounter.observations ->> '5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT                    as "Enc.Gestational age in weeks",
+       (programEncounter.observations ->> '8dfb696a-0111-4a26-a52c-1119912dcd5e')::TEXT                    as "Enc.No of antenatal visits in present pregnancy you made to the",
+       (programEncounter.observations ->> '9d3d23c2-23b7-43c4-9f85-754effc4b308')::TEXT                    as "Enc.No of home visits made by ASHA/ANM in present pregnancy",
        single_select_coded(
-               programEncounter.observations ->> 'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT             as "Enc.Child attained all developmental milestones",
-       (programEncounter.observations ->> '6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT                    as "Enc.Does the child have any known deficiency",
+               programEncounter.observations ->> 'f8380766-d281-477a-a91f-249ee6073dec')::TEXT             as "Enc.Have you received first dose of TT",
+       (programEncounter.observations ->> '0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE                    as "Enc.Date of first dose of TT",
        single_select_coded(
-               programEncounter.observations ->> '226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT             as "Enc.Child fully immunized till date",
+               programEncounter.observations ->> 'a4527091-7229-410f-8df0-1d2484f99169')::TEXT             as "Enc.Have you received second dose of TT",
+       (programEncounter.observations ->> 'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE                    as "Enc.Date of second dose of TT",
        single_select_coded(
-               programEncounter.observations ->> '653c3368-bc21-4a39-a834-cf5f27325d1d')::TEXT             as "Enc.Whether your child had the fast or difficult breathing due to a problem in the chest or to a blocked or runny nose in last 3 months?",
+               programEncounter.observations ->> '519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT             as "Enc.Received and consumed iron and folic acid tablets",
        single_select_coded(
-               programEncounter.observations ->> '77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT             as "Enc.Child experienced acute respiratory infection in the last 3 months",
+               programEncounter.observations ->> '5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT             as "Enc.Received and consumed calcium tablet",
        single_select_coded(
-               programEncounter.observations ->> '33861da7-a628-4f7c-9b72-891eeb85c9e7')::TEXT             as "Enc.Whether Child had fever in the last 3 months",
+               programEncounter.observations ->> 'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT             as "Enc.Received and consumed Albendazole tablet",
+       (programEncounter.observations ->> 'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT                    as "Enc.Weight",
+       (programEncounter.observations ->> '0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT                    as "Enc.BMI",
+       (programEncounter.observations ->> 'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT                    as "Enc.Hemoglobin level",
+       (programEncounter.observations ->> '7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT                    as "Enc.Blood Pressure (systolic)",
+       (programEncounter.observations ->> 'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT                    as "Enc.Blood Pressure (Diastolic)",
+       (programEncounter.observations ->> '18d36389-e42d-4366-a316-053407c3a0ab')::TEXT                    as "Enc.Random blood sugar levels report",
        single_select_coded(
-               programEncounter.observations ->> 'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT             as "Enc.Child experienced diarrhoea in the last 3 months",
+               programEncounter.observations ->> '9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT             as "Enc.Availed services under PMSMA scheme",
        single_select_coded(
-               programEncounter.observations ->> '47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT             as "Enc.Does the child has any other health problem",
+               programEncounter.observations ->> 'd5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT             as "Enc.Whether received one specialist consultation",
        single_select_coded(
-               programEncounter.observations ->> '141f724d-4171-4eb0-b4c2-6e3a2365df31')::TEXT             as "Enc.Whether the  newborn child received all home based newborn care visits by ASHA during first month of delivery",
+               programEncounter.observations ->> 'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT             as "Enc.Whether thyroid profile done",
+       single_select_coded(
+               programEncounter.observations ->> '574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT             as "Enc.Whether anomaly scan done",
+       single_select_coded(
+               programEncounter.observations ->> '87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT             as "Enc.Received & consumed supplementary nutrition (Cooked food/TH",
+       (programEncounter.observations ->> '5e19aac4-ed3e-4ab2-b47d-692301fffa49')::TEXT                    as "Enc.How many times in a last one year utilized the services",
+       single_select_coded(
+               programEncounter.observations ->> '646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT             as "Enc.History of bleeding/leaking per vagina",
+       single_select_coded(
+               programEncounter.observations ->> '0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT             as "Enc.Foetal movements felt",
        programEncounter.cancel_date_time                                                                      "EncCancel.cancel_date_time",
        single_select_coded(
                programEncounter.observations ->> '5592def2-fe5e-4234-9253-ca5fd0322e26')::TEXT             as "EncCancel.Reason Of Cancellation",
        (programEncounter.observations ->> '8263f129-5851-4f9d-a909-818dacacd862')::TEXT                    as "EncCancel.Other Reason of Cancellation"
+FROM program_encounter programEncounter
+         LEFT OUTER JOIN operational_encounter_type oet on programEncounter.encounter_type_id = oet.encounter_type_id
+         LEFT OUTER JOIN program_enrolment programEnrolment
+                         ON programEncounter.program_enrolment_id = programEnrolment.id
+         LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id
+         LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id
+         LEFT OUTER JOIN gender g ON g.id = individual.gender_id
+         LEFT JOIN address_level a ON individual.address_id = a.id
+         LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
+         LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+
+WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd'
+  AND oet.uuid = '36c9cb57-180b-4377-a87e-0694d2c3aaf3'
+  AND programEncounter.encounter_date_time IS NOT NULL
+  AND programEnrolment.enrolment_date_time IS NOT NULL;
+
+
+
+drop view if exists yenepoya_pregnancy_outcome_form_view;
+create view yenepoya_pregnancy_outcome_form_view
+as
+SELECT individual.id                                                                                          "Ind.Id",
+       individual.address_id                                                                                  "Ind.address_id",
+       individual.uuid                                                                                        "Ind.uuid",
+       individual.first_name                                                                                  "Ind.first_name",
+       individual.last_name                                                                                   "Ind.last_name",
+       g.name                                                                                                 "Ind.Gender",
+       individual.date_of_birth                                                                               "Ind.date_of_birth",
+       individual.date_of_birth_verified                                                                      "Ind.date_of_birth_verified",
+       individual.registration_date                                                                           "Ind.registration_date",
+       individual.facility_id                                                                                 "Ind.facility_id",
+       a.title                                                                                             as "Ind.village",
+       panchayat.title                                                                                     as "Ind.panchayat",
+       surveillance_unit.title                                                                             as "Ind.surveillance_unit",
+       individual.is_voided                                                                                   "Ind.is_voided",
+       op.name                                                                                                "Enl.Program Name",
+       programenrolment.enrolment_date_time                                                                AS "Enl.enrolment_date_time",
+       programenrolment.program_exit_date_time                                                             AS "Enl.program_exit_date_time",
+       programEnrolment.id                                                                                    "Enl.Id",
+       programEnrolment.uuid                                                                                  "Enl.uuid",
+       programEnrolment.is_voided                                                                             "Enl.is_voided",
+       oet.name                                                                                               "Enc.Type",
+       programEncounter.id                                                                                    "Enc.Id",
+       programEncounter.earliest_visit_date_time                                                              "Enc.earliest_visit_date_time",
+       programEncounter.encounter_date_time                                                                   "Enc.encounter_date_time",
+       programEncounter.program_enrolment_id                                                                  "Enc.program_enrolment_id",
+       programEncounter.uuid                                                                                  "Enc.uuid",
+       programEncounter.name                                                                                  "Enc.name",
+       programEncounter.max_visit_date_time                                                                   "Enc.max_visit_date_time",
+       programEncounter.is_voided                                                                             "Enc.is_voided",
+       (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT                          as "Ind.Contact Number",
+       (programEnrolment.observations ->> 'a9440019-fc51-43a9-a695-43bbe77d2da1')::DATE                    as "Enl.Last menstrual period",
+       (programEnrolment.observations ->> '448d443b-ffd6-446e-bbb9-bf1b1ef450b4')::DATE                    as "Enl.Estimated Date of Delivery",
+       (programEnrolment.observations ->> '3ee9088e-8809-44d1-9e76-c5bcca84fe3b')::TEXT                    as "Enl.Gravida",
+       (programEnrolment.observations ->> '368466f7-3aac-4155-a114-6269cef2e90c')::TEXT                    as "Enl.Para",
+       (programEnrolment.observations ->> '9bfe3d44-73b6-4f1b-a6f1-0b85f018ff34')::TEXT                    as "Enl.No of living children",
+       (programEnrolment.observations ->> '1617d0e0-83e0-4f10-ba1c-7fb24a1cc3da')::TEXT                    as "Enl.No of abortions in the past",
+       (programEnrolment.observations ->> '5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT                    as "Enl.Gestational age in weeks",
+       single_select_coded(
+               programEnrolment.observations ->> '59c70bbd-a02e-4519-8b65-8383ae59adbc')::TEXT             as "Enl.Thai card available",
+       (programEnrolment.observations ->> '11682aa1-5e0e-4f76-834e-c0e4c3eb03e3')::TEXT                    as "Enl.Name of the ASHA",
+       single_select_coded(
+               programEnrolment.observations ->> '41ff539e-2f33-43cb-a902-036c9b114860')::TEXT             as "Enl.Is present pregnancy registered",
+       (programEnrolment.observations ->> 'fff8bd3b-f054-46e4-934c-ab931117a435')::TEXT                    as "Enl.week of registration",
+       single_select_coded(
+               programEnrolment.observations ->> 'cb75cb80-d3a4-4a54-bd0d-82a5b76971ea')::TEXT             as "Enl.Place of registration",
+       single_select_coded(
+               programEnrolment.observations ->> '2fd7c36a-b025-4cb6-954c-2806e9b1269f')::TEXT             as "Enl.Early registration (<12 weeks)",
+       single_select_coded(
+               programEnrolment.observations ->> '184bf8da-db08-4167-b312-afcf2ab654a6')::TEXT             as "Enl.Antenatal checkup received",
+       single_select_coded(
+               programEnrolment.observations ->> 'a48e9723-5b93-4e1a-a8ac-43d7192c5edb')::TEXT             as "Enl.If yes, preferred place of antenatal check up",
+       (programEnrolment.observations ->> '21cf25b4-7c0f-470c-9886-47ca4279bd6a')::TEXT                    as "Enl.No of antenatal visits in present pregnancy",
+       single_select_coded(
+               programEnrolment.observations ->> 'f8380766-d281-477a-a91f-249ee6073dec')::TEXT             as "Enl.Have you received first dose of TT",
+       (programEnrolment.observations ->> '0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE                    as "Enl.Date of first dose of TT",
+       single_select_coded(
+               programEnrolment.observations ->> 'a4527091-7229-410f-8df0-1d2484f99169')::TEXT             as "Enl.Have you received second dose of TT",
+       (programEnrolment.observations ->> 'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE                    as "Enl.Date of second dose of TT",
+       single_select_coded(
+               programEnrolment.observations ->> '519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT             as "Enl.Received and consumed iron and folic acid tablets",
+       single_select_coded(
+               programEnrolment.observations ->> '5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT             as "Enl.Received and consumed calcium tablet",
+       single_select_coded(
+               programEnrolment.observations ->> 'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT             as "Enl.Received and consumed Albendazole tablet",
+       (programEnrolment.observations ->> '80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT                    as "Enl.Height in CM",
+       (programEnrolment.observations ->> 'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT                    as "Enl.Weight",
+       (programEnrolment.observations ->> '0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT                    as "Enl.BMI",
+       (programEnrolment.observations ->> 'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT                    as "Enl.Hemoglobin level",
+       (programEnrolment.observations ->> '7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT                    as "Enl.Blood Pressure (systolic)",
+       (programEnrolment.observations ->> 'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT                    as "Enl.Blood Pressure (Diastolic)",
+       (programEnrolment.observations ->> '18d36389-e42d-4366-a316-053407c3a0ab')::TEXT                    as "Enl.Random blood sugar levels report",
+       single_select_coded(
+               programEnrolment.observations ->> '9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT             as "Enl.Availed services under PMSMA scheme",
+       single_select_coded(
+               programEnrolment.observations ->> 'd5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT             as "Enl.Whether received one specialist consultation",
+       single_select_coded(
+               programEnrolment.observations ->> 'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT             as "Enl.Whether thyroid profile done",
+       single_select_coded(
+               programEnrolment.observations ->> '574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT             as "Enl.Whether anomaly scan done",
+       single_select_coded(
+               programEnrolment.observations ->> '87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT             as "Enl.Received & consumed supplementary nutrition (Cooked food/TH",
+       (programEnrolment.observations ->> 'f123fcf5-c94c-4a8f-8fc0-eddb4ddd200e')::TEXT                    as "Enl.IF yes how many times in a week utilized the services",
+       single_select_coded(
+               programEnrolment.observations ->> '646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT             as "Enl.History of bleeding/leaking per vagina",
+       single_select_coded(
+               programEnrolment.observations ->> '3b1763e9-3a77-4976-874f-ad11e9436a92')::TEXT             as "Enl.Whether present pregnancy is twin pregnancy",
+       single_select_coded(
+               programEnrolment.observations ->> '0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT             as "Enl.Foetal movements felt",
+       single_select_coded(
+               programEnrolment.observations ->> 'c8698b30-5dac-47bc-a2d3-209bb4912aaa')::TEXT             as "Enl.Any medical illness diagnosed from last visit",
+       multi_select_coded(
+               programEnrolment.observations -> '141e5d6a-2882-4d76-8730-e369614c9b3f')::TEXT              as "Enl.If yes, Medical illness",
+       (programEnrolment.observations ->> '7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT                    as "Enl.Specify Other",
+       single_select_coded(
+               programEnrolment.observations ->> '9a4b7389-92e3-4cb2-9330-4911e9959899')::TEXT             as "Enl.If the medical illness is DM/HT/Thyroid disorder then wheth",
+       single_select_coded(
+               programEnrolment.observations ->> '9b338ab9-73f3-4e32-b625-914c754f52f0')::TEXT             as "Enl.History of previous cesarean section",
+       multi_select_coded(
+               programEnrolment.observations -> 'd06dd2e8-ae04-4288-aab3-e55c87ecfb03')::TEXT              as "Enl.Past Obstetric history",
+       (programEnrolment.observations ->> '0cf117f9-fc79-438c-bfdc-3c3bbe5c8f6f')::TEXT                    as "Enl.Specify Other obstetric History",
+       (programEncounter.observations ->> '227adfb9-d254-4bf2-a4e2-1bac9358d867')::DATE                    as "Enc.Date of Pregnancy Outcome",
+       single_select_coded(
+               programEncounter.observations ->> 'a2adfec5-d84b-44a2-a410-7ebe2fdfe431')::TEXT             as "Enc.Pregnancy outcome",
+       (programEncounter.observations ->> '5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT                    as "Enc.Gestational age in weeks",
+       (programEncounter.observations ->> 'ef04966b-a0b4-4173-b5b7-49b1d26721b2')::TEXT                    as "Enc.Order of this delivery",
+       single_select_coded(
+               programEncounter.observations ->> '5c125db9-506f-44fc-9771-91b63316583b')::TEXT             as "Enc.Place of delivery",
+       single_select_coded(
+               programEncounter.observations ->> '7bd8cbdc-bc4b-42f1-87e2-09130ceb298c')::TEXT             as "Enc.Type of delivery",
+       single_select_coded(
+               programEncounter.observations ->> 'd2ba600e-3b2e-4ed2-bb67-c65af4dbdcdc')::TEXT             as "Enc.Type of person who conducted the delivery",
+       (programEncounter.observations ->> '7be55c84-4cdc-4165-89a9-a1621c12f9a4')::TEXT                    as "Enc.Number of Babies",
+       single_select_coded(
+               programEncounter.observations ->> '0c953cca-3d44-4834-a888-4d3f58ce8183')::TEXT             as "Enc.Gender of the baby",
+       single_select_coded(
+               programEncounter.observations ->> 'd8e6e4b1-4aaf-47b2-a68f-1eec293da0b6')::TEXT             as "Enc.Gender of the baby 2",
+       single_select_coded(
+               programEncounter.observations ->> 'e231e0a0-d4b8-4312-94fb-abdad593d2ef')::TEXT             as "Enc.Gender of the baby 3",
+       (programEncounter.observations ->> 'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT                    as "Enc.Birth weight of the baby in kgs",
+       (programEncounter.observations ->> '9f31cc39-60d1-4501-84fb-5d0ef2edd840')::TEXT                    as "Enc.Birth weight of the baby 2 in kgs",
+       (programEncounter.observations ->> 'a099aad2-703c-42dc-bc1a-89f0cd6ffd70')::TEXT                    as "Enc.Birth weight of the baby 3 in kgs",
+       single_select_coded(
+               programEncounter.observations ->> 'ceb91b63-c9e2-456e-af24-32c15e2c9433')::TEXT             as "Enc.Colostrum given",
+       single_select_coded(
+               programEncounter.observations ->> 'a85e83dc-f37c-48ef-af84-9aa52c82d620')::TEXT             as "Enc.Initiated breast feeding within 1 hr for normal delivery or",
+       single_select_coded(
+               programEncounter.observations ->> 'b648b78f-79af-45d6-b8c4-b77a77967a73')::TEXT             as "Enc.Pregnancy complications",
+       (programEncounter.observations ->> '575adac4-05da-42f9-9400-2ea0ce6bad4a')::TEXT                    as "Enc.If yes specify",
+       single_select_coded(
+               programEncounter.observations ->> 'c9aeb1ee-ddc1-4872-b885-e3e000463610')::TEXT             as "Enc.Health status of the new born",
+       single_select_coded(
+               programEncounter.observations ->> '9878f701-2476-4d9b-9811-08b77748826a')::TEXT             as "Enc.Whether discharged within 48 hours/Two days",
+       single_select_coded(
+               programEncounter.observations ->> '1b12cdc2-3403-4a1b-b796-2772e1c66e81')::TEXT             as "Enc.Practicing any family planning methods",
+       single_select_coded(
+               programEncounter.observations ->> '31de6e7e-ba59-4416-8f79-9f668bf3b59d')::TEXT             as "Enc.IF YES specify",
+       single_select_coded(
+               programEncounter.observations ->> '8f33bbb7-982d-4401-ae9f-f49c3a0063ac')::TEXT             as "Enc.Child Immunization before discharge from the hospital",
+       single_select_coded(
+               programEncounter.observations ->> '5d322b1b-9682-4d9d-919d-4f0ba9bd1928')::TEXT             as "Enc.Zero dose OPV",
+       single_select_coded(programEncounter.observations ->> '55be5f5b-64c4-493d-bc7b-267f21d606ff')::TEXT as "Enc.BCG",
+       single_select_coded(programEncounter.observations ->> '011d87b7-0404-4fcd-a85a-87893ea85678')::TEXT as "Enc.HBV",
+       single_select_coded(
+               programEncounter.observations ->> '519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT             as "Enc.Received and consumed iron and folic acid tablets",
+       single_select_coded(
+               programEncounter.observations ->> 'd99fa549-b82e-404c-9f26-24cc71b6c43b')::TEXT             as "Enc.Received any financial benefit under JSY",
+       single_select_coded(
+               programEncounter.observations ->> '6f274445-9121-4cf2-8b79-6d95be16be32')::TEXT             as "Enc.Received any financial benefit under JSSK",
+       single_select_coded(
+               programEncounter.observations ->> '87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT             as "Enc.Received & consumed supplementary nutrition (Cooked food/TH",
+       (programEncounter.observations ->> '80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT                    as "Enc.Height in CM",
+       (programEncounter.observations ->> 'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT                    as "Enc.Weight",
+       (programEncounter.observations ->> '0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT                    as "Enc.BMI",
+       (programEncounter.observations ->> 'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT                    as "Enc.Hemoglobin level",
+       (programEncounter.observations ->> '7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT                    as "Enc.Blood Pressure (systolic)",
+       (programEncounter.observations ->> 'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT                    as "Enc.Blood Pressure (Diastolic)",
+       programEncounter.cancel_date_time                                                                      "EncCancel.cancel_date_time"
+
+FROM program_encounter programEncounter
+         LEFT OUTER JOIN operational_encounter_type oet on programEncounter.encounter_type_id = oet.encounter_type_id
+         LEFT OUTER JOIN program_enrolment programEnrolment
+                         ON programEncounter.program_enrolment_id = programEnrolment.id
+         LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id
+         LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id
+         LEFT OUTER JOIN gender g ON g.id = individual.gender_id
+         LEFT JOIN address_level a ON individual.address_id = a.id
+         LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
+         LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+
+WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd'
+  AND oet.uuid = '40634b19-9060-45ef-b890-6821adc82270'
+  AND programEncounter.encounter_date_time IS NOT NULL
+  AND programEnrolment.enrolment_date_time IS NOT NULL;
+
+
+
+drop view if exists yenepoya_pnc_form_view;
+create view yenepoya_pnc_form_view
+as
+SELECT individual.id                                                                                          "Ind.Id",
+       individual.address_id                                                                                  "Ind.address_id",
+       individual.uuid                                                                                        "Ind.uuid",
+       individual.first_name                                                                                  "Ind.first_name",
+       individual.last_name                                                                                   "Ind.last_name",
+       g.name                                                                                                 "Ind.Gender",
+       individual.date_of_birth                                                                               "Ind.date_of_birth",
+       individual.date_of_birth_verified                                                                      "Ind.date_of_birth_verified",
+       individual.registration_date                                                                           "Ind.registration_date",
+       individual.facility_id                                                                                 "Ind.facility_id",
+       a.title                                                                                             as "Ind.village",
+       panchayat.title                                                                                     as "Ind.panchayat",
+       surveillance_unit.title                                                                             as "Ind.surveillance_unit",
+       individual.is_voided                                                                                   "Ind.is_voided",
+       op.name                                                                                                "Enl.Program Name",
+       programenrolment.program_exit_date_time                                                                "Enl.program_exit_date_time",
+       programEnrolment.id                                                                                    "Enl.Id",
+       programEnrolment.uuid                                                                                  "Enl.uuid",
+       programEnrolment.is_voided                                                                             "Enl.is_voided",
+       oet.name                                                                                               "Enc.Type",
+       programEncounter.id                                                                                    "Enc.Id",
+       programEncounter.earliest_visit_date_time                                                              "Enc.earliest_visit_date_time",
+       programEncounter.encounter_date_time                                                                   "Enc.encounter_date_time",
+       programEncounter.program_enrolment_id                                                                  "Enc.program_enrolment_id",
+       programEncounter.uuid                                                                                  "Enc.uuid",
+       programEncounter.name                                                                                  "Enc.name",
+       programEncounter.max_visit_date_time                                                                   "Enc.max_visit_date_time",
+       programEncounter.is_voided                                                                             "Enc.is_voided",
+       (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT                          as "Ind.Contact Number",
+       (programEnrolment.observations ->> 'a9440019-fc51-43a9-a695-43bbe77d2da1')::DATE                    as "Enl.Last menstrual period",
+       (programEnrolment.observations ->> '448d443b-ffd6-446e-bbb9-bf1b1ef450b4')::DATE                    as "Enl.Estimated Date of Delivery",
+       (programEnrolment.observations ->> '3ee9088e-8809-44d1-9e76-c5bcca84fe3b')::TEXT                    as "Enl.Gravida",
+       (programEnrolment.observations ->> '368466f7-3aac-4155-a114-6269cef2e90c')::TEXT                    as "Enl.Para",
+       (programEnrolment.observations ->> '9bfe3d44-73b6-4f1b-a6f1-0b85f018ff34')::TEXT                    as "Enl.No of living children",
+       (programEnrolment.observations ->> '1617d0e0-83e0-4f10-ba1c-7fb24a1cc3da')::TEXT                    as "Enl.No of abortions in the past",
+       (programEnrolment.observations ->> '5030abb0-43f0-41e3-b618-50ac64e57113')::TEXT                    as "Enl.Gestational age in weeks",
+       single_select_coded(
+               programEnrolment.observations ->> '59c70bbd-a02e-4519-8b65-8383ae59adbc')::TEXT             as "Enl.Thai card available",
+       (programEnrolment.observations ->> '11682aa1-5e0e-4f76-834e-c0e4c3eb03e3')::TEXT                    as "Enl.Name of the ASHA",
+       single_select_coded(
+               programEnrolment.observations ->> '41ff539e-2f33-43cb-a902-036c9b114860')::TEXT             as "Enl.Is present pregnancy registered",
+       (programEnrolment.observations ->> 'fff8bd3b-f054-46e4-934c-ab931117a435')::TEXT                    as "Enl.week of registration",
+       single_select_coded(
+               programEnrolment.observations ->> 'cb75cb80-d3a4-4a54-bd0d-82a5b76971ea')::TEXT             as "Enl.Place of registration",
+       single_select_coded(
+               programEnrolment.observations ->> '2fd7c36a-b025-4cb6-954c-2806e9b1269f')::TEXT             as "Enl.Early registration (<12 weeks)",
+       single_select_coded(
+               programEnrolment.observations ->> '184bf8da-db08-4167-b312-afcf2ab654a6')::TEXT             as "Enl.Antenatal checkup received",
+       single_select_coded(
+               programEnrolment.observations ->> 'a48e9723-5b93-4e1a-a8ac-43d7192c5edb')::TEXT             as "Enl.If yes, preferred place of antenatal check up",
+       (programEnrolment.observations ->> '21cf25b4-7c0f-470c-9886-47ca4279bd6a')::TEXT                    as "Enl.No of antenatal visits in present pregnancy",
+       single_select_coded(
+               programEnrolment.observations ->> 'f8380766-d281-477a-a91f-249ee6073dec')::TEXT             as "Enl.Have you received first dose of TT",
+       (programEnrolment.observations ->> '0389ab96-b15e-4fc5-872f-75bc2fabe138')::DATE                    as "Enl.Date of first dose of TT",
+       single_select_coded(
+               programEnrolment.observations ->> 'a4527091-7229-410f-8df0-1d2484f99169')::TEXT             as "Enl.Have you received second dose of TT",
+       (programEnrolment.observations ->> 'bcafed31-d484-4a1d-b141-15f2f470d7ae')::DATE                    as "Enl.Date of second dose of TT",
+       single_select_coded(
+               programEnrolment.observations ->> '519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT             as "Enl.Received and consumed iron and folic acid tablets",
+       single_select_coded(
+               programEnrolment.observations ->> '5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT             as "Enl.Received and consumed calcium tablet",
+       single_select_coded(
+               programEnrolment.observations ->> 'dd280449-48fd-4086-9d98-fd56aebc9a3d')::TEXT             as "Enl.Received and consumed Albendazole tablet",
+       (programEnrolment.observations ->> '80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT                    as "Enl.Height in CM",
+       (programEnrolment.observations ->> 'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT                    as "Enl.Weight",
+       (programEnrolment.observations ->> '0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT                    as "Enl.BMI",
+       (programEnrolment.observations ->> 'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT                    as "Enl.Hemoglobin level",
+       (programEnrolment.observations ->> '7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT                    as "Enl.Blood Pressure (systolic)",
+       (programEnrolment.observations ->> 'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT                    as "Enl.Blood Pressure (Diastolic)",
+       (programEnrolment.observations ->> '18d36389-e42d-4366-a316-053407c3a0ab')::TEXT                    as "Enl.Random blood sugar levels report",
+       single_select_coded(
+               programEnrolment.observations ->> '9fc68cda-63b0-4a67-9917-681f6636ff89')::TEXT             as "Enl.Availed services under PMSMA scheme",
+       single_select_coded(
+               programEnrolment.observations ->> 'd5ad5edc-756c-4243-b49e-514219b9f9b8')::TEXT             as "Enl.Whether received one specialist consultation",
+       single_select_coded(
+               programEnrolment.observations ->> 'b4ddba1a-7acc-4b28-9892-1d865dec88f6')::TEXT             as "Enl.Whether thyroid profile done",
+       single_select_coded(
+               programEnrolment.observations ->> '574b3d38-50c0-4085-8812-cd3c3a3294b1')::TEXT             as "Enl.Whether anomaly scan done",
+       single_select_coded(
+               programEnrolment.observations ->> '87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT             as "Enl.Received & consumed supplementary nutrition (Cooked food/TH",
+       (programEnrolment.observations ->> 'f123fcf5-c94c-4a8f-8fc0-eddb4ddd200e')::TEXT                    as "Enl.IF yes how many times in a week utilized the services",
+       single_select_coded(
+               programEnrolment.observations ->> '646b471d-08cd-4ebe-a5ba-9a3c781d26a3')::TEXT             as "Enl.History of bleeding/leaking per vagina",
+       single_select_coded(
+               programEnrolment.observations ->> '3b1763e9-3a77-4976-874f-ad11e9436a92')::TEXT             as "Enl.Whether present pregnancy is twin pregnancy",
+       single_select_coded(
+               programEnrolment.observations ->> '0e5f1135-f3a8-4b66-8fb6-3acb74959e3a')::TEXT             as "Enl.Foetal movements felt",
+       single_select_coded(
+               programEnrolment.observations ->> 'c8698b30-5dac-47bc-a2d3-209bb4912aaa')::TEXT             as "Enl.Any medical illness diagnosed from last visit",
+       multi_select_coded(
+               programEnrolment.observations -> '141e5d6a-2882-4d76-8730-e369614c9b3f')::TEXT              as "Enl.If yes, Medical illness",
+       (programEnrolment.observations ->> '7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT                    as "Enl.Specify Other",
+       single_select_coded(
+               programEnrolment.observations ->> '9a4b7389-92e3-4cb2-9330-4911e9959899')::TEXT             as "Enl.If the medical illness is DM/HT/Thyroid disorder then wheth",
+       single_select_coded(
+               programEnrolment.observations ->> '9b338ab9-73f3-4e32-b625-914c754f52f0')::TEXT             as "Enl.History of previous cesarean section",
+       multi_select_coded(
+               programEnrolment.observations -> 'd06dd2e8-ae04-4288-aab3-e55c87ecfb03')::TEXT              as "Enl.Past Obstetric history",
+       (programEnrolment.observations ->> '0cf117f9-fc79-438c-bfdc-3c3bbe5c8f6f')::TEXT                    as "Enl.Specify Other obstetric History",
+       single_select_coded(
+               programEncounter.observations ->> 'f263bd30-d350-45bf-bba4-b9c28b98dcbf')::TEXT             as "Enc.Pregnancy complications from last visit",
+       multi_select_coded(
+               programEncounter.observations -> 'b3773e5b-93e4-43cd-946c-2e7623254d63')::TEXT              as "Enc.Health status of new born in PNC",
+       single_select_coded(
+               programEncounter.observations ->> '1b12cdc2-3403-4a1b-b796-2772e1c66e81')::TEXT             as "Enc.Practicing any family planning methods",
+       single_select_coded(
+               programEncounter.observations ->> '31de6e7e-ba59-4416-8f79-9f668bf3b59d')::TEXT             as "Enc.IF YES specify",
+       single_select_coded(
+               programEncounter.observations ->> 'b355767f-f082-4292-a9c8-1ef2c6ca81b7')::TEXT             as "Enc.Immunization status of child",
+       single_select_coded(
+               programEncounter.observations ->> '519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT             as "Enc.Received and consumed iron and folic acid tablets",
+       single_select_coded(
+               programEncounter.observations ->> '5188bc03-371a-495d-b724-385c5fbb0c58')::TEXT             as "Enc.Received and consumed calcium tablet",
+       single_select_coded(
+               programEncounter.observations ->> 'd99fa549-b82e-404c-9f26-24cc71b6c43b')::TEXT             as "Enc.Received any financial benefit under JSY",
+       single_select_coded(
+               programEncounter.observations ->> '6f274445-9121-4cf2-8b79-6d95be16be32')::TEXT             as "Enc.Received any financial benefit under JSSK",
+       single_select_coded(
+               programEncounter.observations ->> '87f44c12-e03a-4fdd-bce1-ce0d0f487908')::TEXT             as "Enc.Received & consumed supplementary nutrition (Cooked food/TH",
+       (programEncounter.observations ->> '80d88c23-1e44-423a-96bf-5ddaf105042e')::TEXT                    as "Enc.Height in CM",
+       (programEncounter.observations ->> 'e9190320-3211-4d9f-a72c-288f42cf830c')::TEXT                    as "Enc.Weight",
+       (programEncounter.observations ->> '0b5ae1e8-e44a-4457-a38a-44d5103a8fdd')::TEXT                    as "Enc.BMI",
+       (programEncounter.observations ->> 'a121ed17-61fd-4497-bb13-10ccc34c1db0')::TEXT                    as "Enc.Hemoglobin level",
+       (programEncounter.observations ->> '7a320ebc-366d-4301-8e8b-71edcbaad78d')::TEXT                    as "Enc.Blood Pressure (systolic)",
+       (programEncounter.observations ->> 'f9469b1c-47f5-494f-8e1e-e5dbb5c87b51')::TEXT                    as "Enc.Blood Pressure (Diastolic)",
+       single_select_coded(
+               programEncounter.observations ->> 'fca3dc5c-72ba-4923-b17a-ab66c1126276')::TEXT             as "Enc.Practicing exclusive breast feeding",
+       (programEncounter.observations ->> '89319985-aded-4213-adeb-b694c1767d3f')::TEXT                    as "Enc.No of postnatal visits in present pregnancy (first 42 days)",
+       (programEncounter.observations ->> 'a8f3aeb4-2a3d-4708-8133-587f048f1190')::TEXT                    as "Enc.No of home visits made by ASHA/ANM in present pregnancy wit",
+       programEncounter.cancel_date_time                                                                      "EncCancel.cancel_date_time",
+       single_select_coded(
+               programEncounter.observations ->> '5592def2-fe5e-4234-9253-ca5fd0322e26')::TEXT             as "EncCancel.Reason Of Cancellation",
+       (programEncounter.observations ->> '8263f129-5851-4f9d-a909-818dacacd862')::TEXT                    as "EncCancel.Other Reason of Cancellation"
+
+FROM program_encounter programEncounter
+         LEFT OUTER JOIN operational_encounter_type oet on programEncounter.encounter_type_id = oet.encounter_type_id
+         LEFT OUTER JOIN program_enrolment programEnrolment
+                         ON programEncounter.program_enrolment_id = programEnrolment.id
+         LEFT OUTER JOIN operational_program op ON op.program_id = programEnrolment.program_id
+         LEFT OUTER JOIN individual individual ON programEnrolment.individual_id = individual.id
+         LEFT OUTER JOIN gender g ON g.id = individual.gender_id
+         LEFT JOIN address_level a ON individual.address_id = a.id
+         LEFT JOIN address_level panchayat on a.parent_id = panchayat.id
+         LEFT JOIN address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+WHERE op.uuid = '59847f47-b600-4956-8b88-3bc834f19cdd'
+  AND oet.uuid = '3e166862-081e-41f0-84a5-f8e3cda733bf'
+  AND programEncounter.encounter_date_time IS NOT NULL
+  AND programEnrolment.enrolment_date_time IS NOT NULL;
+
+drop view if exists yenepoya_child_checklist_form_view;
+create view yenepoya_child_checklist_form_view as (
+    SELECT individual.id                                                                                     AS "Ind.Id",
+           individual.address_id                                                                             AS "Ind.address_id",
+           individual.uuid                                                                                   AS "Ind.uuid",
+           individual.first_name                                                                             AS "Ind.first_name",
+           individual.last_name                                                                              AS "Ind.last_name",
+           g.name                                                                                            AS "Ind.Gender",
+           individual.date_of_birth                                                                          AS "Ind.date_of_birth",
+           individual.date_of_birth_verified                                                                 AS "Ind.date_of_birth_verified",
+           individual.registration_date                                                                      AS "Ind.registration_date",
+           individual.facility_id                                                                            AS "Ind.facility_id",
+           village.title                                                                                     as "Ind.village",
+           panchayat.title                                                                                   as "Ind.panchayat",
+           surveillance_unit.title                                                                           as "Ind.surveillance_unit",
+           individual.is_voided                                                                              AS "Ind.is_voided",
+           (individual.observations ->>
+            'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)                                                    AS "Ind.Contact Number",
+           programenrolment.id                                                                               AS "Enl.Id",
+           programenrolment.enrolment_date_time                                                              AS "Enl.enrolment_date_time",
+           programenrolment.program_exit_date_time                                                           AS "Enl.program_exit_date_time",
+           programenrolment.is_voided                                                                        AS "Enl.is_voided",
+           single_select_coded(
+                   checklist_item.observations ->> '284354e3-78c4-41d7-830e-771aa313d171')::TEXT             as "ChecklistItem.Vaccination provider",
+           u.name                                                                                               "ChecklistItem.username"
+    FROM checklist_item
+             JOIN checklist on checklist_item.checklist_id = checklist.id
+             JOIN program_enrolment programEnrolment on checklist.program_enrolment_id = programEnrolment.id
+             JOIN operational_program op ON op.program_id = programEnrolment.program_id
+             JOIN individual individual ON programEnrolment.individual_id = individual.id
+             JOIN gender g ON g.id = individual.gender_id
+             left join address_level village on individual.address_id = village.id
+             left join address_level panchayat on village.parent_id = panchayat.id
+             left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+             LEFT JOIN audit a ON checklist_item.audit_id = a.id
+             LEFT JOIN users u ON a.created_by_id = u.id
+    WHERE op.uuid = '4b2372a8-3198-4bd9-8863-df4d1e618948'
+      AND programEnrolment.enrolment_date_time IS NOT NULL
+      AND checklist_item.completion_date IS NOT NULL
+);
+
+drop view if exists yenepoya_subject_registration_enrolment_view;
+create view yenepoya_subject_registration_enrolment_view as
+SELECT individual.id                                                               AS "Ind.Id",
+       individual.address_id                                                       AS "Ind.address_id",
+       individual.uuid                                                             AS "Ind.uuid",
+       individual.first_name                                                       AS "Ind.first_name",
+       individual.last_name                                                        AS "Ind.last_name",
+       g.name                                                                      AS "Ind.Gender",
+       individual.date_of_birth                                                    AS "Ind.date_of_birth",
+       extract(year from age(individual.date_of_birth))                            AS "Ind.age",
+       individual.date_of_birth_verified                                           AS "Ind.date_of_birth_verified",
+       individual.registration_date                                                AS "Ind.registration_date",
+       individual.facility_id                                                      AS "Ind.facility_id",
+       village.title                                                               as "Ind.village",
+       panchayat.title                                                             as "Ind.panchayat",
+       surveillance_unit.title                                                     as "Ind.surveillance_unit",
+       individual.is_voided                                                        AS "Ind.is_voided",
+       individual.registration_location                                            AS "Ind.registration_location",
+       (single_select_coded((individual.observations ->>
+                             '1de1bfa2-030a-4ccb-8381-ee5105048fa2'::text)))::text AS "Ind.Name of the surveillance Unit",
+       (single_select_coded((individual.observations ->>
+                             '673a87ab-78cd-42a3-a6cf-47761c8beffe'::text)))::text AS "Ind.Name of the panchayat/Ward",
+       (individual.observations ->>
+        'ef182a85-8f38-418e-bf0e-fcf2c3c655f0'::text)                              AS "Ind.landmark",
+       (single_select_coded((individual.observations ->>
+                             '1948be58-d42e-4313-8ec5-ac9ca87eb399'::text)))::text AS "Ind.Name of the PHC/UPHC",
+       (individual.observations ->>
+        '7868f697-abc9-4f49-8a0d-3deab5679502'::text)                              AS "Ind.Specify Other",
+       (individual.observations ->>
+        'e9ce5187-db1e-40cf-ad42-4b1c27d553f8'::text)                              AS "Ind.Name of the sub centre",
+       (individual.observations ->>
+        '558469e8-d993-45ec-9d9b-f019c3642bab'::text)                              AS "Ind.Household number",
+       (individual.observations ->>
+        'b8f2d179-0638-4016-afa2-a2bbf0f48e6a'::text)                              AS "Ind.Contact Number",
+       st.name                                                                     AS subject_type_name,
+       op.name                                                                     AS program_name,
+       enl.id                                                                      AS program_enrolment_id,
+       enl.enrolment_date_time                                                     AS enrolment_date_time
+FROM individual individual
+         left join operational_subject_type st on st.subject_type_id = individual.subject_type_id
+         left join program_enrolment enl on individual.id = enl.individual_id
+         left join operational_program op on op.program_id = enl.program_id
+         left join address_level village on individual.address_id = village.id
+         left join address_level panchayat on village.parent_id = panchayat.id
+         left join address_level surveillance_unit on surveillance_unit.id = panchayat.parent_id
+         left join gender g on individual.gender_id = g.id;
+
+drop view if exists yenepoya_child_enrolment_view;
+create view yenepoya_child_enrolment_view
+as
+SELECT individual.id                                                                              "Ind.Id",
+       individual.address_id                                                                      "Ind.address_id",
+       individual.uuid                                                                            "Ind.uuid",
+       individual.first_name                                                                      "Ind.first_name",
+       individual.last_name                                                                       "Ind.last_name",
+       g.name                                                                                     "Ind.Gender",
+       individual.date_of_birth                                                                   "Ind.date_of_birth",
+       individual.date_of_birth_verified                                                          "Ind.date_of_birth_verified",
+       individual.registration_date                                                               "Ind.registration_date",
+       individual.facility_id                                                                     "Ind.facility_id",
+       a.title                                                                                 AS "Ind.village",
+       panchayat.title                                                                         AS "Ind.panchayat",
+       surveillance_unit.title                                                                 AS "Ind.surveillance_unit",
+       programenrolment.id                                                                     as "Enl.Id",
+       op.name                                                                                 AS "Enl.Program Name",
+       programenrolment.enrolment_date_time                                                    AS "Enl.enrolment_date_time",
+       programenrolment.program_exit_date_time                                                 AS "Enl.program_exit_date_time",
+       individual.is_voided                                                                       "Ind.is_voided",
+       (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT              as "Ind.Contact Number",
+       (programEnrolment.observations ->> '2cec6829-f0c5-4c5d-8517-3a216fa34f4d')::TEXT        as "Enl.Birth order of the child",
+       (programEnrolment.observations ->> 'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT        as "Enl.Birth weight of the baby in kgs",
+       single_select_coded(
+               programEnrolment.observations ->> '923b2b78-6138-436b-b691-8e319c4f9c9c')::TEXT as "Enl.Colostrum given to the child",
+       (programEnrolment.observations ->> '502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT        as "Enl.Height",
+       (programEnrolment.observations ->> '9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT        as "Enl.Present weight of the child in kgs",
+       (programEnrolment.observations ->> '594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT        as "Enl.Nutritional Status",
+       (programEnrolment.observations ->> '86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT        as "Enl.Present Mid Arm Circumference in CM",
+       single_select_coded(
+               programEnrolment.observations ->> '1f0dbb20-1da6-40cb-bb69-cbee9fb570f6')::TEXT as "Enl.Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
+       (programEnrolment.observations ->> 'b78188e8-9f08-497d-8b2f-197c14c5445c')::TEXT        as "Enl.Duration of Exclusive breastfeeding in months",
+       single_select_coded(
+               programEnrolment.observations ->> '4fae8872-daae-4ab4-a2c0-2b3ddd59bb33')::TEXT as "Enl.Child bottle-fed or not",
+       (programEnrolment.observations ->> '3e2cb7b9-9fdb-4de5-8562-070243841e54')::TEXT        as "Enl.If yes, Duration of bottle feeding in months",
+       single_select_coded(
+               programEnrolment.observations ->> 'e45c7db0-f3d0-44de-9f82-61238f31bf80')::TEXT as "Enl.Child weaned at 6 months of age",
+       single_select_coded(
+               programEnrolment.observations ->> '7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT as "Enl.Health status of the child",
+       multi_select_coded(
+               programEnrolment.observations -> 'e9f6eeea-5ce3-4d7a-9765-5d9540177df1')::TEXT  as "Enl.If any health complaints specify",
+       single_select_coded(
+               programEnrolment.observations ->> 'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT as "Enl.Child attained all developmental milestones",
+       single_select_coded(
+               programEnrolment.observations ->> 'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT as "Enl.Does the child have any deformity",
+       (programEnrolment.observations ->> '6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT        as "Enl.Does the child have any known deficiency",
+       single_select_coded(
+               programEnrolment.observations ->> '226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT as "Enl.Child fully immunized till date",
+       single_select_coded(
+               programEnrolment.observations ->> '77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT as "Enl.Child experienced acute respiratory infection in the last 3 months",
+       single_select_coded(
+               programEnrolment.observations ->> 'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT as "Enl.Child experienced diarrhoea in the last 3 months",
+       single_select_coded(
+               programEnrolment.observations ->> '47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT as "Enl.Does the child has any other health problem",
+       (programEnrolment.observations ->> '7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT        as "Enl.Specify Other"
+
+FROM ((((((program_enrolment programenrolment
+    LEFT JOIN operational_program op ON ((op.program_id = programenrolment.program_id)))
+    LEFT JOIN individual individual ON ((programenrolment.individual_id = individual.id)))
+    LEFT JOIN gender g ON ((g.id = individual.gender_id)))
+    LEFT JOIN address_level a ON ((individual.address_id = a.id)))
+    LEFT JOIN address_level panchayat ON ((a.parent_id = panchayat.id)))
+         LEFT JOIN address_level surveillance_unit ON ((surveillance_unit.id = panchayat.parent_id)))
+WHERE (((op.uuid)::text = '4b2372a8-3198-4bd9-8863-df4d1e618948'::text) AND
+       (programenrolment.enrolment_date_time IS NOT NULL));
+
+
+create view yenepoya_child_growth_followup_view as
+SELECT individual.id                                                                              "Ind.Id",
+       individual.address_id                                                                      "Ind.address_id",
+       individual.uuid                                                                            "Ind.uuid",
+       individual.first_name                                                                      "Ind.first_name",
+       individual.last_name                                                                       "Ind.last_name",
+       g.name                                                                                     "Ind.Gender",
+       individual.date_of_birth                                                                   "Ind.date_of_birth",
+       individual.date_of_birth_verified                                                          "Ind.date_of_birth_verified",
+       individual.registration_date                                                               "Ind.registration_date",
+       individual.facility_id                                                                     "Ind.facility_id",
+       a.title                                                                                 AS "Ind.village",
+       panchayat.title                                                                         AS "Ind.panchayat",
+       surveillance_unit.title                                                                 AS "Ind.surveillance_unit",
+       individual.is_voided                                                                       "Ind.is_voided",
+       op.name                                                                                    "Enl.Program Name",
+       programEnrolment.id                                                                        "Enl.Id",
+       programEnrolment.uuid                                                                      "Enl.uuid",
+       programEnrolment.is_voided                                                                 "Enl.is_voided",
+       oet.name                                                                                   "Enc.Type",
+       programEncounter.id                                                                        "Enc.Id",
+       programEncounter.earliest_visit_date_time                                                  "Enc.earliest_visit_date_time",
+       programEncounter.encounter_date_time                                                       "Enc.encounter_date_time",
+       programEncounter.program_enrolment_id                                                      "Enc.program_enrolment_id",
+       programEncounter.uuid                                                                      "Enc.uuid",
+       programEncounter.name                                                                      "Enc.name",
+       programEncounter.max_visit_date_time                                                       "Enc.max_visit_date_time",
+       programEncounter.is_voided                                                                 "Enc.is_voided",
+       (individual.observations ->> 'b8f2d179-0638-4016-afa2-a2bbf0f48e6a')::TEXT              as "Ind.Contact Number",
+       (programEnrolment.observations ->> '2cec6829-f0c5-4c5d-8517-3a216fa34f4d')::TEXT        as "Enl.Birth order of the child",
+       (programEnrolment.observations ->> 'b852e7b8-1c5f-4a7d-9262-99dd3ac2718c')::TEXT        as "Enl.Birth weight of the baby in kgs",
+       single_select_coded(
+               programEnrolment.observations ->> '923b2b78-6138-436b-b691-8e319c4f9c9c')::TEXT as "Enl.Colostrum given to the child",
+       (programEnrolment.observations ->> '502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT        as "Enl.Height",
+       (programEnrolment.observations ->> '9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT        as "Enl.Present weight of the child in kgs",
+       (programEnrolment.observations ->> '594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT        as "Enl.Nutritional Status",
+       (programEnrolment.observations ->> '86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT        as "Enl.Present Mid Arm Circumference in CM",
+       single_select_coded(
+               programEnrolment.observations ->> '1f0dbb20-1da6-40cb-bb69-cbee9fb570f6')::TEXT as "Enl.Child given pre-lacteal feeds like (honey, zum-zum water, cow’s milk etc)",
+       (programEnrolment.observations ->> 'b78188e8-9f08-497d-8b2f-197c14c5445c')::TEXT        as "Enl.Duration of Exclusive breastfeeding in months",
+       single_select_coded(
+               programEnrolment.observations ->> '4fae8872-daae-4ab4-a2c0-2b3ddd59bb33')::TEXT as "Enl.Child bottle-fed or not",
+       (programEnrolment.observations ->> '3e2cb7b9-9fdb-4de5-8562-070243841e54')::TEXT        as "Enl.If yes, Duration of bottle feeding in months",
+       single_select_coded(
+               programEnrolment.observations ->> 'e45c7db0-f3d0-44de-9f82-61238f31bf80')::TEXT as "Enl.Child weaned at 6 months of age",
+       single_select_coded(
+               programEnrolment.observations ->> '7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT as "Enl.Health status of the child",
+       multi_select_coded(
+               programEnrolment.observations -> 'e9f6eeea-5ce3-4d7a-9765-5d9540177df1')::TEXT  as "Enl.If any health complaints specify",
+       single_select_coded(
+               programEnrolment.observations ->> 'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT as "Enl.Child attained all developmental milestones",
+       single_select_coded(
+               programEnrolment.observations ->> 'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT as "Enl.Does the child have any deformity",
+       (programEnrolment.observations ->> '6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT        as "Enl.Does the child have any known deficiency",
+       single_select_coded(
+               programEnrolment.observations ->> '226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT as "Enl.Child fully immunized till date",
+       single_select_coded(
+               programEnrolment.observations ->> '77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT as "Enl.Child experienced acute respiratory infection in the last 3 months",
+       single_select_coded(
+               programEnrolment.observations ->> 'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT as "Enl.Child experienced diarrhoea in the last 3 months",
+       single_select_coded(
+               programEnrolment.observations ->> '47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT as "Enl.Does the child has any other health problem",
+       (programEnrolment.observations ->> '7868f697-abc9-4f49-8a0d-3deab5679502')::TEXT        as "Enl.Specify Other",
+       (programEncounter.observations ->> '502552c4-7d2a-4e81-b6ce-acacfaf21560')::TEXT        as "Enc.Height",
+       (programEncounter.observations ->> '9f21ecb8-93a2-461f-842f-15dd5602bfb9')::TEXT        as "Enc.Present weight of the child in kgs",
+       (programEncounter.observations ->> '594d859a-65dc-45e7-ae44-fffedd1de1b8')::TEXT        as "Enc.Nutritional Status",
+       (programEncounter.observations ->> '86f5e096-cbfc-4fa3-b045-08d81f82e23c')::TEXT        as "Enc.Present Mid Arm Circumference in CM",
+       single_select_coded(
+               programEncounter.observations ->> '7e2abce5-0dfa-4fb8-8480-c5a74e3caeac')::TEXT as "Enc.Health status of the child",
+       single_select_coded(
+               programEncounter.observations ->> 'cd633d8c-eef0-4396-a096-4c321fb1a44c')::TEXT as "Enc.Does the child have any deformity",
+       single_select_coded(
+               programEncounter.observations ->> 'a35a4955-fe92-40b0-bdd6-0101cdd5af8a')::TEXT as "Enc.Child attained all developmental milestones",
+       (programEncounter.observations ->> '6645ac75-db15-4cc7-8ba0-7695396def8e')::TEXT        as "Enc.Does the child have any known deficiency",
+       single_select_coded(
+               programEncounter.observations ->> '226d2d35-d003-48a7-a699-542d9d0b8b84')::TEXT as "Enc.Child fully immunized till date",
+       single_select_coded(
+               programEncounter.observations ->> '653c3368-bc21-4a39-a834-cf5f27325d1d')::TEXT as "Enc.Whether your child had the fast or difficult breathing due to a problem in the chest or to a blocked or runny nose in last 3 months?",
+       single_select_coded(
+               programEncounter.observations ->> '77e29849-fa61-4d63-b73f-fb9f6a61ef05')::TEXT as "Enc.Child experienced acute respiratory infection in the last 3 months",
+       single_select_coded(
+               programEncounter.observations ->> '33861da7-a628-4f7c-9b72-891eeb85c9e7')::TEXT as "Enc.Whether Child had fever in the last 3 months",
+       single_select_coded(
+               programEncounter.observations ->> 'af2c1850-88e8-4922-9987-77fba6eafb89')::TEXT as "Enc.Child experienced diarrhoea in the last 3 months",
+       single_select_coded(
+               programEncounter.observations ->> '47b12e85-1b82-415d-a488-07b98be7cc76')::TEXT as "Enc.Does the child has any other health problem",
+       single_select_coded(
+               programEncounter.observations ->> '141f724d-4171-4eb0-b4c2-6e3a2365df31')::TEXT as "Enc.Whether the  newborn child received all home based newborn care visits by ASHA during first month of delivery",
+       programEncounter.cancel_date_time                                                          "EncCancel.cancel_date_time",
+       single_select_coded(
+               programEncounter.observations ->> '5592def2-fe5e-4234-9253-ca5fd0322e26')::TEXT as "EncCancel.Reason Of Cancellation",
+       (programEncounter.observations ->> '8263f129-5851-4f9d-a909-818dacacd862')::TEXT        as "EncCancel.Other Reason of Cancellation"
 FROM program_encounter programEncounter
          LEFT OUTER JOIN operational_encounter_type oet on programEncounter.encounter_type_id = oet.encounter_type_id
          LEFT OUTER JOIN program_enrolment programEnrolment
