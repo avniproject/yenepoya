@@ -1491,7 +1491,11 @@ SELECT individual.id                                                            
        single_select_coded(
                programEncounter.observations ->> '519d0b30-7296-481c-bc62-b9a9ec640426')::TEXT             as "Enc.Received and consumed iron and folic acid tablets",
        single_select_coded(
+                   programEncounter.observations ->> '02110eed-2757-4b52-8cd1-6d76d8382078')::TEXT         as "Enc.Eligible for JSY",
+       single_select_coded(
                programEncounter.observations ->> 'd99fa549-b82e-404c-9f26-24cc71b6c43b')::TEXT             as "Enc.Received any financial benefit under JSY",
+       single_select_coded(
+                   programEncounter.observations ->> 'ddc05450-41c4-4c48-80d8-7efaf984389c')::TEXT         as "Enc.Eligible for JSSK",
        single_select_coded(
                programEncounter.observations ->> '6f274445-9121-4cf2-8b79-6d95be16be32')::TEXT             as "Enc.Received any financial benefit under JSSK",
        single_select_coded(
