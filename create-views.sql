@@ -173,11 +173,15 @@ create view yenepoya_household_survey_view as (
                    encounter.observations ->> 'db05dadf-5955-4d5d-a62d-b7f7a1ecf6ce')::TEXT  as "Enc.Health facility preferred for chronic illness",
            multi_select_coded(
                    encounter.observations -> '84b9db51-33ce-4da0-a5cc-5ea2058f95ad')::TEXT   as "Enc.Name the health facility preferred for chronic illness",
+           multi_select_coded(encounter.observations->'84b9db51-33ce-4da0-a5cc-5ea2058f95ad')::TEXT as "Enc.Name the governemnt health facility preferred for chronic illness",
            (encounter.observations ->> '54a36cb8-a7a0-415d-84c7-2ca4b88e8f87')::TEXT         as "Enc.Specify the health facility preferred for chronic illness",
            single_select_coded(
                    encounter.observations ->> 'da29256e-720c-4071-a8f4-9e563749aef1')::TEXT  as "Enc.Health facility preferred for acute illness",
            multi_select_coded(
                    encounter.observations -> '84a7b976-1730-479f-926a-dcdaac00b876')::TEXT   as "Enc.Name the Health facility preferred for acute illness",
+           multi_select_coded(encounter.observations->'84a7b976-1730-479f-926a-dcdaac00b876')::TEXT as "Enc.Name the Private Health facility preferred for acute illness",
+           multi_select_coded(encounter.observations->'3f04d17c-5652-452b-914f-77558049a306')::TEXT as "Enc.Name the Private health facility preferred for chronic illness",
+           multi_select_coded(encounter.observations->'1d086e41-f08c-45a0-939c-6990f937370f')::TEXT as "Enc.Name the government Health facility preferred for acute illness",
            (encounter.observations ->> '1a436a53-b279-49b1-87b4-efad33a34a4d')::TEXT         as "Enc.Specify other acute illness",
            multi_select_coded(
                    encounter.observations -> '5987c751-0e34-4e76-aa1a-95b31d7af765')::TEXT   as "Enc.Reason of visiting preferred health care facility",
