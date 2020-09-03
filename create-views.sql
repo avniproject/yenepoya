@@ -299,6 +299,9 @@ SELECT individual.id                                                            
        single_select_coded(enc.observations ->> '68ca9b7e-76e4-4b55-8324-18e28cac8e83')::text as "Enc.History of fits",
        multi_select_coded(
                enc.observations -> '13a1a45c-c32e-4bcf-804e-dc2915a00a8f')::text              as "Enc.History of flu like symptoms in last 6 weeks",
+       multi_select_coded(
+                   enc.observations -> 'f92f7473-94ee-4ebe-8bd4-6aa3ac345027')::text              as "Enc.what are the symptoms?",
+
        single_select_coded(
                enc.observations ->> '814af782-b235-4c50-a7c6-6a40398f1a0e')::text             as "Enc.If you have flu like illness then have you consulted any doctor?",
        row_number()
