@@ -1533,6 +1533,11 @@ SELECT individual.id                                                            
            programEncounter.observations ->> '52866745-30de-467f-b3c5-a4a7233ea4f0')::TEXT                 as "Enc.Consumed iron and folic acid tablets",
 
        single_select_coded(
+                  programEncounter.observations ->> '25e79aeb-381b-4bfc-babb-3119d9b86349')::TEXT                 as "Enc.Received calcium tablet",
+       single_select_coded(
+                  programEncounter.observations ->> '9676380d-6c79-4c36-819b-3ace4ca41fb5')::TEXT                 as "Enc.Consumed calcium tablet",
+
+       single_select_coded(
            programEncounter.observations ->> '02110eed-2757-4b52-8cd1-6d76d8382078')::TEXT                 as "Enc.Eligible for JSY",
        single_select_coded(
            programEncounter.observations ->> 'd99fa549-b82e-404c-9f26-24cc71b6c43b')::TEXT                 as "Enc.Received any financial benefit under JSY",
