@@ -577,7 +577,9 @@ SELECT individual.id                                                            
        (single_select_coded(
            (encounter.observations ->> '900b7304-3936-4ad7-bd59-3bf42a4cde64'::text)))::text                AS "Enc.Have you consulted the doctor",
        (single_select_coded(
-           (encounter.observations ->> '38f12c1d-2536-4932-84f5-cf977a4a0e25'::text)))::text                AS "Enc.Was malaria/dengue test done",
+           (encounter.observations ->> '38f12c1d-2536-4932-84f5-cf977a4a0e25'::text)))::text                AS "Enc.Was malaria test done",
+       (single_select_coded(
+           (encounter.observations ->> '54b4432a-c8a8-4897-b9aa-225ee1c040c4'::text)))::text                AS "Enc.Was dengue test done",
        (single_select_coded(
            (encounter.observations ->> '08110960-7364-43ed-8990-afdcb47e975b'::text)))::text                AS "Enc.Specify the test result",
        (single_select_coded(
