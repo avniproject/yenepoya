@@ -1,0 +1,152 @@
+{
+  "individual": {
+    "//Subject": "Individual uuid",
+    "uuid": "d22027ff-e019-4d1c-9352-bd740efccc38",
+    "fields": [
+    ],
+    "filters": {
+      "addressLevelIds": [],
+      "date": {
+        "from": "2023-01-12",
+        "to": "2023-05-04"
+      }
+    },
+    "encounters": [
+      {
+        "//Encounter": "Individual Survey uuid",
+        "uuid": "16a3be1b-18a1-45e9-bfc8-f7915898abef",
+        "fields": [
+        ],
+        "filters": {
+          "includeVoided": true,
+          "date": {
+            "from": "2020-01-12",
+            "to": "2022-05-04"
+          }
+        }
+      }
+    ],
+    "groups": [
+      {
+        "//Subject": "Household uuid",
+        "uuid": "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "//Encounter": "Household Survey",
+            "uuid": "0c823f64-b2ec-420b-9e28-5e953b66b6d1",
+            "fields": [
+            ]
+          }
+        ]
+      }
+    ],
+    "programs": [
+      {
+        "//Program": "Pregnancy uuid",
+        "uuid": "00c6dfe3-109c-4099-8550-89a457e9c176",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "//Program Encounter": "ANC Followup uuid",
+            "uuid": "ef79eb31-2d19-441d-bb21-0838ceaed958",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          },
+          {
+            "//Program Encounter": "Delivery uuid",
+            "uuid": "1aba6a27-d053-4816-ae87-e1701d373724",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          },
+          {
+            "//Program Encounter": "Mother PNC uuid",
+            "uuid": "aa36ccd0-6299-4780-b39f-4af4b56a533b",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          }
+        ]
+      },
+      {
+        "//Program": "Child uuid",
+        "uuid": "5fc20ed1-699c-4329-86f4-3884fccceb18",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "//Program Encounter": "Child Growth Followup uuid",
+            "uuid": "95fe37f3-8d4d-40cc-ae13-73d65545b27e",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          }
+        ]
+      },
+      {
+        "//Program": "NCD uuid",
+        "uuid": "9d6cd285-fb85-48f0-badc-6f004b9024d8",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "//Program Encounter": "NCD Followup uuid",
+            "uuid": "b2f419dc-209a-4285-b74c-29d93f2a628e",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          }
+        ]
+      },
+      {
+        "//Program": "Hypertension uuid",
+        "uuid": "debe0d88-3b8a-4ac4-9f95-80a1af3b83c5",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "//Program Encounter": "HT Followup uuid",
+            "uuid": "66c93422-eb3a-4ae0-b537-3802899f40cb",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          }
+        ]
+      },
+      {
+        "//Program": "Diabetes uuid",
+        "uuid": "e40e9fe2-6afa-4344-9ada-e61000d36e40",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "//Program Encounter": "DM Followup uuid",
+            "uuid": "92f8c72e-d6d4-4936-976e-8446a03ec9bf",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "timezone": "Asia/Calcutta"
+}
