@@ -1,0 +1,113 @@
+{
+  "individual": {
+    "uuid": "d22027ff-e019-4d1c-9352-bd740efccc38",
+    "fields": [
+    ],
+    "filters": {
+      "addressLevelIds": [],
+      "date": {
+        "from": "2023-01-12",
+        "to": "2023-05-04"
+      }
+    },
+    "encounters": [
+      {
+        "uuid": "16a3be1b-18a1-45e9-bfc8-f7915898abef",
+        "fields": [
+        ],
+        "filters": {
+          "includeVoided": true,
+          "date": {
+            "from": "2020-01-12",
+            "to": "2022-05-04"
+          }
+        }
+      }
+    ],
+    "groups": [
+      {
+        "uuid": "e524b328-c0ad-4232-9fcb-2cf8c126a2c6",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "uuid": "0c823f64-b2ec-420b-9e28-5e953b66b6d1",
+            "fields": [
+            ]
+          }
+        ]
+      }
+    ],
+    "programs": [
+      {
+        "uuid": "00c6dfe3-109c-4099-8550-89a457e9c176",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "uuid": "ef79eb31-2d19-441d-bb21-0838ceaed958",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          },
+          {
+            "uuid": "aa36ccd0-6299-4780-b39f-4af4b56a533b",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "5fc20ed1-699c-4329-86f4-3884fccceb18",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "uuid": "95fe37f3-8d4d-40cc-ae13-73d65545b27e",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "9d6cd285-fb85-48f0-badc-6f004b9024d8",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "uuid": "b2f419dc-209a-4285-b74c-29d93f2a628e",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "debe0d88-3b8a-4ac4-9f95-80a1af3b83c5",
+        "fields": [
+        ],
+        "encounters": [
+          {
+            "uuid": "66c93422-eb3a-4ae0-b537-3802899f40cb",
+            "fields": [
+            ],
+            "filters": {
+              "includeVoided": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "timezone": "Asia/Calcutta"
+}
